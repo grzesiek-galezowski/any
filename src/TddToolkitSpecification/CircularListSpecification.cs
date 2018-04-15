@@ -21,9 +21,9 @@ namespace TddEbook.TddToolkitSpecification
       var returnedElement3 = list.Next();
 
       //THEN
-      XAssert.Equal(returnedElement1, element1);
-      XAssert.Equal(returnedElement2, element2);
-      XAssert.Equal(returnedElement3, element3);
+      Assert.AreEqual(returnedElement1, element1);
+      Assert.AreEqual(returnedElement2, element2);
+      Assert.AreEqual(returnedElement3, element3);
     }
 
     [Test]
@@ -42,10 +42,10 @@ namespace TddEbook.TddToolkitSpecification
       var returnedElement4 = list.Next();
 
       //THEN
-      XAssert.Equal(returnedElement1, element1);
-      XAssert.Equal(returnedElement2, element2);
-      XAssert.Equal(returnedElement3, element1);
-      XAssert.Equal(returnedElement4, element2);
+      Assert.AreEqual(returnedElement1, element1);
+      Assert.AreEqual(returnedElement2, element2);
+      Assert.AreEqual(returnedElement3, element1);
+      Assert.AreEqual(returnedElement4, element2);
     }
   }
 }

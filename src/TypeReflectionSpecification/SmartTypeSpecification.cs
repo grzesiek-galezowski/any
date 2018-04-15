@@ -1,6 +1,5 @@
 ﻿using System;
 using NUnit.Framework;
-using TddEbook.TddToolkit;
 using TddEbook.TypeReflection;
 
 namespace TypeReflectionSpecification
@@ -28,7 +27,7 @@ namespace TypeReflectionSpecification
       int maxCount, bool expectedResult)
     {
       var type = SmartType.For(typeof(string));
-      XAssert.Equal(expectedResult, type.HasPublicConstructorCountOfAtMost(maxCount));
+      Assert.AreEqual(expectedResult, type.HasPublicConstructorCountOfAtMost(maxCount));
     }
   }
 }

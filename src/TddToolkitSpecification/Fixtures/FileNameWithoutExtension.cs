@@ -1,6 +1,6 @@
 using System;
 
-namespace TddEbook.TddToolkitSpecification.XAssertSpecifications
+namespace TddToolkitSpecification.Fixtures
 {
   public class FileNameWithoutExtension : IEquatable<FileNameWithoutExtension>
   {

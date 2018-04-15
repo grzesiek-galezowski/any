@@ -11,11 +11,11 @@ namespace TddEbook.TddToolkitSpecification
     [Test]
     public void ShouldCorrectlyDetermineIfObjectIsOfTypeType() //this is not a typo!
     {
-      XAssert.All(assert =>
+      Assert.Multiple(() =>
       {
-        assert.False(TypeOfType.Is<object>());
-        assert.False(TypeOfType.Is<int>());
-        assert.True(TypeOfType.Is<Type>());
+        Assert.False(TypeOfType.Is<object>());
+        Assert.False(TypeOfType.Is<int>());
+        Assert.True(TypeOfType.Is<Type>());
       });
     }
   }

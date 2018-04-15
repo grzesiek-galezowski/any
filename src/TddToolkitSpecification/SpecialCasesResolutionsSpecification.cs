@@ -19,8 +19,8 @@ namespace TddEbook.TddToolkitSpecification
 
       //THEN
       Assert.True(resolution.Applies());
-      XAssert.NotNull(resolution.Apply(Any.Instance<IInstanceGenerator>()));
-      XAssert.Equal(3, resolution.Apply(Any.Instance<IInstanceGenerator>()).Length);
+      Assert.NotNull(resolution.Apply(Any.Instance<IInstanceGenerator>()));
+      Assert.AreEqual(3, resolution.Apply(Any.Instance<IInstanceGenerator>()).Length);
 
     }
 

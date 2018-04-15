@@ -2,7 +2,7 @@ using NSubstitute;
 using NUnit.Framework;
 using TddEbook.TddToolkit;
 using TddEbook.TddToolkitSpecification.Fixtures;
-using TddEbook.TddToolkitSpecification.XAssertSpecifications;
+using TddToolkitSpecification.Fixtures;
 
 namespace TddEbook.TddToolkitSpecification
 {
@@ -18,7 +18,7 @@ namespace TddEbook.TddToolkitSpecification
       var result = instance.Number;
 
       //THEN
-      XAssert.NotEqual(default(int), result);
+      Assert.AreNotEqual(default(int), result);
     }
 
     [Test]
@@ -32,7 +32,7 @@ namespace TddEbook.TddToolkitSpecification
       var result = instance.Number;
 
       //THEN
-      XAssert.Equal(44543, result);
+      Assert.AreEqual(44543, result);
     }
 
     [Test]
@@ -68,7 +68,7 @@ namespace TddEbook.TddToolkitSpecification
       var anotherInstance = Substitute.For<RecursiveInterface>();
       instance.Nested.Returns(anotherInstance);
 
-      XAssert.Equal(anotherInstance, instance.Nested);
+      Assert.AreEqual(anotherInstance, instance.Nested);
     }
 
     [Test]

@@ -75,67 +75,16 @@
     <Compile Include="Any.Enums.cs" />
     <Compile Include="Any.Numbers.cs" />
     <Compile Include="Any.Strings.cs" />
-    <Compile Include="Are.cs" />
     <Compile Include="AutoFixtureConfiguration.cs" />
-    <Compile Include="Blocking.cs" />
-    <Compile Include="ChainedAssertions\ChainedAssertions.cs" />
-    <Compile Include="Class1.cs" />
-    <Compile Include="Clone.cs" />
     <Compile Include="Empty.cs" />
-    <Compile Include="Helpers\Constraints\AllFieldsMustBeReadOnly.cs" />
-    <Compile Include="Helpers\Constraints\EqualityOperator\StateBasedEqualityMustBeImplementedInTermsOfEqualityOperator.cs" />
-    <Compile Include="Helpers\Constraints\EqualityOperator\StateBasedEqualityShouldBeAvailableInTermsOfEqualityOperator.cs" />
-    <Compile Include="Helpers\Constraints\EqualityOperator\StateBasedEqualityWithItselfMustBeImplementedInTermsOfEqualityOperator.cs" />
-    <Compile Include="Helpers\Constraints\EqualityOperator\StateBasedUnEqualityMustBeImplementedInTermsOfEqualityOperator.cs" />
-    <Compile Include="Helpers\Constraints\EqualityOperator\UnEqualityWithNullMustBeImplementedInTermsOfEqualityOperator.cs" />
-    <Compile Include="Helpers\Constraints\HashCodeMustBeTheSameForSameObjectsAndDifferentForDifferentObjects.cs" />
-    <Compile Include="Helpers\Constraints\InequalityOperator\StateBasedEqualityMustBeImplementedInTermsOfInequalityOperator.cs" />
-    <Compile Include="Helpers\Constraints\InequalityOperator\StateBasedEqualityShouldBeAvailableInTermsOfInequalityOperator.cs" />
-    <Compile Include="Helpers\Constraints\InequalityOperator\StateBasedEqualityWithItselfMustBeImplementedInTermsOfInequalityOperator.cs" />
-    <Compile Include="Helpers\Constraints\InequalityOperator\StateBasedUnEqualityMustBeImplementedInTermsOfInequalityOperator.cs" />
-    <Compile Include="Helpers\Constraints\InequalityOperator\UnEqualityWithNullMustBeImplementedInTermsOfInequalityOperator.cs" />
-    <Compile Include="Helpers\Constraints\StateBasedEqualityMustBeImplementedInTermsOfEqualsMethod.cs" />
-    <Compile Include="Helpers\Constraints\StateBasedEqualityWithItselfMustBeImplementedInTermsOfEqualsMethod.cs" />
-    <Compile Include="Helpers\Constraints\StateBasedUnEqualityMustBeImplementedInTermsOfEqualsMethod.cs" />
-    <Compile Include="Helpers\Constraints\ThereMustBeNoPublicPropertySetters.cs" />
-    <Compile Include="Helpers\Constraints\UnEqualityWithNullMustBeImplementedInTermsOfEqualsMethod.cs" />
-    <Compile Include="Helpers\FluentAssertions\FluentAssertionExtensions.cs" />
-    <Compile Include="ImplementationDetails\Common\AssertionFailed.cs" />
-    <Compile Include="ImplementationDetails\Common\AssertionRecorder.cs" />
-    <Compile Include="ImplementationDetails\Common\RecordedAssertions.cs" />
-    <Compile Include="ImplementationDetails\ConstraintAssertions\CustomCollections\ConstraintsViolations.cs" />
-    <Compile Include="ImplementationDetails\ConstraintAssertions\IConstraint.cs" />
     <Compile Include="ImplementationDetails\DummyContext.cs" />
     <Compile Include="ImplementationDetails\FallbackTypeGenerator.cs" />
-    <Compile Include="ImplementationDetails\ObjectGraph.cs" />
-    <Compile Include="ImplementationDetails\ReflectionOrProxyComparer.cs" />
     <Compile Include="ImplementationDetails\ValueObjectActivator.cs" />
     <Compile Include="ImplementationDetails\ValueObjectWhiteList.cs" />
     <Compile Include="LockAssertions.cs" />
-    <Compile Include="LockSpecificAssertions\MonitorAssertions.cs" />
-    <Compile Include="LockSpecificAssertions\ReadLockSlimAssertions.cs" />
-    <Compile Include="LockSpecificAssertions\WriteLockSlimAssertions.cs" />
     <Compile Include="Many.cs" />
-    <Compile Include="MyClass.cs" />
-    <Compile Include="NSubstitute\EquivalencyAssertion.cs" />
-    <Compile Include="NSubstitute\Extensions.cs" />
-    <Compile Include="NSubstitute\ImplementationDetails\AssertionsExecutionLoop.cs" />
-    <Compile Include="NSubstitute\ImplementationDetails\LambdaArgumentMatcher.cs" />
-    <Compile Include="NSubstitute\ImplementationDetails\SequenceExclusiveAssertion.cs" />
-    <Compile Include="NSubstitute\MultipleConditionsFailedException.cs" />
-    <Compile Include="NSubstitute\XArg.cs" />
-    <Compile Include="NSubstitute\XReceived.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Reflection\Metadata.cs" />
-    <Compile Include="Reflection\Method.cs" />
-    <Compile Include="Reflection\Property.cs" />
     <Compile Include="Subgenerators\AllGeneratorFactory.cs" />
-    <Compile Include="SyncAssert.cs" />
-    <Compile Include="ValueTypeTraits.cs" />
-    <Compile Include="XAssert.Common.cs" />
-    <Compile Include="XAssert.ObjectGraph.cs" />
-    <Compile Include="XAssert.Reflection.cs" />
-    <Compile Include="XAssert.Simple.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -163,9 +112,6 @@
       <Project>{AA5669E8-E769-481A-9D35-EC94067D79A8}</Project>
       <Name>TypeResolution</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Readme\Compare-NET-Objects-Help.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

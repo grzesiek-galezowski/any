@@ -1,4 +1,4 @@
-namespace TddEbook.TddToolkitSpecification.XAssertSpecifications
+namespace TddToolkitSpecification.Fixtures
 {
   public class FileName
   {

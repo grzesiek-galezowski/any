@@ -64,7 +64,10 @@ namespace TddEbook.TddToolkit.ImplementationDetails
     public object GenerateInstance(IInstanceGenerator instanceGenerator)
     {
       var instance = _smartType.PickConstructorWithLeastNonPointersParameters().Value().InvokeWithParametersCreatedBy(instanceGenerator.Instance);
-      XAssert.Equal(_type, instance.GetType());
+      if(_type != instance.GetType())
+      {
+        throw new Exception("Type not matching"); //todo better error message
+      }
       return instance;
     }
 
@@ -72,7 +75,11 @@ namespace TddEbook.TddToolkit.ImplementationDetails
     {
       var instance = _smartType.PickConstructorWithLeastNonPointersParameters().Value()  //bug backward compatibility (for now)
         .InvokeWith(constructorParameters);
-      XAssert.Equal(_type, instance.GetType());
+      if (_type != instance.GetType())
+      {
+        throw new Exception("Type not matching"); //todo better error message
+      }
+
       return instance;
     }
 

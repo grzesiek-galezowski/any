@@ -8,9 +8,11 @@ using System.Net;
 using System.Reflection;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text.RegularExpressions;
+using FluentAssertions;
 using NUnit.Framework;
 using TddEbook.TddToolkit;
 using TddEbook.TddToolkit.CommonTypes;
+using TddEbook.TddToolkit.ImplementationDetails;
 using TddEbook.TddToolkitSpecification.Fixtures;
 using Type = System.Type;
 
@@ -28,7 +30,7 @@ namespace TddEbook.TddToolkitSpecification
       var int2 = Any.Integer();
 
       //THEN
-      XAssert.NotEqual(int1, int2);
+      Assert.AreNotEqual(int1, int2);
     }
 
     [Test, Repeat(10)]
@@ -43,7 +45,7 @@ namespace TddEbook.TddToolkitSpecification
       Assert.That(digit1, Is.LessThanOrEqualTo(9));
       Assert.That(digit2, Is.GreaterThanOrEqualTo(0));
       Assert.That(digit2, Is.LessThanOrEqualTo(9));
-      XAssert.NotEqual(digit1, digit2);
+      Assert.AreNotEqual(digit1, digit2);
     }
 
     [Test, Repeat(10)]
@@ -58,7 +60,7 @@ namespace TddEbook.TddToolkitSpecification
       Assert.That(digit1, Is.LessThanOrEqualTo(9));
       Assert.That(digit2, Is.GreaterThanOrEqualTo(1));
       Assert.That(digit2, Is.LessThanOrEqualTo(9));
-      XAssert.NotEqual(digit1, digit2);
+      Assert.AreNotEqual(digit1, digit2);
     }
 
 
@@ -70,8 +72,8 @@ namespace TddEbook.TddToolkitSpecification
       var address2 = Any.Instance<IPAddress>();
 
       //THEN
-      XAssert.NotEqual(address1, address2);
-      XAssert.NotEqual(address1.ToString(), address2.ToString());
+      Assert.AreNotEqual(address1, address2);
+      Assert.AreNotEqual(address1.ToString(), address2.ToString());
     }
 
     [Test]
@@ -83,18 +85,18 @@ namespace TddEbook.TddToolkitSpecification
       var type3 = Any.Instance<Type>();
 
       //THEN
-      XAssert.All(assert =>
+      Assert.Multiple(() =>
       {
-        assert.NotNull(type1);
-        assert.NotNull(type2);
-        assert.NotNull(type3);
+        Assert.NotNull(type1);
+        Assert.NotNull(type2);
+        Assert.NotNull(type3);
       });
 
-      XAssert.All(assert =>
+      Assert.Multiple(() =>
       {
-        assert.NotEqual(type1, type2);
-        assert.NotEqual(type2, type3);
-        assert.NotEqual(type3, type1);
+        Assert.AreNotEqual(type1, type2);
+        Assert.AreNotEqual(type2, type3);
+        Assert.AreNotEqual(type3, type1);
       });
     }
 
@@ -103,11 +105,11 @@ namespace TddEbook.TddToolkitSpecification
     {
       var obj = Any.Instance<ISimple>();
 
-      XAssert.NotEqual(default(int), obj.GetInt());
-      XAssert.NotEqual(string.Empty, obj.GetString());
-      XAssert.NotEqual(string.Empty, obj.GetStringProperty);
-      XAssert.NotNull(obj.GetString());
-      XAssert.NotNull(obj.GetStringProperty);
+      Assert.AreNotEqual(default(int), obj.GetInt());
+      Assert.AreNotEqual(string.Empty, obj.GetString());
+      Assert.AreNotEqual(string.Empty, obj.GetStringProperty);
+      Assert.NotNull(obj.GetString());
+      Assert.NotNull(obj.GetStringProperty);
     }
 
     [Test]
@@ -120,12 +122,12 @@ namespace TddEbook.TddToolkitSpecification
       obj = obj.GetInterface();
 
       //THEN
-      XAssert.NotNull(obj);
-      XAssert.NotEqual(default(int), obj.GetInt());
-      XAssert.NotEqual(string.Empty, obj.GetString());
-      XAssert.NotEqual(string.Empty, obj.GetStringProperty);
-      XAssert.NotNull(obj.GetString());
-      XAssert.NotNull(obj.GetStringProperty);
+      Assert.NotNull(obj);
+      Assert.AreNotEqual(default(int), obj.GetInt());
+      Assert.AreNotEqual(string.Empty, obj.GetString());
+      Assert.AreNotEqual(string.Empty, obj.GetStringProperty);
+      Assert.NotNull(obj.GetString());
+      Assert.NotNull(obj.GetStringProperty);
     }
 
     [Test]
@@ -139,7 +141,7 @@ namespace TddEbook.TddToolkitSpecification
       var valueSecondTime = obj.GetString();
 
       //THEN
-      XAssert.Equal(valueFirstTime, valueSecondTime);
+      Assert.AreEqual(valueFirstTime, valueSecondTime);
     }
 
     [Test]
@@ -154,7 +156,7 @@ namespace TddEbook.TddToolkitSpecification
       var valueFromSecondInstance = obj2.GetString();
 
       //THEN
-      XAssert.NotEqual(valueFromFirstInstance, valueFromSecondInstance);
+      Assert.AreNotEqual(valueFromFirstInstance, valueFromSecondInstance);
     }
 
     [Test]
@@ -176,7 +178,7 @@ namespace TddEbook.TddToolkitSpecification
 
       foreach (var simple in enumerable)
       {
-        XAssert.NotNull(simple);
+        Assert.NotNull(simple);
       }
     }
 
@@ -188,13 +190,13 @@ namespace TddEbook.TddToolkitSpecification
       var obj2 = Any.Instance<ISimple>();
 
       //THEN
-      XAssert.All(assert =>
+      Assert.Multiple(() =>
       {
-        assert.NotNull(obj1.GetTypeProperty);
-        assert.NotNull(obj2.GetTypeProperty);
-        assert.NotEqual(obj1.GetTypeProperty, obj2.GetTypeProperty);
-        assert.Equal(obj1.GetTypeProperty, obj1.GetTypeProperty);
-        assert.Equal(obj2.GetTypeProperty, obj2.GetTypeProperty);
+        Assert.NotNull(obj1.GetTypeProperty);
+        Assert.NotNull(obj2.GetTypeProperty);
+        Assert.AreNotEqual(obj1.GetTypeProperty, obj2.GetTypeProperty);
+        Assert.AreEqual(obj1.GetTypeProperty, obj1.GetTypeProperty);
+        Assert.AreEqual(obj2.GetTypeProperty, obj2.GetTypeProperty);
       });
     }
 
@@ -205,8 +207,8 @@ namespace TddEbook.TddToolkitSpecification
       var createdProxy = Any.Instance<ObjectWithInterfaceInConstructor>();
 
       //THEN
-      XAssert.NotNull(createdProxy._constructorArgument);
-      XAssert.NotNull(createdProxy._constructorNestedArgument);
+      Assert.NotNull(createdProxy._constructorArgument);
+      Assert.NotNull(createdProxy._constructorNestedArgument);
     }
 
     [Test]
@@ -228,12 +230,12 @@ namespace TddEbook.TddToolkitSpecification
       var createdProxy = Any.Instance<AbstractObjectWithInterfaceInConstructor>();
 
       //THEN
-      XAssert.All(assert =>
+      Assert.Multiple(() =>
       {
-        assert.NotNull(createdProxy._constructorArgument);
-        assert.NotNull(createdProxy._constructorNestedArgument);
-        assert.NotEqual(default(int), createdProxy.AbstractInt);
-        assert.NotEqual(default(int), createdProxy.SettableInt);
+        Assert.NotNull(createdProxy._constructorArgument);
+        Assert.NotNull(createdProxy._constructorNestedArgument);
+        Assert.AreNotEqual(default(int), createdProxy.AbstractInt);
+        Assert.AreNotEqual(default(int), createdProxy.SettableInt);
       });
     }
 
@@ -244,8 +246,8 @@ namespace TddEbook.TddToolkitSpecification
       var obj = Any.Instance<AbstractObjectWithVirtualMethods>();
 
       //THEN
-      XAssert.NotEqual(default(string), obj.GetSomething());
-      XAssert.NotEqual("Something", obj.GetSomething2());
+      Assert.AreNotEqual(default(string), obj.GetSomething());
+      Assert.AreNotEqual("Something", obj.GetSomething2());
     }
 
     [Test]
@@ -255,7 +257,7 @@ namespace TddEbook.TddToolkitSpecification
       var obj = Any.Instance<AbstractObjectWithVirtualMethods>();
 
       //THEN
-      XAssert.NotEqual(default(string), obj.GetSomethingButThrowExceptionWhileGettingIt());
+      Assert.AreNotEqual(default(string), obj.GetSomethingButThrowExceptionWhileGettingIt());
     }
 
     [Test]
@@ -266,7 +268,7 @@ namespace TddEbook.TddToolkitSpecification
       var y = Any.Instance<MethodInfo>();
 
       //THEN
-      XAssert.NotAlike(x, y);
+      Assert.AreNotEqual(x, y);
     }
 
     [Test]
@@ -277,7 +279,7 @@ namespace TddEbook.TddToolkitSpecification
       var exception2 = Any.Instance<Exception>();
 
       //THEN
-      XAssert.NotAlike(exception2, exception1);
+      NotAlike(exception2, exception1);
     }
 
     [Test]
@@ -288,7 +290,7 @@ namespace TddEbook.TddToolkitSpecification
       var int2 = Any.ValueOtherThan(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
 
       //THEN
-      XAssert.NotEqual(int1, int2);
+      Assert.AreNotEqual(int1, int2);
       Assert.That(int1, Is.Not.InRange(1, 10));
       Assert.That(int2, Is.Not.InRange(1, 10));
     }
@@ -306,18 +308,18 @@ namespace TddEbook.TddToolkitSpecification
       var int6 = Any.From(Enumerable.Range(10, 4).ToArray());
 
       //THEN
-      XAssert.All(assert =>
+      Assert.Multiple(() =>
       {
-        assert.True(Enumerable.Range(1,3).Contains(int1));
-        assert.True(Enumerable.Range(1,3).Contains(int2));
-        assert.True(Enumerable.Range(1,3).Contains(int3));
-        assert.True(Enumerable.Range(1,3).Contains(int4));
-        assert.NotEqual(int1, int2);
-        assert.NotEqual(int2, int3);
-        assert.NotEqual(int3, int4);
+        Assert.True(Enumerable.Range(1,3).Contains(int1));
+        Assert.True(Enumerable.Range(1,3).Contains(int2));
+        Assert.True(Enumerable.Range(1,3).Contains(int3));
+        Assert.True(Enumerable.Range(1,3).Contains(int4));
+        Assert.AreNotEqual(int1, int2);
+        Assert.AreNotEqual(int2, int3);
+        Assert.AreNotEqual(int3, int4);
 
-        assert.True(Enumerable.Range(5, 2).Contains(int5));
-        assert.True(Enumerable.Range(10, 4).Contains(int6));
+        Assert.True(Enumerable.Range(5, 2).Contains(int5));
+        Assert.True(Enumerable.Range(10, 4).Contains(int6));
       });
     }
 
@@ -343,7 +345,7 @@ namespace TddEbook.TddToolkitSpecification
       var str = Any.StringOfLength(stringLength);
 
       //THEN
-      XAssert.Equal(stringLength, str.Length);
+      Assert.AreEqual(stringLength, str.Length);
     }
 
     [Test]
@@ -355,7 +357,7 @@ namespace TddEbook.TddToolkitSpecification
       //THEN
       CollectionAssert.IsOrdered(set);
       CollectionAssert.AllItemsAreUnique(set);
-      XAssert.Equal(3, set.Count);
+      Assert.AreEqual(3, set.Count);
     }
 
     [Test]
@@ -367,13 +369,13 @@ namespace TddEbook.TddToolkitSpecification
       var char3 = Any.AlphaChar();
 
       //THEN
-      XAssert.All(assert =>
+      Assert.Multiple(() =>
       {
-        assert.NotEqual(char1, char2);
-        assert.NotEqual(char2, char3);
-        assert.True(Char.IsLetter(char1));
-        assert.True(Char.IsLetter(char2));
-        assert.True(Char.IsLetter(char3));
+        Assert.AreNotEqual(char1, char2);
+        Assert.AreNotEqual(char2, char3);
+        Assert.True(Char.IsLetter(char1));
+        Assert.True(Char.IsLetter(char2));
+        Assert.True(Char.IsLetter(char3));
       });
     }
 
@@ -386,13 +388,13 @@ namespace TddEbook.TddToolkitSpecification
       var char3 = Any.DigitChar();
 
       //THEN
-      XAssert.All(assert =>
+      Assert.Multiple(() =>
       {
-        assert.NotEqual(char1, char2);
-        assert.NotEqual(char2, char3);
-        assert.True(Char.IsDigit(char1));
-        assert.True(Char.IsDigit(char2));
-        assert.True(Char.IsDigit(char3));
+        Assert.AreNotEqual(char1, char2);
+        Assert.AreNotEqual(char2, char3);
+        Assert.True(Char.IsDigit(char1));
+        Assert.True(Char.IsDigit(char2));
+        Assert.True(Char.IsDigit(char3));
       });
     }
 
@@ -408,10 +410,10 @@ namespace TddEbook.TddToolkitSpecification
       var primitive = Any.Instance<int>();
       var interfaceImplementation = Any.Instance<ISimple>();
 
-      XAssert.All(assert =>
+      Assert.Multiple(() =>
       {
-        assert.NotNull(interfaceImplementation);
-        assert.NotEqual(default(int), primitive);
+        Assert.NotNull(interfaceImplementation);
+        Assert.AreNotEqual(default(int), primitive);
       });
     }
 
@@ -447,11 +449,11 @@ namespace TddEbook.TddToolkitSpecification
       var y1 = y.Keys.First();
       var y2 = y.Values.First();
 
-      XAssert.All(assert =>
+      Assert.Multiple(() =>
       {
-        assert.Equal(3, y.Count);
-        assert.NotNull(y1);
-        assert.NotNull(y2);
+        Assert.AreEqual(3, y.Count);
+        Assert.NotNull(y1);
+        Assert.NotNull(y2);
       });
     }
 
@@ -472,20 +474,20 @@ namespace TddEbook.TddToolkitSpecification
       var concurrentQueue = Any.ConcurrentQueue<string>(anyCount);
       var concurrentStack = Any.ConcurrentStack<string>(anyCount);
 
-      XAssert.All(assert =>
+      Assert.Multiple(() =>
       {
-        assert.Equal(anyCount, list.Count);
-        assert.Equal(anyCount, enumerable.Count());
-        assert.Equal(anyCount, array.Length);
-        assert.Equal(anyCount, set.Count);
-        assert.Equal(anyCount, dictionary.Count);
-        assert.Equal(anyCount, sortedList.Count);
-        assert.Equal(anyCount, sortedDictionary.Count);
-        assert.Equal(anyCount, concurrentDictionary.Count);
-        assert.Equal(anyCount, sortedEnumerable.Count());
-        assert.Equal(anyCount, concurrentBag.Count);
-        assert.Equal(anyCount, concurrentStack.Count);
-        assert.Equal(anyCount, concurrentQueue.Count);
+        Assert.AreEqual(anyCount, list.Count);
+        Assert.AreEqual(anyCount, enumerable.Count());
+        Assert.AreEqual(anyCount, array.Length);
+        Assert.AreEqual(anyCount, set.Count);
+        Assert.AreEqual(anyCount, dictionary.Count);
+        Assert.AreEqual(anyCount, sortedList.Count);
+        Assert.AreEqual(anyCount, sortedDictionary.Count);
+        Assert.AreEqual(anyCount, concurrentDictionary.Count);
+        Assert.AreEqual(anyCount, sortedEnumerable.Count());
+        Assert.AreEqual(anyCount, concurrentBag.Count);
+        Assert.AreEqual(anyCount, concurrentStack.Count);
+        Assert.AreEqual(anyCount, concurrentQueue.Count);
       });
     }
 
@@ -506,20 +508,20 @@ namespace TddEbook.TddToolkitSpecification
       var concurrentQueue = Any.ConcurrentQueue<string>();
       var concurrentStack = Any.ConcurrentStack<string>();
 
-      XAssert.All(assert =>
+      Assert.Multiple(() =>
       {
-        assert.Equal(anyCount, list.Count);
-        assert.Equal(anyCount, enumerable.Count());
-        assert.Equal(anyCount, array.Length);
-        assert.Equal(anyCount, set.Count);
-        assert.Equal(anyCount, dictionary.Count);
-        assert.Equal(anyCount, sortedList.Count);
-        assert.Equal(anyCount, sortedDictionary.Count);
-        assert.Equal(anyCount, sortedEnumerable.Count());
-        assert.Equal(anyCount, concurrentDictionary.Count);
-        assert.Equal(anyCount, concurrentBag.Count);
-        assert.Equal(anyCount, concurrentStack.Count);
-        assert.Equal(anyCount, concurrentQueue.Count);
+        Assert.AreEqual(anyCount, list.Count);
+        Assert.AreEqual(anyCount, enumerable.Count());
+        Assert.AreEqual(anyCount, array.Length);
+        Assert.AreEqual(anyCount, set.Count);
+        Assert.AreEqual(anyCount, dictionary.Count);
+        Assert.AreEqual(anyCount, sortedList.Count);
+        Assert.AreEqual(anyCount, sortedDictionary.Count);
+        Assert.AreEqual(anyCount, sortedEnumerable.Count());
+        Assert.AreEqual(anyCount, concurrentDictionary.Count);
+        Assert.AreEqual(anyCount, concurrentBag.Count);
+        Assert.AreEqual(anyCount, concurrentStack.Count);
+        Assert.AreEqual(anyCount, concurrentQueue.Count);
       });
     }
 
@@ -539,19 +541,19 @@ namespace TddEbook.TddToolkitSpecification
       var concurrentBag = Any.Instance<ConcurrentBag<string>>();
       var concurrentQueue = Any.Instance<ConcurrentQueue<string>>();
 
-      XAssert.All(assert =>
+      Assert.Multiple(() =>
       {
-        assert.Equal(anyCount, list.Count);
-        assert.Equal(anyCount, enumerable.Count());
-        assert.Equal(anyCount, array.Length);
-        assert.Equal(anyCount, set.Count);
-        assert.Equal(anyCount, dictionary.Count);
-        assert.Equal(anyCount, sortedList.Count);
-        assert.Equal(anyCount, sortedDictionary.Count);
-        assert.Equal(anyCount, concurrentDictionary.Count);
-        assert.Equal(anyCount, concurrentStack.Count);
-        assert.Equal(anyCount, concurrentBag.Count);
-        assert.Equal(anyCount, concurrentQueue.Count);
+        Assert.AreEqual(anyCount, list.Count);
+        Assert.AreEqual(anyCount, enumerable.Count());
+        Assert.AreEqual(anyCount, array.Length);
+        Assert.AreEqual(anyCount, set.Count);
+        Assert.AreEqual(anyCount, dictionary.Count);
+        Assert.AreEqual(anyCount, sortedList.Count);
+        Assert.AreEqual(anyCount, sortedDictionary.Count);
+        Assert.AreEqual(anyCount, concurrentDictionary.Count);
+        Assert.AreEqual(anyCount, concurrentStack.Count);
+        Assert.AreEqual(anyCount, concurrentBag.Count);
+        Assert.AreEqual(anyCount, concurrentQueue.Count);
       });
     }
 
@@ -560,10 +562,10 @@ namespace TddEbook.TddToolkitSpecification
     {
       var customCollection = Any.Instance<MyOwnCollection<RecursiveInterface>>();
 
-      XAssert.Equal(3, customCollection.Count);
+      Assert.AreEqual(3, customCollection.Count);
       foreach (var recursiveInterface in customCollection)
       {
-        XAssert.NotNull(recursiveInterface);
+        Assert.NotNull(recursiveInterface);
       }
     }
 
@@ -615,10 +617,10 @@ namespace TddEbook.TddToolkitSpecification
     public void ShouldSupportCreationOfKeyValuePairs()
     {
       var kvp = Any.Instance<KeyValuePair<string, RecursiveInterface>>();
-      XAssert.All(assert =>
+      Assert.Multiple(() =>
       {
-        assert.NotNull(kvp.Key);
-        assert.NotNull(kvp.Value);
+        Assert.NotNull(kvp.Key);
+        Assert.NotNull(kvp.Value);
       });
     }
 
@@ -638,7 +640,7 @@ namespace TddEbook.TddToolkitSpecification
       var maybeString1 = Any.Instance<Maybe<string>>();
       var maybeString2 = Any.Instance<Maybe<string>>();
 
-      XAssert.NotEqual(maybeString1, maybeString2);
+      Assert.AreNotEqual(maybeString1, maybeString2);
     }
 
     [Test]
@@ -647,7 +649,7 @@ namespace TddEbook.TddToolkitSpecification
       var maybeImplementation1 = Any.Instance<Maybe<RecursiveInterface>>();
       var maybeImplementation2 = Any.Instance<Maybe<RecursiveInterface>>();
 
-      XAssert.NotEqual(maybeImplementation1, maybeImplementation2);
+      Assert.AreNotEqual(maybeImplementation1, maybeImplementation2);
     }
 
     [Test]
@@ -662,7 +664,7 @@ namespace TddEbook.TddToolkitSpecification
       var element2 = enumerator.Current;
 
       //THEN
-      XAssert.NotEqual(element2, element1);
+      Assert.AreNotEqual(element2, element1);
     }
 
     [Test]
@@ -678,7 +680,7 @@ namespace TddEbook.TddToolkitSpecification
       var element2 = enumerator.Current;
 
       //THEN
-      XAssert.NotEqual(element2, element1);
+      Assert.AreNotEqual(element2, element1);
     }
 
 
@@ -694,7 +696,7 @@ namespace TddEbook.TddToolkitSpecification
       var element2 = instance.GetEnumerator().Current;
 
       //THEN
-      XAssert.NotEqual(element2, element1);
+      Assert.AreNotEqual(element2, element1);
     }
 
     [Test]
@@ -703,7 +705,7 @@ namespace TddEbook.TddToolkitSpecification
       var value1 = Any.IntegerFromSequence(startingValue: 12, step: 112);
       var value2 = Any.IntegerFromSequence(startingValue: 12, step: 112);
 
-      XAssert.Equal(value1, value2 - 112);
+      Assert.AreEqual(value1, value2 - 112);
       Assert.Greater(value1, 12);
     }
 
@@ -713,9 +715,9 @@ namespace TddEbook.TddToolkitSpecification
       var value1 = Any.IntegerDivisibleBy(5);
       var value2 = Any.IntegerDivisibleBy(5);
 
-      XAssert.NotEqual(value1, value2);
-      XAssert.Equal(0, value1%5);
-      XAssert.Equal(0, value2%5);
+      Assert.AreNotEqual(value1, value2);
+      Assert.AreEqual(0, value1%5);
+      Assert.AreEqual(0, value2%5);
     }
 
     [Test]
@@ -724,22 +726,22 @@ namespace TddEbook.TddToolkitSpecification
       var value1 = Any.IntegerNotDivisibleBy(5);
       var value2 = Any.IntegerNotDivisibleBy(5);
 
-      XAssert.NotEqual(value1, value2);
-      XAssert.NotEqual(0, value1%5);
-      XAssert.NotEqual(0, value2%5);
+      Assert.AreNotEqual(value1, value2);
+      Assert.AreNotEqual(0, value1%5);
+      Assert.AreNotEqual(0, value2%5);
     }
 
     [Test]
     public void ShouldAllowGeneratingDummyObjectsBypassingConstructors()
     {
-      XAssert.Alike(new List<string>(), Any.Dummy<IEnumerable<string>>());
-      XAssert.Alike(new List<string>(), Any.Dummy<List<string>>());
-      XAssert.Alike(new List<string>(), Any.Dummy<IList<string>>());
-      XAssert.Alike(new List<string>(), Any.Dummy<ICollection<string>>());
-      XAssert.Alike(new string[] {}, Any.Dummy<string[]>());
-      XAssert.Alike(new RecursiveClass[] {}, Any.Dummy<RecursiveClass[]>());
-      XAssert.Alike(new Dictionary<int, int>(), Any.Dummy<IDictionary<int, int>>());
-      XAssert.Alike(new Dictionary<int, int>(), Any.Dummy<IDictionary<int, int>>());
+      Alike(new List<string>(), Any.Dummy<IEnumerable<string>>());
+      Alike(new List<string>(), Any.Dummy<List<string>>());
+      Alike(new List<string>(), Any.Dummy<IList<string>>());
+      Alike(new List<string>(), Any.Dummy<ICollection<string>>());
+      Alike(new string[] {}, Any.Dummy<string[]>());
+      Alike(new RecursiveClass[] {}, Any.Dummy<RecursiveClass[]>());
+      Alike(new Dictionary<int, int>(), Any.Dummy<IDictionary<int, int>>());
+      Alike(new Dictionary<int, int>(), Any.Dummy<IDictionary<int, int>>());
       Assert.Multiple(() =>
       {
         Assert.Throws<TargetInvocationException>(() => Any.Instance<ThrowingInConstructor>());
@@ -753,7 +755,7 @@ namespace TddEbook.TddToolkitSpecification
     public void ShouldGenerateComplexGraphsWithNonNullPublicProperties()
     {
       var entity = Any.Instance<AreaEntity>();
-      XAssert.All(assert => { assert.NotNull(entity.Feature); });
+      Assert.NotNull(entity.Feature);
     }
 
     [Test]
@@ -768,7 +770,7 @@ namespace TddEbook.TddToolkitSpecification
       obj.Value = someValue;
 
       //THEN
-      XAssert.Equal(someValue, obj.Value);
+      Assert.AreEqual(someValue, obj.Value);
     }
 
     [Test]
@@ -794,8 +796,8 @@ namespace TddEbook.TddToolkitSpecification
       obj.Value = someValue;
 
       //THEN
-      XAssert.Equal(someValue, obj.Value);
-      XAssert.Equal(someValue, obj.Value);
+      Assert.AreEqual(someValue, obj.Value);
+      Assert.AreEqual(someValue, obj.Value);
     }
 
     [Test]
@@ -816,12 +818,12 @@ namespace TddEbook.TddToolkitSpecification
       var value1 = Any.IntegerWithExactDigitsCount(maxLength);
       var value2 = Any.IntegerWithExactDigitsCount(maxLength);
 
-      XAssert.Equal(maxLength,
+      Assert.AreEqual(maxLength,
         value1.ToString().Length,
         value1.ToString());
-      XAssert.Equal(maxLength,
+      Assert.AreEqual(maxLength,
         value2.ToString().Length, value2.ToString());
-      XAssert.NotEqual(value1, value2);
+      Assert.AreNotEqual(value1, value2);
     }
 
     [Test, Repeat(100)]
@@ -831,12 +833,12 @@ namespace TddEbook.TddToolkitSpecification
       var value1 = Any.UnsignedIntegerWithExactDigitsCount(maxLength);
       var value2 = Any.UnsignedIntegerWithExactDigitsCount(maxLength);
 
-      XAssert.Equal(maxLength,
+      Assert.AreEqual(maxLength,
         value1.ToString().Length,
         value1.ToString());
-      XAssert.Equal(maxLength,
+      Assert.AreEqual(maxLength,
         value2.ToString().Length, value2.ToString());
-      XAssert.NotEqual(value1, value2);
+      Assert.AreNotEqual(value1, value2);
     }
 
     [Test, Repeat(100)]
@@ -846,12 +848,12 @@ namespace TddEbook.TddToolkitSpecification
       var value1 = Any.LongIntegerWithExactDigitsCount(maxLength);
       var value2 = Any.LongIntegerWithExactDigitsCount(maxLength);
 
-      XAssert.Equal(maxLength,
+      Assert.AreEqual(maxLength,
         value1.ToString().Length,
         value1.ToString());
-      XAssert.Equal(maxLength,
+      Assert.AreEqual(maxLength,
         value2.ToString().Length, value2.ToString());
-      XAssert.NotEqual(value1, value2);
+      Assert.AreNotEqual(value1, value2);
     }
 
     [Test, Repeat(100)]
@@ -861,12 +863,12 @@ namespace TddEbook.TddToolkitSpecification
       var value1 = Any.UnsignedLongIntegerWithExactDigitsCount(maxLength);
       var value2 = Any.UnsignedLongIntegerWithExactDigitsCount(maxLength);
 
-      XAssert.Equal(maxLength,
+      Assert.AreEqual(maxLength,
         value1.ToString().Length,
         value1.ToString());
-      XAssert.Equal(maxLength,
+      Assert.AreEqual(maxLength,
         value2.ToString().Length, value2.ToString());
-      XAssert.NotEqual(value1, value2);
+      Assert.AreNotEqual(value1, value2);
     }
 
     [Test, Repeat(100)]
@@ -876,9 +878,9 @@ namespace TddEbook.TddToolkitSpecification
       var value1 = Any.IntegerWithExactDigitsCount(length);
       var value2 = Any.IntegerWithExactDigitsCount(length);
 
-      XAssert.Equal(length, value1.ToString().Length, value1.ToString());
-      XAssert.Equal(length, value2.ToString().Length, value2.ToString());
-      XAssert.NotEqual(value1, value2);
+      Assert.AreEqual(length, value1.ToString().Length, value1.ToString());
+      Assert.AreEqual(length, value2.ToString().Length, value2.ToString());
+      Assert.AreNotEqual(value1, value2);
     }
 
     [Test, Repeat(100)]
@@ -888,12 +890,12 @@ namespace TddEbook.TddToolkitSpecification
       var value1 = Any.UnsignedIntegerWithExactDigitsCount(length);
       var value2 = Any.UnsignedIntegerWithExactDigitsCount(length);
 
-      XAssert.Equal(length,
+      Assert.AreEqual(length,
         value1.ToString().Length,
         value1.ToString());
-      XAssert.Equal(length,
+      Assert.AreEqual(length,
         value2.ToString().Length, value2.ToString());
-      XAssert.NotEqual(value1, value2);
+      Assert.AreNotEqual(value1, value2);
     }
 
     [Test, Repeat(100)]
@@ -903,12 +905,12 @@ namespace TddEbook.TddToolkitSpecification
       var value1 = Any.LongIntegerWithExactDigitsCount(length);
       var value2 = Any.LongIntegerWithExactDigitsCount(length);
 
-      XAssert.Equal(length,
+      Assert.AreEqual(length,
         value1.ToString().Length,
         value1.ToString());
-      XAssert.Equal(length,
+      Assert.AreEqual(length,
         value2.ToString().Length, value2.ToString());
-      XAssert.NotEqual(value1, value2);
+      Assert.AreNotEqual(value1, value2);
     }
 
     [Test, Repeat(100)]
@@ -918,12 +920,12 @@ namespace TddEbook.TddToolkitSpecification
       var value1 = Any.UnsignedLongIntegerWithExactDigitsCount(length);
       var value2 = Any.UnsignedLongIntegerWithExactDigitsCount(length);
 
-      XAssert.Equal(length,
+      Assert.AreEqual(length,
         value1.ToString().Length,
         value1.ToString());
-      XAssert.Equal(length,
+      Assert.AreEqual(length,
         value2.ToString().Length, value2.ToString());
-      XAssert.NotEqual(value1, value2);
+      Assert.AreNotEqual(value1, value2);
     }
 
     [Test]
@@ -966,7 +968,7 @@ namespace TddEbook.TddToolkitSpecification
     {
       var o2 = Any.Instance<ComplexObjectWithFactoryMethodAndRecursiveConstructor>();
 
-      XAssert.NotNull(o2.ToString());
+      Assert.NotNull(o2.ToString());
       Assert.IsNotEmpty(o2.ToString());
     }
 
@@ -1148,7 +1150,7 @@ namespace TddEbook.TddToolkitSpecification
       var result2 = func(1, 3);
 
       //THEN
-      XAssert.Equal(result2, result1);
+      Assert.AreEqual(result2, result1);
     }
 
     [Test]
@@ -1182,7 +1184,7 @@ namespace TddEbook.TddToolkitSpecification
 
     private static void AssertStringIsNumeric(string theString, int expectedLength)
     {
-      XAssert.Equal(expectedLength, theString.Length);
+      Assert.AreEqual(expectedLength, theString.Length);
       foreach (var character in theString)
       {
         Assert.True(char.IsDigit(character), $"Expected digit, got {character}");
@@ -1210,5 +1212,21 @@ namespace TddEbook.TddToolkitSpecification
       return ulong.MaxValue.ToString().Length;
     }
 
+
+    public static void Alike<T>(T expected, T actual)
+    {
+      var comparison = ObjectGraph.Comparison();
+      var result = comparison.Compare(expected, actual);
+      result.ExceededDifferences.Should().BeFalse(result.DifferencesString);
+    }
+
+    public static void NotAlike<T>(T expected, T actual)
+    {
+      var comparison = ObjectGraph.Comparison();
+      var result = comparison.Compare(expected, actual);
+      result.ExceededDifferences.Should().BeTrue(result.DifferencesString);
+    }
   }
+
+
 }
