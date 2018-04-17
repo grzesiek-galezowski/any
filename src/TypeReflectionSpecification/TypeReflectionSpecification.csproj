@@ -44,10 +44,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TddToolkit\TddToolkit.csproj">
-      <Project>{53172249-B625-4310-B108-8B4863D31D8B}</Project>
-      <Name>TddToolkit</Name>
-    </ProjectReference>
     <ProjectReference Include="..\TypeReflection.Interfaces\TypeReflection.Interfaces.csproj">
       <Project>{7543479C-BB88-4072-B2A2-F76FFA1F7554}</Project>
       <Name>TypeReflection.Interfaces</Name>

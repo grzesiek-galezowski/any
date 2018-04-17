@@ -122,7 +122,7 @@
       <Name>Generators</Name>
     </ProjectReference>
     <ProjectReference Include="..\TddToolkit\TddToolkit.csproj">
-      <Project>{53172249-B625-4310-B108-8B4863D31D8B}</Project>
+      <Project>{A8C580AD-07B3-44D1-9E23-8835A15BA853}</Project>
       <Name>TddToolkit</Name>
     </ProjectReference>
     <ProjectReference Include="..\TypeReflection.ImplementationDetails\TypeReflection.ImplementationDetails.csproj">
