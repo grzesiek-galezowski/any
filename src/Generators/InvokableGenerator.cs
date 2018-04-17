@@ -1,7 +1,5 @@
 using System;
 using System.Threading.Tasks;
-using NClone;
-//using NClone;
 using TddEbook.TypeReflection;
 
 namespace TddEbook.TddToolkit.Generators
@@ -16,11 +14,6 @@ namespace TddEbook.TddToolkit.Generators
     public Task<T> NotStartedTask<T>(IInstanceGenerator instanceGenerator)
     {
       return new Task<T>(instanceGenerator.Instance<T>);
-    }
-
-    public Task StartedTask()
-    {
-      return Clone.ObjectGraph(Task.Delay(0));
     }
 
     public Task<T> StartedTask<T>(ProxyBasedGenerator genericGenerator)

@@ -9,28 +9,31 @@ namespace TddEbook.TddToolkit.Generators
   {
     public static NumericTraits<int> Integer()
     {
-      return new NumericTraits<int>(int.MaxValue);
+      return new NumericTraits<int>(int.MaxValue, bi => (int) bi);
     }
 
     public static NumericTraits<long> Long()
     {
-      return new NumericTraits<long>(long.MaxValue);
+      return new NumericTraits<long>(long.MaxValue, bi => (long) bi);
     }
 
     public static NumericTraits<uint> UnsignedInteger()
     {
-      return new NumericTraits<uint>(uint.MaxValue);
+      return new NumericTraits<uint>(uint.MaxValue, bi => (uint) bi);
     }
 
     public static NumericTraits<ulong> UnsignedLong()
     {
-      return new NumericTraits<ulong>(ulong.MaxValue);
+      return new NumericTraits<ulong>(ulong.MaxValue, bi => (ulong) bi);
     }
   }
   public class NumericTraits<T>
   {
-    public NumericTraits(BigInteger maxValue)
+    private readonly Func<BigInteger, T> _cast;
+
+    public NumericTraits(BigInteger maxValue, Func<BigInteger, T> cast)
     {
+      _cast = cast;
       Max = maxValue;
       MaxValueString = Max.ToString();
       MaxPossibleDigitsCount = MaxValueString.Length;
@@ -50,8 +53,12 @@ namespace TddEbook.TddToolkit.Generators
       }
       var bytes = GetRandomDigits(digitsCount, randomGenerator);
       var bigInteger = NarrowDownToSpecificNumericTypeRange(bytes);
-      var convertedNumber = GenericMath.Convert<BigInteger, T>(bigInteger);
-      return convertedNumber;
+      return _cast.Invoke(bigInteger);
+    }
+
+    public static T ConvertValue<T, U>(U value) where U : IConvertible
+    {
+      return (T)Convert.ChangeType(value, typeof(T));
     }
 
     private static string GetRandomDigits(int digitsCount, Random randomGenerator)

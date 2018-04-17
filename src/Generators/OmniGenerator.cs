@@ -23,7 +23,6 @@ namespace TddEbook.TddToolkit.Generators
     object Object();
     MethodInfo Method();
     Type Type();
-    T Dummy<T>();
     T SubstituteOf<T>() where T : class;
     Uri Uri();
     Guid Guid();
@@ -36,7 +35,6 @@ namespace TddEbook.TddToolkit.Generators
     IEnumerable<T> EnumerableWith<T>(IEnumerable<T> included);
     Task NotStartedTask();
     Task<T> NotStartedTask<T>();
-    Task StartedTask();
     Task<T> StartedTask<T>();
     Func<T> Func<T>();
     Func<T1, T2> Func<T1, T2>();

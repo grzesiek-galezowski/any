@@ -201,11 +201,6 @@ namespace TddEbook.TddToolkit.Generators
       return _invokableGenerator.NotStartedTask<T>(_genericGenerator);
     }
 
-    public Task StartedTask()
-    {
-      return _invokableGenerator.StartedTask();
-    }
-
     public Task<T> StartedTask<T>()
     {
       return _invokableGenerator.StartedTask<T>(_genericGenerator);

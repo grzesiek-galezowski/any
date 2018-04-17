@@ -164,10 +164,6 @@ namespace TddEbook.TddToolkit
       return Generate.NotStartedTask<T>();
     }
 
-    public static Task StartedTask()
-    {
-      return Generate.StartedTask();
-    }
 
     public static Task<T> StartedTask<T>()
     {

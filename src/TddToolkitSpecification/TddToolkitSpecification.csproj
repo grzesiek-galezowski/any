@@ -118,7 +118,7 @@
       <Name>CommonTypes</Name>
     </ProjectReference>
     <ProjectReference Include="..\Generators\Generators.csproj">
-      <Project>{04DEBA13-AB6F-4EF7-92D7-F5673720DA2E}</Project>
+      <Project>{51199DA5-C26A-4DB3-B5D4-5A9B3976AD19}</Project>
       <Name>Generators</Name>
     </ProjectReference>
     <ProjectReference Include="..\TddToolkit\TddToolkit.csproj">
