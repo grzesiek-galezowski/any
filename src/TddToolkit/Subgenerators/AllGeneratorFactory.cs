@@ -1,6 +1,7 @@
 using Castle.DynamicProxy;
 using AutoFixture;
 using AutoFixture.Kernel;
+using Generators;
 using TddEbook.TddToolkit.Generators;
 using TddEbook.TddToolkit.TypeResolution;
 using TddEbook.TddToolkit.TypeResolution.CustomCollections;
@@ -9,7 +10,7 @@ using StringGenerator = TddEbook.TddToolkit.Generators.StringGenerator;
 
 namespace TddEbook.TddToolkit.Subgenerators
 {
-  internal static class AllGeneratorFactory
+  public static class AllGeneratorFactory
   {
     public static AllGenerator Create()
     {
@@ -20,7 +21,7 @@ namespace TddEbook.TddToolkit.Subgenerators
       var methodProxyCalls = new GenericMethodProxyCalls();
       var fixtureConfiguration = new AutoFixtureConfiguration();
       var fixture = fixtureConfiguration.CreateUnconfiguredInstance();
-      var collectionGenerator = new CollectionGenerator(methodProxyCalls);
+      var collectionGenerator = new CollectionGenerator();
       var valueGenerator = new ValueGenerator(fixture);
       var charGenerator = new CharGenerator(valueGenerator);
       var specificTypeObjectGenerator = new SpecificTypeObjectGenerator(valueGenerator);

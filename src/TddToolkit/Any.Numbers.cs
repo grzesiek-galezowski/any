@@ -4,142 +4,142 @@
   {
     public static int Integer()
     {
-      return Generate.Integer();
+      return gen.Integer();
     }
 
     public static double Double()
     {
-      return Generate.Double();
+      return gen.Double();
     }
 
     public static double DoubleOtherThan(params double[] others)
     {
-      return Generate.DoubleOtherThan(others);
+      return gen.DoubleOtherThan(others);
     }
 
     public static long LongInteger()
     {
-      return Generate.LongInteger();
+      return gen.LongInteger();
     }
 
     public static long LongIntegerOtherThan(params long[] others)
     {
-      return Generate.LongIntegerOtherThan(others);
+      return gen.LongIntegerOtherThan(others);
     }
 
     public static ulong UnsignedLongInteger()
     {
-      return Generate.UnsignedLongInteger();
+      return gen.UnsignedLongInteger();
     }
 
     public static ulong UnsignedLongIntegerOtherThan(params ulong[] others)
     {
-      return Generate.UnsignedLongIntegerOtherThan(others);
+      return gen.UnsignedLongIntegerOtherThan(others);
     }
 
     public static int IntegerOtherThan(params int[] others)
     {
-      return Generate.IntegerOtherThan(others);
+      return gen.IntegerOtherThan(others);
     }
 
     public static byte Byte()
     {
-      return Generate.Byte();
+      return gen.Byte();
     }
 
     public static byte ByteOtherThan(params byte[] others)
     {
-      return Generate.ByteOtherThan(others);
+      return gen.ByteOtherThan(others);
     }
 
     public static decimal Decimal()
     {
-      return Generate.Decimal();
+      return gen.Decimal();
     }
 
     public static decimal DecimalOtherThan(params decimal[] others)
     {
-      return Generate.DecimalOtherThan(others);
+      return gen.DecimalOtherThan(others);
     }
 
     public static uint UnsignedInt()
     {
-      return Generate.UnsignedInt();
+      return gen.UnsignedInt();
     }
 
     public static uint UnsignedIntOtherThan(params uint[] others)
     {
-      return Generate.UnsignedIntOtherThan(others);
+      return gen.UnsignedIntOtherThan(others);
     }
 
     public static ushort UnsignedShort()
     {
-      return Generate.UnsignedShort();
+      return gen.UnsignedShort();
     }
 
     public static ushort UnsignedShortOtherThan(params ushort[] others)
     {
-      return Generate.UnsignedShortOtherThan(others);
+      return gen.UnsignedShortOtherThan(others);
     }
 
     public static short ShortInteger()
     {
-      return Generate.ShortInteger();
+      return gen.ShortInteger();
     }
 
     public static short ShortIntegerOtherThan(params short[] others)
     {
-      return Generate.ShortIntegerOtherThan(others);
+      return gen.ShortIntegerOtherThan(others);
     }
 
     public static byte Digit()
     {
-      return Generate.Digit();
+      return gen.Digit();
     }
 
     public static int IntegerFromSequence(int startingValue = 0, int step = 1)
     {
-      return Generate.IntegerFromSequence(startingValue, step);
+      return gen.IntegerFromSequence(startingValue, step);
     }
 
     public static byte Octet()
     {
-      return Generate.Octet();
+      return gen.Octet();
     }
 
     public static int IntegerDivisibleBy(int quotient)
     {
-      return Generate.IntegerDivisibleBy(quotient);
+      return gen.IntegerDivisibleBy(quotient);
     }
 
     public static int IntegerNotDivisibleBy(int quotient)
     {
-      return Generate.IntegerNotDivisibleBy(quotient);
+      return gen.IntegerNotDivisibleBy(quotient);
     }
 
     public static int IntegerWithExactDigitsCount(int digitsCount)
     {
-      return Generate.IntegerWithExactDigitsCount(digitsCount);
+      return gen.IntegerWithExactDigitsCount(digitsCount);
     }
 
     public static long LongIntegerWithExactDigitsCount(int digitsCount)
     {
-      return Generate.LongIntegerWithExactDigitsCount(digitsCount);
+      return gen.LongIntegerWithExactDigitsCount(digitsCount);
     }
 
     public static uint UnsignedIntegerWithExactDigitsCount(int digitsCount)
     {
-      return Generate.UnsignedIntegerWithExactDigitsCount(digitsCount);
+      return gen.UnsignedIntegerWithExactDigitsCount(digitsCount);
     }
 
     public static ulong UnsignedLongIntegerWithExactDigitsCount(int digitsCount)
     {
-      return Generate.UnsignedLongIntegerWithExactDigitsCount(digitsCount);
+      return gen.UnsignedLongIntegerWithExactDigitsCount(digitsCount);
     }
 
     public static byte PositiveDigit()
     {
-      return Generate.PositiveDigit();
+      return gen.PositiveDigit();
     }
 
   }

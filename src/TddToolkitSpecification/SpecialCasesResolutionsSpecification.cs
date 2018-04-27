@@ -1,6 +1,6 @@
-﻿using NUnit.Framework;
+﻿using Generators;
+using NUnit.Framework;
 using TddEbook.TddToolkit;
-using TddEbook.TddToolkit.Generators;
 using TddEbook.TddToolkit.TypeResolution.FakeChainElements;
 using TddEbook.TddToolkitSpecification.Fixtures;
 using TddEbook.TypeReflection;
@@ -13,7 +13,7 @@ namespace TddEbook.TddToolkitSpecification
     public void ShouldCreateResolutionCapableOfGeneratingArrays()
     {
       //GIVEN
-      var resolution = new SpecialCasesOfResolutions<RecursiveInterface[]>(new CollectionGenerator(new GenericMethodProxyCalls())).CreateResolutionOfArray();
+      var resolution = new SpecialCasesOfResolutions<RecursiveInterface[]>(new CollectionGenerator()).CreateResolutionOfArray();
       
       //WHEN
 

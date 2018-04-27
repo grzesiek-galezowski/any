@@ -6,4 +6,8 @@
     <RootNamespace>AnyCore</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\TddToolkit\TddToolkit.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -8,13 +8,13 @@ using System.Net;
 using System.Reflection;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text.RegularExpressions;
+using AnyCore;
 using FluentAssertions;
 using NUnit.Framework;
-using TddEbook.TddToolkit;
 using TddEbook.TddToolkit.CommonTypes;
 using TddEbook.TddToolkit.ImplementationDetails;
 using TddEbook.TddToolkitSpecification.Fixtures;
-using Type = System.Type;
+using static AnyCore.Core;
 
 // ReSharper disable PublicConstructorInAbstractClass
 

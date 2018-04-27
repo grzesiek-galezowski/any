@@ -11,7 +11,7 @@ namespace TddEbook.TddToolkit.Generators
       return ResultOfGenericVersionOfMethod(instance, genericArgumentType, name, new object[]{});
     }
 
-    public object ResultOfGenericVersionOfMethod<T>(T instance, Type genericArgumentType, string name, object[] parameters)
+    public object ResultOfGenericVersionOfMethod<T>(T instance, Type genericArgumentType, string name, params object[] parameters)
     {
       var method = FindEmptyGenericsInstanceMethod<T>(name, parameters.Length);
 
@@ -21,14 +21,19 @@ namespace TddEbook.TddToolkit.Generators
 
     }
 
-    public static Func<MethodInfo, bool> ParameterlessGenericVersion()
+    public object ResultOfGenericVersionOfStaticMethod<T>(Type genericArgumentType, string name)
     {
-      return m => !m.GetParameters().Any() && m.IsGenericMethodDefinition;
+      return ResultOfGenericVersionOfStaticMethod<T>(genericArgumentType, name, Array.Empty<object>());
     }
 
-    public static Func<MethodInfo, bool> NameIs(string name)
+    private object ResultOfGenericVersionOfStaticMethod<T>(Type genericArgumentType, string name, params object[] parameters)
     {
-      return m => m.Name == name;
+      var method = FindEmptyGenericsStaticMethod<T>(name, parameters.Length);
+
+      var genericMethod = method.MakeGenericMethod(genericArgumentType);
+
+      return genericMethod.Invoke(null, parameters);
+
     }
 
     public object ResultOfGenericVersionOfMethod<T>(
@@ -38,7 +43,7 @@ namespace TddEbook.TddToolkit.Generators
     }
 
     public object ResultOfGenericVersionOfMethod<T>(
-      T instance, Type type1, Type type2, string name, object[] parameters)
+      T instance, Type type1, Type type2, string name, params object[] parameters)
     {
       var method = FindEmptyGenericsInstanceMethod<T>(name, parameters.Length);
 
@@ -47,12 +52,43 @@ namespace TddEbook.TddToolkit.Generators
       return genericMethod.Invoke(instance, parameters);
     }
 
+    public object ResultOfGenericVersionOfStaticMethod<T>(
+      Type type1, Type type2, string name)
+    {
+      return ResultOfGenericVersionOfStaticMethod<T>(type1, type2, name, new object[] { });
+    }
+
+    public object ResultOfGenericVersionOfStaticMethod<T>(
+      Type type1, Type type2, string name, params object[] parameters)
+    {
+      var method = FindEmptyGenericsStaticMethod<T>(name, parameters.Length);
+
+      var genericMethod = method.MakeGenericMethod(type1, type2);
+
+      return genericMethod.Invoke(null, parameters);
+    }
+
 
     public MethodInfo FindEmptyGenericsInstanceMethod<T>(
       string name, int parametersLength)
     {
+      return FindEmptyGenericsMethod<T>(name, parametersLength, 
+        BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
+    }
+
+
+    public MethodInfo FindEmptyGenericsStaticMethod<T>(
+      string name, int parametersLength)
+    {
+      return FindEmptyGenericsMethod<T>(name, parametersLength,
+        BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static);
+    }
+
+    private static MethodInfo FindEmptyGenericsMethod<T>(string name, int parametersLength,
+      BindingFlags bindingFlags)
+    {
       var methods = typeof(T).GetMethods(
-          BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance)
+          bindingFlags)
         .Where(m => m.IsGenericMethodDefinition)
         .Where(m => m.GetParameters().Length == parametersLength);
       var method = methods.First(m => m.Name == name);

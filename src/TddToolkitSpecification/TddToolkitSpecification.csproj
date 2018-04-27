@@ -113,6 +113,10 @@
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Any\Any.csproj">
+      <Project>{ed584c2b-a8d6-4346-a3e9-5565e1f879b3}</Project>
+      <Name>Any</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CommonTypes\CommonTypes.csproj">
       <Project>{4E2950F4-5A36-44F6-A402-26BB7ED15B88}</Project>
       <Name>CommonTypes</Name>

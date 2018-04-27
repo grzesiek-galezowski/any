@@ -1,20 +1,20 @@
-﻿namespace AnyCore
+﻿using TddEbook.TddToolkit.Generators;
+using TddEbook.TddToolkit.Subgenerators;
+
+namespace AnyCore
 {
   public class Core
   {
-    public static OmniGenerator Any { get; } = new OmniGenerator();
+    public static MyGenerator Any { get; } = new MyGenerator(AllGeneratorFactory.Create()); //todo refactor
   }
 
-  public static class AnyExtentions
+  public class MyGenerator
   {
-    public static int Integer(this OmniGenerator generator)
+    internal AllGenerator AllGenerator;
+
+    public MyGenerator(AllGenerator allGenerator)
     {
-      return 213;
+      this.AllGenerator = allGenerator;
     }
-  }
-
-
-  public class OmniGenerator
-  {
   }
 }

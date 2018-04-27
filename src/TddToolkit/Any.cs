@@ -12,86 +12,86 @@ namespace TddEbook.TddToolkit
 {
   public partial class Any
   {
-    private static readonly AllGenerator Generate = AllGeneratorFactory.Create();
+    private static readonly AllGenerator gen = AllGeneratorFactory.Create();
 
     public static IPAddress IpAddress()
     {
-      return Generate.IpAddress();
+      return gen.IpAddress();
     }
 
     public static T ValueOtherThan<T>(params T[] omittedValues)
     {
-      return Generate.ValueOtherThan(omittedValues);
+      return gen.ValueOtherThan(omittedValues);
     }
 
     public static T From<T>(params T[] possibleValues)
     {
-      return Generate.From(possibleValues);
+      return gen.From(possibleValues);
     }
 
     public static DateTime DateTime()
     {
-      return Generate.DateTime();
+      return gen.DateTime();
     }
 
     public static TimeSpan TimeSpan()
     {
-      return Generate.TimeSpan();
+      return gen.TimeSpan();
     }
 
     public static T ValueOf<T>()
     {
-      return Generate.ValueOf<T>();
+      return gen.ValueOf<T>();
     }
 
     public static IEnumerable<T> EmptyEnumerableOf<T>()
     {
-      return Generate.EmptyEnumerableOf<T>();
+      return gen.EmptyEnumerableOf<T>();
     }
 
     public static string LegalXmlTagName()
     {
-      return Generate.LegalXmlTagName();
+      return gen.LegalXmlTagName();
     }
 
     public static bool Boolean()
     {
-      return Generate.Boolean();
+      return gen.Boolean();
     }
 
     public static object Object()
     {
-      return Generate.Object();
+      return gen.Object();
     }
 
     public static T Exploding<T>() where T : class
     {
-      return Generate.Exploding<T>();
+      return gen.Exploding<T>();
     }
 
     public static MethodInfo Method()
     {
-      return Generate.Method();
+      return gen.Method();
     }
 
     public static Type Type()
     {
-      return Generate.Type();
+      return gen.Type();
     }
 
     public static T InstanceOf<T>()
     {
-      return Generate.InstanceOf<T>();
+      return gen.InstanceOf<T>();
     }
 
     public static T Instance<T>()
     {
-      return Generate.Instance<T>();
+      return gen.Instance<T>();
     }
 
     public static T Dummy<T>()
     {
-      return Generate.Dummy<T>();
+      return gen.Dummy<T>();
     }
 
 #pragma warning disable CC0068 // Unused Method
@@ -99,138 +99,138 @@ namespace TddEbook.TddToolkit
     [SuppressMessage("ReSharper", "UnusedMember.Local")]
     private static T InstanceOtherThanObjects<T>(params object[] omittedValues)
     {
-      return Generate.InstanceOtherThanObjects<T>(omittedValues);
+      return gen.InstanceOtherThanObjects<T>(omittedValues);
     }
 #pragma warning restore S1144 // Unused private types or members should be removed
 #pragma warning restore CC0068 // Unused Method
 
     public static T SubstituteOf<T>() where T : class
     {
-      return Generate.SubstituteOf<T>();
+      return gen.SubstituteOf<T>();
     }
 
     public static T OtherThan<T>(params T[] omittedValues)
     {
-      return Generate.OtherThan(omittedValues);
+      return gen.OtherThan(omittedValues);
     }
 
     public static Uri Uri()
     {
-      return Generate.Uri();
+      return gen.Uri();
     }
 
     public static Guid Guid()
     {
-      return Generate.Guid();
+      return gen.Guid();
     }
 
     public static string UrlString()
     {
-      return Generate.UrlString();
+      return gen.UrlString();
     }
 
     public static Exception Exception()
     {
-      return Generate.Exception();
+      return gen.Exception();
     }
 
     public static int Port()
     {
-      return Generate.Port();
+      return gen.Port();
     }
 
     public static string Ip()
     {
-      return Generate.Ip();
+      return gen.Ip();
     }
 
     public static object Instance(Type type)
     {
-      return Generate.Instance(type);
+      return gen.Instance(type);
     }
 
     public static IEnumerable<T> EnumerableWith<T>(IEnumerable<T> included)
     {
-      return Generate.EnumerableWith(included);
+      return gen.EnumerableWith(included);
     }
 
     public static Task NotStartedTask()
     {
-      return Generate.NotStartedTask();
+      return gen.NotStartedTask();
     }
 
     public static Task<T> NotStartedTask<T>()
     {
-      return Generate.NotStartedTask<T>();
+      return gen.NotStartedTask<T>();
     }
 
 
     public static Task<T> StartedTask<T>()
     {
-      return Generate.StartedTask<T>();
+      return gen.StartedTask<T>();
     }
 
     public static Func<T> Func<T>()
     {
-      return Generate.Func<T>();
+      return gen.Func<T>();
     }
     public static Func<T1, T2> Func<T1, T2>()
     {
-      return Generate.Func<T1, T2>();
+      return gen.Func<T1, T2>();
     }
 
     public static Func<T1, T2, T3> Func<T1, T2, T3>()
     {
-      return Generate.Func<T1, T2, T3>();
+      return gen.Func<T1, T2, T3>();
     }
 
     public static Func<T1, T2, T3, T4> Func<T1, T2, T3, T4>()
     {
-      return Generate.Func<T1, T2, T3, T4>();
+      return gen.Func<T1, T2, T3, T4>();
     }
 
     public static Func<T1, T2, T3, T4, T5> Func<T1, T2, T3, T4, T5>()
     {
-      return Generate.Func<T1, T2, T3, T4, T5>();
+      return gen.Func<T1, T2, T3, T4, T5>();
     }
 
     public static Func<T1, T2, T3, T4, T5, T6> Func<T1, T2, T3, T4, T5, T6>()
     {
-      return Generate.Func<T1, T2, T3, T4, T5, T6>();
+      return gen.Func<T1, T2, T3, T4, T5, T6>();
     }
 
     public static Action Action()
     {
-      return Generate.Action();
+      return gen.Action();
     }
 
     public static Action<T> Action<T>()
     {
-      return Generate.Action<T>();
+      return gen.Action<T>();
     }
     public static Action<T1, T2> Action<T1, T2>()
     {
-      return Generate.Action<T1, T2>();
+      return gen.Action<T1, T2>();
     }
 
     public static Action<T1, T2, T3> Action<T1, T2, T3>()
     {
-      return Generate.Action<T1, T2, T3>();
+      return gen.Action<T1, T2, T3>();
     }
 
     public static Action<T1, T2, T3, T4> Action<T1, T2, T3, T4>()
     {
-      return Generate.Action<T1, T2, T3, T4>();
+      return gen.Action<T1, T2, T3, T4>();
     }
 
     public static Action<T1, T2, T3, T4, T5> Action<T1, T2, T3, T4, T5>()
     {
-      return Generate.Action<T1, T2, T3, T4, T5>();
+      return gen.Action<T1, T2, T3, T4, T5>();
     }
 
     public static Action<T1, T2, T3, T4, T5, T6> Action<T1, T2, T3, T4, T5, T6>()
     {
-      return Generate.Action<T1, T2, T3, T4, T5, T6>();
+      return gen.Action<T1, T2, T3, T4, T5, T6>();
     }
   }
 
