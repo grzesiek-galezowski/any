@@ -12,6 +12,7 @@ using AnyCore;
 using FluentAssertions;
 using NUnit.Framework;
 using TddEbook.TddToolkit.CommonTypes;
+using TddEbook.TddToolkit.Generators;
 using TddEbook.TddToolkit.ImplementationDetails;
 using TddEbook.TddToolkitSpecification.Fixtures;
 using static AnyCore.Core;

@@ -11,9 +11,9 @@ namespace TddEbook.TddToolkit.ImplementationDetails
     private readonly FallbackTypeGenerator _fallbackTypeGenerator;
     private List<object> _constructorArguments;
     private readonly Type _type;
-    private readonly IInstanceGenerator _generator;
+    private readonly InstanceGenerator _generator;
 
-    public ValueObjectActivator(FallbackTypeGenerator fallbackTypeGenerator, Type type, IInstanceGenerator generator)
+    public ValueObjectActivator(FallbackTypeGenerator fallbackTypeGenerator, Type type, InstanceGenerator generator)
     {
       _fallbackTypeGenerator = fallbackTypeGenerator;
       _type = type;
@@ -31,7 +31,7 @@ namespace TddEbook.TddToolkit.ImplementationDetails
       return _fallbackTypeGenerator.GenerateInstance(_constructorArguments.ToArray());
     }
 
-    public static ValueObjectActivator FreshInstance(Type type, IInstanceGenerator generator)
+    public static ValueObjectActivator FreshInstance(Type type, InstanceGenerator generator)
     {
       return new ValueObjectActivator(new FallbackTypeGenerator(type), type, generator);
     }

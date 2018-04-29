@@ -4,7 +4,7 @@ namespace TddEbook.TddToolkit.TypeResolution.FakeChainElements
 {
   public interface IFakeChain<out T>
   {
-    T Resolve(IInstanceGenerator instanceGenerator);
+    T Resolve(InstanceGenerator instanceGenerator);
   }
 
   public class FakeChain<T> : IFakeChain<T>
@@ -18,7 +18,7 @@ namespace TddEbook.TddToolkit.TypeResolution.FakeChainElements
       _chainHead = chainHead;
     }
 
-    public T Resolve(IInstanceGenerator instanceGenerator)
+    public T Resolve(InstanceGenerator instanceGenerator)
     {
       return _chainHead.Resolve(instanceGenerator);
     }

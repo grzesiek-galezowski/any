@@ -2,7 +2,7 @@
 
 namespace TddEbook.TypeReflection
 {
-  public interface IInstanceGenerator
+  public interface InstanceGenerator
   {
     T InstanceOf<T>();
     T Instance<T>();

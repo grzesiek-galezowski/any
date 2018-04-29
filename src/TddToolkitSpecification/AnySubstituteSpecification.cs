@@ -1,8 +1,9 @@
+using AnyCore;
 using NSubstitute;
 using NUnit.Framework;
-using TddEbook.TddToolkit;
 using TddEbook.TddToolkitSpecification.Fixtures;
 using TddToolkitSpecification.Fixtures;
+using static AnyCore.Core;
 
 namespace TddEbook.TddToolkitSpecification
 {

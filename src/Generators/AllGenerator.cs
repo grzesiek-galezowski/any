@@ -7,12 +7,11 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Generators;
 using TddEbook.TddToolkit.CommonTypes;
-using TddEbook.TddToolkit.TypeResolution.CustomCollections;
 using TddEbook.TypeReflection;
 
 namespace TddEbook.TddToolkit.Generators
 {
-  public class AllGenerator : OmniGenerator
+  public class AllGenerator : InstanceGenerator
   {
     public AllGenerator(
       ValueGenerator valueGenerator, 
@@ -22,7 +21,6 @@ namespace TddEbook.TddToolkit.Generators
       EmptyCollectionGenerator emptyCollectionGenerator, 
       NumericGenerator numericGenerator, 
       ProxyBasedGenerator genericGenerator, 
-      CollectionGenerator collectionGenerator, 
       InvokableGenerator invokableGenerator)
     {
       _valueGenerator = valueGenerator;
@@ -32,16 +30,13 @@ namespace TddEbook.TddToolkit.Generators
       _emptyCollectionGenerator = emptyCollectionGenerator;
       _numericGenerator = numericGenerator;
       _genericGenerator = genericGenerator;
-      _collectionGenerator = collectionGenerator;
       _invokableGenerator = invokableGenerator;
     }
 
     public const int Many = 3;
-    private readonly ArrayElementPicking _arrayElementPicking = new ArrayElementPicking();
 
     private readonly Random _randomGenerator = new Random(System.Guid.NewGuid().GetHashCode());
     private readonly StringGenerator _stringGenerator;
-    private readonly CollectionGenerator _collectionGenerator;
     private readonly ValueGenerator _valueGenerator;
     private readonly EmptyCollectionGenerator _emptyCollectionGenerator;
     private readonly CharGenerator _charGenerator;
@@ -62,15 +57,8 @@ namespace TddEbook.TddToolkit.Generators
 
     public T From<T>(params T[] possibleValues)
     {
-      var latestArraysWithPossibleValues = _arrayElementPicking.For<T>();
-
-      if (!latestArraysWithPossibleValues.Contain(possibleValues))
-      {
-        latestArraysWithPossibleValues.Add(possibleValues);
-      }
-
-      var result = latestArraysWithPossibleValues.PickNextElementFrom(possibleValues);
-      return result;
+      return InlineGenerators.From(possibleValues)
+        .GenerateInstance(_genericGenerator);
     }
 
     public DateTime DateTime()
@@ -279,6 +267,9 @@ namespace TddEbook.TddToolkit.Generators
       return ValueOf<T>();
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     /// <typeparam name="T">MUST BE AN ENUM. FOR NORMAL VALUES, USE AllGenerator.OtherThan()</typeparam>
     /// <param name="excludedValues"></param>
     /// <returns></returns>
@@ -288,85 +279,9 @@ namespace TddEbook.TddToolkit.Generators
       return ValueOtherThan(excludedValues);
     }
 
-    public IEnumerable<T> Enumerable<T>()
-    {
-      return InlineGenerators.Enumerable<T>().GenerateInstance(_genericGenerator);
-    }
-
-    public IEnumerable<T> Enumerable<T>(int length)
-    {
-      return InlineGenerators.Enumerable<T>(length).GenerateInstance(_genericGenerator);
-    }
-
-    public IEnumerable<T> EnumerableWithout<T>(params T[] excluded)
-    {
-      return InlineGenerators.EnumerableWithout(excluded).GenerateInstance(_genericGenerator);
-    }
-
-    public T[] Array<T>()
-    {
-      return InlineGenerators.Array<T>(Many).GenerateInstance(_genericGenerator);
-    }
-
-    public T[] Array<T>(int length)
-    {
-      return InlineGenerators.Array<T>(length).GenerateInstance(_genericGenerator);
-    }
-
-    public T[] ArrayWithout<T>(params T[] excluded)
-    {
-      return InlineGenerators.ArrayWithout(excluded)
-        .GenerateInstance(_genericGenerator);
-    }
-
-    public T[] ArrayWith<T>(params T[] included)
-    {
-      return InlineGenerators.ArrayWith(included).GenerateInstance(_genericGenerator);
-    }
-
-    public T[] ArrayWithout<T>(IEnumerable<T> excluded)
-    {
-      return InlineGenerators.ArrayWithout(excluded.ToArray()).GenerateInstance(_genericGenerator);
-    }
-
-    public T[] ArrayWith<T>(IEnumerable<T> included)
-    {
-      return InlineGenerators.ArrayWith(included.ToArray()).GenerateInstance(_genericGenerator);
-    }
-
-    public List<T> List<T>()
-    {
-      return InlineGenerators.List<T>(AllGenerator.Many).GenerateInstance(_genericGenerator);
-    }
-
-    public List<T> List<T>(int length)
-    {
-      return InlineGenerators.List<T>(length).GenerateInstance(_genericGenerator);
-    }
-
-    public List<T> ListWithout<T>(params T[] excluded)
-    {
-      return InlineGenerators.ListWithout(excluded).GenerateInstance(_genericGenerator);
-    }
-
-    public List<T> ListWith<T>(params T[] included)
-    {
-      return InlineGenerators.ListWith(included).GenerateInstance(_genericGenerator);
-    }
-
-    public List<T> ListWithout<T>(IEnumerable<T> excluded)
-    {
-      return InlineGenerators.ListWithout(excluded.ToArray()).GenerateInstance(_genericGenerator);
-    }
-
-    public List<T> ListWith<T>(IEnumerable<T> included)
-    {
-      return InlineGenerators.ListWith(included.ToArray()).GenerateInstance(_genericGenerator);
-    }
-
     public IReadOnlyList<T> ReadOnlyList<T>()
     {
-      return InlineGenerators.List<T>(AllGenerator.Many).GenerateInstance(_genericGenerator);
+      return InlineGenerators.List<T>().GenerateInstance(_genericGenerator);
     }
 
     public IReadOnlyList<T> ReadOnlyList<T>(int length)
@@ -396,7 +311,7 @@ namespace TddEbook.TddToolkit.Generators
 
     public SortedList<TKey, TValue> SortedList<TKey, TValue>()
     {
-      return InlineGenerators.SortedList<TKey, TValue>(AllGenerator.Many).GenerateInstance(_genericGenerator);
+      return InlineGenerators.SortedList<TKey, TValue>().GenerateInstance(_genericGenerator);
     }
 
     public SortedList<TKey, TValue> SortedList<TKey, TValue>(int length)
@@ -421,7 +336,7 @@ namespace TddEbook.TddToolkit.Generators
 
     public ISet<T> SortedSet<T>()
     {
-      return InlineGenerators.SortedSet<T>(AllGenerator.Many).GenerateInstance(_genericGenerator);
+      return InlineGenerators.SortedSet<T>().GenerateInstance(_genericGenerator);
     }
 
     public Dictionary<TKey, TValue> Dictionary<TKey, TValue>(int length)
@@ -429,14 +344,14 @@ namespace TddEbook.TddToolkit.Generators
       return InlineGenerators.Dictionary<TKey, TValue>(length).GenerateInstance(_genericGenerator);
     }
 
-    public Dictionary<T, U> DictionaryWithKeys<T, U>(IEnumerable<T> keys)
+    public Dictionary<TKey, TValue> DictionaryWithKeys<TKey, TValue>(IEnumerable<TKey> keys)
     {
-      return _collectionGenerator.DictionaryWithKeys<T, U>(keys, _genericGenerator);
+      return new DictionaryWithKeysGenerator<TKey, TValue>(keys).GenerateInstance(_genericGenerator);
     }
 
     public Dictionary<TKey, TValue> Dictionary<TKey, TValue>()
     {
-      return InlineGenerators.Dictionary<TKey, TValue>(AllGenerator.Many).GenerateInstance(_genericGenerator);
+      return InlineGenerators.Dictionary<TKey, TValue>().GenerateInstance(_genericGenerator);
     }
 
     public IReadOnlyDictionary<TKey, TValue> ReadOnlyDictionary<TKey, TValue>(int length)
@@ -444,14 +359,14 @@ namespace TddEbook.TddToolkit.Generators
       return InlineGenerators.Dictionary<TKey, TValue>(length).GenerateInstance(_genericGenerator);
     }
 
-    public IReadOnlyDictionary<T, U> ReadOnlyDictionaryWithKeys<T, U>(IEnumerable<T> keys)
+    public IReadOnlyDictionary<TKey, TValue> ReadOnlyDictionaryWithKeys<TKey, TValue>(IEnumerable<TKey> keys)
     {
-      return _collectionGenerator.DictionaryWithKeys<T, U>(keys, _genericGenerator);
+      return InlineGenerators.DictionaryWithKeys2<TKey, TValue>(keys).GenerateInstance(_genericGenerator);
     }
 
     public IReadOnlyDictionary<TKey, TValue> ReadOnlyDictionary<TKey, TValue>()
     {
-      return InlineGenerators.Dictionary<TKey, TValue>(AllGenerator.Many).GenerateInstance(_genericGenerator);
+      return InlineGenerators.Dictionary<TKey, TValue>().GenerateInstance(_genericGenerator);
     }
 
     public SortedDictionary<TKey, TValue> SortedDictionary<TKey, TValue>(int length)
@@ -461,7 +376,7 @@ namespace TddEbook.TddToolkit.Generators
 
     public SortedDictionary<TKey, TValue> SortedDictionary<TKey, TValue>()
     {
-      return InlineGenerators.SortedDictionary<TKey, TValue>(AllGenerator.Many)
+      return InlineGenerators.SortedDictionary<TKey, TValue>()
         .GenerateInstance(_genericGenerator);
     }
 
@@ -472,12 +387,12 @@ namespace TddEbook.TddToolkit.Generators
 
     public ConcurrentDictionary<TKey, TValue> ConcurrentDictionary<TKey, TValue>()
     {
-      return InlineGenerators.ConcurrentDictionary<TKey, TValue>(AllGenerator.Many).GenerateInstance(_genericGenerator);
+      return InlineGenerators.ConcurrentDictionary<TKey, TValue>().GenerateInstance(_genericGenerator);
     }
 
     public ConcurrentStack<T> ConcurrentStack<T>()
     {
-      return InlineGenerators.ConcurrentStack<T>(AllGenerator.Many).GenerateInstance(_genericGenerator);
+      return InlineGenerators.ConcurrentStack<T>().GenerateInstance(_genericGenerator);
     }
 
     public ConcurrentStack<T> ConcurrentStack<T>(int length)
@@ -487,7 +402,7 @@ namespace TddEbook.TddToolkit.Generators
 
     public ConcurrentQueue<T> ConcurrentQueue<T>()
     {
-      return InlineGenerators.ConcurrentQueue<T>(AllGenerator.Many).GenerateInstance(_genericGenerator);
+      return InlineGenerators.ConcurrentQueue<T>().GenerateInstance(_genericGenerator);
     }
 
     public ConcurrentQueue<T> ConcurrentQueue<T>(int length)
@@ -497,7 +412,7 @@ namespace TddEbook.TddToolkit.Generators
 
     public ConcurrentBag<T> ConcurrentBag<T>()
     {
-      return InlineGenerators.ConcurrentBag<T>(AllGenerator.Many).GenerateInstance(_genericGenerator);
+      return InlineGenerators.ConcurrentBag<T>().GenerateInstance(_genericGenerator);
     }
 
     public ConcurrentBag<T> ConcurrentBag<T>(int length)
@@ -522,57 +437,69 @@ namespace TddEbook.TddToolkit.Generators
 
     public object List(Type type)
     {
-      return _collectionGenerator.List(type, _genericGenerator);
+      return GenerateByNameAndType(nameof(InlineGenerators.List), type);
     }
+
+    private object GenerateByNameAndType(string methodName, Type type)
+    {
+      return InlineGenerators.GetByNameAndType(methodName, type).GenerateInstance(_genericGenerator);
+    }
+
+    private object GenerateByNameAndTypes(string methodName, Type type1, Type type2)
+    {
+      return InlineGenerators.GetByNameAndTypes(methodName, type1, type2)
+        .GenerateInstance(_genericGenerator);
+    }
+
 
     public object Set(Type type)
     {
-      return _collectionGenerator.Set(type, _genericGenerator);
+      return GenerateByNameAndType(nameof(InlineGenerators.Set), type);
     }
 
     public object SortedList(Type keyType, Type valueType)
     {
-      return _collectionGenerator.SortedList(keyType, valueType, _genericGenerator);
+      return GenerateByNameAndTypes(nameof(InlineGenerators.SortedList), keyType, valueType);
     }
 
     public object SortedSet(Type type)
     {
-      return _collectionGenerator.SortedSet(type, _genericGenerator);
+      return GenerateByNameAndType(nameof(InlineGenerators.SortedSet), type);
     }
 
     public object ConcurrentDictionary(Type keyType, Type valueType)
     {
-      return _collectionGenerator.ConcurrentDictionary(keyType, valueType, _genericGenerator);
+      return GenerateByNameAndTypes(nameof(InlineGenerators.ConcurrentDictionary), keyType, valueType);
     }
 
     public object Array(Type type)
     {
-      return _collectionGenerator.Array(type, _genericGenerator);
+      return GenerateByNameAndType(nameof(InlineGenerators.Array), type);
     }
 
     public ICollection<T> AddManyTo<T>(ICollection<T> collection, int many)
     {
-      return _collectionGenerator.AddManyTo(collection, many, _genericGenerator);
+      return CollectionFiller.FillingCollection(collection, many, _genericGenerator);
     }
 
     public object Enumerator(Type type)
     {
-      return _collectionGenerator.Enumerator(type, _genericGenerator);
+      return GenerateByNameAndType(nameof(InlineGenerators.Enumerator), type);
     }
 
     public object ConcurrentStack(Type type)
     {
-      return _collectionGenerator.ConcurrentStack(type, _genericGenerator);
+      return GenerateByNameAndType(nameof(InlineGenerators.ConcurrentStack), type);
     }
 
     public object ConcurrentQueue(Type type)
     {
-      return _collectionGenerator.ConcurrentQueue(type, _genericGenerator);
+      return GenerateByNameAndType(nameof(InlineGenerators.ConcurrentQueue), type);
     }
 
     public object ConcurrentBag(Type type)
     {
-      return _collectionGenerator.ConcurrentBag(type, _genericGenerator);
+      return GenerateByNameAndType(nameof(InlineGenerators.ConcurrentBag), type);
     }
 
     public string String()
@@ -655,8 +582,7 @@ namespace TddEbook.TddToolkit.Generators
       return _stringGenerator.Identifier();
     }
 
-
-    public string NumericString(int digitsCount = AllGenerator.Many)
+    public string NumericString(int digitsCount = Many)
     {
       return _stringGenerator.NumericString(digitsCount);
     }
@@ -824,14 +750,6 @@ namespace TddEbook.TddToolkit.Generators
       return method;
     }
 
-    public object ResultOfGenericVersionOfMethod<T>(Type type1, Type type2, string name)
-    {
-      var method = FindEmptyGenericsMethod<T>(name);
-
-      var genericMethod = method.MakeGenericMethod(type1, type2);
-
-      return genericMethod.Invoke(null, null);
-    }
 
     public char AlphaChar()
     {

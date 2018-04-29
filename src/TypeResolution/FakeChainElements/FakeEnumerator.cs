@@ -14,7 +14,7 @@ namespace TddEbook.TddToolkit.TypeResolution.FakeChainElements
       return TypeOf<T>.Is<IEnumerator>();
     }
 
-    public T Apply(IInstanceGenerator instanceGenerator)
+    public T Apply(InstanceGenerator instanceGenerator)
     {
       return (T)(instanceGenerator.Instance<object[]>().GetEnumerator());
     }

@@ -21,7 +21,6 @@ namespace TddEbook.TddToolkit.Subgenerators
       var methodProxyCalls = new GenericMethodProxyCalls();
       var fixtureConfiguration = new AutoFixtureConfiguration();
       var fixture = fixtureConfiguration.CreateUnconfiguredInstance();
-      var collectionGenerator = new CollectionGenerator();
       var valueGenerator = new ValueGenerator(fixture);
       var charGenerator = new CharGenerator(valueGenerator);
       var specificTypeObjectGenerator = new SpecificTypeObjectGenerator(valueGenerator);
@@ -38,8 +37,7 @@ namespace TddEbook.TddToolkit.Subgenerators
           new CachedReturnValueGeneration(new PerMethodCache<object>()), 
           GlobalNestingLimit.Of(5), 
           proxyGenerator, //TODO get rid of this dependency - its runtime-circular
-          valueGenerator,
-          collectionGenerator));
+          valueGenerator));
       var stringGenerator = new StringGenerator(
         charGenerator, 
         valueGenerator, 
@@ -53,7 +51,6 @@ namespace TddEbook.TddToolkit.Subgenerators
         emptyCollectionGenerator, 
         numericGenerator, 
         proxyBasedGenerator, 
-        collectionGenerator, 
         new InvokableGenerator());
       fixtureConfiguration.ApplyTo(fixture, stringGenerator, numericGenerator);
       return allGenerator;

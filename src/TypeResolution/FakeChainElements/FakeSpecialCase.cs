@@ -4,7 +4,7 @@ using TddEbook.TypeReflection;
 
 namespace TddEbook.TddToolkit.TypeResolution.FakeChainElements
 {
-  internal class FakeSpecialCase<T> : IResolution<T>
+  public class FakeSpecialCase<T> : IResolution<T>
   {
     private readonly IValueGenerator _valueGenerator;
 
@@ -20,7 +20,7 @@ namespace TddEbook.TddToolkit.TypeResolution.FakeChainElements
         typeof(T) == typeof(MethodInfo);
     }
 
-    public T Apply(IInstanceGenerator instanceGenerator)
+    public T Apply(InstanceGenerator instanceGenerator)
     {
       return _valueGenerator.ValueOf<T>();
     }

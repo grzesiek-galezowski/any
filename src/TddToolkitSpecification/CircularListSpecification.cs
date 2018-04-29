@@ -1,6 +1,7 @@
-﻿using NUnit.Framework;
-using TddEbook.TddToolkit;
+﻿using AnyCore;
+using NUnit.Framework;
 using TddEbook.TddToolkit.CommonTypes;
+using static AnyCore.Core;
 
 namespace TddEbook.TddToolkitSpecification
 {
@@ -13,7 +14,7 @@ namespace TddEbook.TddToolkitSpecification
       var element1 = Any.Integer();
       var element2 = Any.Integer();
       var element3 = Any.Integer();
-      var list = CircularList.CreateStartingFrom0(element1, element2, element3);
+      var list = CircularList.StartingFrom0(element1, element2, element3);
 
       //WHEN
       var returnedElement1 = list.Next();
@@ -33,7 +34,7 @@ namespace TddEbook.TddToolkitSpecification
       var element1 = Any.Integer();
       var element2 = Any.Integer();
 
-      var list = CircularList.CreateStartingFrom0(element1, element2);
+      var list = CircularList.StartingFrom0(element1, element2);
 
       //WHEN
       var returnedElement1 = list.Next();

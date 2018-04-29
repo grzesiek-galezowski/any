@@ -5,14 +5,14 @@ namespace TddEbook.TypeReflection
 {
   public class FactoryForInstancesOfGenericTypesWith2Generics : FactoryForInstancesOfGenericTypes
   {
-    private readonly Func<Type, Type, IInstanceGenerator, object> _factoryMethod;
+    private readonly Func<Type, Type, InstanceGenerator, object> _factoryMethod;
 
-    public FactoryForInstancesOfGenericTypesWith2Generics(Func<Type, Type, IInstanceGenerator, object> factoryMethod)
+    public FactoryForInstancesOfGenericTypesWith2Generics(Func<Type, Type, InstanceGenerator, object> factoryMethod)
     {
       _factoryMethod = factoryMethod;
     }
 
-    public object NewInstanceOf(Type type, IInstanceGenerator instanceGenerator)
+    public object NewInstanceOf(Type type, InstanceGenerator instanceGenerator)
     {
       var typeInfo = type.GetTypeInfo();
       var type1 = typeInfo.GetGenericArguments()[0];

@@ -10,11 +10,16 @@ namespace AnyCore
 
   public class MyGenerator
   {
-    internal AllGenerator AllGenerator;
+    internal readonly AllGenerator AllGenerator;
 
     public MyGenerator(AllGenerator allGenerator)
     {
       this.AllGenerator = allGenerator;
+    }
+
+    public T InstanceOf<T>(InlineGenerator<T> gen)
+    {
+      return gen.GenerateInstance(this.AllGenerator);
     }
   }
 }

@@ -4,7 +4,7 @@ using TddEbook.TypeReflection;
 
 namespace TddEbook.TddToolkit.TypeResolution.Interceptors
 {
-  internal class FakeAbstractClass<T> : IResolution<T>
+  public class FakeAbstractClass<T> : IResolution<T>
   {
     private readonly CachedReturnValueGeneration _generation;
     private readonly ProxyGenerator _proxyGenerator;
@@ -24,7 +24,7 @@ namespace TddEbook.TddToolkit.TypeResolution.Interceptors
       return typeof (T).IsAbstract;
     }
 
-    public T Apply(IInstanceGenerator instanceGenerator)
+    public T Apply(InstanceGenerator instanceGenerator)
     {
       var result = (T)(_proxyGenerator.CreateClassProxy(
         typeof(T),

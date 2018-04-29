@@ -19,7 +19,7 @@ namespace Generators
       _conversion = conversion;
     }
 
-    public TResult GenerateInstance(IInstanceGenerator instanceGenerator)
+    public TResult GenerateInstance(InstanceGenerator instanceGenerator)
     {
       return _conversion(_enumerableGenerator.GenerateInstance(instanceGenerator));
     }

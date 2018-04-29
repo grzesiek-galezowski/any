@@ -21,7 +21,7 @@ namespace TddEbook.TddToolkit.TypeResolution.FakeChainElements
     }
 
 
-    public T Apply(IInstanceGenerator instanceGenerator)
+    public T Apply(InstanceGenerator instanceGenerator)
     {
       var collectionType = typeof (T);
       var collectionInstance = Activator.CreateInstance(collectionType);
@@ -45,7 +45,7 @@ namespace TddEbook.TddToolkit.TypeResolution.FakeChainElements
       return (T) collectionInstance;
     }
 
-    private static object[] AnyInstancesOf(IEnumerable<Type> elementTypes, IInstanceGenerator instanceGenerator)
+    private static object[] AnyInstancesOf(IEnumerable<Type> elementTypes, InstanceGenerator instanceGenerator)
     {
       return elementTypes.Select(instanceGenerator.Instance).ToArray();
     }

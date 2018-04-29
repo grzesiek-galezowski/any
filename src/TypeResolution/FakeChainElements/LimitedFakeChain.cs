@@ -4,7 +4,7 @@ using TddEbook.TypeReflection;
 
 namespace TddEbook.TddToolkit.TypeResolution.FakeChainElements
 {
-  class LimitedFakeChain<T> : IFakeChain<T>
+  public class LimitedFakeChain<T> : IFakeChain<T>
   {
     private readonly NestingLimit _perTypeNestingLimit;
     private readonly IFakeChain<T> _fakeChain;
@@ -15,7 +15,7 @@ namespace TddEbook.TddToolkit.TypeResolution.FakeChainElements
       _fakeChain = fakeChain;
     }
 
-    public T Resolve(IInstanceGenerator instanceGenerator)
+    public T Resolve(InstanceGenerator instanceGenerator)
     {
       try
       {

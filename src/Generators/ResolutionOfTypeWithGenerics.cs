@@ -9,7 +9,9 @@ namespace TddEbook.TddToolkit.TypeResolution.FakeChainElements
     private readonly Type[] _matchingTypes;
     private readonly FactoryForInstancesOfGenericTypes _factoryForInstancesOfGenericTypes;
 
-    public ResolutionOfTypeWithGenerics(FactoryForInstancesOfGenericTypes factoryForInstancesOfGenericTypes, params Type[] matchingTypes)
+    public ResolutionOfTypeWithGenerics(
+      FactoryForInstancesOfGenericTypes factoryForInstancesOfGenericTypes, 
+      params Type[] matchingTypes)
     {
       _factoryForInstancesOfGenericTypes = factoryForInstancesOfGenericTypes;
       _matchingTypes = matchingTypes;
@@ -23,7 +25,7 @@ namespace TddEbook.TddToolkit.TypeResolution.FakeChainElements
       return result;
     }
 
-    public T Apply(IInstanceGenerator instanceGenerator)
+    public T Apply(InstanceGenerator instanceGenerator)
     {
       var type = typeof(T);
       return (T)_factoryForInstancesOfGenericTypes.NewInstanceOf(type, instanceGenerator);

@@ -48,7 +48,6 @@ namespace TddEbook.TddToolkit
         () =>
           new IPAddress(new[]
             {numericGenerator.Octet(), numericGenerator.Octet(), numericGenerator.Octet(), numericGenerator.Octet()}));
-      generator.Customize(new MultipleCustomization());
     }
   }
 

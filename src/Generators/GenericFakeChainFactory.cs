@@ -1,4 +1,7 @@
+using System.Collections.Concurrent;
+using System.Collections.Generic;
 using Castle.DynamicProxy;
+using TddEbook.TddToolkit.Generators;
 using TddEbook.TddToolkit.TypeResolution.Interceptors;
 using TddEbook.TddToolkit.TypeResolution.Interfaces;
 
@@ -14,13 +17,13 @@ namespace TddEbook.TddToolkit.TypeResolution.FakeChainElements
     }
 
     public IFakeChain<T> NewInstance(
-      CachedReturnValueGeneration eachMethodReturnsTheSameValueOnEveryCall, 
-      NestingLimit nestingLimit, 
-      ProxyGenerator generationIsDoneUsingProxies, 
+      CachedReturnValueGeneration eachMethodReturnsTheSameValueOnEveryCall,
+      NestingLimit nestingLimit,
+      ProxyGenerator generationIsDoneUsingProxies,
       IValueGenerator valueGenerator)
     {
       return LimitedTo(nestingLimit, UnconstrainedInstance(
-        eachMethodReturnsTheSameValueOnEveryCall, 
+        eachMethodReturnsTheSameValueOnEveryCall,
         generationIsDoneUsingProxies,
         valueGenerator));
     }
@@ -28,26 +31,26 @@ namespace TddEbook.TddToolkit.TypeResolution.FakeChainElements
     public FakeChain<T> UnconstrainedInstance(CachedReturnValueGeneration eachMethodReturnsTheSameValueOnEveryCall, ProxyGenerator generationIsDoneUsingProxies, IValueGenerator valueGenerator)
     {
       return OrderedChainOfGenerationsWithTheFollowingLogic(TryTo(
-        ResolveTheMostSpecificCases(valueGenerator), 
-        ElseTryTo(ResolveAsArray(), 
-          ElseTryTo(ResolveAsSimpleEnumerableAndList(), 
-            ElseTryTo(ResolveAsSimpleSet(), 
-              ElseTryTo(ResolveAsSimpleDictionary(), 
-                ElseTryTo(ResolveAsSortedList(), 
-                  ElseTryTo(ResolveAsSortedSet(), 
-                    ElseTryTo(ResolveAsSortedDictionary(), 
-                      ElseTryTo(ResolveAsConcurrentDictionary(), 
-                        ElseTryTo(ResolveAsConcurrentBag(), 
-                          ElseTryTo(ResolveAsConcurrentQueue(), 
-                            ElseTryTo(ResolveAsConcurrentStack(), 
-                              ElseTryTo(ResolveAsKeyValuePair(), 
-                                ElseTryTo(ResolveAsGenericEnumerator(), 
-                                  ElseTryTo(ResolveAsObjectEnumerator(), 
-                                    ElseTryTo(ResolveAsCollectionWithHeuristics(), 
-                                      ElseTryTo(ResolveAsInterfaceImplementationWhere(eachMethodReturnsTheSameValueOnEveryCall, generationIsDoneUsingProxies), 
-                                        ElseTryTo(ResolveAsAbstractClassImplementationWhere(eachMethodReturnsTheSameValueOnEveryCall, generationIsDoneUsingProxies), 
-                                          ElseTryTo(ResolveAsConcreteTypeWithNonConcreteTypesInConstructorSignature(), 
-                                            ElseTryTo(ResolveAsConcreteClass(valueGenerator), 
+        ResolveTheMostSpecificCases(valueGenerator),
+        ElseTryTo(ResolveAsArray(),
+          ElseTryTo(ResolveAsSimpleEnumerableAndList(),
+            ElseTryTo(ResolveAsSimpleSet(),
+              ElseTryTo(ResolveAsSimpleDictionary(),
+                ElseTryTo(ResolveAsSortedList(),
+                  ElseTryTo(ResolveAsSortedSet(),
+                    ElseTryTo(ResolveAsSortedDictionary(),
+                      ElseTryTo(ResolveAsConcurrentDictionary(),
+                        ElseTryTo(ResolveAsConcurrentBag(),
+                          ElseTryTo(ResolveAsConcurrentQueue(),
+                            ElseTryTo(ResolveAsConcurrentStack(),
+                              ElseTryTo(ResolveAsKeyValuePair(),
+                                ElseTryTo(ResolveAsGenericEnumerator(),
+                                  ElseTryTo(ResolveAsObjectEnumerator(),
+                                    ElseTryTo(ResolveAsCollectionWithHeuristics(),
+                                      ElseTryTo(ResolveAsInterfaceImplementationWhere(eachMethodReturnsTheSameValueOnEveryCall, generationIsDoneUsingProxies),
+                                        ElseTryTo(ResolveAsAbstractClassImplementationWhere(eachMethodReturnsTheSameValueOnEveryCall, generationIsDoneUsingProxies),
+                                          ElseTryTo(ResolveAsConcreteTypeWithNonConcreteTypesInConstructorSignature(),
+                                            ElseTryTo(ResolveAsConcreteClass(valueGenerator),
                                               ElseReportUnsupportedType()
                                             )))))))))))))))))))));
     }
@@ -95,62 +98,94 @@ namespace TddEbook.TddToolkit.TypeResolution.FakeChainElements
 
     private IResolution<T> ResolveAsGenericEnumerator()
     {
-      return _specialCasesOfResolutions.CreateResolutionOfGenericEnumerator();
+      return _specialCasesOfResolutions.CreateResolutionOf1GenericType(
+        nameof(InlineGenerators.Enumerator),
+        typeof(IEnumerator<>)
+      );
     }
 
     private IResolution<T> ResolveAsKeyValuePair()
     {
+      //todo move key value pair to inline generators
       return _specialCasesOfResolutions.CreateResolutionOfKeyValuePair();
     }
 
     private IResolution<T> ResolveAsSortedDictionary()
     {
-      return _specialCasesOfResolutions.CreateResolutionOfSortedDictionary();
+      return _specialCasesOfResolutions.CreateResolutionOf2GenericType(
+        nameof(InlineGenerators.SortedDictionary),
+        typeof(SortedDictionary<,>));
     }
 
     private IResolution<T> ResolveAsConcurrentStack()
     {
-      return _specialCasesOfResolutions.CreateResolutionOfConcurrentStack();
+      return _specialCasesOfResolutions.CreateResolutionOf1GenericType(
+        nameof(InlineGenerators.ConcurrentStack),
+        typeof(ConcurrentStack<>));
     }
 
     private IResolution<T> ResolveAsConcurrentQueue()
     {
-      return _specialCasesOfResolutions.CreateResolutionOfConcurrentQueue();
+      return _specialCasesOfResolutions.CreateResolutionOf1GenericType(
+        nameof(InlineGenerators.ConcurrentQueue),
+        typeof(ConcurrentQueue<>),
+        typeof(IProducerConsumerCollection<>));
     }
 
     private IResolution<T> ResolveAsConcurrentBag()
     {
-      return _specialCasesOfResolutions.CreateResolutionOfConcurrentBag();
+      return _specialCasesOfResolutions.CreateResolutionOf1GenericType(
+        nameof(InlineGenerators.ConcurrentBag),
+        typeof(ConcurrentBag<>));
     }
 
     private IResolution<T> ResolveAsConcurrentDictionary()
     {
-      return _specialCasesOfResolutions.CreateResolutionOfConcurrentDictionary();
+      return _specialCasesOfResolutions.CreateResolutionOf2GenericType(
+        nameof(InlineGenerators.ConcurrentDictionary),
+        typeof(ConcurrentDictionary<,>));
     }
 
     private IResolution<T> ResolveAsSortedSet()
     {
-      return _specialCasesOfResolutions.CreateResolutionOfSortedSet();
+      return _specialCasesOfResolutions.CreateResolutionOf1GenericType(
+        nameof(InlineGenerators.SortedSet),
+        typeof(SortedSet<>));
     }
 
     private IResolution<T> ResolveAsSortedList()
     {
-      return _specialCasesOfResolutions.CreateResolutionOfSortedList();
+      return _specialCasesOfResolutions.CreateResolutionOf2GenericType(
+        nameof(InlineGenerators.SortedList),
+        typeof(SortedList<,>));
     }
 
-    private ResolutionOfTypeWithGenerics<T> ResolveAsSimpleDictionary()
+    private IResolution<T> ResolveAsSimpleDictionary()
     {
-      return _specialCasesOfResolutions.CreateResolutionOfSimpleDictionary();
+      return _specialCasesOfResolutions.CreateResolutionOf2GenericType(
+        nameof(InlineGenerators.Dictionary),
+        typeof(IDictionary<,>),
+        typeof(IReadOnlyDictionary<,>),
+        typeof(Dictionary<,>));
     }
 
-    private ResolutionOfTypeWithGenerics<T> ResolveAsSimpleSet()
+    private IResolution<T> ResolveAsSimpleSet()
     {
-      return _specialCasesOfResolutions.CreateResolutionOfSimpleSet();
+      return _specialCasesOfResolutions.CreateResolutionOf1GenericType(
+        nameof(InlineGenerators.Set),
+        typeof(ISet<>),
+        typeof(HashSet<>));
     }
 
-    private ResolutionOfTypeWithGenerics<T> ResolveAsSimpleEnumerableAndList()
+    private IResolution<T> ResolveAsSimpleEnumerableAndList()
     {
-      return _specialCasesOfResolutions.CreateResolutionOfSimpleIEnumerableAndList();
+      return _specialCasesOfResolutions.CreateResolutionOf1GenericType(
+        nameof(InlineGenerators.List),
+        typeof(IList<>),
+        typeof(IEnumerable<>),
+        typeof(ICollection<>),
+        typeof(List<>),
+        typeof(IReadOnlyList<>));
     }
 
     private static FakeSpecialCase<T> ResolveTheMostSpecificCases(IValueGenerator valueGenerator)

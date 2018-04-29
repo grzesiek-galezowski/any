@@ -6,10 +6,11 @@ namespace Generators
 {
   public class EnumeratorGenerator<T> : InlineGenerator<IEnumerator<T>>
   {
-    public IEnumerator<T> GenerateInstance(IInstanceGenerator instanceGenerator)
+    public IEnumerator<T> GenerateInstance(InstanceGenerator instanceGenerator)
     {
       return new EnumerableGenerator<T>(AllGenerator.Many)
-        .AsList().GenerateInstance(instanceGenerator).GetEnumerator();
+        .AsList<T>().GenerateInstance(instanceGenerator).GetEnumerator();
     }
+    
   }
 }

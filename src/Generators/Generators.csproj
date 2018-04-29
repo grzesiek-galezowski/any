@@ -7,6 +7,10 @@
     <DelaySign>false</DelaySign>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <WarningLevel>2</WarningLevel>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="AutoFixture.SeedExtensions" Version="4.2.1" />
     <PackageReference Include="Castle.Core" Version="4.2.1" />

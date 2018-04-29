@@ -11,7 +11,7 @@ namespace TddEbook.TddToolkit.Generators
       return new Task(() => Task.Delay(1).Wait());
     }
 
-    public Task<T> NotStartedTask<T>(IInstanceGenerator instanceGenerator)
+    public Task<T> NotStartedTask<T>(InstanceGenerator instanceGenerator)
     {
       return new Task<T>(instanceGenerator.Instance<T>);
     }
@@ -21,68 +21,68 @@ namespace TddEbook.TddToolkit.Generators
       return Task.FromResult(genericGenerator.Instance<T>());
     }
 
-    public Func<T> Func<T>(IInstanceGenerator instanceGenerator)
+    public Func<T> Func<T>(InstanceGenerator instanceGenerator)
     {
 
       return instanceGenerator.Instance<Func<T>>();
     }
 
-    public Func<T1, T2> Func<T1, T2>(IInstanceGenerator instanceGenerator)
+    public Func<T1, T2> Func<T1, T2>(InstanceGenerator instanceGenerator)
     {
       return instanceGenerator.Instance<Func<T1, T2>>();
     }
 
-    public Func<T1, T2, T3> Func<T1, T2, T3>(IInstanceGenerator instanceGenerator)
+    public Func<T1, T2, T3> Func<T1, T2, T3>(InstanceGenerator instanceGenerator)
     {
       return instanceGenerator.Instance<Func<T1, T2, T3>>();
     }
 
-    public Func<T1, T2, T3, T4> Func<T1, T2, T3, T4>(IInstanceGenerator instanceGenerator)
+    public Func<T1, T2, T3, T4> Func<T1, T2, T3, T4>(InstanceGenerator instanceGenerator)
     {
       return instanceGenerator.Instance<Func<T1, T2, T3, T4>>();
     }
 
-    public Func<T1, T2, T3, T4, T5> Func<T1, T2, T3, T4, T5>(IInstanceGenerator instanceGenerator)
+    public Func<T1, T2, T3, T4, T5> Func<T1, T2, T3, T4, T5>(InstanceGenerator instanceGenerator)
     {
       return instanceGenerator.Instance<Func<T1, T2, T3, T4, T5>>();
     }
 
-    public Func<T1, T2, T3, T4, T5, T6> Func<T1, T2, T3, T4, T5, T6>(IInstanceGenerator instanceGenerator)
+    public Func<T1, T2, T3, T4, T5, T6> Func<T1, T2, T3, T4, T5, T6>(InstanceGenerator instanceGenerator)
     {
       return instanceGenerator.Instance<Func<T1, T2, T3, T4, T5, T6>>();
     }
 
-    public Action Action(IInstanceGenerator instanceGenerator)
+    public Action Action(InstanceGenerator instanceGenerator)
     {
       return instanceGenerator.Instance<Action>();
     }
 
-    public Action<T> Action<T>(IInstanceGenerator instanceGenerator)
+    public Action<T> Action<T>(InstanceGenerator instanceGenerator)
     {
       return instanceGenerator.Instance<Action<T>>();
     }
 
-    public Action<T1, T2> Action<T1, T2>(IInstanceGenerator instanceGenerator)
+    public Action<T1, T2> Action<T1, T2>(InstanceGenerator instanceGenerator)
     {
       return instanceGenerator.Instance<Action<T1, T2>>();
     }
 
-    public Action<T1, T2, T3> Action<T1, T2, T3>(IInstanceGenerator instanceGenerator)
+    public Action<T1, T2, T3> Action<T1, T2, T3>(InstanceGenerator instanceGenerator)
     {
       return instanceGenerator.Instance<Action<T1, T2, T3>>();
     }
 
-    public Action<T1, T2, T3, T4> Action<T1, T2, T3, T4>(IInstanceGenerator instanceGenerator)
+    public Action<T1, T2, T3, T4> Action<T1, T2, T3, T4>(InstanceGenerator instanceGenerator)
     {
       return instanceGenerator.Instance<Action<T1, T2, T3, T4>>();
     }
 
-    public Action<T1, T2, T3, T4, T5> Action<T1, T2, T3, T4, T5>(IInstanceGenerator instanceGenerator)
+    public Action<T1, T2, T3, T4, T5> Action<T1, T2, T3, T4, T5>(InstanceGenerator instanceGenerator)
     {
       return instanceGenerator.Instance<Action<T1, T2, T3, T4, T5>>();
     }
 
-    public Action<T1, T2, T3, T4, T5, T6> Action<T1, T2, T3, T4, T5, T6>(IInstanceGenerator instanceGenerator)
+    public Action<T1, T2, T3, T4, T5, T6> Action<T1, T2, T3, T4, T5, T6>(InstanceGenerator instanceGenerator)
     {
       return instanceGenerator.Instance<Action<T1, T2, T3, T4, T5, T6>>();
     }

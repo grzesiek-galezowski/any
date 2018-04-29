@@ -2,7 +2,7 @@ using TddEbook.TypeReflection;
 
 namespace TddEbook.TddToolkit.TypeResolution.FakeChainElements
 {
-  internal class FakeConcreteClassWithNonConcreteConstructor<T> : IResolution<T>
+  public class FakeConcreteClassWithNonConcreteConstructor<T> : IResolution<T>
   {
     readonly FallbackTypeGenerator<T> _fallbackTypeGenerator = new FallbackTypeGenerator<T>();
 
@@ -11,7 +11,7 @@ namespace TddEbook.TddToolkit.TypeResolution.FakeChainElements
       return _fallbackTypeGenerator.ConstructorIsInternalOrHasAtLeastOneNonConcreteArgumentType();
     }
 
-    public T Apply(IInstanceGenerator instanceGenerator)
+    public T Apply(InstanceGenerator instanceGenerator)
     {
       return _fallbackTypeGenerator.GenerateInstance(instanceGenerator);
     }

@@ -4,6 +4,6 @@ namespace TddEbook.TypeReflection
 {
   public interface FactoryForInstancesOfGenericTypes
   {
-    object NewInstanceOf(Type type, IInstanceGenerator instanceGenerator);
+    object NewInstanceOf(Type type, InstanceGenerator instanceGenerator);
   }
 }

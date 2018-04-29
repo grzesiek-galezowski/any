@@ -13,7 +13,7 @@ namespace Generators
       _length = length;
     }
 
-    public IEnumerable<T> GenerateInstance(IInstanceGenerator instanceGenerator)
+    public IEnumerable<T> GenerateInstance(InstanceGenerator instanceGenerator)
     {
       //todo create empty collection factory to be able to use object here
       return CollectionFiller.FillingCollection(new List<T>(), _length, instanceGenerator);

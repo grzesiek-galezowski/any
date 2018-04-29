@@ -1,85 +1,88 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
+using TddEbook.TddToolkit.Generators;
 
 namespace AnyCore
 {
-    public static class AnyCollectionExtensions
-    {
+  // ReSharper disable UnusedMember.Global
+
+  public static class AnyCollectionExtensions
+  {
     public static IEnumerable<T> Enumerable<T>(this MyGenerator gen)
     {
-      return gen.AllGenerator.Enumerable<T>();
+      return gen.InstanceOf(InlineGenerators.Enumerable<T>());
     }
 
     public static IEnumerable<T> Enumerable<T>(this MyGenerator gen, int length)
     {
-      return gen.AllGenerator.Enumerable<T>(length);
+      return gen.InstanceOf(InlineGenerators.Enumerable<T>(length));
     }
 
     public static IEnumerable<T> EnumerableWithout<T>(this MyGenerator gen, params T[] excluded)
     {
-      return gen.AllGenerator.EnumerableWithout(excluded);
+      return gen.InstanceOf(InlineGenerators.EnumerableWithout(excluded));
     }
 
     public static T[] Array<T>(this MyGenerator gen)
     {
-      return gen.AllGenerator.Array<T>();
+      return gen.InstanceOf(InlineGenerators.Array<T>());
     }
 
     public static T[] Array<T>(this MyGenerator gen, int length)
     {
-      return gen.AllGenerator.Array<T>(length);
+      return gen.InstanceOf(InlineGenerators.Array<T>(length));
     }
 
     public static T[] ArrayWithout<T>(this MyGenerator gen, params T[] excluded)
     {
-      return gen.AllGenerator.ArrayWithout(excluded);
+      return gen.InstanceOf(InlineGenerators.ArrayWithout(excluded));
     }
 
     public static T[] ArrayWith<T>(this MyGenerator gen, params T[] included)
     {
-      return gen.AllGenerator.ArrayWith(included);
+      return gen.InstanceOf(InlineGenerators.ArrayWith(included));
     }
 
     public static T[] ArrayWithout<T>(this MyGenerator gen, IEnumerable<T> excluded)
     {
-      return gen.AllGenerator.ArrayWithout(excluded);
+      return gen.InstanceOf(InlineGenerators.ArrayWithout(excluded.ToArray()));
     }
 
     public static T[] ArrayWith<T>(this MyGenerator gen, IEnumerable<T> included)
     {
-      return gen.AllGenerator.ArrayWith(included);
+      return gen.InstanceOf(InlineGenerators.ArrayWith(included.ToArray()));
     }
 
     public static List<T> List<T>(this MyGenerator gen)
     {
-      return gen.AllGenerator.List<T>();
+      return gen.InstanceOf(InlineGenerators.List<T>());
     }
 
     public static List<T> List<T>(this MyGenerator gen, int length)
     {
-      return gen.AllGenerator.List<T>(length);
+      return gen.InstanceOf(InlineGenerators.List<T>(length));
     }
 
     public static List<T> ListWithout<T>(this MyGenerator gen, params T[] excluded)
     {
-      return gen.AllGenerator.ListWithout(excluded);
+      return gen.InstanceOf(InlineGenerators.ListWithout(excluded));
     }
 
     public static List<T> ListWith<T>(this MyGenerator gen, params T[] included)
     {
-      return gen.AllGenerator.ListWith(included);
+      return gen.InstanceOf(InlineGenerators.ListWith(included));
     }
 
     public static List<T> ListWithout<T>(this MyGenerator gen, IEnumerable<T> excluded)
     {
-      return gen.AllGenerator.ListWithout(excluded);
+      return gen.InstanceOf(InlineGenerators.ListWithout(excluded.ToArray()));
     }
 
     public static List<T> ListWith<T>(this MyGenerator gen, IEnumerable<T> included)
     {
-      return gen.AllGenerator.ListWith(included);
+      return gen.InstanceOf(InlineGenerators.ListWith(included.ToArray()));
     }
 
     public static IReadOnlyList<T> ReadOnlyList<T>(this MyGenerator gen)
@@ -133,6 +136,7 @@ namespace AnyCore
       return gen.AllGenerator.Set<T>();
     }
 
+    // ReSharper disable once UnusedMember.Global
     public static ISet<T> SortedSet<T>(this MyGenerator gen, int length)
     {
       return gen.AllGenerator.SortedSet<T>(length);
@@ -265,11 +269,6 @@ namespace AnyCore
     public static object Array(this MyGenerator gen, Type type)
     {
       return gen.AllGenerator.Array(type);
-    }
-
-    private static ICollection<T> AddManyTo<T>(this MyGenerator gen, ICollection<T> collection, int many)
-    {
-      return gen.AllGenerator.AddManyTo(collection, many);
     }
 
     public static object Enumerator(this MyGenerator gen, Type type)

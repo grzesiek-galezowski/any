@@ -12,7 +12,7 @@ namespace TddEbook.TddToolkit.Generators
       _included = included;
     }
 
-    public IEnumerable<T> GenerateInstance(IInstanceGenerator instanceGenerator)
+    public IEnumerable<T> GenerateInstance(InstanceGenerator instanceGenerator)
     {
       var list = new List<T>();
       list.Add(instanceGenerator.Instance<T>());

@@ -4,10 +4,10 @@ namespace TddEbook.TddToolkit.TypeResolution.FakeChainElements
 {
   public interface IChainElement<out T>
   {
-    T Resolve(IInstanceGenerator instanceGenerator);
+    T Resolve(InstanceGenerator instanceGenerator);
   }
 
-  class ChainElement<T> : IChainElement<T>
+  public class ChainElement<T> : IChainElement<T>
   {
     private readonly IChainElement<T> _next;
     private readonly IResolution<T> _resolution;
@@ -18,7 +18,7 @@ namespace TddEbook.TddToolkit.TypeResolution.FakeChainElements
       _resolution = resolution;
     }
 
-    public T Resolve(IInstanceGenerator instanceGenerator)
+    public T Resolve(InstanceGenerator instanceGenerator)
     {
       if (_resolution.Applies())
       {

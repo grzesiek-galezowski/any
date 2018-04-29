@@ -13,7 +13,6 @@ namespace TddEbook.TddToolkit.CommonTypes
   public struct Maybe<T> where T : class
   {
     private readonly T _value;
-    private static readonly Maybe<T> _not = new Maybe<T>();
 
     public Maybe(T instance)
       : this()
@@ -25,7 +24,7 @@ namespace TddEbook.TddToolkit.CommonTypes
       }
     }
 
-    public bool HasValue { get; private set; }
+    public bool HasValue { get; }
 
     public T Value()
     {
@@ -39,10 +38,7 @@ namespace TddEbook.TddToolkit.CommonTypes
       }
     }
 
-    public static Maybe<T> Not
-    {
-      get { return _not; }
-    }
+    public static Maybe<T> Not { get; } = new Maybe<T>();
 
     public T ValueOr(T alternativeValue)
     {

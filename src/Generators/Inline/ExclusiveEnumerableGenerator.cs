@@ -12,7 +12,7 @@ namespace TddEbook.TddToolkit.Generators
       _excluded = excluded;
     }
 
-    public IEnumerable<T> GenerateInstance(IInstanceGenerator instanceGenerator)
+    public IEnumerable<T> GenerateInstance(InstanceGenerator instanceGenerator)
     {
       var result = new List<T>
       {
@@ -23,5 +23,6 @@ namespace TddEbook.TddToolkit.Generators
       };
       return result;
     }
+
   }
 }

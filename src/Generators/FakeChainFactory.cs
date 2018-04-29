@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Concurrent;
 using Castle.DynamicProxy;
+using TddEbook.TddToolkit.Generators;
 using TddEbook.TddToolkit.TypeResolution.Interfaces;
 
 namespace TddEbook.TddToolkit.TypeResolution.FakeChainElements
@@ -11,7 +12,6 @@ namespace TddEbook.TddToolkit.TypeResolution.FakeChainElements
     private readonly NestingLimit _nestingLimit;
     private readonly ProxyGenerator _proxyGenerator;
     private readonly IValueGenerator _valueGenerator;
-    private readonly ICollectionGenerator _collectionGenerator;
     private readonly ConcurrentDictionary<Type, object> _constrainedFactoryCache = new ConcurrentDictionary<Type, object>();//new MemoryCache("constrained");
     private readonly ConcurrentDictionary<Type, object> _unconstrainedFactoryCache = new ConcurrentDictionary<Type, object>();//new MemoryCache("constrained");
 
@@ -19,14 +19,12 @@ namespace TddEbook.TddToolkit.TypeResolution.FakeChainElements
       CachedReturnValueGeneration cachedReturnValueGeneration, 
       NestingLimit nestingLimit, 
       ProxyGenerator proxyGenerator, 
-      IValueGenerator valueGenerator, 
-      ICollectionGenerator collectionGenerator)
+      IValueGenerator valueGenerator)
     {
       _cachedReturnValueGeneration = cachedReturnValueGeneration;
       _nestingLimit = nestingLimit;
       _proxyGenerator = proxyGenerator;
       _valueGenerator = valueGenerator;
-      _collectionGenerator = collectionGenerator;
     }
 
     public IFakeChain<T> GetInstance<T>()
@@ -43,8 +41,7 @@ namespace TddEbook.TddToolkit.TypeResolution.FakeChainElements
     private static IFakeChain<T> GetInstanceWithMemoization<T>(Func<IFakeChain<T>> func, ConcurrentDictionary<Type, object> cache)
     {
       var key = typeof(T);
-      object outVal;
-      if(!cache.TryGetValue(key, out outVal))
+      if(!cache.TryGetValue(key, out var outVal))
       {
         var newInstance = func.Invoke();
         cache[key] = newInstance;
@@ -66,7 +63,7 @@ namespace TddEbook.TddToolkit.TypeResolution.FakeChainElements
 
     private SpecialCasesOfResolutions<T> CreateSpecialCasesOfResolutions<T>()
     {
-      return new SpecialCasesOfResolutions<T>(_collectionGenerator);
+      return new SpecialCasesOfResolutions<T>();
     }
 
     public FakeOrdinaryInterface<T> CreateFakeOrdinaryInterfaceGenerator<T>()

@@ -1,9 +1,9 @@
-﻿using Generators;
+﻿using AnyCore;
 using NUnit.Framework;
-using TddEbook.TddToolkit;
-using TddEbook.TddToolkit.TypeResolution.FakeChainElements;
+using TddEbook.TddToolkit.Generators;
 using TddEbook.TddToolkitSpecification.Fixtures;
 using TddEbook.TypeReflection;
+using static AnyCore.Core;
 
 namespace TddEbook.TddToolkitSpecification
 {
@@ -13,14 +13,14 @@ namespace TddEbook.TddToolkitSpecification
     public void ShouldCreateResolutionCapableOfGeneratingArrays()
     {
       //GIVEN
-      var resolution = new SpecialCasesOfResolutions<RecursiveInterface[]>(new CollectionGenerator()).CreateResolutionOfArray();
+      var resolution = new SpecialCasesOfResolutions<RecursiveInterface[]>().CreateResolutionOfArray();
       
       //WHEN
 
       //THEN
       Assert.True(resolution.Applies());
-      Assert.NotNull(resolution.Apply(Any.Instance<IInstanceGenerator>()));
-      Assert.AreEqual(3, resolution.Apply(Any.Instance<IInstanceGenerator>()).Length);
+      Assert.NotNull(resolution.Apply(Any.Instance<InstanceGenerator>()));
+      Assert.AreEqual(3, resolution.Apply(Any.Instance<InstanceGenerator>()).Length);
 
     }
 

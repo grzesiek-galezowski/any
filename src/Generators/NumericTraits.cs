@@ -56,11 +56,6 @@ namespace TddEbook.TddToolkit.Generators
       return _cast.Invoke(bigInteger);
     }
 
-    public static T ConvertValue<T, U>(U value) where U : IConvertible
-    {
-      return (T)Convert.ChangeType(value, typeof(T));
-    }
-
     private static string GetRandomDigits(int digitsCount, Random randomGenerator)
     {
       var str = "";

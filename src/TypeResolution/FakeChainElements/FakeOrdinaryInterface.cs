@@ -20,7 +20,7 @@ namespace TddEbook.TddToolkit.TypeResolution.FakeChainElements
       return typeof (T).IsInterface;
     }
 
-    public T Apply(IInstanceGenerator instanceGenerator)
+    public T Apply(InstanceGenerator instanceGenerator)
     {
       return (T)_proxyGenerator.CreateInterfaceProxyWithoutTarget(
         typeof(T), new InterfaceInterceptor(_cachedGeneration, instanceGenerator.Instance));

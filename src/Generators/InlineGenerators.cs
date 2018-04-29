@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Reflection;
 using Generators;
+using TddEbook.TypeReflection;
 
 namespace TddEbook.TddToolkit.Generators
 {
@@ -73,7 +75,8 @@ namespace TddEbook.TddToolkit.Generators
       return new InclusiveEnumerableGenerator<T>(included).AsList();
     }
 
-    public static ResultConversion<KeyValuePair<TKey, TValue>, SortedList<TKey, TValue>> SortedList<TKey, TValue>(int length)
+    public static ResultConversion<KeyValuePair<TKey, TValue>, SortedList<TKey, TValue>>
+      SortedList<TKey, TValue>(int length)
     {
       return new EnumerableGenerator<KeyValuePair<TKey, TValue>>(length).AsSortedList();
     }
@@ -112,7 +115,8 @@ namespace TddEbook.TddToolkit.Generators
       return new EnumerableGenerator<T>(AllGenerator.Many).AsSortedSet();
     }
 
-    public static ResultConversion<KeyValuePair<TKey, TValue>, Dictionary<TKey, TValue>> Dictionary<TKey, TValue>(int length)
+    public static ResultConversion<KeyValuePair<TKey, TValue>, Dictionary<TKey, TValue>>
+      Dictionary<TKey, TValue>(int length)
     {
       return new EnumerableGenerator<KeyValuePair<TKey, TValue>>(length).AsDictionary();
     }
@@ -120,12 +124,14 @@ namespace TddEbook.TddToolkit.Generators
     // Used by reflection
     // public API
     // ReSharper disable once UnusedMember.Global
-    public static ResultConversion<KeyValuePair<TKey, TValue>, IReadOnlyDictionary<TKey, TValue>> ReadOnlyDictionary<TKey, TValue>()
+    public static ResultConversion<KeyValuePair<TKey, TValue>, IReadOnlyDictionary<TKey, TValue>>
+      ReadOnlyDictionary<TKey, TValue>()
     {
       return new EnumerableGenerator<KeyValuePair<TKey, TValue>>(AllGenerator.Many).AsReadOnlyDictionary();
     }
 
-    public static ResultConversion<KeyValuePair<TKey, TValue>, IReadOnlyDictionary<TKey, TValue>> ReadOnlyDictionary<TKey, TValue>(int length)
+    public static ResultConversion<KeyValuePair<TKey, TValue>, IReadOnlyDictionary<TKey, TValue>>
+      ReadOnlyDictionary<TKey, TValue>(int length)
     {
       return new EnumerableGenerator<KeyValuePair<TKey, TValue>>(length).AsReadOnlyDictionary();
     }
@@ -139,7 +145,8 @@ namespace TddEbook.TddToolkit.Generators
     }
 
 
-    public static ResultConversion<KeyValuePair<TKey, TValue>, ConcurrentDictionary<TKey, TValue>> ConcurrentDictionary<TKey, TValue>(int length)
+    public static ResultConversion<KeyValuePair<TKey, TValue>, ConcurrentDictionary<TKey, TValue>>
+      ConcurrentDictionary<TKey, TValue>(int length)
     {
       return new EnumerableGenerator<KeyValuePair<TKey, TValue>>(length)
         .AsConcurrentDictionary();
@@ -148,7 +155,8 @@ namespace TddEbook.TddToolkit.Generators
     // Used by reflection
     // public API
     // ReSharper disable once UnusedMember.Global
-    public static ResultConversion<KeyValuePair<TKey, TValue>, ConcurrentDictionary<TKey, TValue>> ConcurrentDictionary<TKey, TValue>()
+    public static ResultConversion<KeyValuePair<TKey, TValue>, ConcurrentDictionary<TKey, TValue>>
+      ConcurrentDictionary<TKey, TValue>()
     {
       return new EnumerableGenerator<KeyValuePair<TKey, TValue>>(AllGenerator.Many)
         .AsConcurrentDictionary();
@@ -180,7 +188,8 @@ namespace TddEbook.TddToolkit.Generators
       return new EnumerableGenerator<T>(AllGenerator.Many).AsConcurrentQueue();
     }
 
-    public static ResultConversion<KeyValuePair<TKey, TValue>, SortedDictionary<TKey, TValue>> SortedDictionary<TKey, TValue>(int length)
+    public static ResultConversion<KeyValuePair<TKey, TValue>, SortedDictionary<TKey, TValue>> SortedDictionary<TKey,
+      TValue>(int length)
     {
       return new EnumerableGenerator<KeyValuePair<TKey, TValue>>(length)
         .AsSortedDictionary();
@@ -189,7 +198,8 @@ namespace TddEbook.TddToolkit.Generators
     // Used by reflection
     // public API
     // ReSharper disable once UnusedMember.Global
-    public static ResultConversion<KeyValuePair<TKey, TValue>, SortedDictionary<TKey, TValue>> SortedDictionary<TKey, TValue>()
+    public static ResultConversion<KeyValuePair<TKey, TValue>, SortedDictionary<TKey, TValue>> SortedDictionary<TKey,
+      TValue>()
     {
       return new EnumerableGenerator<KeyValuePair<TKey, TValue>>(AllGenerator.Many)
         .AsSortedDictionary();
@@ -215,18 +225,67 @@ namespace TddEbook.TddToolkit.Generators
 
     public static InlineGenerator<object> GetByNameAndType(string methodName, Type type)
     {
-      var genericMethodProxyCalls = new GenericMethodProxyCalls();
-      var inlineGenerator = genericMethodProxyCalls
-        .ResultOfGenericVersionOfStaticMethod<InlineGenerators>(type, methodName);
-      return ((InlineGenerator<object>)inlineGenerator);
+      return ObjectAdapter.For(methodName, type);
     }
 
     public static InlineGenerator<object> GetByNameAndTypes(string methodName, Type type1, Type type2)
     {
+      return ObjectAdapter.For(methodName, type1, type2);
+    }
+
+    public static InlineGenerator<T> From<T>(T[] possibleValues)
+    {
+      return new GeneratorByPickingFromSpecifiedSetOfValues<T>(possibleValues);
+    }
+
+    public static InlineGenerator<Dictionary<TKey, TValue>> DictionaryWithKeys2<TKey, TValue>(IEnumerable<TKey> keys)
+    {
+      return new DictionaryWithKeysGenerator<TKey, TValue>(keys);
+    }
+
+    public static InlineGenerator<KeyValuePair<TKey, TValue>> KeyValuePair<TKey, TValue>()
+    {
+      return new KeyValuePairGenerator<TKey, TValue>();
+    }
+  }
+
+  public class ObjectAdapter : InlineGenerator<object>
+  {
+    private readonly object _inlineGenerator;
+    private readonly MethodInfo _methodInfo;
+    private static readonly GenericMethodProxyCalls GenericMethodProxyCalls = new GenericMethodProxyCalls();
+
+    public ObjectAdapter(object inlineGenerator, MethodInfo methodInfo)
+    {
+      _inlineGenerator = inlineGenerator;
+      _methodInfo = methodInfo;
+    }
+
+    public object GenerateInstance(InstanceGenerator instanceGenerator)
+    {
+      return _methodInfo.Invoke(_inlineGenerator, new object[] {instanceGenerator});
+    }
+
+    public static InlineGenerator<object> For(string methodName, Type type)
+    {
+      var inlineGenerator = GenericMethodProxyCalls
+        .ResultOfGenericVersionOfStaticMethod<InlineGenerators>(type, methodName);
+
+      return new ObjectAdapter(inlineGenerator, GenerateInstanceMethodInfo(inlineGenerator));
+    }
+
+    public static InlineGenerator<object> For(string methodName, Type type1, Type type2)
+    {
       var genericMethodProxyCalls = new GenericMethodProxyCalls();
       var inlineGenerator = genericMethodProxyCalls
         .ResultOfGenericVersionOfStaticMethod<InlineGenerators>(type1, type2, methodName);
-      return ((InlineGenerator<object>)inlineGenerator);
+      return new ObjectAdapter(inlineGenerator, GenerateInstanceMethodInfo(inlineGenerator));
     }
+
+    private static MethodInfo GenerateInstanceMethodInfo(object inlineGenerator)
+    {
+      return inlineGenerator.GetType().GetMethod(nameof(InlineGenerator<object>.GenerateInstance));
+    }
+
   }
 }

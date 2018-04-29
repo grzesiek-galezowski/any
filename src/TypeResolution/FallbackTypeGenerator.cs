@@ -21,14 +21,14 @@ namespace TddEbook.TddToolkit.TypeResolution
       return _fallbackTypeGenerator.GetConstructorParametersCount();
     }
 
-    public T GenerateInstance(IInstanceGenerator instanceGenerator)
+    public T GenerateInstance(InstanceGenerator instanceGenerator)
     {
       var generateInstance = (T)_fallbackTypeGenerator.GenerateInstance(instanceGenerator);
       _fallbackTypeGenerator.FillFieldsAndPropertiesOf(generateInstance, instanceGenerator);
       return generateInstance;
     }
 
-    public List<object> GenerateConstructorParameters(IInstanceGenerator instanceGenerator)
+    public List<object> GenerateConstructorParameters(InstanceGenerator instanceGenerator)
     {
       return _fallbackTypeGenerator.GenerateConstructorParameters(instanceGenerator.Instance);
     }
@@ -39,7 +39,7 @@ namespace TddEbook.TddToolkit.TypeResolution
     }
 
 
-    public void FillFieldsAndPropertiesOf(T result, IInstanceGenerator instanceGenerator)
+    public void FillFieldsAndPropertiesOf(T result, InstanceGenerator instanceGenerator)
     {
       _fallbackTypeGenerator.FillFieldsAndPropertiesOf(result, instanceGenerator);
     }
@@ -62,7 +62,7 @@ namespace TddEbook.TddToolkit.TypeResolution
       return constructor.Value().GetParametersCount(); //bug backward compatibility (for now)
     }
 
-    public object GenerateInstance(IInstanceGenerator instanceGenerator)
+    public object GenerateInstance(InstanceGenerator instanceGenerator)
     {
       var instance = _smartType.PickConstructorWithLeastNonPointersParameters().Value().InvokeWithParametersCreatedBy(instanceGenerator.Instance);
       instance.GetType().Should().Be(_type);
@@ -94,13 +94,13 @@ namespace TddEbook.TddToolkit.TypeResolution
     }
 
 
-    public void FillFieldsAndPropertiesOf(object result, IInstanceGenerator instanceGenerator)
+    public void FillFieldsAndPropertiesOf(object result, InstanceGenerator instanceGenerator)
     {
       FillPropertyValues(result, instanceGenerator);
       FillFieldValues(result, instanceGenerator);
     }
 
-    private void FillFieldValues(object result, IInstanceGenerator instanceGenerator)
+    private void FillFieldValues(object result, InstanceGenerator instanceGenerator)
     {
       var fields = _smartType.GetAllPublicInstanceFields();
       foreach (var field in fields)
@@ -116,7 +116,7 @@ namespace TddEbook.TddToolkit.TypeResolution
       }
     }
 
-    private void FillPropertyValues(object result, IInstanceGenerator instanceGenerator)
+    private void FillPropertyValues(object result, InstanceGenerator instanceGenerator)
     {
       var properties = _smartType.GetPublicInstanceWritableProperties();
 
