@@ -20,6 +20,12 @@ namespace Generators
       return Conversion(enumerableGenerator, System.Linq.Enumerable.ToList);
     }
 
+    public static ResultConversion<T, IReadOnlyList<T>> AsReadOnlyList<T>(this InlineGenerator<IEnumerable<T>> enumerableGenerator)
+    {
+      Func<IEnumerable<T>, IReadOnlyList<T>> x = Enumerable.ToList;
+      return Conversion(enumerableGenerator, x);
+    }
+
     public static ResultConversion<T, HashSet<T>> AsHashSet<T>(this InlineGenerator<IEnumerable<T>> enumerableGenerator)
     {
       return Conversion(enumerableGenerator, enumerable => new HashSet<T>(enumerable));

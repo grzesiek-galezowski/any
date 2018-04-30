@@ -47,7 +47,8 @@ namespace TddEbook.TddToolkit.Generators
       return new ExclusiveEnumerableGenerator<T>(excluded).AsArray();
     }
 
-    public static InlineGenerator<T[]> ArrayWith<T>(T[] included)
+    public static InlineGenerator<T[]> 
+      ArrayWith<T>(T[] included)
     {
       return new InclusiveEnumerableGenerator<T>(included).AsArray();
     }
@@ -238,7 +239,7 @@ namespace TddEbook.TddToolkit.Generators
       return new GeneratorByPickingFromSpecifiedSetOfValues<T>(possibleValues);
     }
 
-    public static InlineGenerator<Dictionary<TKey, TValue>> DictionaryWithKeys2<TKey, TValue>(IEnumerable<TKey> keys)
+    public static InlineGenerator<Dictionary<TKey, TValue>> DictionaryWithKeys<TKey, TValue>(IEnumerable<TKey> keys)
     {
       return new DictionaryWithKeysGenerator<TKey, TValue>(keys);
     }
@@ -246,6 +247,16 @@ namespace TddEbook.TddToolkit.Generators
     public static InlineGenerator<KeyValuePair<TKey, TValue>> KeyValuePair<TKey, TValue>()
     {
       return new KeyValuePairGenerator<TKey, TValue>();
+    }
+
+    public static InlineGenerator<IReadOnlyList<T>> ReadOnlyList<T>()
+    {
+      return new EnumerableGenerator<T>(AllGenerator.Many).AsReadOnlyList();
+    }
+
+    public static InlineGenerator<IReadOnlyList<T>> ReadOnlyList<T>(int length)
+    {
+      return new EnumerableGenerator<T>(length).AsReadOnlyList();
     }
   }
 

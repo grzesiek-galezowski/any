@@ -1,11 +1,9 @@
 using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Reflection;
 using System.Threading.Tasks;
-using Generators;
 using TddEbook.TddToolkit.CommonTypes;
 using TddEbook.TypeReflection;
 
@@ -279,160 +277,14 @@ namespace TddEbook.TddToolkit.Generators
       return ValueOtherThan(excludedValues);
     }
 
-    public IReadOnlyList<T> ReadOnlyList<T>()
-    {
-      return InlineGenerators.List<T>().GenerateInstance(_genericGenerator);
-    }
-
-    public IReadOnlyList<T> ReadOnlyList<T>(int length)
-    {
-      return InlineGenerators.List<T>(length).GenerateInstance(_genericGenerator);
-    }
-
-    public IReadOnlyList<T> ReadOnlyListWith<T>(IEnumerable<T> items)
-    {
-      return InlineGenerators.ListWith(items.ToArray()).GenerateInstance(_genericGenerator);
-    }
-
-    public IReadOnlyList<T> ReadOnlyListWith<T>(params T[] items)
-    {
-      return InlineGenerators.ListWith(items).GenerateInstance(_genericGenerator);
-    }
-
-    public IReadOnlyList<T> ReadOnlyListWithout<T>(IEnumerable<T> items)
-    {
-      return InlineGenerators.ListWithout(items.ToArray()).GenerateInstance(_genericGenerator);
-    }
-
-    public IReadOnlyList<T> ReadOnlyListWithout<T>(params T[] items)
-    {
-      return InlineGenerators.ListWithout(items).GenerateInstance(_genericGenerator);
-    }
-
-    public SortedList<TKey, TValue> SortedList<TKey, TValue>()
-    {
-      return InlineGenerators.SortedList<TKey, TValue>().GenerateInstance(_genericGenerator);
-    }
-
-    public SortedList<TKey, TValue> SortedList<TKey, TValue>(int length)
-    {
-      return InlineGenerators.SortedList<TKey, TValue>(length).GenerateInstance(_genericGenerator);
-    }
-
-    public ISet<T> Set<T>(int length)
-    {
-      return InlineGenerators.Set<T>(length).GenerateInstance(_genericGenerator);
-    }
-
-    public ISet<T> Set<T>()
-    {
-      return InlineGenerators.Set<T>(Many).GenerateInstance(_genericGenerator);
-    }
-
-    public ISet<T> SortedSet<T>(int length)
-    {
-      return InlineGenerators.SortedSet<T>(length).GenerateInstance(_genericGenerator);
-    }
-
-    public ISet<T> SortedSet<T>()
-    {
-      return InlineGenerators.SortedSet<T>().GenerateInstance(_genericGenerator);
-    }
-
-    public Dictionary<TKey, TValue> Dictionary<TKey, TValue>(int length)
-    {
-      return InlineGenerators.Dictionary<TKey, TValue>(length).GenerateInstance(_genericGenerator);
-    }
-
-    public Dictionary<TKey, TValue> DictionaryWithKeys<TKey, TValue>(IEnumerable<TKey> keys)
-    {
-      return new DictionaryWithKeysGenerator<TKey, TValue>(keys).GenerateInstance(_genericGenerator);
-    }
-
-    public Dictionary<TKey, TValue> Dictionary<TKey, TValue>()
-    {
-      return InlineGenerators.Dictionary<TKey, TValue>().GenerateInstance(_genericGenerator);
-    }
-
-    public IReadOnlyDictionary<TKey, TValue> ReadOnlyDictionary<TKey, TValue>(int length)
-    {
-      return InlineGenerators.Dictionary<TKey, TValue>(length).GenerateInstance(_genericGenerator);
-    }
-
     public IReadOnlyDictionary<TKey, TValue> ReadOnlyDictionaryWithKeys<TKey, TValue>(IEnumerable<TKey> keys)
     {
-      return InlineGenerators.DictionaryWithKeys2<TKey, TValue>(keys).GenerateInstance(_genericGenerator);
-    }
-
-    public IReadOnlyDictionary<TKey, TValue> ReadOnlyDictionary<TKey, TValue>()
-    {
-      return InlineGenerators.Dictionary<TKey, TValue>().GenerateInstance(_genericGenerator);
-    }
-
-    public SortedDictionary<TKey, TValue> SortedDictionary<TKey, TValue>(int length)
-    {
-      return InlineGenerators.SortedDictionary<TKey, TValue>(length).GenerateInstance(_genericGenerator);
-    }
-
-    public SortedDictionary<TKey, TValue> SortedDictionary<TKey, TValue>()
-    {
-      return InlineGenerators.SortedDictionary<TKey, TValue>()
-        .GenerateInstance(_genericGenerator);
-    }
-
-    public ConcurrentDictionary<TKey, TValue> ConcurrentDictionary<TKey, TValue>(int length)
-    {
-      return InlineGenerators.ConcurrentDictionary<TKey, TValue>(length).GenerateInstance(_genericGenerator);
-    }
-
-    public ConcurrentDictionary<TKey, TValue> ConcurrentDictionary<TKey, TValue>()
-    {
-      return InlineGenerators.ConcurrentDictionary<TKey, TValue>().GenerateInstance(_genericGenerator);
-    }
-
-    public ConcurrentStack<T> ConcurrentStack<T>()
-    {
-      return InlineGenerators.ConcurrentStack<T>().GenerateInstance(_genericGenerator);
-    }
-
-    public ConcurrentStack<T> ConcurrentStack<T>(int length)
-    {
-      return InlineGenerators.ConcurrentStack<T>(length).GenerateInstance(_genericGenerator);
-    }
-
-    public ConcurrentQueue<T> ConcurrentQueue<T>()
-    {
-      return InlineGenerators.ConcurrentQueue<T>().GenerateInstance(_genericGenerator);
-    }
-
-    public ConcurrentQueue<T> ConcurrentQueue<T>(int length)
-    {
-      return InlineGenerators.ConcurrentQueue<T>(length).GenerateInstance(_genericGenerator);
-    }
-
-    public ConcurrentBag<T> ConcurrentBag<T>()
-    {
-      return InlineGenerators.ConcurrentBag<T>().GenerateInstance(_genericGenerator);
-    }
-
-    public ConcurrentBag<T> ConcurrentBag<T>(int length)
-    {
-      return InlineGenerators.ConcurrentBag<T>(length).GenerateInstance(_genericGenerator);
+      return InlineGenerators.DictionaryWithKeys<TKey, TValue>(keys).GenerateInstance(_genericGenerator);
     }
 
     public IEnumerable<T> EnumerableSortedDescending<T>(int length)
     {
       return InlineGenerators.SortedSet<T>(length).GenerateInstance(_genericGenerator);
-    }
-
-    public IEnumerable<T> EnumerableSortedDescending<T>()
-    {
-      return InlineGenerators.SortedSet<T>(AllGenerator.Many).GenerateInstance(_genericGenerator);
-    }
-
-    public IEnumerator<T> Enumerator<T>()
-    {
-      return InlineGenerators.Enumerator<T>().GenerateInstance(_genericGenerator);
     }
 
     public object List(Type type)
@@ -475,11 +327,6 @@ namespace TddEbook.TddToolkit.Generators
     public object Array(Type type)
     {
       return GenerateByNameAndType(nameof(InlineGenerators.Array), type);
-    }
-
-    public ICollection<T> AddManyTo<T>(ICollection<T> collection, int many)
-    {
-      return CollectionFiller.FillingCollection(collection, many, _genericGenerator);
     }
 
     public object Enumerator(Type type)

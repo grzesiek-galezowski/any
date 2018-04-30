@@ -87,84 +87,84 @@ namespace AnyCore
 
     public static IReadOnlyList<T> ReadOnlyList<T>(this MyGenerator gen)
     {
-      return gen.AllGenerator.ReadOnlyList<T>();
+      return gen.InstanceOf(InlineGenerators.ReadOnlyList<T>());
     }
 
     public static IReadOnlyList<T> ReadOnlyList<T>(this MyGenerator gen, int length)
     {
-      return gen.AllGenerator.ReadOnlyList<T>(length);
+      return gen.InstanceOf(InlineGenerators.List<T>(length));
     }
 
     public static IReadOnlyList<T> ReadOnlyListWith<T>(this MyGenerator gen, IEnumerable<T> items)
     {
-      return gen.AllGenerator.ReadOnlyListWith(items);
+      return gen.InstanceOf(InlineGenerators.ListWith(items.ToArray()));
     }
 
     public static IReadOnlyList<T> ReadOnlyListWith<T>(this MyGenerator gen, params T[] items)
     {
-      return gen.AllGenerator.ReadOnlyListWith(items);
+      return gen.InstanceOf(InlineGenerators.ListWith(items));
     }
 
     public static IReadOnlyList<T> ReadOnlyListWithout<T>(this MyGenerator gen, IEnumerable<T> items)
     {
-      return gen.AllGenerator.ReadOnlyListWithout(items);
+      return gen.InstanceOf(InlineGenerators.ListWithout(items.ToArray()));
     }
 
     public static IReadOnlyList<T> ReadOnlyListWithout<T>(this MyGenerator gen, params T[] items)
     {
-      return gen.AllGenerator.ReadOnlyListWithout(items);
+      return gen.InstanceOf(InlineGenerators.ListWithout(items));
     }
 
     public static SortedList<TKey, TValue> SortedList<TKey, TValue>(this MyGenerator gen)
     {
-      return gen.AllGenerator.SortedList<TKey, TValue>();
+      return gen.InstanceOf(InlineGenerators.SortedList<TKey, TValue>());
     }
 
     public static SortedList<TKey, TValue> SortedList<TKey, TValue>(this MyGenerator gen, int length)
     {
-      return gen.AllGenerator.SortedList<TKey, TValue>(length);
+      return gen.InstanceOf(InlineGenerators.SortedList<TKey, TValue>(length));
     }
 
 
     public static ISet<T> Set<T>(this MyGenerator gen, int length)
     {
-      return gen.AllGenerator.Set<T>(length);
+      return gen.InstanceOf(InlineGenerators.Set<T>(length));
     }
 
     public static ISet<T> Set<T>(this MyGenerator gen)
     {
-      return gen.AllGenerator.Set<T>();
+      return gen.InstanceOf(InlineGenerators.Set<T>());
     }
 
     // ReSharper disable once UnusedMember.Global
     public static ISet<T> SortedSet<T>(this MyGenerator gen, int length)
     {
-      return gen.AllGenerator.SortedSet<T>(length);
+      return gen.InstanceOf(InlineGenerators.SortedSet<T>(length));
     }
 
     public static ISet<T> SortedSet<T>(this MyGenerator gen)
     {
-      return gen.AllGenerator.SortedSet<T>();
+      return gen.InstanceOf(InlineGenerators.SortedSet<T>());
     }
 
     public static Dictionary<TKey, TValue> Dictionary<TKey, TValue>(this MyGenerator gen, int length)
     {
-      return gen.AllGenerator.Dictionary<TKey, TValue>(length);
+      return gen.InstanceOf(InlineGenerators.Dictionary<TKey, TValue>(length));
     }
 
     public static Dictionary<T, U> DictionaryWithKeys<T, U>(this MyGenerator gen, IEnumerable<T> keys)
     {
-      return gen.AllGenerator.DictionaryWithKeys<T, U>(keys);
+      return gen.InstanceOf(InlineGenerators.DictionaryWithKeys<T, U>(keys));
     }
 
     public static Dictionary<TKey, TValue> Dictionary<TKey, TValue>(this MyGenerator gen)
     {
-      return gen.AllGenerator.Dictionary<TKey, TValue>();
+      return gen.InstanceOf(InlineGenerators.Dictionary<TKey, TValue>());
     }
 
     public static IReadOnlyDictionary<TKey, TValue> ReadOnlyDictionary<TKey, TValue>(this MyGenerator gen, int length)
     {
-      return gen.AllGenerator.ReadOnlyDictionary<TKey, TValue>(length);
+      return gen.InstanceOf(InlineGenerators.ReadOnlyDictionary<TKey, TValue>(length));
     }
 
     public static IReadOnlyDictionary<TKey, TValue> ReadOnlyDictionaryWithKeys<TKey, TValue>(this MyGenerator gen, IEnumerable<TKey> keys)
@@ -174,56 +174,56 @@ namespace AnyCore
 
     public static IReadOnlyDictionary<TKey, TValue> ReadOnlyDictionary<TKey, TValue>(this MyGenerator gen)
     {
-      return gen.AllGenerator.ReadOnlyDictionary<TKey, TValue>();
+      return gen.InstanceOf(InlineGenerators.ReadOnlyDictionary<TKey, TValue>());
     }
 
     public static SortedDictionary<TKey, TValue> SortedDictionary<TKey, TValue>(this MyGenerator gen, int length)
     {
-      return gen.AllGenerator.SortedDictionary<TKey, TValue>(length);
+      return gen.InstanceOf(InlineGenerators.SortedDictionary<TKey, TValue>(length));
     }
 
     public static SortedDictionary<TKey, TValue> SortedDictionary<TKey, TValue>(this MyGenerator gen)
     {
-      return gen.AllGenerator.SortedDictionary<TKey, TValue>();
+      return gen.InstanceOf(InlineGenerators.SortedDictionary<TKey, TValue>());
     }
     public static ConcurrentDictionary<TKey, TValue> ConcurrentDictionary<TKey, TValue>(this MyGenerator gen, int length)
     {
-      return gen.AllGenerator.ConcurrentDictionary<TKey, TValue>(length);
+      return gen.InstanceOf(InlineGenerators.ConcurrentDictionary<TKey, TValue>(length));
     }
 
     public static ConcurrentDictionary<TKey, TValue> ConcurrentDictionary<TKey, TValue>(this MyGenerator gen)
     {
-      return gen.AllGenerator.ConcurrentDictionary<TKey, TValue>();
+      return gen.InstanceOf(InlineGenerators.ConcurrentDictionary<TKey, TValue>());
     }
 
     public static ConcurrentStack<T> ConcurrentStack<T>(this MyGenerator gen)
     {
-      return gen.AllGenerator.ConcurrentStack<T>();
+      return gen.InstanceOf(InlineGenerators.ConcurrentStack<T>());
     }
 
     public static ConcurrentStack<T> ConcurrentStack<T>(this MyGenerator gen, int length)
     {
-      return gen.AllGenerator.ConcurrentStack<T>(length);
+      return gen.InstanceOf(InlineGenerators.ConcurrentStack<T>(length));
     }
 
     public static ConcurrentQueue<T> ConcurrentQueue<T>(this MyGenerator gen)
     {
-      return gen.AllGenerator.ConcurrentQueue<T>();
+      return gen.InstanceOf(InlineGenerators.ConcurrentQueue<T>());
     }
 
     public static ConcurrentQueue<T> ConcurrentQueue<T>(this MyGenerator gen, int length)
     {
-      return gen.AllGenerator.ConcurrentQueue<T>(length);
+      return gen.InstanceOf(InlineGenerators.ConcurrentQueue<T>(length));
     }
 
     public static ConcurrentBag<T> ConcurrentBag<T>(this MyGenerator gen)
     {
-      return gen.AllGenerator.ConcurrentBag<T>();
+      return gen.InstanceOf(InlineGenerators.ConcurrentBag<T>());
     }
 
     public static ConcurrentBag<T> ConcurrentBag<T>(this MyGenerator gen, int length)
     {
-      return gen.AllGenerator.ConcurrentBag<T>(length);
+      return gen.InstanceOf(InlineGenerators.ConcurrentBag<T>(length));
     }
 
     public static IEnumerable<T> EnumerableSortedDescending<T>(this MyGenerator gen, int length)
@@ -233,12 +233,12 @@ namespace AnyCore
 
     public static IEnumerable<T> EnumerableSortedDescending<T>(this MyGenerator gen)
     {
-      return gen.AllGenerator.EnumerableSortedDescending<T>();
+      return gen.InstanceOf(InlineGenerators.SortedSet<T>());
     }
 
     public static IEnumerator<T> Enumerator<T>(this MyGenerator gen)
     {
-      return gen.AllGenerator.Enumerator<T>();
+      return gen.InstanceOf(InlineGenerators.Enumerator<T>());
     }
 
     public static object List(this MyGenerator gen, Type type)
