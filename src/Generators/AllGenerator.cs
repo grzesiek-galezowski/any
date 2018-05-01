@@ -43,11 +43,6 @@ namespace TddEbook.TddToolkit.Generators
     private readonly NumericGenerator _numericGenerator;
     private readonly InvokableGenerator _invokableGenerator;
 
-    public IPAddress IpAddress()
-    {
-      return _valueGenerator.ValueOf<IPAddress>();
-    }
-
     public T ValueOtherThan<T>(params T[] omittedValues)
     {
       return _valueGenerator.ValueOtherThan(omittedValues);
@@ -57,16 +52,6 @@ namespace TddEbook.TddToolkit.Generators
     {
       return InlineGenerators.From(possibleValues)
         .GenerateInstance(_genericGenerator);
-    }
-
-    public DateTime DateTime()
-    {
-      return ValueOf<DateTime>();
-    }
-
-    public TimeSpan TimeSpan()
-    {
-      return ValueOf<TimeSpan>();
     }
 
     public T ValueOf<T>()
@@ -87,26 +72,6 @@ namespace TddEbook.TddToolkit.Generators
     public string LegalXmlTagName()
     {
       return _stringGenerator.LegalXmlTagName();
-    }
-
-    public bool Boolean()
-    {
-      return ValueOf<bool>();
-    }
-
-    public object Object()
-    {
-      return ValueOf<object>();
-    }
-
-    public MethodInfo Method()
-    {
-      return ValueOf<MethodInfo>();
-    }
-
-    public Type Type()
-    {
-      return ValueOf<Type>();
     }
 
     public T InstanceOf<T>()
@@ -147,11 +112,6 @@ namespace TddEbook.TddToolkit.Generators
     public string UrlString()
     {
       return _stringGenerator.UrlString();
-    }
-
-    public Exception Exception()
-    {
-      return ValueOf<Exception>();
     }
 
     public int Port()
@@ -259,24 +219,6 @@ namespace TddEbook.TddToolkit.Generators
       return _invokableGenerator.Action<T1, T2, T3, T4, T5, T6>(_genericGenerator);
     }
 
-    public T Of<T>() where T : struct, IConvertible
-    {
-      AssertDynamicEnumConstraintFor<T>();
-      return ValueOf<T>();
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <typeparam name="T">MUST BE AN ENUM. FOR NORMAL VALUES, USE AllGenerator.OtherThan()</typeparam>
-    /// <param name="excludedValues"></param>
-    /// <returns></returns>
-    public T Besides<[MustBeAnEnum] T>([MustBeAnEnum] params T[] excludedValues) where T : struct, IConvertible
-    {
-      AssertDynamicEnumConstraintFor<T>();
-      return ValueOtherThan(excludedValues);
-    }
-
     public IReadOnlyDictionary<TKey, TValue> ReadOnlyDictionaryWithKeys<TKey, TValue>(IEnumerable<TKey> keys)
     {
       return InlineGenerators.DictionaryWithKeys<TKey, TValue>(keys).GenerateInstance(_genericGenerator);
@@ -302,7 +244,6 @@ namespace TddEbook.TddToolkit.Generators
       return InlineGenerators.GetByNameAndTypes(methodName, type1, type2)
         .GenerateInstance(_genericGenerator);
     }
-
 
     public object Set(Type type)
     {
@@ -597,30 +538,10 @@ namespace TddEbook.TddToolkit.Generators
       return method;
     }
 
-
-    public char AlphaChar()
-    {
-      return _charGenerator.AlphaChar();
-    }
-
-    public char DigitChar()
-    {
-      return _charGenerator.DigitChar();
-    }
-
     public char Char()
     {
       return _charGenerator.Char();
     }
 
-    public char LowerCaseAlphaChar()
-    {
-      return _charGenerator.LowerCaseAlphaChar();
-    }
-
-    public char UpperCaseAlphaChar()
-    {
-      return _charGenerator.UpperCaseAlphaChar();
-    }
   }
 }

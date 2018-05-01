@@ -47,8 +47,7 @@ namespace TddEbook.TddToolkit.Generators
       return new ExclusiveEnumerableGenerator<T>(excluded).AsArray();
     }
 
-    public static InlineGenerator<T[]> 
-      ArrayWith<T>(T[] included)
+    public static InlineGenerator<T[]> ArrayWith<T>(T[] included)
     {
       return new InclusiveEnumerableGenerator<T>(included).AsArray();
     }
@@ -76,8 +75,7 @@ namespace TddEbook.TddToolkit.Generators
       return new InclusiveEnumerableGenerator<T>(included).AsList();
     }
 
-    public static ResultConversion<KeyValuePair<TKey, TValue>, SortedList<TKey, TValue>>
-      SortedList<TKey, TValue>(int length)
+    public static EnumerableConversion<KeyValuePair<TKey, TValue>, SortedList<TKey, TValue>> SortedList<TKey, TValue>(int length)
     {
       return new EnumerableGenerator<KeyValuePair<TKey, TValue>>(length).AsSortedList();
     }
@@ -85,12 +83,12 @@ namespace TddEbook.TddToolkit.Generators
     // Used by reflection
     // public API
     // ReSharper disable once UnusedMember.Global
-    public static ResultConversion<KeyValuePair<TKey, TValue>, SortedList<TKey, TValue>> SortedList<TKey, TValue>()
+    public static EnumerableConversion<KeyValuePair<TKey, TValue>, SortedList<TKey, TValue>> SortedList<TKey, TValue>()
     {
       return new EnumerableGenerator<KeyValuePair<TKey, TValue>>(AllGenerator.Many).AsSortedList();
     }
 
-    public static ResultConversion<T, ISet<T>> Set<T>(int length)
+    public static EnumerableConversion<T, ISet<T>> Set<T>(int length)
     {
       return new EnumerableGenerator<T>(length).AsSet();
     }
@@ -98,12 +96,12 @@ namespace TddEbook.TddToolkit.Generators
     // Used by reflection
     // public API
     // ReSharper disable once UnusedMember.Global
-    public static ResultConversion<T, ISet<T>> Set<T>()
+    public static EnumerableConversion<T, ISet<T>> Set<T>()
     {
       return new EnumerableGenerator<T>(AllGenerator.Many).AsSet();
     }
 
-    public static ResultConversion<T, SortedSet<T>> SortedSet<T>(int length)
+    public static EnumerableConversion<T, SortedSet<T>> SortedSet<T>(int length)
     {
       return new EnumerableGenerator<T>(length).AsSortedSet();
     }
@@ -111,13 +109,12 @@ namespace TddEbook.TddToolkit.Generators
     // Used by reflection
     // public API
     // ReSharper disable once UnusedMember.Global
-    public static ResultConversion<T, SortedSet<T>> SortedSet<T>()
+    public static EnumerableConversion<T, SortedSet<T>> SortedSet<T>()
     {
       return new EnumerableGenerator<T>(AllGenerator.Many).AsSortedSet();
     }
 
-    public static ResultConversion<KeyValuePair<TKey, TValue>, Dictionary<TKey, TValue>>
-      Dictionary<TKey, TValue>(int length)
+    public static EnumerableConversion<KeyValuePair<TKey, TValue>, Dictionary<TKey, TValue>> Dictionary<TKey, TValue>(int length)
     {
       return new EnumerableGenerator<KeyValuePair<TKey, TValue>>(length).AsDictionary();
     }
@@ -125,14 +122,12 @@ namespace TddEbook.TddToolkit.Generators
     // Used by reflection
     // public API
     // ReSharper disable once UnusedMember.Global
-    public static ResultConversion<KeyValuePair<TKey, TValue>, IReadOnlyDictionary<TKey, TValue>>
-      ReadOnlyDictionary<TKey, TValue>()
+    public static EnumerableConversion<KeyValuePair<TKey, TValue>, IReadOnlyDictionary<TKey, TValue>> ReadOnlyDictionary<TKey, TValue>()
     {
       return new EnumerableGenerator<KeyValuePair<TKey, TValue>>(AllGenerator.Many).AsReadOnlyDictionary();
     }
 
-    public static ResultConversion<KeyValuePair<TKey, TValue>, IReadOnlyDictionary<TKey, TValue>>
-      ReadOnlyDictionary<TKey, TValue>(int length)
+    public static EnumerableConversion<KeyValuePair<TKey, TValue>, IReadOnlyDictionary<TKey, TValue>> ReadOnlyDictionary<TKey, TValue>(int length)
     {
       return new EnumerableGenerator<KeyValuePair<TKey, TValue>>(length).AsReadOnlyDictionary();
     }
@@ -140,14 +135,13 @@ namespace TddEbook.TddToolkit.Generators
     // Used by reflection
     // public API
     // ReSharper disable once UnusedMember.Global
-    public static ResultConversion<KeyValuePair<TKey, TValue>, Dictionary<TKey, TValue>> Dictionary<TKey, TValue>()
+    public static EnumerableConversion<KeyValuePair<TKey, TValue>, Dictionary<TKey, TValue>> Dictionary<TKey, TValue>()
     {
       return new EnumerableGenerator<KeyValuePair<TKey, TValue>>(AllGenerator.Many).AsDictionary();
     }
 
 
-    public static ResultConversion<KeyValuePair<TKey, TValue>, ConcurrentDictionary<TKey, TValue>>
-      ConcurrentDictionary<TKey, TValue>(int length)
+    public static EnumerableConversion<KeyValuePair<TKey, TValue>, ConcurrentDictionary<TKey, TValue>> ConcurrentDictionary<TKey, TValue>(int length)
     {
       return new EnumerableGenerator<KeyValuePair<TKey, TValue>>(length)
         .AsConcurrentDictionary();
@@ -156,14 +150,13 @@ namespace TddEbook.TddToolkit.Generators
     // Used by reflection
     // public API
     // ReSharper disable once UnusedMember.Global
-    public static ResultConversion<KeyValuePair<TKey, TValue>, ConcurrentDictionary<TKey, TValue>>
-      ConcurrentDictionary<TKey, TValue>()
+    public static EnumerableConversion<KeyValuePair<TKey, TValue>, ConcurrentDictionary<TKey, TValue>> ConcurrentDictionary<TKey, TValue>()
     {
       return new EnumerableGenerator<KeyValuePair<TKey, TValue>>(AllGenerator.Many)
         .AsConcurrentDictionary();
     }
 
-    public static ResultConversion<T, ConcurrentStack<T>> ConcurrentStack<T>(int length)
+    public static EnumerableConversion<T, ConcurrentStack<T>> ConcurrentStack<T>(int length)
     {
       return new EnumerableGenerator<T>(length).AsConcurrentStack();
     }
@@ -171,12 +164,12 @@ namespace TddEbook.TddToolkit.Generators
     // Used by reflection
     // public API
     // ReSharper disable once UnusedMember.Global
-    public static ResultConversion<T, ConcurrentStack<T>> ConcurrentStack<T>()
+    public static EnumerableConversion<T, ConcurrentStack<T>> ConcurrentStack<T>()
     {
       return new EnumerableGenerator<T>(AllGenerator.Many).AsConcurrentStack();
     }
 
-    public static ResultConversion<T, ConcurrentQueue<T>> ConcurrentQueue<T>(int length)
+    public static EnumerableConversion<T, ConcurrentQueue<T>> ConcurrentQueue<T>(int length)
     {
       return new EnumerableGenerator<T>(length).AsConcurrentQueue();
     }
@@ -184,12 +177,12 @@ namespace TddEbook.TddToolkit.Generators
     // Used by reflection
     // public API
     // ReSharper disable once UnusedMember.Global
-    public static ResultConversion<T, ConcurrentQueue<T>> ConcurrentQueue<T>()
+    public static EnumerableConversion<T, ConcurrentQueue<T>> ConcurrentQueue<T>()
     {
       return new EnumerableGenerator<T>(AllGenerator.Many).AsConcurrentQueue();
     }
 
-    public static ResultConversion<KeyValuePair<TKey, TValue>, SortedDictionary<TKey, TValue>> SortedDictionary<TKey,
+    public static EnumerableConversion<KeyValuePair<TKey, TValue>, SortedDictionary<TKey, TValue>> SortedDictionary<TKey,
       TValue>(int length)
     {
       return new EnumerableGenerator<KeyValuePair<TKey, TValue>>(length)
@@ -199,14 +192,14 @@ namespace TddEbook.TddToolkit.Generators
     // Used by reflection
     // public API
     // ReSharper disable once UnusedMember.Global
-    public static ResultConversion<KeyValuePair<TKey, TValue>, SortedDictionary<TKey, TValue>> SortedDictionary<TKey,
+    public static EnumerableConversion<KeyValuePair<TKey, TValue>, SortedDictionary<TKey, TValue>> SortedDictionary<TKey,
       TValue>()
     {
       return new EnumerableGenerator<KeyValuePair<TKey, TValue>>(AllGenerator.Many)
         .AsSortedDictionary();
     }
 
-    public static ResultConversion<T, ConcurrentBag<T>> ConcurrentBag<T>(int length)
+    public static EnumerableConversion<T, ConcurrentBag<T>> ConcurrentBag<T>(int length)
     {
       return new EnumerableGenerator<T>(length).AsConcurrentBag();
     }
@@ -214,7 +207,7 @@ namespace TddEbook.TddToolkit.Generators
     // Used by reflection
     // public API
     // ReSharper disable once UnusedMember.Global
-    public static ResultConversion<T, ConcurrentBag<T>> ConcurrentBag<T>()
+    public static EnumerableConversion<T, ConcurrentBag<T>> ConcurrentBag<T>()
     {
       return new EnumerableGenerator<T>(AllGenerator.Many).AsConcurrentBag();
     }
@@ -257,6 +250,26 @@ namespace TddEbook.TddToolkit.Generators
     public static InlineGenerator<IReadOnlyList<T>> ReadOnlyList<T>(int length)
     {
       return new EnumerableGenerator<T>(length).AsReadOnlyList();
+    }
+
+    public static InlineGenerator<char> AlphaChar()
+    {
+      return new AlphaCharGenerator();
+    }
+
+    public static InlineGenerator<char> DigitChar()
+    {
+      return new DigitCharGenerator();
+    }
+
+    public static InlineGenerator<char> LowerCaseAlphaChar()
+    {
+      return AlphaChar().AsLowerCase();
+    }
+
+    public static InlineGenerator<char> UpperCaseAlphaChar()
+    {
+      return AlphaChar().AsUpperCase();
     }
   }
 

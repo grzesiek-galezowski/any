@@ -283,6 +283,40 @@ namespace TddEbook.TddToolkitSpecification
       NotAlike(exception2, exception1);
     }
 
+    [Test, Repeat(5)]
+    public void ShouldGenerateDifferentEnumValueEachTimeBesidesSpecified()
+    {
+      //WHEN
+      var dof1 = Any.OtherThan(DayOfWeek.Sunday);
+      var dof2 = Any.OtherThan(DayOfWeek.Sunday);
+      var dof3 = Any.OtherThan(DayOfWeek.Sunday);
+      var dof4 = Any.OtherThan(DayOfWeek.Sunday);
+      var dof5 = Any.OtherThan(DayOfWeek.Sunday);
+      var dof6 = Any.OtherThan(DayOfWeek.Sunday);
+      var dof7 = Any.OtherThan(DayOfWeek.Sunday);
+
+      //THEN
+      CollectionAssert.AllItemsAreUnique(new [] {dof1, dof2, dof3, dof4, dof5, dof6});
+      CollectionAssert.DoesNotContain(new [] {dof1, dof2, dof3, dof4, dof5, dof6, dof7}, DayOfWeek.Sunday);
+    }
+
+    [Test]
+    public void ShouldGenerateDifferentValueEachTime()
+    {
+      //WHEN
+      var dof1 = Any.Instance<DayOfWeek>();
+      var dof2 = Any.Instance<DayOfWeek>();
+      var dof3 = Any.Instance<DayOfWeek>();
+      var dof4 = Any.Instance<DayOfWeek>();
+      var dof5 = Any.Instance<DayOfWeek>();
+      var dof6 = Any.Instance<DayOfWeek>();
+      var dof7 = Any.Instance<DayOfWeek>();
+
+      //THEN
+      CollectionAssert.AllItemsAreUnique(new[] { dof1, dof2, dof3, dof4, dof5, dof6, dof7 });
+    }
+
+
     [Test]
     public void ShouldGenerateDifferentValueEachTimeAndNotAmongPassedOnesWhenAskedToCreateAnyValueBesidesGiven()
     {

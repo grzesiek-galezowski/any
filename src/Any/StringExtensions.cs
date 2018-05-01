@@ -88,12 +88,12 @@ namespace AnyCore
 
     public static char AlphaChar(this MyGenerator gen)
     {
-      return gen.AllGenerator.AlphaChar();
+      return gen.InstanceOf(InlineGenerators.AlphaChar());
     }
 
     public static char DigitChar(this MyGenerator gen)
     {
-      return gen.AllGenerator.DigitChar();
+      return gen.InstanceOf(InlineGenerators.DigitChar());
     }
 
     public static char Char(this MyGenerator gen)
@@ -108,12 +108,12 @@ namespace AnyCore
 
     public static char LowerCaseAlphaChar(this MyGenerator gen)
     {
-      return gen.AllGenerator.LowerCaseAlphaChar();
+      return gen.InstanceOf(InlineGenerators.LowerCaseAlphaChar());
     }
 
     public static char UpperCaseAlphaChar(this MyGenerator gen)
     {
-      return gen.AllGenerator.UpperCaseAlphaChar();
+      return gen.InstanceOf(InlineGenerators.UpperCaseAlphaChar());
     }
   }
 }

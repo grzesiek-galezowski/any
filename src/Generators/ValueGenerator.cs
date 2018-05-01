@@ -26,8 +26,8 @@ namespace TddEbook.TddToolkit.Generators
 
     public T ValueOf<T>()
     {
-      //bug: add support for creating generic structs with interfaces
-      return _generator.Create<T>();
+      //todo get back to it later
+      return new ValueGenerator2<T>(_generator).GenerateInstance();
     }
 
     public T ValueOf<T>(T seed)

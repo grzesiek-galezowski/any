@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Net;
 using System.Reflection;
-using System.Threading.Tasks;
+using TddEbook.TddToolkit.Generators;
 
 namespace AnyCore
 {
@@ -11,7 +11,7 @@ namespace AnyCore
   {
     public static IPAddress IpAddress(this MyGenerator gen)
     {
-      return gen.AllGenerator.IpAddress();
+      return gen.AllGenerator.ValueOf<IPAddress>();
     }
 
     public static T ValueOtherThan<T>(this MyGenerator gen, params T[] omittedValues)
@@ -21,17 +21,17 @@ namespace AnyCore
 
     public static T From<T>(this MyGenerator gen, params T[] possibleValues)
     {
-      return gen.AllGenerator.From(possibleValues);
+      return gen.InstanceOf(InlineGenerators.From(possibleValues));
     }
 
     public static DateTime DateTime(this MyGenerator gen)
     {
-      return gen.AllGenerator.DateTime();
+      return gen.AllGenerator.ValueOf<DateTime>();
     }
 
     public static TimeSpan TimeSpan(this MyGenerator gen)
     {
-      return gen.AllGenerator.TimeSpan();
+      return gen.AllGenerator.ValueOf<TimeSpan>();
     }
 
     public static T ValueOf<T>(this MyGenerator gen)
@@ -39,6 +39,7 @@ namespace AnyCore
       return gen.AllGenerator.ValueOf<T>();
     }
 
+    //todo needed???
     public static IEnumerable<T> EmptyEnumerableOf<T>(this MyGenerator gen)
     {
       return gen.AllGenerator.EmptyEnumerableOf<T>();
@@ -51,12 +52,12 @@ namespace AnyCore
 
     public static bool Boolean(this MyGenerator gen)
     {
-      return gen.AllGenerator.Boolean();
+      return gen.AllGenerator.ValueOf<bool>();
     }
 
     public static object Object(this MyGenerator gen)
     {
-      return gen.AllGenerator.Object();
+      return gen.AllGenerator.ValueOf<object>();
     }
 
     public static T Exploding<T>(this MyGenerator gen) where T : class
@@ -66,12 +67,12 @@ namespace AnyCore
 
     public static MethodInfo Method(this MyGenerator gen)
     {
-      return gen.AllGenerator.Method();
+      return gen.AllGenerator.ValueOf<MethodInfo>();
     }
 
     public static Type Type(this MyGenerator gen)
     {
-      return gen.AllGenerator.Type();
+      return gen.AllGenerator.ValueOf<Type>();
     }
 
     public static T InstanceOf<T>(this MyGenerator gen)
@@ -126,7 +127,7 @@ namespace AnyCore
 
     public static Exception Exception(this MyGenerator gen)
     {
-      return gen.AllGenerator.Exception();
+      return gen.AllGenerator.ValueOf<Exception>();
     }
 
     public static int Port(this MyGenerator gen)
@@ -142,90 +143,6 @@ namespace AnyCore
     public static object Instance(this MyGenerator gen, Type type)
     {
       return gen.AllGenerator.Instance(type);
-    }
-
-    public static IEnumerable<T> EnumerableWith<T>(this MyGenerator gen, IEnumerable<T> included)
-    {
-      return gen.AllGenerator.EnumerableWith(included);
-    }
-
-    public static Task NotStartedTask(this MyGenerator gen)
-    {
-      return gen.AllGenerator.NotStartedTask();
-    }
-
-    public static Task<T> NotStartedTask<T>(this MyGenerator gen)
-    {
-      return gen.AllGenerator.NotStartedTask<T>();
-    }
-
-
-    public static Task<T> StartedTask<T>(this MyGenerator gen)
-    {
-      return gen.AllGenerator.StartedTask<T>();
-    }
-
-    public static Func<T> Func<T>(this MyGenerator gen)
-    {
-      return gen.AllGenerator.Func<T>();
-    }
-    public static Func<T1, T2> Func<T1, T2>(this MyGenerator gen)
-    {
-      return gen.AllGenerator.Func<T1, T2>();
-    }
-
-    public static Func<T1, T2, T3> Func<T1, T2, T3>(this MyGenerator gen)
-    {
-      return gen.AllGenerator.Func<T1, T2, T3>();
-    }
-
-    public static Func<T1, T2, T3, T4> Func<T1, T2, T3, T4>(this MyGenerator gen)
-    {
-      return gen.AllGenerator.Func<T1, T2, T3, T4>();
-    }
-
-    public static Func<T1, T2, T3, T4, T5> Func<T1, T2, T3, T4, T5>(this MyGenerator gen)
-    {
-      return gen.AllGenerator.Func<T1, T2, T3, T4, T5>();
-    }
-
-    public static Func<T1, T2, T3, T4, T5, T6> Func<T1, T2, T3, T4, T5, T6>(this MyGenerator gen)
-    {
-      return gen.AllGenerator.Func<T1, T2, T3, T4, T5, T6>();
-    }
-
-    public static Action Action(this MyGenerator gen)
-    {
-      return gen.AllGenerator.Action();
-    }
-
-    public static Action<T> Action<T>(this MyGenerator gen)
-    {
-      return gen.AllGenerator.Action<T>();
-    }
-    public static Action<T1, T2> Action<T1, T2>(this MyGenerator gen)
-    {
-      return gen.AllGenerator.Action<T1, T2>();
-    }
-
-    public static Action<T1, T2, T3> Action<T1, T2, T3>(this MyGenerator gen)
-    {
-      return gen.AllGenerator.Action<T1, T2, T3>();
-    }
-
-    public static Action<T1, T2, T3, T4> Action<T1, T2, T3, T4>(this MyGenerator gen)
-    {
-      return gen.AllGenerator.Action<T1, T2, T3, T4>();
-    }
-
-    public static Action<T1, T2, T3, T4, T5> Action<T1, T2, T3, T4, T5>(this MyGenerator gen)
-    {
-      return gen.AllGenerator.Action<T1, T2, T3, T4, T5>();
-    }
-
-    public static Action<T1, T2, T3, T4, T5, T6> Action<T1, T2, T3, T4, T5, T6>(this MyGenerator gen)
-    {
-      return gen.AllGenerator.Action<T1, T2, T3, T4, T5, T6>();
     }
   }
 }

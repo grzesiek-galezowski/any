@@ -38,9 +38,7 @@ namespace TddEbook.TddToolkit.Subgenerators
           GlobalNestingLimit.Of(5), 
           proxyGenerator, //TODO get rid of this dependency - its runtime-circular
           valueGenerator));
-      var stringGenerator = new StringGenerator(
-        charGenerator, 
-        valueGenerator, 
+      var stringGenerator = new StringGenerator(valueGenerator, 
         specificTypeObjectGenerator);
       var numericGenerator = new NumericGenerator(
         valueGenerator);

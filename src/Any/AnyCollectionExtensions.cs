@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Concurrent;
+﻿using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using TddEbook.TddToolkit.Generators;
@@ -18,6 +17,11 @@ namespace AnyCore
     public static IEnumerable<T> Enumerable<T>(this MyGenerator gen, int length)
     {
       return gen.InstanceOf(InlineGenerators.Enumerable<T>(length));
+    }
+
+    public static IEnumerable<T> EnumerableWith<T>(this MyGenerator gen, IEnumerable<T> included)
+    {
+      return gen.InstanceOf(InlineGenerators.EnumerableWith(included));
     }
 
     public static IEnumerable<T> EnumerableWithout<T>(this MyGenerator gen, params T[] excluded)
@@ -239,56 +243,6 @@ namespace AnyCore
     public static IEnumerator<T> Enumerator<T>(this MyGenerator gen)
     {
       return gen.InstanceOf(InlineGenerators.Enumerator<T>());
-    }
-
-    public static object List(this MyGenerator gen, Type type)
-    {
-      return gen.AllGenerator.List(type);
-    }
-
-    public static object Set(this MyGenerator gen, Type type)
-    {
-      return gen.AllGenerator.Set(type);
-    }
-
-    public static object SortedList(this MyGenerator gen, Type keyType, Type valueType)
-    {
-      return gen.AllGenerator.SortedList(keyType, valueType);
-    }
-
-    public static object SortedSet(this MyGenerator gen, Type type)
-    {
-      return gen.AllGenerator.SortedSet(type);
-    }
-
-    public static object ConcurrentDictionary(this MyGenerator gen, Type keyType, Type valueType)
-    {
-      return gen.AllGenerator.ConcurrentDictionary(keyType, valueType);
-    }
-
-    public static object Array(this MyGenerator gen, Type type)
-    {
-      return gen.AllGenerator.Array(type);
-    }
-
-    public static object Enumerator(this MyGenerator gen, Type type)
-    {
-      return gen.AllGenerator.Enumerator(type);
-    }
-
-    public static object ConcurrentStack(this MyGenerator gen, Type type)
-    {
-      return gen.AllGenerator.ConcurrentStack(type);
-    }
-
-    public static object ConcurrentQueue(this MyGenerator gen, Type type)
-    {
-      return gen.AllGenerator.ConcurrentQueue(type);
-    }
-
-    public static object ConcurrentBag(this MyGenerator gen, Type type)
-    {
-      return gen.AllGenerator.ConcurrentBag(type);
     }
 
   }

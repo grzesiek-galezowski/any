@@ -10,16 +10,12 @@ namespace TddEbook.TddToolkit.Generators
   {
     private readonly Random _randomGenerator = new Random(Guid.NewGuid().GetHashCode());
     private readonly RegularExpressionGenerator _regexGenerator = new RegularExpressionGenerator();
-    private readonly CharGenerator _charGenerator;
     private readonly ValueGenerator _valueGenerator;
     private readonly SpecificTypeObjectGenerator _specificGenerator;
 
-    public StringGenerator(
-      CharGenerator charGenerator, 
-      ValueGenerator valueGenerator, 
+    public StringGenerator(ValueGenerator valueGenerator, 
       SpecificTypeObjectGenerator specificGenerator)
     {
-      _charGenerator = charGenerator;
       _valueGenerator = valueGenerator;
       _specificGenerator = specificGenerator;
     }
@@ -115,20 +111,30 @@ namespace TddEbook.TddToolkit.Generators
       var result = string.Empty;
       for (var i = 0; i < maxLength; ++i)
       {
-        result += _charGenerator.AlphaChar();
+        result += AlphaChar();
       }
       return result;
     }
 
     public string Identifier()
     {
-      string result = _charGenerator.AlphaChar().ToString(CultureInfo.InvariantCulture);
+      string result = AlphaChar().ToString(CultureInfo.InvariantCulture);
       for (var i = 0; i < 5; ++i)
       {
-        result += _charGenerator.DigitChar();
-        result += _charGenerator.AlphaChar();
+        result += DigitChar();
+        result += AlphaChar();
       }
       return result;
+    }
+
+    private char AlphaChar()
+    {
+      return InlineGenerators.AlphaChar().GenerateInstance(null /* todo */);
+    }
+
+    private char DigitChar()
+    {
+      return InlineGenerators.DigitChar().GenerateInstance(null /* todo */);
     }
 
     public string NumericString(int digitsCount = AllGenerator.Many) => 
