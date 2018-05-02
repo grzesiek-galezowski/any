@@ -65,11 +65,6 @@ namespace TddEbook.TddToolkit.Generators
       return _genericGenerator.Instance(type);
     }
 
-    public string LegalXmlTagName()
-    {
-      return _stringGenerator.LegalXmlTagName(this);
-    }
-
     public T InstanceOf<T>()
     {
       return _genericGenerator.InstanceOf<T>();
@@ -103,11 +98,6 @@ namespace TddEbook.TddToolkit.Generators
     public Guid Guid()
     {
       return _specificTypeObjectGenerator.Guid();
-    }
-
-    public string UrlString()
-    {
-      return _stringGenerator.UrlString();
     }
 
     public int Port()
@@ -286,44 +276,9 @@ namespace TddEbook.TddToolkit.Generators
       return GenerateByNameAndType(nameof(InlineGenerators.ConcurrentBag), type);
     }
 
-    public string String()
-    {
-      return InlineGenerators.String().GenerateInstance(this);
-    }
-
-    public string String(string seed)
-    {
-      return _stringGenerator.String(seed, this);
-    }
-
-    public string LowerCaseString()
-    {
-      return _stringGenerator.LowerCaseString(this);
-    }
-
-    public string UpperCaseString()
-    {
-      return _stringGenerator.UpperCaseString(this);
-    }
-
-    public string LowerCaseAlphaString()
-    {
-      return _stringGenerator.LowerCaseAlphaString(this);
-    }
-
-    public string UpperCaseAlphaString()
-    {
-      return _stringGenerator.UpperCaseAlphaString(this);
-    }
-
-    public string StringMatching(string pattern)
-    {
-      return _stringGenerator.StringMatching(pattern, _genericGenerator);
-    }
-
     public string StringOfLength(int charactersCount)
     {
-      return _stringGenerator.String(charactersCount, this);
+      return InlineGenerators.String(charactersCount).GenerateInstance(this);
     }
 
     public string StringOtherThan(params string[] alreadyUsedStrings)
@@ -353,17 +308,19 @@ namespace TddEbook.TddToolkit.Generators
 
     public string AlphaString()
     {
-      return _stringGenerator.AlphaString(this);
+      return InlineGenerators.AlphaString(
+        InlineGenerators.String().GenerateInstance(this).Length)
+        .GenerateInstance(this);
     }
 
     public string AlphaString(int maxLength)
     {
-      return _stringGenerator.AlphaString(maxLength, this);
+      return InlineGenerators.AlphaString(maxLength).GenerateInstance(this);
     }
 
     public string Identifier()
     {
-      return _stringGenerator.Identifier(this);
+      return InlineGenerators.Identifier().GenerateInstance(this);
     }
 
     public byte Digit()

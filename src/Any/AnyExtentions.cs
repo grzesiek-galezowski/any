@@ -45,11 +45,6 @@ namespace AnyCore
       return gen.AllGenerator.EmptyEnumerableOf<T>();
     }
 
-    public static string LegalXmlTagName(this MyGenerator gen)
-    {
-      return gen.AllGenerator.LegalXmlTagName();
-    }
-
     public static bool Boolean(this MyGenerator gen)
     {
       return gen.AllGenerator.ValueOf<bool>();
@@ -122,7 +117,7 @@ namespace AnyCore
 
     public static string UrlString(this MyGenerator gen)
     {
-      return gen.AllGenerator.UrlString();
+      return gen.InstanceOf(InlineGenerators.UrlString());
     }
 
     public static Exception Exception(this MyGenerator gen)

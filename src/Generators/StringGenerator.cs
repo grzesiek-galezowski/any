@@ -3,6 +3,7 @@ using System.Globalization;
 using System.Linq;
 using AutoFixture;
 using AutoFixture.Kernel;
+using Generators;
 using TddEbook.TypeReflection;
 
 namespace TddEbook.TddToolkit.Generators
@@ -48,43 +49,12 @@ namespace TddEbook.TddToolkit.Generators
       _valueGenerator = valueGenerator;
     }
 
-    public string LegalXmlTagName(InstanceGenerator instanceGenerator)
-    {
-      return Identifier(instanceGenerator);
-    }
-
-    public string UrlString()
-    {
-      return _valueGenerator.ValueOf<Uri>().ToString();
-    }
-
     public string Ip(InstanceGenerator instanceGenerator)
     {
       return new IpStringGenerator().GenerateInstance(instanceGenerator);
     }
 
-    public string String(InstanceGenerator instanceGenerator) => new SimpleValueGenerator<string>().GenerateInstance(instanceGenerator);
-    public string String(string seed, InstanceGenerator instanceGenerator) => _valueGenerator.ValueOf(seed + "_");
-
-    public string LowerCaseString(InstanceGenerator instanceGenerator) => String(instanceGenerator).ToLower();
-    public string UpperCaseString(InstanceGenerator instanceGenerator) => String(instanceGenerator).ToUpper();
-    public string LowerCaseAlphaString(InstanceGenerator instanceGenerator) => AlphaString(instanceGenerator).ToLower();
-    public string UpperCaseAlphaString(InstanceGenerator instanceGenerator) => AlphaString(instanceGenerator).ToUpper();
-
-    public string StringMatching(string pattern, InstanceGenerator instanceGenerator)
-    {
-      return new StringMatchingRegexGenerator(pattern).GenerateInstance(instanceGenerator);
-    }
-
-    public string String(int charactersCount, InstanceGenerator instanceGenerator)
-    {
-      var result = string.Empty;
-      while (result.Length < charactersCount)
-      {
-        result += String(instanceGenerator);
-      }
-      return result.Substring(0, charactersCount);
-    }
+    public string String(InstanceGenerator instanceGenerator) => InlineGenerators.String().GenerateInstance(instanceGenerator);
 
     public string StringOtherThan(params string[] alreadyUsedStrings) 
       => _valueGenerator.ValueOtherThan(alreadyUsedStrings);
@@ -124,40 +94,6 @@ namespace TddEbook.TddToolkit.Generators
 
     public string StringContaining(string str, InstanceGenerator instanceGenerator) => 
       String(instanceGenerator) + str + String(instanceGenerator);
-
-    public string AlphaString(InstanceGenerator instanceGenerator) => 
-      AlphaString(String(instanceGenerator).Length, instanceGenerator);
-
-    public string AlphaString(int maxLength, InstanceGenerator instanceGenerator)
-    {
-      var result = string.Empty;
-      for (var i = 0; i < maxLength; ++i)
-      {
-        result += AlphaChar(instanceGenerator);
-      }
-      return result;
-    }
-
-    public string Identifier(InstanceGenerator instanceGenerator)
-    {
-      string result = AlphaChar(instanceGenerator).ToString(CultureInfo.InvariantCulture);
-      for (var i = 0; i < 5; ++i)
-      {
-        result += DigitChar(instanceGenerator);
-        result += AlphaChar(instanceGenerator);
-      }
-      return result;
-    }
-
-    private char AlphaChar(InstanceGenerator instanceGenerator)
-    {
-      return InlineGenerators.AlphaChar().GenerateInstance(instanceGenerator);
-    }
-
-    private char DigitChar(InstanceGenerator instanceGenerator)
-    {
-      return InlineGenerators.DigitChar().GenerateInstance(instanceGenerator);
-    }
 
     public static string String(ValueGenerator valueGenerator)
     {

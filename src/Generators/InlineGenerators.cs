@@ -286,5 +286,57 @@ namespace TddEbook.TddToolkit.Generators
     {
       return new SimpleValueGenerator<string>();
     }
+
+    public static SeededValueGenerator<string> SeededString(string seed)
+    {
+      return new SeededValueGenerator<string>(seed);
+    }
+
+    public static ValueConversion<string, string> LowercaseString()
+    {
+      return new ValueConversion<string, string>(InlineGenerators.String(), s => s.ToLowerInvariant());
+    }
+
+    public static ValueConversion<string, string> UppercaseString()
+    {
+      return new ValueConversion<string, string>(InlineGenerators.String(), s => s.ToUpperInvariant());
+    }
+
+    public static InlineGenerator<string> StringMatching(string pattern)
+    {
+      return new StringMatchingRegexGenerator(pattern);
+    }
+
+    public static StringFromCharsGenerator AlphaString(int maxLength)
+    {
+      return new StringFromCharsGenerator(maxLength, InlineGenerators.AlphaChar());
+    }
+
+    public static ValueConversion<string, string> LowercaseAlphaString()
+    {
+      return new ValueConversion<string, string>(
+        AlphaString(Guid.NewGuid().ToString().Length), s => s.ToLowerInvariant());
+    }
+
+    public static ValueConversion<string, string> UppercaseAlphaString()
+    {
+      return new ValueConversion<string, string>(
+        AlphaString(Guid.NewGuid().ToString().Length), s => s.ToUpperInvariant());
+    }
+
+    public static InlineGenerator<string> String(int length)
+    {
+      return new StringOfLengthGenerator(length, InlineGenerators.String());
+    }
+
+    public static IdentifierStringGenerator Identifier()
+    {
+      return new IdentifierStringGenerator(InlineGenerators.DigitChar(), InlineGenerators.AlphaChar());
+    }
+
+    public static InlineGenerator<string> UrlString()
+    {
+      return new ValueConversion<Uri, string>(new SimpleValueGenerator<Uri>(), u => u.ToString());
+    }
   }
 }

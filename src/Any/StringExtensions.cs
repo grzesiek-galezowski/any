@@ -11,38 +11,37 @@ namespace AnyCore
 
     public static string String(this MyGenerator gen, string seed)
     {
-      return gen.AllGenerator.String(seed);
+      return gen.InstanceOf(InlineGenerators.SeededString(seed));
     }
 
     public static string LowerCaseString(this MyGenerator gen)
     {
-      return gen.AllGenerator.LowerCaseString();
+      return gen.InstanceOf(InlineGenerators.LowercaseString());
     }
 
     public static string UpperCaseString(this MyGenerator gen)
     {
-      return gen.AllGenerator.UpperCaseString();
+      return gen.InstanceOf(InlineGenerators.UppercaseString());
     }
 
     public static string LowerCaseAlphaString(this MyGenerator gen)
     {
-      return gen.AllGenerator.LowerCaseAlphaString();
+      return gen.InstanceOf(InlineGenerators.LowercaseAlphaString());
     }
 
     public static string UpperCaseAlphaString(this MyGenerator gen)
     {
-      return gen.AllGenerator.UpperCaseAlphaString();
+      return gen.InstanceOf(InlineGenerators.UppercaseAlphaString());
     }
-
 
     public static string StringMatching(this MyGenerator gen, string pattern)
     {
-      return gen.AllGenerator.StringMatching(pattern);
+      return gen.InstanceOf(InlineGenerators.StringMatching(pattern));
     }
 
-    public static string StringOfLength(this MyGenerator gen, int charactersCount)
+    public static string String(this MyGenerator gen, int length)
     {
-      return gen.AllGenerator.StringOfLength(charactersCount);
+      return gen.InstanceOf(InlineGenerators.String(length));
     }
 
     public static string StringOtherThan(this MyGenerator gen, params string[] alreadyUsedStrings)
@@ -72,12 +71,13 @@ namespace AnyCore
 
     public static string AlphaString(this MyGenerator gen)
     {
-      return gen.AllGenerator.AlphaString();
+      return gen.InstanceOf(InlineGenerators.AlphaString(
+          gen.InstanceOf(InlineGenerators.String()).Length));
     }
 
     public static string AlphaString(this MyGenerator gen, int maxLength)
     {
-      return gen.AllGenerator.AlphaString(maxLength);
+      return gen.InstanceOf(InlineGenerators.AlphaString(maxLength));
     }
 
     public static string Identifier(this MyGenerator gen)

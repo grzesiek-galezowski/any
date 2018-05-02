@@ -377,7 +377,7 @@ namespace TddEbook.TddToolkitSpecification
     public void ShouldGenerateStringOfGivenLength(int stringLength)
     {
       //WHEN
-      var str = Any.StringOfLength(stringLength);
+      var str = Any.String(stringLength);
 
       //THEN
       Assert.AreEqual(stringLength, str.Length);
