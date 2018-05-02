@@ -13,7 +13,6 @@ namespace TddEbook.TddToolkit.Generators
   {
     public AllGenerator(
       ValueGenerator valueGenerator, 
-      CharGenerator charGenerator, 
       SpecificTypeObjectGenerator specificTypeObjectGenerator, 
       StringGenerator stringGenerator, 
       EmptyCollectionGenerator emptyCollectionGenerator, 
@@ -22,7 +21,6 @@ namespace TddEbook.TddToolkit.Generators
       InvokableGenerator invokableGenerator)
     {
       _valueGenerator = valueGenerator;
-      _charGenerator = charGenerator;
       _specificTypeObjectGenerator = specificTypeObjectGenerator;
       _stringGenerator = stringGenerator;
       _emptyCollectionGenerator = emptyCollectionGenerator;
@@ -37,7 +35,6 @@ namespace TddEbook.TddToolkit.Generators
     private readonly StringGenerator _stringGenerator;
     private readonly ValueGenerator _valueGenerator;
     private readonly EmptyCollectionGenerator _emptyCollectionGenerator;
-    private readonly CharGenerator _charGenerator;
     private readonly SpecificTypeObjectGenerator _specificTypeObjectGenerator;
     private readonly ProxyBasedGenerator _genericGenerator;
     private readonly NumericGenerator _numericGenerator;
@@ -48,15 +45,14 @@ namespace TddEbook.TddToolkit.Generators
       return _valueGenerator.ValueOtherThan(omittedValues);
     }
 
-    public T From<T>(params T[] possibleValues)
-    {
-      return InlineGenerators.From(possibleValues)
-        .GenerateInstance(_genericGenerator);
-    }
-
     public T ValueOf<T>()
     {
       return _valueGenerator.ValueOf<T>();
+    }
+
+    public T ValueOf<T>(T seed)
+    {
+      return _valueGenerator.ValueOf(seed);
     }
 
     public IEnumerable<T> EmptyEnumerableOf<T>()
@@ -71,7 +67,7 @@ namespace TddEbook.TddToolkit.Generators
 
     public string LegalXmlTagName()
     {
-      return _stringGenerator.LegalXmlTagName();
+      return _stringGenerator.LegalXmlTagName(this);
     }
 
     public T InstanceOf<T>()
@@ -121,7 +117,7 @@ namespace TddEbook.TddToolkit.Generators
 
     public string Ip()
     {
-      return _stringGenerator.Ip();
+      return _stringGenerator.Ip(this);
     }
 
     public object EmptyEnumerableOf(Type collectionType)
@@ -136,7 +132,7 @@ namespace TddEbook.TddToolkit.Generators
 
     public IEnumerable<T> EnumerableWith<T>(IEnumerable<T> included)
     {
-      return InlineGenerators.EnumerableWith(included).GenerateInstance(_genericGenerator);
+      return InlineGenerators.EnumerableWith(included).GenerateInstance(this);
     }
 
     public Task NotStartedTask()
@@ -146,87 +142,87 @@ namespace TddEbook.TddToolkit.Generators
 
     public Task<T> NotStartedTask<T>()
     {
-      return _invokableGenerator.NotStartedTask<T>(_genericGenerator);
+      return _invokableGenerator.NotStartedTask<T>(this);
     }
 
     public Task<T> StartedTask<T>()
     {
-      return _invokableGenerator.StartedTask<T>(_genericGenerator);
+      return _invokableGenerator.StartedTask<T>(this);
     }
 
     public Func<T> Func<T>()
     {
-      return _invokableGenerator.Func<T>(_genericGenerator);
+      return _invokableGenerator.Func<T>(this);
     }
 
     public Func<T1, T2> Func<T1, T2>()
     {
-      return _invokableGenerator.Func<T1, T2>(_genericGenerator);
+      return _invokableGenerator.Func<T1, T2>(this);
     }
 
     public Func<T1, T2, T3> Func<T1, T2, T3>()
     {
-      return _invokableGenerator.Func<T1, T2, T3>(_genericGenerator);
+      return _invokableGenerator.Func<T1, T2, T3>(this);
     }
 
     public Func<T1, T2, T3, T4> Func<T1, T2, T3, T4>()
     {
-      return _invokableGenerator.Func<T1, T2, T3, T4>(_genericGenerator);
+      return _invokableGenerator.Func<T1, T2, T3, T4>(this);
     }
 
     public Func<T1, T2, T3, T4, T5> Func<T1, T2, T3, T4, T5>()
     {
-      return _invokableGenerator.Func<T1, T2, T3, T4, T5>(_genericGenerator);
+      return _invokableGenerator.Func<T1, T2, T3, T4, T5>(this);
     }
 
     public Func<T1, T2, T3, T4, T5, T6> Func<T1, T2, T3, T4, T5, T6>()
     {
-      return _invokableGenerator.Func<T1, T2, T3, T4, T5, T6>(_genericGenerator);
+      return _invokableGenerator.Func<T1, T2, T3, T4, T5, T6>(this);
     }
 
     public Action Action()
     {
-      return _invokableGenerator.Action(_genericGenerator);
+      return _invokableGenerator.Action(this);
     }
 
     public Action<T> Action<T>()
     {
-      return _invokableGenerator.Action<T>(_genericGenerator);
+      return _invokableGenerator.Action<T>(this);
     }
 
     public Action<T1, T2> Action<T1, T2>()
     {
-      return _invokableGenerator.Action<T1, T2>(_genericGenerator);
+      return _invokableGenerator.Action<T1, T2>(this);
     }
 
     public Action<T1, T2, T3> Action<T1, T2, T3>()
     {
-      return _invokableGenerator.Action<T1, T2, T3>(_genericGenerator);
+      return _invokableGenerator.Action<T1, T2, T3>(this);
     }
 
     public Action<T1, T2, T3, T4> Action<T1, T2, T3, T4>()
     {
-      return _invokableGenerator.Action<T1, T2, T3, T4>(_genericGenerator);
+      return _invokableGenerator.Action<T1, T2, T3, T4>(this);
     }
 
     public Action<T1, T2, T3, T4, T5> Action<T1, T2, T3, T4, T5>()
     {
-      return _invokableGenerator.Action<T1, T2, T3, T4, T5>(_genericGenerator);
+      return _invokableGenerator.Action<T1, T2, T3, T4, T5>(this);
     }
 
     public Action<T1, T2, T3, T4, T5, T6> Action<T1, T2, T3, T4, T5, T6>()
     {
-      return _invokableGenerator.Action<T1, T2, T3, T4, T5, T6>(_genericGenerator);
+      return _invokableGenerator.Action<T1, T2, T3, T4, T5, T6>(this);
     }
 
     public IReadOnlyDictionary<TKey, TValue> ReadOnlyDictionaryWithKeys<TKey, TValue>(IEnumerable<TKey> keys)
     {
-      return InlineGenerators.DictionaryWithKeys<TKey, TValue>(keys).GenerateInstance(_genericGenerator);
+      return InlineGenerators.DictionaryWithKeys<TKey, TValue>(keys).GenerateInstance(this);
     }
 
     public IEnumerable<T> EnumerableSortedDescending<T>(int length)
     {
-      return InlineGenerators.SortedSet<T>(length).GenerateInstance(_genericGenerator);
+      return InlineGenerators.SortedSet<T>(length).GenerateInstance(this);
     }
 
     public object List(Type type)
@@ -236,13 +232,13 @@ namespace TddEbook.TddToolkit.Generators
 
     private object GenerateByNameAndType(string methodName, Type type)
     {
-      return InlineGenerators.GetByNameAndType(methodName, type).GenerateInstance(_genericGenerator);
+      return InlineGenerators.GetByNameAndType(methodName, type).GenerateInstance(this);
     }
 
     private object GenerateByNameAndTypes(string methodName, Type type1, Type type2)
     {
       return InlineGenerators.GetByNameAndTypes(methodName, type1, type2)
-        .GenerateInstance(_genericGenerator);
+        .GenerateInstance(this);
     }
 
     public object Set(Type type)
@@ -292,42 +288,42 @@ namespace TddEbook.TddToolkit.Generators
 
     public string String()
     {
-      return _stringGenerator.String();
+      return InlineGenerators.String().GenerateInstance(this);
     }
 
     public string String(string seed)
     {
-      return _stringGenerator.String(seed);
+      return _stringGenerator.String(seed, this);
     }
 
     public string LowerCaseString()
     {
-      return _stringGenerator.LowerCaseString();
+      return _stringGenerator.LowerCaseString(this);
     }
 
     public string UpperCaseString()
     {
-      return _stringGenerator.UpperCaseString();
+      return _stringGenerator.UpperCaseString(this);
     }
 
     public string LowerCaseAlphaString()
     {
-      return _stringGenerator.LowerCaseAlphaString();
+      return _stringGenerator.LowerCaseAlphaString(this);
     }
 
     public string UpperCaseAlphaString()
     {
-      return _stringGenerator.UpperCaseAlphaString();
+      return _stringGenerator.UpperCaseAlphaString(this);
     }
 
     public string StringMatching(string pattern)
     {
-      return _stringGenerator.StringMatching(pattern);
+      return _stringGenerator.StringMatching(pattern, _genericGenerator);
     }
 
     public string StringOfLength(int charactersCount)
     {
-      return _stringGenerator.StringOfLength(charactersCount);
+      return _stringGenerator.String(charactersCount, this);
     }
 
     public string StringOtherThan(params string[] alreadyUsedStrings)
@@ -337,42 +333,37 @@ namespace TddEbook.TddToolkit.Generators
 
     public string StringNotContaining<T>(params T[] excludedObjects)
     {
-      return _stringGenerator.StringNotContaining(excludedObjects);
+      return _stringGenerator.StringNotContaining(this, excludedObjects);
     }
 
     public string StringNotContaining(params string[] excludedSubstrings)
     {
-      return _stringGenerator.StringNotContaining(excludedSubstrings);
+      return _stringGenerator.StringNotContaining(this, excludedSubstrings);
     }
 
     public string StringContaining<T>(T obj)
     {
-      return _stringGenerator.StringContaining(obj);
+      return _stringGenerator.StringContaining(obj, this);
     }
 
     public string StringContaining(string str)
     {
-      return _stringGenerator.StringContaining(str);
+      return _stringGenerator.StringContaining(str, this);
     }
 
     public string AlphaString()
     {
-      return _stringGenerator.AlphaString();
+      return _stringGenerator.AlphaString(this);
     }
 
     public string AlphaString(int maxLength)
     {
-      return _stringGenerator.AlphaString(maxLength);
+      return _stringGenerator.AlphaString(maxLength, this);
     }
 
     public string Identifier()
     {
-      return _stringGenerator.Identifier();
-    }
-
-    public string NumericString(int digitsCount = Many)
-    {
-      return _stringGenerator.NumericString(digitsCount);
+      return _stringGenerator.Identifier(this);
     }
 
     public byte Digit()
@@ -423,14 +414,6 @@ namespace TddEbook.TddToolkit.Generators
     public byte PositiveDigit()
     {
       return _numericGenerator.PositiveDigit();
-    }
-
-    private static void AssertDynamicEnumConstraintFor<T>()
-    {
-      if (!typeof(T).IsEnum)
-      {
-        throw new ArgumentException("T must be an enum type. For other types, use AllGenerator.OtherThan()");
-      }
     }
 
     public T Exploding<T>() where T : class
@@ -537,11 +520,5 @@ namespace TddEbook.TddToolkit.Generators
       var method = methods.First(m => m.Name == name);
       return method;
     }
-
-    public char Char()
-    {
-      return _charGenerator.Char();
-    }
-
   }
 }

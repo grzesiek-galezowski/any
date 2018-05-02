@@ -104,5 +104,10 @@ namespace TddEbook.TddToolkit.Generators
         throw new ArgumentException($"generating an integer not dividable by {quotient} is not supported");
       }
     }
+
+    public static byte Octet(ValueGenerator valueGenerator)
+    {
+      return valueGenerator.ValueOf<byte>();
+    }
   }
 }

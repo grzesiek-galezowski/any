@@ -4,7 +4,7 @@ using TddEbook.TypeReflection;
 
 public class AlphaCharGenerator : InlineGenerator<char>
 {
-  private readonly CircularList<char> _letters =
+  private static readonly CircularList<char> _letters =
     CircularList.CreateStartingFromRandom("qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM".ToCharArray());
 
   public char GenerateInstance(InstanceGenerator instanceGenerator)

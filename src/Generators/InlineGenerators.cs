@@ -1,9 +1,7 @@
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Reflection;
 using Generators;
-using TddEbook.TypeReflection;
 
 namespace TddEbook.TddToolkit.Generators
 {
@@ -252,6 +250,8 @@ namespace TddEbook.TddToolkit.Generators
       return new EnumerableGenerator<T>(length).AsReadOnlyList();
     }
 
+    //todo some of these can be optimized:
+
     public static InlineGenerator<char> AlphaChar()
     {
       return new AlphaCharGenerator();
@@ -271,45 +271,20 @@ namespace TddEbook.TddToolkit.Generators
     {
       return AlphaChar().AsUpperCase();
     }
-  }
 
-  public class ObjectAdapter : InlineGenerator<object>
-  {
-    private readonly object _inlineGenerator;
-    private readonly MethodInfo _methodInfo;
-    private static readonly GenericMethodProxyCalls GenericMethodProxyCalls = new GenericMethodProxyCalls();
-
-    public ObjectAdapter(object inlineGenerator, MethodInfo methodInfo)
+    public static InlineGenerator<char> Char()
     {
-      _inlineGenerator = inlineGenerator;
-      _methodInfo = methodInfo;
+      return new SimpleValueGenerator<char>();
     }
 
-    public object GenerateInstance(InstanceGenerator instanceGenerator)
+    public static InlineGenerator<string> NumericString(int digitsCount)
     {
-      return _methodInfo.Invoke(_inlineGenerator, new object[] {instanceGenerator});
+      return new StringMatchingRegexGenerator("[1-9][0-9]{" + (digitsCount - 1) + "}");
     }
 
-    public static InlineGenerator<object> For(string methodName, Type type)
+    public static SimpleValueGenerator<string> String()
     {
-      var inlineGenerator = GenericMethodProxyCalls
-        .ResultOfGenericVersionOfStaticMethod<InlineGenerators>(type, methodName);
-
-      return new ObjectAdapter(inlineGenerator, GenerateInstanceMethodInfo(inlineGenerator));
+      return new SimpleValueGenerator<string>();
     }
-
-    public static InlineGenerator<object> For(string methodName, Type type1, Type type2)
-    {
-      var genericMethodProxyCalls = new GenericMethodProxyCalls();
-      var inlineGenerator = genericMethodProxyCalls
-        .ResultOfGenericVersionOfStaticMethod<InlineGenerators>(type1, type2, methodName);
-      return new ObjectAdapter(inlineGenerator, GenerateInstanceMethodInfo(inlineGenerator));
-    }
-
-    private static MethodInfo GenerateInstanceMethodInfo(object inlineGenerator)
-    {
-      return inlineGenerator.GetType().GetMethod(nameof(InlineGenerator<object>.GenerateInstance));
-    }
-
   }
 }

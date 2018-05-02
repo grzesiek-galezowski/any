@@ -22,22 +22,26 @@ namespace TddEbook.TddToolkit.Generators
     [NonSerialized]
     private readonly FakeChainFactory _fakeChainFactory;
     [NonSerialized]
+    private readonly ValueGenerator _valueGenerator;
+
+    [NonSerialized]
     private readonly Fixture _emptyCollectionFixture;
     [NonSerialized]
     private readonly GenericMethodProxyCalls _proxyCalls;
     [NonSerialized]
     private readonly EmptyCollectionGenerator _emptyCollectionGenerator;
 
-    public ProxyBasedGenerator(
-      Fixture emptyCollectionFixture, 
-      GenericMethodProxyCalls proxyCalls, 
-      EmptyCollectionGenerator emptyCollectionGenerator, 
-      ProxyGenerator proxyGenerator, 
-      FakeChainFactory fakeChainFactory)
+    public ProxyBasedGenerator(Fixture emptyCollectionFixture,
+      GenericMethodProxyCalls proxyCalls,
+      EmptyCollectionGenerator emptyCollectionGenerator,
+      ProxyGenerator proxyGenerator,
+      FakeChainFactory fakeChainFactory, 
+      ValueGenerator valueGenerator)
     {
       _emptyCollectionFixture = emptyCollectionFixture;
       _proxyGenerator = proxyGenerator;
       _fakeChainFactory = fakeChainFactory;
+      _valueGenerator = valueGenerator;
       _proxyCalls = proxyCalls;
       _emptyCollectionGenerator = emptyCollectionGenerator;
     }
@@ -81,6 +85,21 @@ namespace TddEbook.TddToolkit.Generators
         return fakeInterface.Apply(this);
       }
       return (T)FormatterServices.GetUninitializedObject(typeof (T));
+    }
+
+    public T ValueOtherThan<T>(params T[] omittedValues)
+    {
+      return _valueGenerator.ValueOtherThan(omittedValues);
+    }
+
+    public T ValueOf<T>()
+    {
+      return _valueGenerator.ValueOf<T>();
+    }
+
+    public T ValueOf<T>(T seed)
+    {
+      return _valueGenerator.ValueOf(seed);
     }
 
     public T SubstituteOf<T>() where T : class

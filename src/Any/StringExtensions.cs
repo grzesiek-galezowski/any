@@ -1,5 +1,4 @@
 ﻿using TddEbook.TddToolkit.Generators;
-using TddEbook.TypeReflection;
 
 namespace AnyCore
 {
@@ -7,7 +6,7 @@ namespace AnyCore
   {
     public static string String(this MyGenerator gen)
     {
-      return gen.AllGenerator.String();
+      return gen.InstanceOf(InlineGenerators.String());
     }
 
     public static string String(this MyGenerator gen, string seed)
@@ -98,12 +97,13 @@ namespace AnyCore
 
     public static char Char(this MyGenerator gen)
     {
-      return gen.AllGenerator.Char();
+      return gen.InstanceOf(InlineGenerators.Char());
     }
 
     public static string NumericString(this MyGenerator gen, int digitsCount = AllGenerator.Many)
     {
-      return gen.AllGenerator.NumericString(digitsCount);
+      //todo gen for Many could be cached
+      return InlineGenerators.NumericString(digitsCount).GenerateInstance(gen.AllGenerator);
     }
 
     public static char LowerCaseAlphaChar(this MyGenerator gen)

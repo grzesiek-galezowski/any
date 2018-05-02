@@ -9,5 +9,8 @@ namespace TddEbook.TypeReflection
     T OtherThan<T>(params T[] omittedValues);
     object Instance(Type type);
     T Dummy<T>();
+    T ValueOtherThan<T>(params T[] omittedValues);
+    T ValueOf<T>();
+    T ValueOf<T>(T seed);
   }
 }

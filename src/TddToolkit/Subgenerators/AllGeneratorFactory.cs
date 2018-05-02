@@ -19,10 +19,11 @@ namespace TddEbook.TddToolkit.Subgenerators
         RepeatCount = 0
       };
       var methodProxyCalls = new GenericMethodProxyCalls();
-      var fixtureConfiguration = new AutoFixtureConfiguration();
-      var fixture = fixtureConfiguration.CreateUnconfiguredInstance();
-      var valueGenerator = new ValueGenerator(fixture);
-      var charGenerator = new CharGenerator(valueGenerator);
+      var valueGenerator = CreateValueGenerator();
+      var numericGenerator = new NumericGenerator(
+        valueGenerator);
+
+      var charGenerator = InlineGenerators.Char();
       var specificTypeObjectGenerator = new SpecificTypeObjectGenerator(valueGenerator);
       var emptyCollectionGenerator = new EmptyCollectionGenerator(
         emptyCollectionFixture, 
@@ -37,21 +38,28 @@ namespace TddEbook.TddToolkit.Subgenerators
           new CachedReturnValueGeneration(new PerMethodCache<object>()), 
           GlobalNestingLimit.Of(5), 
           proxyGenerator, //TODO get rid of this dependency - its runtime-circular
-          valueGenerator));
-      var stringGenerator = new StringGenerator(valueGenerator, 
-        specificTypeObjectGenerator);
-      var numericGenerator = new NumericGenerator(
+          valueGenerator),
         valueGenerator);
+
+      var stringGenerator = new StringGenerator(valueGenerator);
+
       var allGenerator = new AllGenerator(valueGenerator, 
-        charGenerator, 
         specificTypeObjectGenerator, 
         stringGenerator, 
         emptyCollectionGenerator, 
         numericGenerator, 
         proxyBasedGenerator, 
         new InvokableGenerator());
-      fixtureConfiguration.ApplyTo(fixture, stringGenerator, numericGenerator);
       return allGenerator;
+    }
+
+    private static ValueGenerator CreateValueGenerator()
+    {
+      var fixtureConfiguration = new AutoFixtureConfiguration();
+      var fixture = fixtureConfiguration.CreateUnconfiguredInstance();
+      var valueGenerator = new ValueGenerator(fixture);
+      fixtureConfiguration.ApplyTo(fixture, valueGenerator);
+      return valueGenerator;
     }
   }
 }

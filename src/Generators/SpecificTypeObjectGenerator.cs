@@ -4,21 +4,21 @@ namespace TddEbook.TddToolkit.Generators
 {
   public class SpecificTypeObjectGenerator
   {
-    private readonly ValueGenerator _allGeneratorValueGenerator;
+    private readonly ValueGenerator _valueGenerator;
 
     public SpecificTypeObjectGenerator(ValueGenerator valueGenerator)
     {
-      _allGeneratorValueGenerator = valueGenerator;
+      _valueGenerator = valueGenerator;
     }
 
     public Uri Uri()
     {
-      return _allGeneratorValueGenerator.ValueOf<Uri>();
+      return _valueGenerator.ValueOf<Uri>();
     }
 
     public Guid Guid()
     {
-      return _allGeneratorValueGenerator.ValueOf<Guid>();
+      return _valueGenerator.ValueOf<Guid>();
     }
   }
 }

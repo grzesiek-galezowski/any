@@ -16,7 +16,7 @@ namespace TddEbook.TddToolkit.Generators
       return new Task<T>(instanceGenerator.Instance<T>);
     }
 
-    public Task<T> StartedTask<T>(ProxyBasedGenerator genericGenerator)
+    public Task<T> StartedTask<T>(InstanceGenerator genericGenerator)
     {
       return Task.FromResult(genericGenerator.Instance<T>());
     }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Net;
 using System.Reflection;
@@ -9,7 +10,7 @@ using TddEbook.TddToolkit.CommonTypes;
 using TddEbook.TddToolkit.Generators;
 using TddEbook.TypeReflection;
 using IMethodQuery = AutoFixture.Kernel.IMethodQuery;
-using StringGenerator = TddEbook.TddToolkit.Generators.StringGenerator;
+using StringGenerator = AutoFixture.StringGenerator;
 
 namespace TddEbook.TddToolkit
 {
@@ -35,19 +36,19 @@ namespace TddEbook.TddToolkit
 
     public Fixture CreateUnconfiguredInstance()
     {
-      var generator = new Fixture(new EngineWithReplacedQuery());
-      return generator;
+      return new Fixture(new EngineWithReplacedQuery());
     }
 
-    public void ApplyTo(Fixture generator, StringGenerator stringGenerator, NumericGenerator numericGenerator)
+    public void ApplyTo(Fixture generator, ValueGenerator valueGenerator)
     {
       generator.Register(() => _types.Next());
       generator.Register(() => _methodList.Next());
-      generator.Register(() => new Exception(stringGenerator.String(), new Exception(stringGenerator.String())));
+      //todo replace with string generator?
+      generator.Register(() => new Exception(Generators.StringGenerator.String(valueGenerator), new Exception(Generators.StringGenerator.String(valueGenerator))));
       generator.Register(
         () =>
           new IPAddress(new[]
-            {numericGenerator.Octet(), numericGenerator.Octet(), numericGenerator.Octet(), numericGenerator.Octet()}));
+            {NumericGenerator.Octet(valueGenerator), NumericGenerator.Octet(valueGenerator), NumericGenerator.Octet(valueGenerator), NumericGenerator.Octet(valueGenerator)}));
     }
   }
 

@@ -3,63 +3,85 @@ using System.Globalization;
 using System.Linq;
 using AutoFixture;
 using AutoFixture.Kernel;
+using TddEbook.TypeReflection;
 
 namespace TddEbook.TddToolkit.Generators
 {
-  public class StringGenerator
+  public class IpStringGenerator : InlineGenerator<string>
   {
-    private readonly Random _randomGenerator = new Random(Guid.NewGuid().GetHashCode());
-    private readonly RegularExpressionGenerator _regexGenerator = new RegularExpressionGenerator();
-    private readonly ValueGenerator _valueGenerator;
-    private readonly SpecificTypeObjectGenerator _specificGenerator;
+    private static readonly Random RandomGenerator = new Random(Guid.NewGuid().GetHashCode());
 
-    public StringGenerator(ValueGenerator valueGenerator, 
-      SpecificTypeObjectGenerator specificGenerator)
+    public string GenerateInstance(InstanceGenerator instanceGenerator)
     {
-      _valueGenerator = valueGenerator;
-      _specificGenerator = specificGenerator;
+      return RandomGenerator.Next(256) + "."
+                                        + RandomGenerator.Next(256) + "."
+                                        + RandomGenerator.Next(256) + "."
+                                        + RandomGenerator.Next(256);
+    }
+  }
+
+  public class StringMatchingRegexGenerator : InlineGenerator<string>
+  {
+    private readonly string _pattern;
+    private static readonly RegularExpressionGenerator RegexGenerator = new RegularExpressionGenerator();
+
+    public StringMatchingRegexGenerator(string pattern)
+    {
+      _pattern = pattern;
     }
 
-    public string LegalXmlTagName()
+    public string GenerateInstance(InstanceGenerator gen)
     {
-      return Identifier();
+      var request = new RegularExpressionRequest(_pattern);
+
+      var result = RegexGenerator.Create(request, new DummyContext());
+      return result.ToString();
+    }
+  }
+
+  public class StringGenerator
+  {
+    private readonly ValueGenerator _valueGenerator;
+
+    public StringGenerator(ValueGenerator valueGenerator)
+    {
+      _valueGenerator = valueGenerator;
+    }
+
+    public string LegalXmlTagName(InstanceGenerator instanceGenerator)
+    {
+      return Identifier(instanceGenerator);
     }
 
     public string UrlString()
     {
-      return _specificGenerator.Uri().ToString();
+      return _valueGenerator.ValueOf<Uri>().ToString();
     }
 
-    public string Ip()
+    public string Ip(InstanceGenerator instanceGenerator)
     {
-      return _randomGenerator.Next(256) + "."
-             + _randomGenerator.Next(256) + "."
-             + _randomGenerator.Next(256) + "."
-             + _randomGenerator.Next(256);
+      return new IpStringGenerator().GenerateInstance(instanceGenerator);
     }
 
-    public string String() => _valueGenerator.ValueOf<string>();
-    public string String(string seed) => _valueGenerator.ValueOf(seed + "_");
+    public string String(InstanceGenerator instanceGenerator) => new SimpleValueGenerator<string>().GenerateInstance(instanceGenerator);
+    public string String(string seed, InstanceGenerator instanceGenerator) => _valueGenerator.ValueOf(seed + "_");
 
-    public string LowerCaseString() => String().ToLower();
-    public string UpperCaseString() => String().ToUpper();
-    public string LowerCaseAlphaString() => AlphaString().ToLower();
-    public string UpperCaseAlphaString() => AlphaString().ToUpper();
+    public string LowerCaseString(InstanceGenerator instanceGenerator) => String(instanceGenerator).ToLower();
+    public string UpperCaseString(InstanceGenerator instanceGenerator) => String(instanceGenerator).ToUpper();
+    public string LowerCaseAlphaString(InstanceGenerator instanceGenerator) => AlphaString(instanceGenerator).ToLower();
+    public string UpperCaseAlphaString(InstanceGenerator instanceGenerator) => AlphaString(instanceGenerator).ToUpper();
 
-    public string StringMatching(string pattern)
+    public string StringMatching(string pattern, InstanceGenerator instanceGenerator)
     {
-      var request = new RegularExpressionRequest(pattern);
-
-      var result = _regexGenerator.Create(request, new DummyContext());
-      return result.ToString();
+      return new StringMatchingRegexGenerator(pattern).GenerateInstance(instanceGenerator);
     }
 
-    public string StringOfLength(int charactersCount)
+    public string String(int charactersCount, InstanceGenerator instanceGenerator)
     {
       var result = string.Empty;
       while (result.Length < charactersCount)
       {
-        result += String();
+        result += String(instanceGenerator);
       }
       return result.Substring(0, charactersCount);
     }
@@ -67,20 +89,20 @@ namespace TddEbook.TddToolkit.Generators
     public string StringOtherThan(params string[] alreadyUsedStrings) 
       => _valueGenerator.ValueOtherThan(alreadyUsedStrings);
 
-    public string StringNotContaining<T>(params T[] excludedObjects) => 
-      StringNotContaining((from obj in excludedObjects select obj.ToString()).ToArray());
+    public string StringNotContaining<T>(InstanceGenerator instanceGenerator, params T[] excludedObjects) => 
+      StringNotContaining(instanceGenerator, (from obj in excludedObjects select obj.ToString()).ToArray());
 
-    public string StringNotContaining(params string[] excludedSubstrings)
+    public string StringNotContaining(InstanceGenerator instanceGenerator, params string[] excludedSubstrings)
     {
       var preprocessedStrings = from str in excludedSubstrings
         where !string.IsNullOrEmpty(str)
         select str;
 
-      var result = String();
+      var result = String(instanceGenerator);
       var found = false;
       for(int i = 0 ; i < 100 ; ++i)
       {
-        result = String();
+        result = String(instanceGenerator);
         if (preprocessedStrings.Any(result.Contains))
         {
           found = true;
@@ -97,48 +119,50 @@ namespace TddEbook.TddToolkit.Generators
       return result;
     }
 
-    public string StringContaining<T>(T obj) => 
-      StringContaining(obj.ToString());
+    public string StringContaining<T>(T obj, InstanceGenerator instanceGenerator) => 
+      StringContaining(obj.ToString(), instanceGenerator);
 
-    public string StringContaining(string str) => 
-      String() + str + String();
+    public string StringContaining(string str, InstanceGenerator instanceGenerator) => 
+      String(instanceGenerator) + str + String(instanceGenerator);
 
-    public string AlphaString() => 
-      AlphaString(String().Length);
+    public string AlphaString(InstanceGenerator instanceGenerator) => 
+      AlphaString(String(instanceGenerator).Length, instanceGenerator);
 
-    public string AlphaString(int maxLength)
+    public string AlphaString(int maxLength, InstanceGenerator instanceGenerator)
     {
       var result = string.Empty;
       for (var i = 0; i < maxLength; ++i)
       {
-        result += AlphaChar();
+        result += AlphaChar(instanceGenerator);
       }
       return result;
     }
 
-    public string Identifier()
+    public string Identifier(InstanceGenerator instanceGenerator)
     {
-      string result = AlphaChar().ToString(CultureInfo.InvariantCulture);
+      string result = AlphaChar(instanceGenerator).ToString(CultureInfo.InvariantCulture);
       for (var i = 0; i < 5; ++i)
       {
-        result += DigitChar();
-        result += AlphaChar();
+        result += DigitChar(instanceGenerator);
+        result += AlphaChar(instanceGenerator);
       }
       return result;
     }
 
-    private char AlphaChar()
+    private char AlphaChar(InstanceGenerator instanceGenerator)
     {
-      return InlineGenerators.AlphaChar().GenerateInstance(null /* todo */);
+      return InlineGenerators.AlphaChar().GenerateInstance(instanceGenerator);
     }
 
-    private char DigitChar()
+    private char DigitChar(InstanceGenerator instanceGenerator)
     {
-      return InlineGenerators.DigitChar().GenerateInstance(null /* todo */);
+      return InlineGenerators.DigitChar().GenerateInstance(instanceGenerator);
     }
 
-    public string NumericString(int digitsCount = AllGenerator.Many) => 
-      StringMatching("[1-9][0-9]{" + (digitsCount - 1) + "}");
+    public static string String(ValueGenerator valueGenerator)
+    {
+      return valueGenerator.ValueOf<string>();
+    }
   }
 
   
