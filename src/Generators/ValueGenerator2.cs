@@ -1,17 +1,20 @@
 using AutoFixture;
 
-public class ValueGenerator2<T>
+namespace Generators
 {
-  private readonly Fixture _generator;
-
-  public ValueGenerator2(Fixture generator)
+  public class ValueGenerator2<T> //todo
   {
-    _generator = generator;
-  }
+    private readonly Fixture _generator;
 
-  public T GenerateInstance()
-  {
+    public ValueGenerator2(Fixture generator)
+    {
+      _generator = generator;
+    }
+
+    public T GenerateInstance()
+    {
 //bug: add support for creating generic structs with interfaces
-    return _generator.Create<T>();
+      return _generator.Create<T>();
+    }
   }
 }

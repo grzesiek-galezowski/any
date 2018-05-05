@@ -7,24 +7,29 @@ namespace TddEbook.TddToolkit.Generators
 {
   public static class NumericTraits
   {
+    private static readonly NumericTraits<int> IntTraits = new NumericTraits<int>(int.MaxValue, bi => (int) bi);
+    private static readonly NumericTraits<long> LongTraits = new NumericTraits<long>(long.MaxValue, bi => (long) bi);
+    private static readonly NumericTraits<uint> UintTraits = new NumericTraits<uint>(uint.MaxValue, bi => (uint) bi);
+    private static readonly NumericTraits<ulong> UlongTraits = new NumericTraits<ulong>(ulong.MaxValue, bi => (ulong) bi);
+
     public static NumericTraits<int> Integer()
     {
-      return new NumericTraits<int>(int.MaxValue, bi => (int) bi);
+      return IntTraits;
     }
 
     public static NumericTraits<long> Long()
     {
-      return new NumericTraits<long>(long.MaxValue, bi => (long) bi);
+      return LongTraits;
     }
 
     public static NumericTraits<uint> UnsignedInteger()
     {
-      return new NumericTraits<uint>(uint.MaxValue, bi => (uint) bi);
+      return UintTraits;
     }
 
     public static NumericTraits<ulong> UnsignedLong()
     {
-      return new NumericTraits<ulong>(ulong.MaxValue, bi => (ulong) bi);
+      return UlongTraits;
     }
   }
   public class NumericTraits<T>

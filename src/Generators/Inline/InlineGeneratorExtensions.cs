@@ -26,7 +26,7 @@ namespace Generators
       return Conversion(enumerableGenerator, x);
     }
 
-    public static EnumerableConversion<T, HashSet<T>> AsHashSet<T>(this InlineGenerator<IEnumerable<T>> enumerableGenerator)
+    public static InlineGenerator<HashSet<T>> AsHashSet<T>(this InlineGenerator<IEnumerable<T>> enumerableGenerator)
     {
       return Conversion(enumerableGenerator, enumerable => new HashSet<T>(enumerable));
     }

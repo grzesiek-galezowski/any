@@ -1,4 +1,6 @@
-﻿using TddEbook.TddToolkit.Generators;
+﻿using System.Linq;
+using Generators;
+using TddEbook.TddToolkit.Generators;
 
 namespace AnyCore
 {
@@ -44,29 +46,30 @@ namespace AnyCore
       return gen.InstanceOf(InlineGenerators.String(length));
     }
 
+    //todo remove this in favor of OtherThan()
     public static string StringOtherThan(this MyGenerator gen, params string[] alreadyUsedStrings)
     {
-      return gen.AllGenerator.StringOtherThan(alreadyUsedStrings);
+      return gen.InstanceOf(InlineGenerators.ValueOtherThan(alreadyUsedStrings));
     }
 
     public static string StringNotContaining<T>(this MyGenerator gen, params T[] excludedObjects)
     {
-      return gen.AllGenerator.StringNotContaining(excludedObjects);
+      return gen.InstanceOf(InlineGenerators.StringNotContaining(excludedObjects));
     }
 
     public static string StringNotContaining(this MyGenerator gen, params string[] excludedSubstrings)
     {
-      return gen.AllGenerator.StringNotContaining(excludedSubstrings);
+      return gen.InstanceOf(InlineGenerators.StringNotContaining(excludedSubstrings));
     }
 
     public static string StringContaining<T>(this MyGenerator gen, T obj)
     {
-      return gen.AllGenerator.StringContaining(obj);
+      return gen.InstanceOf(InlineGenerators.StringContaining(obj.ToString()));
     }
 
     public static string StringContaining(this MyGenerator gen, string str)
     {
-      return gen.AllGenerator.StringContaining(str);
+      return gen.InstanceOf(InlineGenerators.StringContaining(str));
     }
 
     public static string AlphaString(this MyGenerator gen)
@@ -82,7 +85,7 @@ namespace AnyCore
 
     public static string Identifier(this MyGenerator gen)
     {
-      return gen.AllGenerator.Identifier();
+      return gen.InstanceOf(InlineGenerators.Identifier());
     }
 
     public static char AlphaChar(this MyGenerator gen)

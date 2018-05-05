@@ -1,5 +1,7 @@
+using System;
 using System.Linq;
 using AutoFixture;
+using Generators;
 using TddEbook.TddToolkit.TypeResolution.Interfaces;
 
 namespace TddEbook.TddToolkit.Generators
@@ -15,6 +17,7 @@ namespace TddEbook.TddToolkit.Generators
 
     public T ValueOtherThan<T>(params T[] omittedValues)
     {
+      omittedValues = omittedValues ?? Array.Empty<T>();
       T currentValue;
       do
       {

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Linq;
 using Generators;
 
 namespace TddEbook.TddToolkit.Generators
@@ -73,20 +74,19 @@ namespace TddEbook.TddToolkit.Generators
       return new InclusiveEnumerableGenerator<T>(included).AsList();
     }
 
-    public static EnumerableConversion<KeyValuePair<TKey, TValue>, SortedList<TKey, TValue>> SortedList<TKey, TValue>(int length)
+
+
+    public static InlineGenerator<SortedList<TKey, TValue>> SortedList<TKey, TValue>(int length)
     {
       return new EnumerableGenerator<KeyValuePair<TKey, TValue>>(length).AsSortedList();
     }
 
-    // Used by reflection
-    // public API
-    // ReSharper disable once UnusedMember.Global
-    public static EnumerableConversion<KeyValuePair<TKey, TValue>, SortedList<TKey, TValue>> SortedList<TKey, TValue>()
+    public static InlineGenerator<SortedList<TKey, TValue>> SortedList<TKey, TValue>()
     {
       return new EnumerableGenerator<KeyValuePair<TKey, TValue>>(AllGenerator.Many).AsSortedList();
     }
 
-    public static EnumerableConversion<T, ISet<T>> Set<T>(int length)
+    public static InlineGenerator<ISet<T>> Set<T>(int length)
     {
       return new EnumerableGenerator<T>(length).AsSet();
     }
@@ -94,12 +94,12 @@ namespace TddEbook.TddToolkit.Generators
     // Used by reflection
     // public API
     // ReSharper disable once UnusedMember.Global
-    public static EnumerableConversion<T, ISet<T>> Set<T>()
+    public static InlineGenerator<ISet<T>> Set<T>()
     {
       return new EnumerableGenerator<T>(AllGenerator.Many).AsSet();
     }
 
-    public static EnumerableConversion<T, SortedSet<T>> SortedSet<T>(int length)
+    public static InlineGenerator<SortedSet<T>> SortedSet<T>(int length)
     {
       return new EnumerableGenerator<T>(length).AsSortedSet();
     }
@@ -107,12 +107,12 @@ namespace TddEbook.TddToolkit.Generators
     // Used by reflection
     // public API
     // ReSharper disable once UnusedMember.Global
-    public static EnumerableConversion<T, SortedSet<T>> SortedSet<T>()
+    public static InlineGenerator<SortedSet<T>> SortedSet<T>()
     {
       return new EnumerableGenerator<T>(AllGenerator.Many).AsSortedSet();
     }
 
-    public static EnumerableConversion<KeyValuePair<TKey, TValue>, Dictionary<TKey, TValue>> Dictionary<TKey, TValue>(int length)
+    public static InlineGenerator<Dictionary<TKey, TValue>> Dictionary<TKey, TValue>(int length)
     {
       return new EnumerableGenerator<KeyValuePair<TKey, TValue>>(length).AsDictionary();
     }
@@ -120,12 +120,12 @@ namespace TddEbook.TddToolkit.Generators
     // Used by reflection
     // public API
     // ReSharper disable once UnusedMember.Global
-    public static EnumerableConversion<KeyValuePair<TKey, TValue>, IReadOnlyDictionary<TKey, TValue>> ReadOnlyDictionary<TKey, TValue>()
+    public static InlineGenerator<IReadOnlyDictionary<TKey, TValue>> ReadOnlyDictionary<TKey, TValue>()
     {
       return new EnumerableGenerator<KeyValuePair<TKey, TValue>>(AllGenerator.Many).AsReadOnlyDictionary();
     }
 
-    public static EnumerableConversion<KeyValuePair<TKey, TValue>, IReadOnlyDictionary<TKey, TValue>> ReadOnlyDictionary<TKey, TValue>(int length)
+    public static InlineGenerator<IReadOnlyDictionary<TKey, TValue>> ReadOnlyDictionary<TKey, TValue>(int length)
     {
       return new EnumerableGenerator<KeyValuePair<TKey, TValue>>(length).AsReadOnlyDictionary();
     }
@@ -133,13 +133,13 @@ namespace TddEbook.TddToolkit.Generators
     // Used by reflection
     // public API
     // ReSharper disable once UnusedMember.Global
-    public static EnumerableConversion<KeyValuePair<TKey, TValue>, Dictionary<TKey, TValue>> Dictionary<TKey, TValue>()
+    public static InlineGenerator<Dictionary<TKey, TValue>> Dictionary<TKey, TValue>()
     {
       return new EnumerableGenerator<KeyValuePair<TKey, TValue>>(AllGenerator.Many).AsDictionary();
     }
 
 
-    public static EnumerableConversion<KeyValuePair<TKey, TValue>, ConcurrentDictionary<TKey, TValue>> ConcurrentDictionary<TKey, TValue>(int length)
+    public static InlineGenerator<ConcurrentDictionary<TKey, TValue>> ConcurrentDictionary<TKey, TValue>(int length)
     {
       return new EnumerableGenerator<KeyValuePair<TKey, TValue>>(length)
         .AsConcurrentDictionary();
@@ -148,13 +148,13 @@ namespace TddEbook.TddToolkit.Generators
     // Used by reflection
     // public API
     // ReSharper disable once UnusedMember.Global
-    public static EnumerableConversion<KeyValuePair<TKey, TValue>, ConcurrentDictionary<TKey, TValue>> ConcurrentDictionary<TKey, TValue>()
+    public static InlineGenerator<ConcurrentDictionary<TKey, TValue>> ConcurrentDictionary<TKey, TValue>()
     {
       return new EnumerableGenerator<KeyValuePair<TKey, TValue>>(AllGenerator.Many)
         .AsConcurrentDictionary();
     }
 
-    public static EnumerableConversion<T, ConcurrentStack<T>> ConcurrentStack<T>(int length)
+    public static InlineGenerator<ConcurrentStack<T>> ConcurrentStack<T>(int length)
     {
       return new EnumerableGenerator<T>(length).AsConcurrentStack();
     }
@@ -162,12 +162,12 @@ namespace TddEbook.TddToolkit.Generators
     // Used by reflection
     // public API
     // ReSharper disable once UnusedMember.Global
-    public static EnumerableConversion<T, ConcurrentStack<T>> ConcurrentStack<T>()
+    public static InlineGenerator<ConcurrentStack<T>> ConcurrentStack<T>()
     {
       return new EnumerableGenerator<T>(AllGenerator.Many).AsConcurrentStack();
     }
 
-    public static EnumerableConversion<T, ConcurrentQueue<T>> ConcurrentQueue<T>(int length)
+    public static InlineGenerator<ConcurrentQueue<T>> ConcurrentQueue<T>(int length)
     {
       return new EnumerableGenerator<T>(length).AsConcurrentQueue();
     }
@@ -175,13 +175,13 @@ namespace TddEbook.TddToolkit.Generators
     // Used by reflection
     // public API
     // ReSharper disable once UnusedMember.Global
-    public static EnumerableConversion<T, ConcurrentQueue<T>> ConcurrentQueue<T>()
+    public static InlineGenerator<ConcurrentQueue<T>> ConcurrentQueue<T>()
     {
       return new EnumerableGenerator<T>(AllGenerator.Many).AsConcurrentQueue();
     }
 
-    public static EnumerableConversion<KeyValuePair<TKey, TValue>, SortedDictionary<TKey, TValue>> SortedDictionary<TKey,
-      TValue>(int length)
+    public static InlineGenerator<SortedDictionary<TKey, TValue>> 
+      SortedDictionary<TKey,TValue>(int length)
     {
       return new EnumerableGenerator<KeyValuePair<TKey, TValue>>(length)
         .AsSortedDictionary();
@@ -190,27 +190,23 @@ namespace TddEbook.TddToolkit.Generators
     // Used by reflection
     // public API
     // ReSharper disable once UnusedMember.Global
-    public static EnumerableConversion<KeyValuePair<TKey, TValue>, SortedDictionary<TKey, TValue>> SortedDictionary<TKey,
-      TValue>()
+    public static InlineGenerator<SortedDictionary<TKey, TValue>> SortedDictionary<TKey,TValue>()
     {
       return new EnumerableGenerator<KeyValuePair<TKey, TValue>>(AllGenerator.Many)
         .AsSortedDictionary();
     }
 
-    public static EnumerableConversion<T, ConcurrentBag<T>> ConcurrentBag<T>(int length)
+    public static InlineGenerator<ConcurrentBag<T>> ConcurrentBag<T>(int length)
     {
       return new EnumerableGenerator<T>(length).AsConcurrentBag();
     }
 
-    // Used by reflection
-    // public API
-    // ReSharper disable once UnusedMember.Global
-    public static EnumerableConversion<T, ConcurrentBag<T>> ConcurrentBag<T>()
+    public static InlineGenerator<ConcurrentBag<T>> ConcurrentBag<T>()
     {
       return new EnumerableGenerator<T>(AllGenerator.Many).AsConcurrentBag();
     }
 
-    public static EnumeratorGenerator<T> Enumerator<T>()
+    public static InlineGenerator<IEnumerator<T>> Enumerator<T>()
     {
       return new EnumeratorGenerator<T>();
     }
@@ -282,22 +278,22 @@ namespace TddEbook.TddToolkit.Generators
       return new StringMatchingRegexGenerator("[1-9][0-9]{" + (digitsCount - 1) + "}");
     }
 
-    public static SimpleValueGenerator<string> String()
+    public static InlineGenerator<string> String()
     {
       return new SimpleValueGenerator<string>();
     }
 
-    public static SeededValueGenerator<string> SeededString(string seed)
+    public static InlineGenerator<string> SeededString(string seed)
     {
       return new SeededValueGenerator<string>(seed);
     }
 
-    public static ValueConversion<string, string> LowercaseString()
+    public static InlineGenerator<string> LowercaseString()
     {
       return new ValueConversion<string, string>(InlineGenerators.String(), s => s.ToLowerInvariant());
     }
 
-    public static ValueConversion<string, string> UppercaseString()
+    public static InlineGenerator<string> UppercaseString()
     {
       return new ValueConversion<string, string>(InlineGenerators.String(), s => s.ToUpperInvariant());
     }
@@ -307,21 +303,21 @@ namespace TddEbook.TddToolkit.Generators
       return new StringMatchingRegexGenerator(pattern);
     }
 
-    public static StringFromCharsGenerator AlphaString(int maxLength)
+    public static InlineGenerator<string> AlphaString(int maxLength)
     {
       return new StringFromCharsGenerator(maxLength, InlineGenerators.AlphaChar());
     }
 
-    public static ValueConversion<string, string> LowercaseAlphaString()
+    public static InlineGenerator<string> LowercaseAlphaString()
     {
       return new ValueConversion<string, string>(
-        AlphaString(Guid.NewGuid().ToString().Length), s => s.ToLowerInvariant());
+        AlphaString(System.Guid.NewGuid().ToString().Length), s => s.ToLowerInvariant());
     }
 
-    public static ValueConversion<string, string> UppercaseAlphaString()
+    public static InlineGenerator<string> UppercaseAlphaString()
     {
       return new ValueConversion<string, string>(
-        AlphaString(Guid.NewGuid().ToString().Length), s => s.ToUpperInvariant());
+        AlphaString(System.Guid.NewGuid().ToString().Length), s => s.ToUpperInvariant());
     }
 
     public static InlineGenerator<string> String(int length)
@@ -329,7 +325,7 @@ namespace TddEbook.TddToolkit.Generators
       return new StringOfLengthGenerator(length, InlineGenerators.String());
     }
 
-    public static IdentifierStringGenerator Identifier()
+    public static InlineGenerator<string> Identifier()
     {
       return new IdentifierStringGenerator(InlineGenerators.DigitChar(), InlineGenerators.AlphaChar());
     }
@@ -337,6 +333,106 @@ namespace TddEbook.TddToolkit.Generators
     public static InlineGenerator<string> UrlString()
     {
       return new ValueConversion<Uri, string>(new SimpleValueGenerator<Uri>(), u => u.ToString());
+    }
+
+    public static InlineGenerator<string> StringNotContaining(string[] excludedSubstrings)
+    {
+      return new StringNotContainingGenerator(excludedSubstrings, InlineGenerators.String());
+    }
+
+    public static InlineGenerator<string> StringNotContaining<T>(T[] excludedObjects)
+    {
+      return InlineGenerators.StringNotContaining((from obj in new[] {new[] {excludedObjects}} select obj.ToString()).ToArray());
+    }
+
+    public static InlineGenerator<T> ValueOtherThan<T>(T[] excluded)
+    {
+      return new SimpleValueOtherThanGenerator<T>(excluded);
+    }
+
+    public static InlineGenerator<string> StringContaining(string str)
+    {
+      return new AggregatingGenerator<string>(
+        System.String.Empty, 
+        (current, next) => current + next, 
+        new SimpleValueGenerator<string>(), 
+        new FixedValueGenerator<string>(str), 
+        new SimpleValueGenerator<string>());
+    }
+
+    public static InlineGenerator<Guid> Guid()
+    {
+      return new SimpleValueGenerator<Guid>();
+    }
+
+    public static InlineGenerator<Uri> Uri()
+    {
+      return new SimpleValueGenerator<Uri>();
+    }
+
+    public static InlineGenerator<int> Integer()
+    {
+      return new SimpleValueGenerator<int>();
+    }
+
+    public static InlineGenerator<double> Double()
+    {
+      return new SimpleValueGenerator<double>();
+    }
+
+    public static InlineGenerator<long> Long()
+    {
+      return new SimpleValueGenerator<long>();
+    }
+
+    public static InlineGenerator<ulong> UnsignedLong()
+    {
+      return new SimpleValueGenerator<ulong>();
+    }
+
+    public static InlineGenerator<byte> Byte()
+    {
+      return new SimpleValueGenerator<byte>();
+    }
+
+    public static InlineGenerator<decimal> Decimal()
+    {
+      return new SimpleValueGenerator<decimal>();
+    }
+
+    public static InlineGenerator<uint> UnsignedInt()
+    {
+      return new SimpleValueGenerator<uint>();
+    }
+
+    public static InlineGenerator<ushort> UnsignedShort()
+    {
+      return new SimpleValueGenerator<ushort>();
+    }
+
+    public static InlineGenerator<short> Short()
+    {
+      return new SimpleValueGenerator<short>();
+    }
+
+    public static InlineGenerator<int> IntegerFromSequence(int startingValue, int step)
+    {
+      return new IntegerFromSequenceGenerator(startingValue, step, InlineGenerators.Integer());
+    }
+
+    public static InlineGenerator<byte> Digit()
+    {
+      return new DigitGenerator();
+    }
+
+    public static InlineGenerator<byte> PositiveDigit()
+    {
+      return new PositiveDigitGenerator(InlineGenerators.Digit());
+    }
+
+    public static InlineGenerator<int> IntegerDivisibleBy(int quotient)
+    {
+      return new IntegerDivisableByGenerator(quotient);
     }
   }
 }

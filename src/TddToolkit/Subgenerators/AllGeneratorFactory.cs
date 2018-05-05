@@ -1,12 +1,9 @@
 using Castle.DynamicProxy;
 using AutoFixture;
-using AutoFixture.Kernel;
-using Generators;
 using TddEbook.TddToolkit.Generators;
 using TddEbook.TddToolkit.TypeResolution;
 using TddEbook.TddToolkit.TypeResolution.CustomCollections;
 using TddEbook.TddToolkit.TypeResolution.FakeChainElements;
-using StringGenerator = TddEbook.TddToolkit.Generators.StringGenerator;
 
 namespace TddEbook.TddToolkit.Subgenerators
 {
@@ -20,11 +17,8 @@ namespace TddEbook.TddToolkit.Subgenerators
       };
       var methodProxyCalls = new GenericMethodProxyCalls();
       var valueGenerator = CreateValueGenerator();
-      var numericGenerator = new NumericGenerator(
-        valueGenerator);
+      var numericGenerator = new NumericGenerator();
 
-      var charGenerator = InlineGenerators.Char();
-      var specificTypeObjectGenerator = new SpecificTypeObjectGenerator(valueGenerator);
       var emptyCollectionGenerator = new EmptyCollectionGenerator(
         emptyCollectionFixture, 
         methodProxyCalls);
@@ -41,11 +35,7 @@ namespace TddEbook.TddToolkit.Subgenerators
           valueGenerator),
         valueGenerator);
 
-      var stringGenerator = new StringGenerator(valueGenerator);
-
       var allGenerator = new AllGenerator(valueGenerator, 
-        specificTypeObjectGenerator, 
-        stringGenerator, 
         emptyCollectionGenerator, 
         numericGenerator, 
         proxyBasedGenerator, 

@@ -44,11 +44,11 @@ namespace TddEbook.TddToolkit
       generator.Register(() => _types.Next());
       generator.Register(() => _methodList.Next());
       //todo replace with string generator?
-      generator.Register(() => new Exception(Generators.StringGenerator.String(valueGenerator), new Exception(Generators.StringGenerator.String(valueGenerator))));
+      generator.Register(() => new Exception(generator.Create<string>(), new Exception(generator.Create<string>())));
       generator.Register(
         () =>
           new IPAddress(new[]
-            {NumericGenerator.Octet(valueGenerator), NumericGenerator.Octet(valueGenerator), NumericGenerator.Octet(valueGenerator), NumericGenerator.Octet(valueGenerator)}));
+            {NumericGenerator.Octet2(valueGenerator), NumericGenerator.Octet2(valueGenerator), NumericGenerator.Octet2(valueGenerator), NumericGenerator.Octet2(valueGenerator)}));
     }
   }
 

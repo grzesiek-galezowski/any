@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Net;
 using System.Reflection;
 using TddEbook.TddToolkit.Generators;
@@ -9,6 +10,12 @@ namespace AnyCore
 {
   public static class AnyExtentions
   {
+    private static readonly Type[] ValueTypes = new[]
+    {
+      typeof(byte), typeof(short), typeof(ushort), typeof(decimal), typeof(int), typeof(uint), typeof(long),
+      typeof(ulong), typeof(float), typeof(double), typeof(bool), typeof(sbyte), typeof(char), typeof(object), typeof(string)
+    };
+
     public static IPAddress IpAddress(this MyGenerator gen)
     {
       return gen.AllGenerator.ValueOf<IPAddress>();
@@ -102,17 +109,24 @@ namespace AnyCore
 
     public static T OtherThan<T>(this MyGenerator gen, params T[] omittedValues)
     {
-      return gen.AllGenerator.OtherThan(omittedValues);
+      if (ValueTypes.Contains(typeof(T)))
+      {
+        return gen.AllGenerator.ValueOtherThan(omittedValues); 
+      }
+      else
+      {
+        return gen.AllGenerator.OtherThan(omittedValues);
+      }
     }
 
     public static Uri Uri(this MyGenerator gen)
     {
-      return gen.AllGenerator.Uri();
+      return gen.InstanceOf(InlineGenerators.Uri());
     }
 
     public static Guid Guid(this MyGenerator gen)
     {
-      return gen.AllGenerator.Guid();
+      return gen.InstanceOf(InlineGenerators.Guid());
     }
 
     public static string UrlString(this MyGenerator gen)
