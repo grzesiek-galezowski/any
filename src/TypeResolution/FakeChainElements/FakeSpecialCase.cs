@@ -22,7 +22,7 @@ namespace TddEbook.TddToolkit.TypeResolution.FakeChainElements
 
     public T Apply(InstanceGenerator instanceGenerator)
     {
-      return _valueGenerator.ValueOf<T>();
+      return _valueGenerator.Value<T>();
     }
   }
 }

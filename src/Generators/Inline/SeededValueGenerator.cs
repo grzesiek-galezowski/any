@@ -14,7 +14,7 @@ namespace Generators
 
     public T GenerateInstance(InstanceGenerator instanceGenerator)
     {
-      return instanceGenerator.ValueOf(_seed);
+      return instanceGenerator.Value(_seed);
     }
   }
 }

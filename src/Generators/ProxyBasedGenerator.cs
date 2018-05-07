@@ -7,6 +7,7 @@ using System.Runtime.Serialization;
 using Castle.DynamicProxy;
 using NSubstitute;
 using AutoFixture;
+using Generators.Inline;
 using TddEbook.TddToolkit.TypeResolution.FakeChainElements;
 using TddEbook.TddToolkit.TypeResolution.Interceptors;
 using TddEbook.TypeReflection;
@@ -29,11 +30,11 @@ namespace TddEbook.TddToolkit.Generators
     [NonSerialized]
     private readonly GenericMethodProxyCalls _proxyCalls;
     [NonSerialized]
-    private readonly EmptyCollectionGenerator _emptyCollectionGenerator;
+    private readonly EmptyCollectionInstantiation _emptyCollectionInstantiation;
 
     public ProxyBasedGenerator(Fixture emptyCollectionFixture,
       GenericMethodProxyCalls proxyCalls,
-      EmptyCollectionGenerator emptyCollectionGenerator,
+      EmptyCollectionInstantiation emptyCollectionInstantiation,
       ProxyGenerator proxyGenerator,
       FakeChainFactory fakeChainFactory, 
       ValueGenerator valueGenerator)
@@ -43,17 +44,12 @@ namespace TddEbook.TddToolkit.Generators
       _fakeChainFactory = fakeChainFactory;
       _valueGenerator = valueGenerator;
       _proxyCalls = proxyCalls;
-      _emptyCollectionGenerator = emptyCollectionGenerator;
-    }
-
-    public T InstanceOf<T>()
-    {
-      return _fakeChainFactory.GetInstance<T>().Resolve(this);
+      _emptyCollectionInstantiation = emptyCollectionInstantiation;
     }
 
     public T Instance<T>()
     {
-      return InstanceOf<T>();
+      return _fakeChainFactory.GetInstance<T>().Resolve(this);
     }
 
     public T Dummy<T>()
@@ -74,7 +70,7 @@ namespace TddEbook.TddToolkit.Generators
       }
       if (TypeOf<T>.IsOpenGeneric(typeof(IEnumerable<>)))
       {
-        return (T) _emptyCollectionGenerator.EmptyEnumerableOf(typeof(T).GetCollectionItemType());
+        return (T) _emptyCollectionInstantiation.EmptyEnumerableOf(typeof(T).GetCollectionItemType());
       }
       if (typeof(T).IsAbstract)
       {
@@ -92,28 +88,19 @@ namespace TddEbook.TddToolkit.Generators
       return _valueGenerator.ValueOtherThan(omittedValues);
     }
 
-    public T ValueOf<T>()
+    public T Value<T>()
     {
-      return _valueGenerator.ValueOf<T>();
+      return _valueGenerator.Value<T>();
     }
 
-    public T ValueOf<T>(T seed)
+    public T Value<T>(T seed)
     {
-      return _valueGenerator.ValueOf(seed);
+      return _valueGenerator.Value(seed);
     }
 
-    public T SubstituteOf<T>() where T : class
+    public T Substitute<T>(InstanceGenerator allGenerator) where T : class
     {
-      var type = typeof (T);
-      var sub = Substitute.For<T>();
-
-      var methods = SmartType.For(type).GetAllPublicInstanceMethodsWithReturnValue();
-
-      foreach (var method in methods)
-      {
-        method.InvokeWithAnyArgsOn(sub, Instance).ReturnsForAnyArgs(method.GenerateAnyReturnValue(type1 => Instance(type1)));
-      }
-      return sub;
+      return InlineGenerators.Substitute<T>().GenerateInstance(allGenerator);
     }
 
     public T OtherThan<T>(params T[] omittedValues)

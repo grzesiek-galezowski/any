@@ -21,19 +21,19 @@ namespace TddEbook.TddToolkit.Generators
       T currentValue;
       do
       {
-        currentValue = ValueOf<T>();
+        currentValue = Value<T>();
       } while (omittedValues.Contains(currentValue));
 
       return currentValue;
     }
 
-    public T ValueOf<T>()
+    public T Value<T>()
     {
       //todo get back to it later
       return new ValueGenerator2<T>(_generator).GenerateInstance();
     }
 
-    public T ValueOf<T>(T seed)
+    public T Value<T>(T seed)
     {
       return _generator.Create(seed);
     }

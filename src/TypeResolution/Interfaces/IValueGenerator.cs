@@ -1,9 +1,7 @@
 namespace TddEbook.TddToolkit.TypeResolution.Interfaces
 {
-  public interface IValueGenerator
+  public interface IValueGenerator //todo remove this interface?
   {
-    T ValueOtherThan<T>(params T[] omittedValues);
-    T ValueOf<T>();
-    T ValueOf<T>(T seed);
+    T Value<T>();
   }
 }

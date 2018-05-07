@@ -4,13 +4,12 @@ namespace TddEbook.TypeReflection
 {
   public interface InstanceGenerator
   {
-    T InstanceOf<T>();
     T Instance<T>();
-    T OtherThan<T>(params T[] omittedValues);
     object Instance(Type type);
+    T OtherThan<T>(params T[] omittedValues);
     T Dummy<T>();
     T ValueOtherThan<T>(params T[] omittedValues);
-    T ValueOf<T>();
-    T ValueOf<T>(T seed);
+    T Value<T>();
+    T Value<T>(T seed);
   }
 }

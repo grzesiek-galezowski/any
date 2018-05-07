@@ -72,27 +72,27 @@ namespace AnyCore
 
     public static int IntegerNotDivisibleBy(this MyGenerator gen, int quotient)
     {
-      return gen.AllGenerator.IntegerNotDivisibleBy(quotient);
+      return InlineGenerators.IntegerNotDivisibleBy(quotient).GenerateInstance(gen.AllGenerator);
     }
 
     public static int IntegerWithExactDigitsCount(this MyGenerator gen, int digitsCount)
     {
-      return new NumberWithExactDigitNumberGenerator<int>(NumericTraits.Integer(), digitsCount).GenerateInstance(gen.AllGenerator);
+      return InlineGenerators.IntegerWithExactDigitCount(digitsCount).GenerateInstance(gen.AllGenerator);
     }
 
     public static long LongIntegerWithExactDigitsCount(this MyGenerator gen, int digitsCount)
     {
-      return new NumberWithExactDigitNumberGenerator<long>(NumericTraits.Long(), digitsCount).GenerateInstance(gen.AllGenerator);
+      return InlineGenerators.LongWithExactDigitCount(digitsCount).GenerateInstance(gen.AllGenerator);
     }
 
     public static uint UnsignedIntegerWithExactDigitsCount(this MyGenerator gen, int digitsCount)
     {
-      return new NumberWithExactDigitNumberGenerator<uint>(NumericTraits.UnsignedInteger(), digitsCount).GenerateInstance(gen.AllGenerator);
+      return InlineGenerators.UnsignedIntWithExactDigitCount(digitsCount).GenerateInstance(gen.AllGenerator);
     }
 
     public static ulong UnsignedLongIntegerWithExactDigitsCount(this MyGenerator gen, int digitsCount)
     {
-      return new NumberWithExactDigitNumberGenerator<ulong>(NumericTraits.UnsignedLong(), digitsCount).GenerateInstance(gen.AllGenerator);
+      return InlineGenerators.UnsignedLongWithExactDigitCount(digitsCount).GenerateInstance(gen.AllGenerator);
     }
 
     public static byte PositiveDigit(this MyGenerator gen)

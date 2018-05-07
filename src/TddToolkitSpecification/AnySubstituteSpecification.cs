@@ -13,7 +13,7 @@ namespace TddEbook.TddToolkitSpecification
     public void ShouldBeAbleToWrapSubstitutesAndOverrideDefaultValues()
     {
       //GIVEN
-      var instance = Any.SubstituteOf<RecursiveInterface>();
+      var instance = Any.Substitute<RecursiveInterface>();
 
       //WHEN
       var result = instance.Number;
@@ -26,7 +26,7 @@ namespace TddEbook.TddToolkitSpecification
     public void ShouldBeAbleToWrapSubstitutesAndNotOverrideStubbedValues()
     {
       //GIVEN
-      var instance = Any.SubstituteOf<RecursiveInterface>();
+      var instance = Any.Substitute<RecursiveInterface>();
       instance.Number.Returns(44543);
 
       //WHEN
@@ -40,7 +40,7 @@ namespace TddEbook.TddToolkitSpecification
     public void ShouldBeAbleToWrapSubstitutesAndStillAllowVerifyingCalls()
     {
       //GIVEN
-      var instance = Any.SubstituteOf<RecursiveInterface>();
+      var instance = Any.Substitute<RecursiveInterface>();
 
       //WHEN
       instance.VoidMethod();
@@ -53,7 +53,7 @@ namespace TddEbook.TddToolkitSpecification
     public void ShouldReturnNonNullImplementationsOfInnerObjects()
     {
       //GIVEN
-      var instance = Any.SubstituteOf<RecursiveInterface>();
+      var instance = Any.Substitute<RecursiveInterface>();
 
       //WHEN
       var result = instance.Nested;
@@ -65,7 +65,7 @@ namespace TddEbook.TddToolkitSpecification
     [Test]
     public void ShouldBeAbleToWrapSubstitutesAndSkipOverridingResultsStubbedWithNonDefaultValues()
     {
-      var instance = Any.SubstituteOf<RecursiveInterface>();
+      var instance = Any.Substitute<RecursiveInterface>();
       var anotherInstance = Substitute.For<RecursiveInterface>();
       instance.Nested.Returns(anotherInstance);
 

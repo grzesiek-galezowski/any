@@ -1,3 +1,5 @@
+using System;
+using System.Diagnostics;
 using System.Reflection;
 using TddEbook.TddToolkit.TypeResolution.Interfaces;
 using TddEbook.TypeReflection;
@@ -26,14 +28,22 @@ namespace TddEbook.TddToolkit.TypeResolution.FakeChainElements
     {
       try
       {
-        return _valueGenerator.ValueOf<T>();
+        return _valueGenerator.Value<T>();
       }
-      catch (AutoFixture.ObjectCreationException)
+      catch (AutoFixture.ObjectCreationException e)
       {
+        if (Debugger.IsAttached)
+        {
+          Console.WriteLine(e);
+        }
         return _fallbackTypeGenerator.GenerateInstance(instanceGenerator);
       }
-      catch (TargetInvocationException)
+      catch (TargetInvocationException e)
       {
+        if (Debugger.IsAttached)
+        {
+          Console.WriteLine(e);
+        }
         return _fallbackTypeGenerator.GenerateInstance(instanceGenerator);
       }
     }

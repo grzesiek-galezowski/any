@@ -3,6 +3,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using Generators;
+using Generators.Inline;
 
 namespace TddEbook.TddToolkit.Generators
 {
@@ -73,8 +74,6 @@ namespace TddEbook.TddToolkit.Generators
     {
       return new InclusiveEnumerableGenerator<T>(included).AsList();
     }
-
-
 
     public static InlineGenerator<SortedList<TKey, TValue>> SortedList<TKey, TValue>(int length)
     {
@@ -180,8 +179,7 @@ namespace TddEbook.TddToolkit.Generators
       return new EnumerableGenerator<T>(AllGenerator.Many).AsConcurrentQueue();
     }
 
-    public static InlineGenerator<SortedDictionary<TKey, TValue>> 
-      SortedDictionary<TKey,TValue>(int length)
+    public static InlineGenerator<SortedDictionary<TKey, TValue>> SortedDictionary<TKey,TValue>(int length)
     {
       return new EnumerableGenerator<KeyValuePair<TKey, TValue>>(length)
         .AsSortedDictionary();
@@ -234,16 +232,6 @@ namespace TddEbook.TddToolkit.Generators
     public static InlineGenerator<KeyValuePair<TKey, TValue>> KeyValuePair<TKey, TValue>()
     {
       return new KeyValuePairGenerator<TKey, TValue>();
-    }
-
-    public static InlineGenerator<IReadOnlyList<T>> ReadOnlyList<T>()
-    {
-      return new EnumerableGenerator<T>(AllGenerator.Many).AsReadOnlyList();
-    }
-
-    public static InlineGenerator<IReadOnlyList<T>> ReadOnlyList<T>(int length)
-    {
-      return new EnumerableGenerator<T>(length).AsReadOnlyList();
     }
 
     //todo some of these can be optimized:
@@ -433,6 +421,126 @@ namespace TddEbook.TddToolkit.Generators
     public static InlineGenerator<int> IntegerDivisibleBy(int quotient)
     {
       return new IntegerDivisableByGenerator(quotient);
+    }
+
+    public static InlineGenerator<int> IntegerNotDivisibleBy(int quotient)
+    {
+      return new IntegerNotDivisibleByGenerator(quotient);
+    }
+
+    public static InlineGenerator<int> IntegerWithExactDigitCount(int digitsCount)
+    {
+      return new NumberWithExactDigitNumberGenerator<int>(NumericTraits.Integer(), digitsCount);
+    }
+
+    public static InlineGenerator<long> LongWithExactDigitCount(int digitsCount)
+    {
+      return new NumberWithExactDigitNumberGenerator<long>(NumericTraits.Long(), digitsCount);
+    }
+
+    public static InlineGenerator<uint> UnsignedIntWithExactDigitCount(int digitsCount)
+    {
+      return new NumberWithExactDigitNumberGenerator<uint>(NumericTraits.UnsignedInteger(), digitsCount);
+    }
+
+    public static InlineGenerator<ulong> UnsignedLongWithExactDigitCount(int digitsCount)
+    {
+      return new NumberWithExactDigitNumberGenerator<ulong>(NumericTraits.UnsignedLong(), digitsCount);
+    }
+
+    public static InlineGenerator<string> IpString()
+    {
+      return new IpStringGenerator();
+    }
+
+    public static PortNumberGenerator Port()
+    {
+      return new PortNumberGenerator();
+    }
+
+    public static InlineGenerator<T> Substitute<T>() where T : class
+    {
+      return new SubstituteGenerator<T>();
+    }
+
+    public static SimpleInstanceGenerator<Func<T>> Func<T>()
+    {
+      return new SimpleInstanceGenerator<Func<T>>();
+    }
+
+    public static SimpleInstanceGenerator<Func<T1, T2>> Func<T1, T2>()
+    {
+      return new SimpleInstanceGenerator<Func<T1, T2>>();
+    }
+
+    public static SimpleInstanceGenerator<Func<T1, T2, T3>> Func<T1, T2, T3>()
+    {
+      return new SimpleInstanceGenerator<Func<T1, T2, T3>>();
+    }
+
+    public static SimpleInstanceGenerator<Func<T1, T2, T3, T4>> Func<T1, T2, T3, T4>()
+    {
+      return new SimpleInstanceGenerator<Func<T1, T2, T3, T4>>();
+    }
+
+    public static SimpleInstanceGenerator<Func<T1, T2, T3, T4, T5>> Func<T1, T2, T3, T4, T5>()
+    {
+      return new SimpleInstanceGenerator<Func<T1, T2, T3, T4, T5>>();
+    }
+
+    public static SimpleInstanceGenerator<Func<T1, T2, T3, T4, T5, T6>> Func<T1, T2, T3, T4, T5, T6>()
+    {
+      return new SimpleInstanceGenerator<Func<T1, T2, T3, T4, T5, T6>>();
+    }
+
+    public static SimpleInstanceGenerator<Action> Action()
+    {
+      return new SimpleInstanceGenerator<Action>();
+    }
+
+    public static SimpleInstanceGenerator<Action<T>> Action<T>()
+    {
+      return new SimpleInstanceGenerator<Action<T>>();
+    }
+
+    public static SimpleInstanceGenerator<Action<T1, T2>> Action<T1, T2>()
+    {
+      return new SimpleInstanceGenerator<Action<T1, T2>>();
+    }
+
+    public static SimpleInstanceGenerator<Action<T1, T2, T3>> Action<T1, T2, T3>()
+    {
+      return new SimpleInstanceGenerator<Action<T1, T2, T3>>();
+    }
+
+    public static SimpleInstanceGenerator<Action<T1, T2, T3, T4>> Action<T1, T2, T3, T4>()
+    {
+      return new SimpleInstanceGenerator<Action<T1, T2, T3, T4>>();
+    }
+
+    public static SimpleInstanceGenerator<Action<T1, T2, T3, T4, T5>> Action<T1, T2, T3, T4, T5>()
+    {
+      return new SimpleInstanceGenerator<Action<T1, T2, T3, T4, T5>>();
+    }
+
+    public static SimpleInstanceGenerator<Action<T1, T2, T3, T4, T5, T6>> Action<T1, T2, T3, T4, T5, T6>()
+    {
+      return new SimpleInstanceGenerator<Action<T1, T2, T3, T4, T5, T6>>();
+    }
+
+    public static NotStartedTaskGenerator NotStartedTask()
+    {
+      return new NotStartedTaskGenerator();
+    }
+
+    public static NotStartedTaskGenerator<T> NotStartedTask<T>()
+    {
+      return new NotStartedTaskGenerator<T>();
+    }
+
+    public static StartedTaskGenerator<T> StartedTask<T>()
+    {
+      return new StartedTaskGenerator<T>();
     }
   }
 }

@@ -91,7 +91,7 @@ namespace AnyCore
 
     public static IReadOnlyList<T> ReadOnlyList<T>(this MyGenerator gen)
     {
-      return gen.InstanceOf(InlineGenerators.ReadOnlyList<T>());
+      return gen.InstanceOf(InlineGenerators.List<T>());
     }
 
     public static IReadOnlyList<T> ReadOnlyList<T>(this MyGenerator gen, int length)
@@ -173,7 +173,7 @@ namespace AnyCore
 
     public static IReadOnlyDictionary<TKey, TValue> ReadOnlyDictionaryWithKeys<TKey, TValue>(this MyGenerator gen, IEnumerable<TKey> keys)
     {
-      return gen.AllGenerator.ReadOnlyDictionaryWithKeys<TKey, TValue>(keys);
+      return gen.InstanceOf(InlineGenerators.DictionaryWithKeys<TKey, TValue>(keys));
     }
 
     public static IReadOnlyDictionary<TKey, TValue> ReadOnlyDictionary<TKey, TValue>(this MyGenerator gen)
@@ -232,7 +232,7 @@ namespace AnyCore
 
     public static IEnumerable<T> EnumerableSortedDescending<T>(this MyGenerator gen, int length)
     {
-      return gen.AllGenerator.EnumerableSortedDescending<T>(length);
+      return gen.InstanceOf(InlineGenerators.SortedSet<T>(length));
     }
 
     public static IEnumerable<T> EnumerableSortedDescending<T>(this MyGenerator gen)

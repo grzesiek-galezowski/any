@@ -1,9 +1,10 @@
 using System;
 using TddEbook.TddToolkit.Generators;
+using TddEbook.TypeReflection;
 
 namespace Generators
 {
-  public class NumberWithExactDigitNumberGenerator<T>
+  public class NumberWithExactDigitNumberGenerator<T> : InlineGenerator<T>
   {
     private static readonly Random RandomGenerator = new Random(Guid.NewGuid().GetHashCode());
     private readonly NumericTraits<T> _intTraits;
@@ -15,7 +16,7 @@ namespace Generators
       _digitsCount = digitsCount;
     }
 
-    public T GenerateInstance(AllGenerator genAllGenerator)
+    public T GenerateInstance(InstanceGenerator instanceGenerator)
     {
       return _intTraits.GenerateWithExactNumberOfDigits(_digitsCount, RandomGenerator);
     }

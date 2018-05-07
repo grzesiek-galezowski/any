@@ -7,7 +7,6 @@ using System.Reflection;
 using AutoFixture;
 using AutoFixture.Kernel;
 using TddEbook.TddToolkit.CommonTypes;
-using TddEbook.TddToolkit.Generators;
 using TddEbook.TypeReflection;
 using IMethodQuery = AutoFixture.Kernel.IMethodQuery;
 using StringGenerator = AutoFixture.StringGenerator;
@@ -39,7 +38,7 @@ namespace TddEbook.TddToolkit
       return new Fixture(new EngineWithReplacedQuery());
     }
 
-    public void ApplyTo(Fixture generator, ValueGenerator valueGenerator)
+    public void ApplyTo(Fixture generator)
     {
       generator.Register(() => _types.Next());
       generator.Register(() => _methodList.Next());
@@ -48,7 +47,7 @@ namespace TddEbook.TddToolkit
       generator.Register(
         () =>
           new IPAddress(new[]
-            {NumericGenerator.Octet2(valueGenerator), NumericGenerator.Octet2(valueGenerator), NumericGenerator.Octet2(valueGenerator), NumericGenerator.Octet2(valueGenerator)}));
+            {generator.Create<byte>(), generator.Create<byte>(), generator.Create<byte>(), generator.Create<byte>()}));
     }
   }
 

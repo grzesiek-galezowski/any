@@ -20,7 +20,7 @@ namespace Generators
 
       foreach (var key in _keys)
       {
-        dict.Add(key, instanceGenerator.InstanceOf<TValue>());
+        dict.Add(key, instanceGenerator.Instance<TValue>());
       }
 
       return dict;

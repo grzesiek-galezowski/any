@@ -321,8 +321,8 @@ namespace TddEbook.TddToolkitSpecification
     public void ShouldGenerateDifferentValueEachTimeAndNotAmongPassedOnesWhenAskedToCreateAnyValueBesidesGiven()
     {
       //WHEN
-      var int1 = Any.ValueOtherThan(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
-      var int2 = Any.ValueOtherThan(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+      var int1 = Any.OtherThan(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+      var int2 = Any.OtherThan(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
 
       //THEN
       Assert.AreNotEqual(int1, int2);
@@ -769,7 +769,7 @@ namespace TddEbook.TddToolkitSpecification
     [Test]
     public void ShouldAllowGeneratingDummyObjectsBypassingConstructors()
     {
-      Alike(new List<string>(), Any.Dummy<IEnumerable<string>>());
+      Alike(Enumerable.Empty<string>(), Any.Dummy<IEnumerable<string>>());
       Alike(new List<string>(), Any.Dummy<List<string>>());
       Alike(new List<string>(), Any.Dummy<IList<string>>());
       Alike(new List<string>(), Any.Dummy<ICollection<string>>());
@@ -1016,11 +1016,11 @@ namespace TddEbook.TddToolkitSpecification
       SerializeAnyInstanceOf<ComplexObjectWithFactoryMethodAndRecursiveConstructor>();
       SerializeAnyInstanceOf<RecursiveInterface>();
 
-      var x1 = Any.InstanceOf<AbstractObjectWithInterfaceInConstructor>();
-      var x2 = Any.InstanceOf<AbstractObjectWithVirtualMethods>();
-      var x3 = Any.InstanceOf<RecursiveInterface>();
-      var x4 = Any.InstanceOf<ObjectWithCopyConstructor>();
-      var x5 = Any.InstanceOf<ComplexObjectWithFactoryMethodAndRecursiveConstructor>();
+      var x1 = Any.Instance<AbstractObjectWithInterfaceInConstructor>();
+      var x2 = Any.Instance<AbstractObjectWithVirtualMethods>();
+      var x3 = Any.Instance<RecursiveInterface>();
+      var x4 = Any.Instance<ObjectWithCopyConstructor>();
+      var x5 = Any.Instance<ComplexObjectWithFactoryMethodAndRecursiveConstructor>();
       CallSomeMethodsOn(x1, x2, x3);
       Serialize(x1);
       Serialize(x2);

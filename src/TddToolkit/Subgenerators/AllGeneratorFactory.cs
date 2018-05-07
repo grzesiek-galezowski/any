@@ -19,9 +19,7 @@ namespace TddEbook.TddToolkit.Subgenerators
       var valueGenerator = CreateValueGenerator();
       var numericGenerator = new NumericGenerator();
 
-      var emptyCollectionGenerator = new EmptyCollectionGenerator(
-        emptyCollectionFixture, 
-        methodProxyCalls);
+      var emptyCollectionGenerator = new EmptyCollectionInstantiation();
       var proxyGenerator = new ProxyGenerator();
       var proxyBasedGenerator = new ProxyBasedGenerator(
         emptyCollectionFixture, 
@@ -36,10 +34,7 @@ namespace TddEbook.TddToolkit.Subgenerators
         valueGenerator);
 
       var allGenerator = new AllGenerator(valueGenerator, 
-        emptyCollectionGenerator, 
-        numericGenerator, 
-        proxyBasedGenerator, 
-        new InvokableGenerator());
+        proxyBasedGenerator);
       return allGenerator;
     }
 
@@ -48,7 +43,7 @@ namespace TddEbook.TddToolkit.Subgenerators
       var fixtureConfiguration = new AutoFixtureConfiguration();
       var fixture = fixtureConfiguration.CreateUnconfiguredInstance();
       var valueGenerator = new ValueGenerator(fixture);
-      fixtureConfiguration.ApplyTo(fixture, valueGenerator);
+      fixtureConfiguration.ApplyTo(fixture);
       return valueGenerator;
     }
   }
