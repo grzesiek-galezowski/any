@@ -1,4 +1,5 @@
 ﻿using System;
+using TddEbook.TddToolkit.Generators;
 
 namespace TddEbook.TypeReflection
 {
@@ -11,5 +12,7 @@ namespace TddEbook.TypeReflection
     T ValueOtherThan<T>(params T[] omittedValues);
     T Value<T>();
     T Value<T>(T seed);
+    T InstanceOf<T>(InlineGenerator<T> gen);
   }
+
 }

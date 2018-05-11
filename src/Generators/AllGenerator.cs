@@ -1,22 +1,32 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using System.Runtime.Serialization;
+using Generators;
+using TddEbook.TddToolkit.TypeResolution.FakeChainElements;
 using TddEbook.TypeReflection;
 
 namespace TddEbook.TddToolkit.Generators
 {
+  [Serializable]
   public class AllGenerator : InstanceGenerator
   {
-    public AllGenerator(
-      ValueGenerator valueGenerator, 
-      ProxyBasedGenerator genericGenerator)
+    public AllGenerator(ValueGenerator valueGenerator,
+      FakeChainFactory fakeChainFactory,
+      GenericMethodProxyCalls methodProxyCalls)
     {
       _valueGenerator = valueGenerator;
-      _genericGenerator = genericGenerator;
+      _fakeChainFactory = fakeChainFactory;
+      _methodProxyCalls = methodProxyCalls;
     }
 
     public const int Many = 3;
 
-    private readonly ValueGenerator _valueGenerator;
-    private readonly ProxyBasedGenerator _genericGenerator;
+    [NonSerialized] private readonly ValueGenerator _valueGenerator;
+    [NonSerialized] private readonly FakeChainFactory _fakeChainFactory;
+
+    [NonSerialized] private readonly GenericMethodProxyCalls _methodProxyCalls;
 
     public T ValueOtherThan<T>(params T[] omittedValues)
     {
@@ -35,27 +45,84 @@ namespace TddEbook.TddToolkit.Generators
 
     public object Instance(Type type)
     {
-      return _genericGenerator.Instance(type);
+      return ResultOfGenericVersionOfMethod(this, type, MethodBase.GetCurrentMethod().Name);
+    }
+
+    private object ResultOfGenericVersionOfMethod<T>(T instance, Type type, string name)
+    {
+      //todo do something with this...
+      return _methodProxyCalls.ResultOfGenericVersionOfMethod(instance, type, name);
     }
 
     public T Instance<T>()
     {
-      return _genericGenerator.Instance<T>();
+      return _fakeChainFactory.GetInstance<T>().Resolve(this);
     }
 
     public T Dummy<T>()
     {
-      return _genericGenerator.Dummy<T>();
+      var fakeInterface = _fakeChainFactory.CreateFakeOrdinaryInterfaceGenerator<T>();
+
+      if (typeof(T).IsPrimitive)
+      {
+        return _fakeChainFactory.GetUnconstrainedInstance<T>().Resolve(this);
+      }
+
+      if (typeof(T) == typeof(string))
+      {
+        return _fakeChainFactory.GetUnconstrainedInstance<T>().Resolve(this);
+      }
+
+      var emptyCollectionInstantiation = new EmptyCollectionInstantiation();
+      if (TypeOf<T>.IsImplementationOfOpenGeneric(typeof(IEnumerable<>)))
+      {
+        return emptyCollectionInstantiation.CreateCollectionPassedAsGenericType<T>();
+      }
+
+      if (TypeOf<T>.IsOpenGeneric(typeof(IEnumerable<>)))
+      {
+        return (T) emptyCollectionInstantiation.EmptyEnumerableOf(typeof(T).GetCollectionItemType());
+      }
+
+      if (typeof(T).IsAbstract)
+      {
+        return default(T);
+      }
+
+      if (fakeInterface.Applies())
+      {
+        return fakeInterface.Apply(this);
+      }
+
+      return (T) FormatterServices.GetUninitializedObject(typeof(T));
     }
+
+
 
     public T OtherThan<T>(params T[] omittedValues)
     {
-      return _genericGenerator.OtherThan(omittedValues);
+      if (omittedValues == null)
+      {
+        return Instance<T>();
+      }
+
+      T currentValue;
+      do
+      {
+        currentValue = Instance<T>();
+      } while (omittedValues.Contains(currentValue));
+
+      return currentValue;
     }
 
     public T Exploding<T>() where T : class
     {
-      return _genericGenerator.Exploding<T>();
+      return InlineGenerators.Exploding<T>().GenerateInstance(this);
+    }
+
+    public T InstanceOf<T>(InlineGenerator<T> gen)
+    {
+      return gen.GenerateInstance(this);
     }
   }
 }

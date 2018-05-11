@@ -2,6 +2,8 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Reflection;
 using Generators;
 using Generators.Inline;
 
@@ -541,6 +543,51 @@ namespace TddEbook.TddToolkit.Generators
     public static StartedTaskGenerator<T> StartedTask<T>()
     {
       return new StartedTaskGenerator<T>();
+    }
+
+    public static InlineGenerator<T> Exploding<T>() where T : class
+    {
+      return new ExplodingInstanceGenerator<T>();
+    }
+
+    public static InlineGenerator<IPAddress> IpAddress()
+    {
+      return new SimpleValueGenerator<IPAddress>();
+    }
+
+    public static InlineGenerator<DateTime> DateTime()
+    {
+      return new SimpleValueGenerator<DateTime>();
+    }
+
+    public static InlineGenerator<TimeSpan> TimeSpan()
+    {
+      return new SimpleValueGenerator<TimeSpan>();
+    }
+
+    public static InlineGenerator<bool> Boolean()
+    {
+      return new SimpleValueGenerator<bool>();
+    }
+
+    public static InlineGenerator<object> Object()
+    {
+      return new SimpleValueGenerator<object>();
+    }
+
+    public static InlineGenerator<MethodInfo> MethodInfo()
+    {
+      return new SimpleValueGenerator<MethodInfo>();
+    }
+
+    public static InlineGenerator<Type> Type()
+    {
+      return new SimpleValueGenerator<Type>();
+    }
+
+    public static InlineGenerator<Exception> Exception()
+    {
+      return new SimpleValueGenerator<Exception>();
     }
   }
 }

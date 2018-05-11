@@ -1,5 +1,6 @@
 ﻿using TddEbook.TddToolkit.Generators;
 using TddEbook.TddToolkit.Subgenerators;
+using TddEbook.TypeReflection;
 
 namespace AnyCore
 {
@@ -19,7 +20,7 @@ namespace AnyCore
 
     public T InstanceOf<T>(InlineGenerator<T> gen)
     {
-      return gen.GenerateInstance(this.AllGenerator);
+      return this.AllGenerator.InstanceOf(gen);
     }
   }
 }

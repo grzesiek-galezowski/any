@@ -11,34 +11,25 @@ namespace TddEbook.TddToolkit.Subgenerators
   {
     public static AllGenerator Create()
     {
-      var emptyCollectionFixture = new Fixture
-      {
-        RepeatCount = 0
-      };
       var methodProxyCalls = new GenericMethodProxyCalls();
       var valueGenerator = CreateValueGenerator();
-      var numericGenerator = new NumericGenerator();
-
-      var emptyCollectionGenerator = new EmptyCollectionInstantiation();
       var proxyGenerator = new ProxyGenerator();
-      var proxyBasedGenerator = new ProxyBasedGenerator(
-        emptyCollectionFixture, 
-        methodProxyCalls, 
-        emptyCollectionGenerator, //TODO make separate chain for this
-        proxyGenerator, 
-        new FakeChainFactory(
-          new CachedReturnValueGeneration(new PerMethodCache<object>()), 
-          GlobalNestingLimit.Of(5), 
-          proxyGenerator, //TODO get rid of this dependency - its runtime-circular
-          valueGenerator),
-        valueGenerator);
+      var fakeChainFactory = CreateFakeChainFactory(proxyGenerator, valueGenerator);
 
-      var allGenerator = new AllGenerator(valueGenerator, 
-        proxyBasedGenerator);
+      var allGenerator = new AllGenerator(valueGenerator, fakeChainFactory, methodProxyCalls);
       return allGenerator;
     }
 
-    private static ValueGenerator CreateValueGenerator()
+    public static FakeChainFactory CreateFakeChainFactory(ProxyGenerator proxyGenerator, ValueGenerator valueGenerator)
+    {
+      return new FakeChainFactory(
+        new CachedReturnValueGeneration(new PerMethodCache<object>()), 
+        GlobalNestingLimit.Of(5), 
+        proxyGenerator,
+        valueGenerator);
+    }
+
+    public static ValueGenerator CreateValueGenerator()
     {
       var fixtureConfiguration = new AutoFixtureConfiguration();
       var fixture = fixtureConfiguration.CreateUnconfiguredInstance();

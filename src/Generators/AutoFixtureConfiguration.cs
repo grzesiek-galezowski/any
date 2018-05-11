@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Net;
 using System.Reflection;
@@ -9,7 +8,6 @@ using AutoFixture.Kernel;
 using TddEbook.TddToolkit.CommonTypes;
 using TddEbook.TypeReflection;
 using IMethodQuery = AutoFixture.Kernel.IMethodQuery;
-using StringGenerator = AutoFixture.StringGenerator;
 
 namespace TddEbook.TddToolkit
 {
@@ -48,6 +46,14 @@ namespace TddEbook.TddToolkit
         () =>
           new IPAddress(new[]
             {generator.Create<byte>(), generator.Create<byte>(), generator.Create<byte>(), generator.Create<byte>()}));
+    }
+
+    public static Fixture InstanceForEmptyCollections()
+    {
+      return new Fixture
+      {
+        RepeatCount = 0
+      };
     }
   }
 

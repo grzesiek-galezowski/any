@@ -6,6 +6,7 @@ using TddEbook.TddToolkit.TypeResolution.Interfaces;
 
 namespace TddEbook.TddToolkit.Generators
 {
+  [Serializable]
   public class ValueGenerator : IValueGenerator
   {
     private readonly Fixture _generator;

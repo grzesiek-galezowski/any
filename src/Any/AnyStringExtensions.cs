@@ -4,7 +4,7 @@ using TddEbook.TddToolkit.Generators;
 
 namespace AnyCore
 {
-  public static class StringExtensions
+  public static class AnyStringExtensions
   {
     public static string String(this MyGenerator gen)
     {
@@ -106,7 +106,7 @@ namespace AnyCore
     public static string NumericString(this MyGenerator gen, int digitsCount = AllGenerator.Many)
     {
       //todo gen for Many could be cached
-      return InlineGenerators.NumericString(digitsCount).GenerateInstance(gen.AllGenerator);
+      return gen.InstanceOf(InlineGenerators.NumericString(digitsCount));
     }
 
     public static char LowerCaseAlphaChar(this MyGenerator gen)

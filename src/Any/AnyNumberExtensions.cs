@@ -72,27 +72,27 @@ namespace AnyCore
 
     public static int IntegerNotDivisibleBy(this MyGenerator gen, int quotient)
     {
-      return InlineGenerators.IntegerNotDivisibleBy(quotient).GenerateInstance(gen.AllGenerator);
+      return gen.InstanceOf(InlineGenerators.IntegerNotDivisibleBy(quotient));
     }
 
     public static int IntegerWithExactDigitsCount(this MyGenerator gen, int digitsCount)
     {
-      return InlineGenerators.IntegerWithExactDigitCount(digitsCount).GenerateInstance(gen.AllGenerator);
+      return gen.InstanceOf(InlineGenerators.IntegerWithExactDigitCount(digitsCount));
     }
 
     public static long LongIntegerWithExactDigitsCount(this MyGenerator gen, int digitsCount)
     {
-      return InlineGenerators.LongWithExactDigitCount(digitsCount).GenerateInstance(gen.AllGenerator);
+      return gen.InstanceOf(InlineGenerators.LongWithExactDigitCount(digitsCount));
     }
 
     public static uint UnsignedIntegerWithExactDigitsCount(this MyGenerator gen, int digitsCount)
     {
-      return InlineGenerators.UnsignedIntWithExactDigitCount(digitsCount).GenerateInstance(gen.AllGenerator);
+      return gen.InstanceOf(InlineGenerators.UnsignedIntWithExactDigitCount(digitsCount));
     }
 
     public static ulong UnsignedLongIntegerWithExactDigitsCount(this MyGenerator gen, int digitsCount)
     {
-      return InlineGenerators.UnsignedLongWithExactDigitCount(digitsCount).GenerateInstance(gen.AllGenerator);
+      return gen.InstanceOf(InlineGenerators.UnsignedLongWithExactDigitCount(digitsCount));
     }
 
     public static byte PositiveDigit(this MyGenerator gen)
