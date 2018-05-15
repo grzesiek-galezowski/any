@@ -8,14 +8,19 @@ using System.Net;
 using System.Reflection;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text.RegularExpressions;
-using AnyCore;
 using FluentAssertions;
 using NUnit.Framework;
 using TddEbook.TddToolkit.CommonTypes;
-using TddEbook.TddToolkit.Generators;
 using TddEbook.TddToolkit.ImplementationDetails;
 using TddEbook.TddToolkitSpecification.Fixtures;
-using static AnyCore.Core;
+using TddXt.AnyCore;
+using TddXt.AnyCore.Collections;
+using TddXt.AnyCore.Invokable;
+using TddXt.AnyCore.Math;
+using TddXt.AnyCore.Network;
+using TddXt.AnyCore.Numbers;
+using TddXt.AnyCore.Strings;
+using static TddXt.AnyCore.Core;
 
 // ReSharper disable PublicConstructorInAbstractClass
 

@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Linq;
-using System.Net;
-using System.Reflection;
+using Generators.Inline;
 using TddEbook.TddToolkit.Generators;
+using TddXt.AnyExtensibility;
 
-namespace AnyCore
+namespace TddXt.AnyCore
 {
   public static class AnyExtensions
   {
@@ -26,107 +26,52 @@ namespace AnyCore
       typeof(string)
     };
 
-    public static IPAddress IpAddress(this MyGenerator gen)
-    {
-      return gen.InstanceOf(InlineGenerators.IpAddress());
-    }
 
-    public static T From<T>(this MyGenerator gen, params T[] possibleValues)
+
+    public static T From<T>(this BasicGenerator gen, params T[] possibleValues)
     {
       return gen.InstanceOf(InlineGenerators.From(possibleValues));
     }
 
-    public static DateTime DateTime(this MyGenerator gen)
-    {
-      return gen.InstanceOf(InlineGenerators.DateTime());
-    }
-
-    public static TimeSpan TimeSpan(this MyGenerator gen)
-    {
-      return gen.InstanceOf(InlineGenerators.TimeSpan());
-    }
-
-    public static bool Boolean(this MyGenerator gen)
+    public static bool Boolean(this BasicGenerator gen)
     {
       return gen.InstanceOf(InlineGenerators.Boolean());
     }
 
-    public static object Object(this MyGenerator gen)
+    public static object Object(this BasicGenerator gen)
     {
       return gen.InstanceOf(InlineGenerators.Object());
     }
 
-    public static T Exploding<T>(this MyGenerator gen) where T : class
-    {
-      return gen.InstanceOf(InlineGenerators.Exploding<T>());
-    }
-
-    public static MethodInfo Method(this MyGenerator gen)
-    {
-      return gen.InstanceOf(InlineGenerators.MethodInfo());
-    }
-
-    public static Type Type(this MyGenerator gen)
-    {
-      return gen.InstanceOf(InlineGenerators.Type());
-    }
-
-    public static T Instance<T>(this MyGenerator gen)
-    {
-      return gen.AllGenerator.Instance<T>();
-    }
-
-    public static T Dummy<T>(this MyGenerator gen)
-    {
-      return gen.AllGenerator.Dummy<T>();
-    }
-
-    public static T Substitute<T>(this MyGenerator gen) where T : class
-    {
-      return gen.InstanceOf(InlineGenerators.Substitute<T>());
-    }
-
-    public static T OtherThan<T>(this MyGenerator gen, params T[] omittedValues)
+    public static T OtherThan<T>(this BasicGenerator gen, params T[] omittedValues)
     {
       if (ValueTypes.Contains(typeof(T)))
       {
-        return gen.InstanceOf(new SimpleValueOtherThanGenerator<T>(omittedValues)); 
+        return gen.InstanceOf(InlineGenerators.ValueOtherThan(omittedValues)); 
       }
       else
       {
-        return gen.InstanceOf(new SimpleInstanceOtherThanGenerator<T>(omittedValues));
+        return gen.InstanceOf(InlineGenerators.OtherThan(omittedValues));
       }
     }
 
-    public static Uri Uri(this MyGenerator gen)
+    public static T Dummy<T>(this BasicGenerator gen)
     {
-      return gen.InstanceOf(InlineGenerators.Uri());
+      return gen.InstanceOf(new DummyGenerator<T>());
     }
 
-    public static Guid Guid(this MyGenerator gen)
+
+    public static Guid Guid(this BasicGenerator gen)
     {
       return gen.InstanceOf(InlineGenerators.Guid());
     }
 
-    public static string UrlString(this MyGenerator gen)
-    {
-      return gen.InstanceOf(InlineGenerators.UrlString());
-    }
-
-    public static Exception Exception(this MyGenerator gen)
+    public static Exception Exception(this BasicGenerator gen)
     {
       return gen.InstanceOf(InlineGenerators.Exception());
     }
 
-    public static int Port(this MyGenerator gen)
-    {
-      return gen.InstanceOf(InlineGenerators.Port());
-    }
 
-    public static string IpString(this MyGenerator gen)
-    {
-      return gen.InstanceOf(InlineGenerators.IpString());
-    }
 
   }
 }

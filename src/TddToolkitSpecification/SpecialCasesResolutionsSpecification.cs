@@ -1,9 +1,8 @@
-﻿using AnyCore;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using TddEbook.TddToolkit.Generators;
 using TddEbook.TddToolkitSpecification.Fixtures;
-using TddEbook.TypeReflection;
-using static AnyCore.Core;
+using TddXt.AnyExtensibility;
+using static TddXt.AnyCore.Core;
 
 namespace TddEbook.TddToolkitSpecification
 {

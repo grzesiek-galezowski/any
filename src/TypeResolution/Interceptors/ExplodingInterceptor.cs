@@ -10,5 +10,7 @@ namespace TddEbook.TddToolkit.TypeResolution.Interceptors
         throw new BoooooomException(invocation.Method.Name);
       }
   }
+
+  
 }
 

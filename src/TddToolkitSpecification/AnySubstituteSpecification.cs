@@ -1,9 +1,10 @@
-using AnyCore;
 using NSubstitute;
 using NUnit.Framework;
 using TddEbook.TddToolkitSpecification.Fixtures;
 using TddToolkitSpecification.Fixtures;
-using static AnyCore.Core;
+using TddXt.AnyCore.NSubstitute;
+using TddXt.AnyCore.Strings;
+using static TddXt.AnyCore.Core;
 
 namespace TddEbook.TddToolkitSpecification
 {

@@ -1,7 +1,7 @@
-﻿using AnyCore;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using TddEbook.TddToolkit.CommonTypes;
-using static AnyCore.Core;
+using TddXt.AnyCore.Numbers;
+using static TddXt.AnyCore.Core;
 
 namespace TddEbook.TddToolkitSpecification
 {

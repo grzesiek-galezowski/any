@@ -1,6 +1,7 @@
 using System;
 using System.Reflection;
 using TddEbook.TypeReflection;
+using TddXt.AnyExtensibility;
 
 namespace TddEbook.TddToolkit.TypeResolution.FakeChainElements
 {

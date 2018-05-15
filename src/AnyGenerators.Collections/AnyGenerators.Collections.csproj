@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>TddXt.AnyGenerators.Collections</AssemblyName>
+    <RootNamespace>TddXt.AnyGenerators.Collections</RootNamespace>
+    <SignAssembly>true</SignAssembly>
+    <DelaySign>false</DelaySign>
+    <AssemblyOriginatorKeyFile>TddToolkit.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AnyExtensibility\AnyExtensibility.csproj" />
+  </ItemGroup>
+
+</Project>

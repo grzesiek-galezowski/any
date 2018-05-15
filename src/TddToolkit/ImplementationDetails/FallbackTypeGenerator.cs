@@ -1,49 +1,11 @@
 using System;
 using System.Collections.Generic;
 using TddEbook.TypeReflection;
+using TddXt.AnyExtensibility;
 using TypeReflection.Interfaces;
 
 namespace TddEbook.TddToolkit.ImplementationDetails
 {
-  public class FallbackTypeGenerator<T>
-  {
-    private readonly FallbackTypeGenerator _fallbackTypeGenerator;
-
-    public FallbackTypeGenerator()
-    {
-      var type = typeof (T);
-      _fallbackTypeGenerator = new FallbackTypeGenerator(type);
-    }
-
-    public int GetConstructorParametersCount()
-    {
-      return _fallbackTypeGenerator.GetConstructorParametersCount();
-    }
-
-    public T GenerateInstance(InstanceGenerator instanceGenerator)
-    {
-      var generateInstance = (T)_fallbackTypeGenerator.GenerateInstance(instanceGenerator);
-      _fallbackTypeGenerator.FillFieldsAndPropertiesOf(generateInstance, instanceGenerator);
-      return generateInstance;
-    }
-
-    public List<object> GenerateConstructorParameters(InstanceGenerator instanceGenerator)
-    {
-      return _fallbackTypeGenerator.GenerateConstructorParameters(instanceGenerator.Instance);
-    }
-
-    public bool ConstructorIsInternalOrHasAtLeastOneNonConcreteArgumentType()
-    {
-      return _fallbackTypeGenerator.ConstructorIsInternalOrHasAtLeastOneNonConcreteArgumentType();
-    }
-
-
-    public void FillFieldsAndPropertiesOf(T result, InstanceGenerator instanceGenerator)
-    {
-      _fallbackTypeGenerator.FillFieldsAndPropertiesOf(result, instanceGenerator);
-    }
-  }
-
   public class FallbackTypeGenerator
   {
     private readonly IType _smartType;

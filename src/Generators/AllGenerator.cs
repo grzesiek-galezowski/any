@@ -6,6 +6,7 @@ using System.Runtime.Serialization;
 using Generators;
 using TddEbook.TddToolkit.TypeResolution.FakeChainElements;
 using TddEbook.TypeReflection;
+using TddXt.AnyExtensibility;
 
 namespace TddEbook.TddToolkit.Generators
 {
@@ -20,8 +21,6 @@ namespace TddEbook.TddToolkit.Generators
       _fakeChainFactory = fakeChainFactory;
       _methodProxyCalls = methodProxyCalls;
     }
-
-    public const int Many = 3;
 
     [NonSerialized] private readonly ValueGenerator _valueGenerator;
     [NonSerialized] private readonly FakeChainFactory _fakeChainFactory;
@@ -113,11 +112,6 @@ namespace TddEbook.TddToolkit.Generators
       } while (omittedValues.Contains(currentValue));
 
       return currentValue;
-    }
-
-    public T Exploding<T>() where T : class
-    {
-      return InlineGenerators.Exploding<T>().GenerateInstance(this);
     }
 
     public T InstanceOf<T>(InlineGenerator<T> gen)

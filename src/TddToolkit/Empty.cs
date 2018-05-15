@@ -2,7 +2,7 @@
 
 namespace TddEbook.TddToolkit
 {
-  public class Empty
+  public class Empty //?
   {
     public static List<T> List<T>()
     {

@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>TddXt.AnyExtensibility</AssemblyName>
+    <RootNamespace>TddXt.AnyExtensibility</RootNamespace>
+    <SignAssembly>true</SignAssembly>
+    <DelaySign>false</DelaySign>
+    <AssemblyOriginatorKeyFile>AnyExtensibility.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+
+</Project>

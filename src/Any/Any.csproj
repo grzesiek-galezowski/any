@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <AssemblyName>AnyCore</AssemblyName>
-    <RootNamespace>AnyCore</RootNamespace>
+    <AssemblyName>TddXt.AnyCore</AssemblyName>
+    <RootNamespace>TddXt.AnyCore</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

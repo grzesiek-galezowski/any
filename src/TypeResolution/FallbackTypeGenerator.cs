@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using FluentAssertions;
 using TddEbook.TypeReflection;
+using TddXt.AnyExtensibility;
 using TypeReflection.Interfaces;
 
 namespace TddEbook.TddToolkit.TypeResolution

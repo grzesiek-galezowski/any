@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Reflection;
 using TddEbook.TddToolkit.TypeResolution.Interfaces;
 using TddEbook.TypeReflection;
+using TddXt.AnyExtensibility;
 
 namespace TddEbook.TddToolkit.TypeResolution.FakeChainElements
 {
