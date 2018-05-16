@@ -136,10 +136,6 @@
       <Project>{51199DA5-C26A-4DB3-B5D4-5A9B3976AD19}</Project>
       <Name>Generators</Name>
     </ProjectReference>
-    <ProjectReference Include="..\TddToolkit\TddToolkit.csproj">
-      <Project>{A8C580AD-07B3-44D1-9E23-8835A15BA853}</Project>
-      <Name>TddToolkit</Name>
-    </ProjectReference>
     <ProjectReference Include="..\TypeReflection.ImplementationDetails\TypeReflection.ImplementationDetails.csproj">
       <Project>{EBAE8411-BCBD-48AF-BFBF-4F6336174698}</Project>
       <Name>TypeReflection.ImplementationDetails</Name>

@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>TddXt.AnyGenerators.NSubstitute</AssemblyName>
+    <RootNamespace>TddXt.AnyGenerators.NSubstitute</RootNamespace>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>TddToolkit.snk</AssemblyOriginatorKeyFile>
+    <DelaySign>false</DelaySign>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="NSubstitute" Version="3.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AnyExtensibility\AnyExtensibility.csproj" />
+    <ProjectReference Include="..\TypeReflection\TypeReflection.csproj" />
+  </ItemGroup>
+
+</Project>

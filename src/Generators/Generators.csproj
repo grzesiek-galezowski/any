@@ -12,17 +12,18 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AutoFixture.SeedExtensions" Version="4.3.0" />
     <PackageReference Include="Castle.Core" Version="4.2.1" />
-    <PackageReference Include="FastDeepCloner" Version="1.1.1" />
-    <PackageReference Include="Generic.Math" Version="1.0.2" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\AnyGenerators.Collections\AnyGenerators.Collections.csproj" />
+    <ProjectReference Include="..\AnyGenerators.Generic\AnyGenerators.Generic.csproj" />
+    <ProjectReference Include="..\AnyGenerators.Invokable\AnyGenerators.Invokable.csproj" />
+    <ProjectReference Include="..\AnyGenerators.Math\AnyGenerators.Math.csproj" />
+    <ProjectReference Include="..\AnyGenerators.Network\AnyGenerators.Network.csproj" />
+    <ProjectReference Include="..\AnyGenerators.NSubstitute\AnyGenerators.NSubstitute.csproj" />
     <ProjectReference Include="..\AnyGenerators.Numbers\AnyGenerators.Numbers.csproj" />
     <ProjectReference Include="..\AnyGenerators.Strings\AnyGenerators.Strings.csproj" />
-    <ProjectReference Include="..\CommonTypes\CommonTypes.csproj" />
     <ProjectReference Include="..\TypeReflection\TypeReflection.csproj" />
     <ProjectReference Include="..\TypeResolution\TypeResolution.csproj" />
   </ItemGroup>
@@ -31,14 +32,6 @@
     <Reference Include="Castle.Core">
       <HintPath>..\packages\Castle.Core.4.2.1\lib\net45\Castle.Core.dll</HintPath>
     </Reference>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Inline\Collections\" />
-    <Folder Include="Inline\Numbers\" />
-    <Folder Include="Inline\Strings\" />
-    <Folder Include="Inline\Time\" />
-    <Folder Include="Inline\Reflection\" />
   </ItemGroup>
 
 </Project>

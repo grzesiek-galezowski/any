@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>TddToolkit.snk</AssemblyOriginatorKeyFile>
+    <DelaySign>false</DelaySign>
+    <AssemblyName>TddXt.AnyGenerators.Generic</AssemblyName>
+    <RootNamespace>TddXt.AnyGenerators.Generic</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoFixture.SeedExtensions" Version="4.3.0" />
+    <PackageReference Include="Castle.Core" Version="4.2.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AnyExtensibility\AnyExtensibility.csproj" />
+    <ProjectReference Include="..\TypeReflection\TypeReflection.csproj" />
+    <ProjectReference Include="..\TypeResolution\TypeResolution.csproj" />
+  </ItemGroup>
+
+</Project>
