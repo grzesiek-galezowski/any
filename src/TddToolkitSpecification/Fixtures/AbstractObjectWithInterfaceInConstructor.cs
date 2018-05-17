@@ -1,6 +1,6 @@
 using System;
 
-namespace TddEbook.TddToolkitSpecification.Fixtures
+namespace TddToolkitSpecification.Fixtures
 {
   [Serializable]
   public abstract class AbstractObjectWithInterfaceInConstructor

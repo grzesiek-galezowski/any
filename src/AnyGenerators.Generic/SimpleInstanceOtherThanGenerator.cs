@@ -1,7 +1,6 @@
-﻿using TddEbook.TypeReflection;
-using TddXt.AnyExtensibility;
+﻿using TddXt.AnyExtensibility;
 
-namespace TddEbook.TddToolkit.Generators
+namespace TddXt.AnyGenerators.Generic
 {
   public class SimpleInstanceOtherThanGenerator<T> : InlineGenerator<T>
   {

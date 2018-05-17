@@ -1,4 +1,4 @@
-﻿using TddEbook.TddToolkit.Generators;
+﻿using Generators;
 using TddXt.AnyExtensibility;
 
 namespace TddXt.AnyCore.NSubstitute

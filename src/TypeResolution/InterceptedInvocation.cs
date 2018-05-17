@@ -2,9 +2,9 @@ using System;
 using System.Linq;
 using Castle.DynamicProxy;
 using NSubstitute.Core;
-using TddEbook.TddToolkit.TypeResolution.CustomCollections;
+using TypeResolution.CustomCollections;
 
-namespace TddEbook.TddToolkit.TypeResolution
+namespace TypeResolution
 {
   public class InterceptedInvocation
   {

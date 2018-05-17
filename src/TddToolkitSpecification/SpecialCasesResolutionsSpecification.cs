@@ -1,10 +1,10 @@
-﻿using NUnit.Framework;
-using TddEbook.TddToolkit.Generators;
-using TddEbook.TddToolkitSpecification.Fixtures;
+﻿using Generators.ImplementationDetails;
+using NUnit.Framework;
+using TddToolkitSpecification.Fixtures;
+using TddXt.AnyCore;
 using TddXt.AnyExtensibility;
-using static TddXt.AnyCore.Core;
 
-namespace TddEbook.TddToolkitSpecification
+namespace TddToolkitSpecification
 {
   public class SpecialCasesResolutionsSpecification
   {
@@ -18,8 +18,8 @@ namespace TddEbook.TddToolkitSpecification
 
       //THEN
       Assert.True(resolution.Applies());
-      Assert.NotNull(resolution.Apply(Any.Instance<InstanceGenerator>()));
-      Assert.AreEqual(3, resolution.Apply(Any.Instance<InstanceGenerator>()).Length);
+      Assert.NotNull(resolution.Apply(Core.Any.Instance<InstanceGenerator>()));
+      Assert.AreEqual(3, resolution.Apply(Core.Any.Instance<InstanceGenerator>()).Length);
 
     }
 

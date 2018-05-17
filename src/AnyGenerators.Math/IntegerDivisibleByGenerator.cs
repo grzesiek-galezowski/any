@@ -1,8 +1,8 @@
 using System.Linq;
-using TddEbook.TddToolkit.CommonTypes;
+using CommonTypes;
 using TddXt.AnyExtensibility;
 
-namespace TddEbook.TddToolkit.Generators
+namespace TddXt.AnyGenerators.Math
 {
   public class IntegerDivisibleByGenerator : InlineGenerator<int>
   {

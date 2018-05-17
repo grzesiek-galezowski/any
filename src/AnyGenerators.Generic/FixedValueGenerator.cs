@@ -1,10 +1,6 @@
-using System;
-using System.Linq;
-using TddEbook.TddToolkit.Generators;
-using TddEbook.TypeReflection;
 using TddXt.AnyExtensibility;
 
-namespace Generators
+namespace TddXt.AnyGenerators.Generic
 {
   public class FixedValueGenerator<T> : InlineGenerator<T>
   {

@@ -1,5 +1,5 @@
 ﻿using System.Reflection;
-using TddEbook.TddToolkit.CommonTypes;
+using CommonTypes;
 using TypeReflection.Interfaces;
 using TypeReflection.Interfaces.Exceptions;
 

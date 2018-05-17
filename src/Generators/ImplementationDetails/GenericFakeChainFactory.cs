@@ -1,11 +1,13 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using Castle.DynamicProxy;
-using TddEbook.TddToolkit.Generators;
-using TddEbook.TddToolkit.TypeResolution.Interceptors;
-using TddEbook.TddToolkit.TypeResolution.Interfaces;
+using TddXt.AnyGenerators.Generic.ExtensionPoints;
+using TypeResolution;
+using TypeResolution.FakeChainElements;
+using TypeResolution.Interceptors;
+using TypeResolution.Interfaces;
 
-namespace TddEbook.TddToolkit.TypeResolution.FakeChainElements
+namespace Generators.ImplementationDetails
 {
   public class GenericFakeChainFactory<T>
   {

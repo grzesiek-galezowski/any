@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Linq;
-using Generators.Inline;
-using TddEbook.TddToolkit.Generators;
+using Generators;
 using TddXt.AnyExtensibility;
+using TddXt.AnyGenerators.Generic;
 
 namespace TddXt.AnyCore
 {

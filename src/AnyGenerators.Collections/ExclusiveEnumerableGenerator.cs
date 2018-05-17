@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using TddXt.AnyExtensibility;
 
-namespace TddEbook.TddToolkit.Generators
+namespace TddXt.AnyGenerators.Collections
 {
   public class ExclusiveEnumerableGenerator<T> : InlineGenerator<IEnumerable<T>>
   {

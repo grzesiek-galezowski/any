@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using TddXt.AnyExtensibility;
 
-namespace Generators
+namespace TddXt.AnyGenerators.Collections
 {
   public class EnumeratorGenerator<T> : InlineGenerator<IEnumerator<T>>
   {

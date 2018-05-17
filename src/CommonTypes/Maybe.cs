@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TddEbook.TddToolkit.CommonTypes
+namespace CommonTypes
 {
   public static class Maybe
   {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace TddEbook.TddToolkit.TypeResolution
+namespace TypeResolution
 {
   public interface NestingLimit
   {

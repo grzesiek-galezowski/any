@@ -1,7 +1,6 @@
-using TddEbook.TypeReflection;
 using TddXt.AnyExtensibility;
 
-namespace TddEbook.TddToolkit.TypeResolution.FakeChainElements
+namespace TypeResolution.FakeChainElements
 {
   public interface IResolution<out T>
   {

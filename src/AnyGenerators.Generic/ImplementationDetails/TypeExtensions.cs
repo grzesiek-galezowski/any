@@ -2,7 +2,7 @@ using System;
 using System.Linq;
 using System.Reflection;
 
-namespace Generators
+namespace TddXt.AnyGenerators.Generic.ImplementationDetails
 {
   public static class TypeExtensions
   {

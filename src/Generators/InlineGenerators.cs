@@ -5,12 +5,17 @@ using System.Linq;
 using System.Net;
 using System.Reflection;
 using System.Threading.Tasks;
-using Generators;
-using Generators.Inline;
 using TddXt.AnyExtensibility;
 using TddXt.AnyGenerators.Collections;
+using TddXt.AnyGenerators.Generic;
+using TddXt.AnyGenerators.Invokable;
+using TddXt.AnyGenerators.Math;
+using TddXt.AnyGenerators.Network;
+using TddXt.AnyGenerators.NSubstitute;
+using TddXt.AnyGenerators.Numbers;
+using TddXt.AnyGenerators.Strings;
 
-namespace TddEbook.TddToolkit.Generators
+namespace Generators
 {
   public class InlineGenerators
   {

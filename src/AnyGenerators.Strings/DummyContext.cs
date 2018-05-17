@@ -1,6 +1,6 @@
 using AutoFixture.Kernel;
 
-namespace TddEbook.TddToolkit.Generators
+namespace TddXt.AnyGenerators.Strings
 {
   public class DummyContext : ISpecimenContext
   {

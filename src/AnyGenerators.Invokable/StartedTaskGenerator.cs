@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 using TddXt.AnyExtensibility;
 
-namespace Generators
+namespace TddXt.AnyGenerators.Invokable
 {
   public class StartedTaskGenerator<T> : InlineGenerator<Task<T>>
   {

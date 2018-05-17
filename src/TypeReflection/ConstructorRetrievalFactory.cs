@@ -1,6 +1,6 @@
 using TypeReflection.ImplementationDetails.ConstructorRetrievals;
 
-namespace TddEbook.TypeReflection
+namespace TypeReflection
 {
   public class ConstructorRetrievalFactory
   {

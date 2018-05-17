@@ -1,8 +1,8 @@
 using NSubstitute;
-using TddEbook.TypeReflection;
 using TddXt.AnyExtensibility;
+using TypeReflection;
 
-namespace Generators.Inline
+namespace TddXt.AnyGenerators.NSubstitute
 {
   public class SubstituteGenerator<T> : InlineGenerator<T> where T : class
   {

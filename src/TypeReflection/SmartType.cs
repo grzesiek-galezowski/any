@@ -2,14 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Runtime.CompilerServices;
-using TddEbook.TddToolkit.CommonTypes;
+using CommonTypes;
 using TypeReflection.ImplementationDetails;
 using TypeReflection.ImplementationDetails.ConstructorRetrievals;
 using TypeReflection.Interfaces;
-using static TypeReflection.ImplementationDetails.ConstructorWrapper;
 
-namespace TddEbook.TypeReflection
+namespace TypeReflection
 {
   public interface ISmartType : IType, IConstructorQueries
   {
@@ -83,38 +81,6 @@ namespace TddEbook.TypeReflection
       return !_typeInfo.IsAbstract && !_typeInfo.IsInterface;
     }
 
-    public IEnumerable<IFieldWrapper> GetAllInstanceFields()
-    {
-      var fields = _typeInfo.GetFields(
-        BindingFlags.Instance 
-        | BindingFlags.Public 
-        | BindingFlags.NonPublic);
-      return fields.Select(f => new FieldWrapper(f));
-    }
-
-    public IEnumerable<IFieldWrapper> GetAllStaticFields()
-    {
-      //bug first convert to field wrappers and then ask questions, not the other way round.
-      //bug GetAllFields() should return field wrappers
-      return GetAllFields(_type).Where(fieldInfo =>
-                                       fieldInfo.IsStatic &&
-                                       !new FieldWrapper(fieldInfo).IsConstant() &&
-                                       !IsCompilerGenerated(fieldInfo) &&
-                                       !IsDelegate(fieldInfo.FieldType))
-                                .Select(f => new FieldWrapper(f));
-    }
-
-    public IEnumerable<IFieldWrapper> GetAllConstants()
-    {
-      return GetAllFields(_type).Select(f => new FieldWrapper(f)).Where(f => f.IsConstant());
-    }
-
-    public IEnumerable<IPropertyWrapper> GetAllPublicInstanceProperties()
-    {
-      var properties = _typeInfo.GetProperties(BindingFlags.Instance | BindingFlags.Public);
-      return properties.Select(p => new PropertyWrapper(p));
-    }
-
     public Maybe<IConstructorWrapper> PickConstructorWithLeastNonPointersParameters()
     {
       IConstructorWrapper leastParamsConstructor = null;
@@ -136,122 +102,9 @@ namespace TddEbook.TypeReflection
       return Maybe.Wrap(leastParamsConstructor);
     }
 
-    private const string OpEquality = "op_Equality";
-    private const string OpInequality = "op_Inequality";
-
-    private Maybe<MethodInfo> EqualityMethod()
-    {
-      var equality = _typeInfo.GetMethod(OpEquality);
-
-      return equality == null ? Maybe<MethodInfo>.Not : new Maybe<MethodInfo>(equality);
-    }
-
-    private Maybe<MethodInfo> InequalityMethod()
-    {
-      var inequality = _typeInfo.GetMethod(OpInequality);
-
-      return inequality == null ? Maybe<MethodInfo>.Not : new Maybe<MethodInfo>(inequality);
-    }
-
-    private Maybe<MethodInfo> ValueTypeEqualityMethod()
-    {
-      return _typeInfo.IsValueType ?
-               Maybe.Wrap(GetType().GetTypeInfo().GetMethod("ValuesEqual"))
-               : Maybe<MethodInfo>.Not;
-
-    }
-
-    private Maybe<MethodInfo> ValueTypeInequalityMethod()
-    {
-      return _typeInfo.IsValueType ?
-               Maybe.Wrap(GetType().GetTypeInfo().GetMethod("ValuesNotEqual")) 
-               : Maybe<MethodInfo>.Not;
-    }
-
-    public IBinaryOperator Equality()
-    {
-      return BinaryOperator.Wrap(EqualityMethod(), ValueTypeEqualityMethod(), "operator ==");
-    }
-
-    public IBinaryOperator Inequality()
-    {
-      return BinaryOperator.Wrap(InequalityMethod(), ValueTypeInequalityMethod(), "operator !=");
-    }
-
     public static ISmartType For(Type type)
     {
       return new SmartType(type, new ConstructorRetrievalFactory().Create());
-    }
-
-    public static ISmartType ForTypeOf(object obj)
-    {
-      return new SmartType(obj.GetType(), new ConstructorRetrievalFactory().Create());
-    }
-
-    public static bool ValuesEqual(object instance1, object instance2)
-    {
-      return Equals(instance1, instance2);
-    }
-
-    public static bool ValuesNotEqual(object instance1, object instance2)
-    {
-      return !Equals(instance1, instance2);
-    }
-
-    public bool IsInterface()
-    {
-      return _typeInfo.IsInterface;
-    }
-
-    private static bool IsCompilerGenerated(FieldInfo fieldInfo) //?? should it be defined on a type?
-    {
-      return fieldInfo.FieldType.GetTypeInfo().IsDefined(typeof(CompilerGeneratedAttribute), false);
-    }
-
-    private static IEnumerable<FieldInfo> GetAllFields(Type type)
-    {
-      return type.GetTypeInfo().GetNestedTypes().SelectMany(GetAllFields)
-                 .Concat(type.GetTypeInfo().GetFields(
-                   BindingFlags.Public 
-                   | BindingFlags.NonPublic 
-                   | BindingFlags.Static
-                   | BindingFlags.DeclaredOnly));
-    }
-
-    private static bool IsDelegate(Type type)
-    {
-      return typeof(MulticastDelegate).GetTypeInfo().IsAssignableFrom(
-        type.GetTypeInfo().BaseType);
-    }
-
-    public IEnumerable<IEventWrapper> GetAllNonPublicEventsWithoutExplicitlyImplemented()
-    {
-      return _typeInfo.GetEvents(
-        BindingFlags.NonPublic 
-        | BindingFlags.Instance
-        | BindingFlags.DeclaredOnly)
-                  .Where(IsNotExplicitlyImplemented)
-                  .Select(e => new EventWrapper(e));
-    }
-
-    private static bool IsNotExplicitlyImplemented(EventInfo eventInfo)
-    {
-      var eventDeclaringType = eventInfo.DeclaringType;
-      if (eventDeclaringType != null)
-      {
-        var interfaces = eventDeclaringType.GetTypeInfo().GetInterfaces();
-        foreach (var @interface in interfaces)
-        {
-          var methodsImplementedInInterface = eventDeclaringType
-            .GetInterfaceMap(@interface).TargetMethods;
-          var addMethod = eventInfo.GetAddMethod(true);
-          if (methodsImplementedInInterface.Where(m => m.IsPrivate).Contains(addMethod))
-          {
-            return false;
-          }
-        }
-      }
-      return true;
     }
 
     public IEnumerable<IConstructorWrapper> GetAllPublicConstructors()
@@ -267,16 +120,16 @@ namespace TddEbook.TypeReflection
     private List<IConstructorWrapper> TryToObtainInternalConstructors()
     {
       var constructorInfos = _typeInfo.GetConstructors(BindingFlags.Instance | BindingFlags.NonPublic);
-      var enumerable = constructorInfos.Where(IsInternal);
+      var enumerable = constructorInfos.Where(ConstructorWrapper.IsInternal);
 
-      var wrappers = enumerable.Select(c => (IConstructorWrapper) (FromConstructorInfo(c))).ToList();
+      var wrappers = enumerable.Select(c => (IConstructorWrapper) (ConstructorWrapper.FromConstructorInfo(c))).ToList();
       return wrappers;
     }
 
     public List<ConstructorWrapper> TryToObtainPublicConstructors()
     {
       return _typeInfo.GetConstructors(BindingFlags.Public | BindingFlags.Instance)
-        .Select(c => FromConstructorInfo(c)).ToList();
+        .Select(c => ConstructorWrapper.FromConstructorInfo(c)).ToList();
     }
 
     public IEnumerable<IConstructorWrapper> TryToObtainPublicConstructorsWithoutRecursiveArguments()
@@ -305,7 +158,7 @@ namespace TddEbook.TypeReflection
         .Where(m => !m.IsSpecialName)
         .Where(IsNotImplicitCast)
         .Where(IsNotExplicitCast)
-        .Select(FromStaticMethodInfo)
+        .Select(ConstructorWrapper.FromStaticMethodInfo)
         .Where(c => c.IsFactoryMethod());
     }
 
@@ -329,21 +182,6 @@ namespace TddEbook.TypeReflection
         Select(p => new SmartMethod(p));
     }
     //TODO even strict mocks can be done this way...
-
-    public bool HasConstructorWithParameters()
-    {
-      return _typeInfo.IsPrimitive;
-    }
-
-    public bool CanBeAssignedNullValue()
-    {
-      return !_typeInfo.IsValueType && !_typeInfo.IsPrimitive;
-    }
-
-    public Type ToClrType()
-    {
-      return _type; //todo at the very end, this should be removed
-    }
 
     public bool IsException()
     {

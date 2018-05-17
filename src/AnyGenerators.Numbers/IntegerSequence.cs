@@ -1,6 +1,6 @@
 using System;
 
-namespace TddEbook.TddToolkit.TypeResolution
+namespace TddXt.AnyGenerators.Numbers
 {
   public class IntegerSequence : IEquatable<IntegerSequence>
   {

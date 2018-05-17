@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace TddEbook.TddToolkitSpecification.Fixtures
+namespace TddToolkitSpecification.Fixtures
 {
   public class MyOwnCollection<T> : ICollection<T>
   {

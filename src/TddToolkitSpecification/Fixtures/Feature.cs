@@ -1,6 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
 
-namespace TddEbook.TddToolkitSpecification.Fixtures
+namespace TddToolkitSpecification.Fixtures
 {
   [SuppressMessage("ReSharper", "UnusedMember.Global")]
   public class Feature

@@ -1,7 +1,7 @@
 using System;
 using System.Reflection;
 
-namespace TddEbook.TypeReflection
+namespace TypeReflection
 {
   public static class TypeOfType
   {

@@ -1,12 +1,11 @@
 using NSubstitute;
 using NUnit.Framework;
-using TddEbook.TddToolkitSpecification.Fixtures;
 using TddToolkitSpecification.Fixtures;
+using TddXt.AnyCore;
 using TddXt.AnyCore.NSubstitute;
 using TddXt.AnyCore.Strings;
-using static TddXt.AnyCore.Core;
 
-namespace TddEbook.TddToolkitSpecification
+namespace TddToolkitSpecification
 {
   public class AnySubstituteSpecification
   {
@@ -14,7 +13,7 @@ namespace TddEbook.TddToolkitSpecification
     public void ShouldBeAbleToWrapSubstitutesAndOverrideDefaultValues()
     {
       //GIVEN
-      var instance = Any.Substitute<RecursiveInterface>();
+      var instance = Core.Any.Substitute<RecursiveInterface>();
 
       //WHEN
       var result = instance.Number;
@@ -27,7 +26,7 @@ namespace TddEbook.TddToolkitSpecification
     public void ShouldBeAbleToWrapSubstitutesAndNotOverrideStubbedValues()
     {
       //GIVEN
-      var instance = Any.Substitute<RecursiveInterface>();
+      var instance = Core.Any.Substitute<RecursiveInterface>();
       instance.Number.Returns(44543);
 
       //WHEN
@@ -41,7 +40,7 @@ namespace TddEbook.TddToolkitSpecification
     public void ShouldBeAbleToWrapSubstitutesAndStillAllowVerifyingCalls()
     {
       //GIVEN
-      var instance = Any.Substitute<RecursiveInterface>();
+      var instance = Core.Any.Substitute<RecursiveInterface>();
 
       //WHEN
       instance.VoidMethod();
@@ -54,7 +53,7 @@ namespace TddEbook.TddToolkitSpecification
     public void ShouldReturnNonNullImplementationsOfInnerObjects()
     {
       //GIVEN
-      var instance = Any.Substitute<RecursiveInterface>();
+      var instance = Core.Any.Substitute<RecursiveInterface>();
 
       //WHEN
       var result = instance.Nested;
@@ -66,7 +65,7 @@ namespace TddEbook.TddToolkitSpecification
     [Test]
     public void ShouldBeAbleToWrapSubstitutesAndSkipOverridingResultsStubbedWithNonDefaultValues()
     {
-      var instance = Any.Substitute<RecursiveInterface>();
+      var instance = Core.Any.Substitute<RecursiveInterface>();
       var anotherInstance = Substitute.For<RecursiveInterface>();
       instance.Nested.Returns(anotherInstance);
 
@@ -76,18 +75,18 @@ namespace TddEbook.TddToolkitSpecification
     [Test]
     public void ShouldBeAbleToBypassStaticCreationMethodWhenConstructorIsInternal()
     {
-      Assert.DoesNotThrow(() => Any.Instance<FileExtension>());
-      Assert.DoesNotThrow(() => Any.Instance<FileName>());
+      Assert.DoesNotThrow(() => Core.Any.Instance<FileExtension>());
+      Assert.DoesNotThrow(() => Core.Any.Instance<FileName>());
     }
 
 
     [Test]
     public void ShouldGenerateStringsContainingOtherObjects()
     {
-      StringAssert.Contains("lol", Any.StringContaining("lol"));
-      StringAssert.Contains("lol", Any.StringContaining<string>("lol"));
-      StringAssert.Contains("2", Any.StringContaining(2));
-      StringAssert.Contains("C", Any.StringContaining('C'));
+      StringAssert.Contains("lol", Core.Any.StringContaining("lol"));
+      StringAssert.Contains("lol", Core.Any.StringContaining<string>("lol"));
+      StringAssert.Contains("2", Core.Any.StringContaining(2));
+      StringAssert.Contains("C", Core.Any.StringContaining('C'));
     }
   }
 }

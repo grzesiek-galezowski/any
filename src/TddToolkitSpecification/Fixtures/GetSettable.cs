@@ -1,4 +1,4 @@
-namespace TddEbook.TddToolkitSpecification.Fixtures
+namespace TddToolkitSpecification.Fixtures
 {
   public abstract class GetSettable<T>
   {

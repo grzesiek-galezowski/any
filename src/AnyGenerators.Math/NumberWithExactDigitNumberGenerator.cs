@@ -1,8 +1,7 @@
 using System;
-using TddEbook.TddToolkit.Generators;
 using TddXt.AnyExtensibility;
 
-namespace Generators
+namespace TddXt.AnyGenerators.Math
 {
   public class NumberWithExactDigitNumberGenerator<T> : InlineGenerator<T>
   {

@@ -8,11 +8,11 @@ using System.Net;
 using System.Reflection;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text.RegularExpressions;
+using CommonTypes;
 using FluentAssertions;
 using NUnit.Framework;
-using TddEbook.TddToolkit.CommonTypes;
-using TddEbook.TddToolkit.ImplementationDetails;
-using TddEbook.TddToolkitSpecification.Fixtures;
+using TddToolkitSpecification.Fixtures;
+using TddToolkitSpecification.GraphComparison;
 using TddXt.AnyCore;
 using TddXt.AnyCore.Collections;
 using TddXt.AnyCore.Invokable;
@@ -20,11 +20,10 @@ using TddXt.AnyCore.Math;
 using TddXt.AnyCore.Network;
 using TddXt.AnyCore.Numbers;
 using TddXt.AnyCore.Strings;
-using static TddXt.AnyCore.Core;
 
 // ReSharper disable PublicConstructorInAbstractClass
 
-namespace TddEbook.TddToolkitSpecification
+namespace TddToolkitSpecification
 {
   public class AnySpecification
   {
@@ -32,8 +31,8 @@ namespace TddEbook.TddToolkitSpecification
     public void ShouldGenerateDifferentIntegerEachTime()
     {
       //GIVEN
-      var int1 = Any.Integer();
-      var int2 = Any.Integer();
+      var int1 = Core.Any.Integer();
+      var int2 = Core.Any.Integer();
 
       //THEN
       Assert.AreNotEqual(int1, int2);
@@ -43,8 +42,8 @@ namespace TddEbook.TddToolkitSpecification
     public void ShouldGenerateDifferentDigitEachTime()
     {
       //GIVEN
-      var digit1 = Any.Digit();
-      var digit2 = Any.Digit();
+      var digit1 = Core.Any.Digit();
+      var digit2 = Core.Any.Digit();
 
       //THEN
       Assert.That(digit1, Is.GreaterThanOrEqualTo(0));
@@ -58,8 +57,8 @@ namespace TddEbook.TddToolkitSpecification
     public void ShouldGenerateDifferentPositiveDigitEachTime()
     {
       //GIVEN
-      var digit1 = Any.PositiveDigit();
-      var digit2 = Any.PositiveDigit();
+      var digit1 = Core.Any.PositiveDigit();
+      var digit2 = Core.Any.PositiveDigit();
 
       //THEN
       Assert.That(digit1, Is.GreaterThanOrEqualTo(1));
@@ -74,8 +73,8 @@ namespace TddEbook.TddToolkitSpecification
     public void ShouldGenerateDifferentIpAddressEachTime()
     {
       //GIVEN
-      var address1 = Any.Instance<IPAddress>();
-      var address2 = Any.Instance<IPAddress>();
+      var address1 = Core.Any.Instance<IPAddress>();
+      var address2 = Core.Any.Instance<IPAddress>();
 
       //THEN
       Assert.AreNotEqual(address1, address2);
@@ -86,9 +85,9 @@ namespace TddEbook.TddToolkitSpecification
     public void ShouldGenerateDifferentTypeEachTime()
     {
       //GIVEN
-      var type1 = Any.Instance<Type>();
-      var type2 = Any.Instance<Type>();
-      var type3 = Any.Instance<Type>();
+      var type1 = Core.Any.Instance<Type>();
+      var type2 = Core.Any.Instance<Type>();
+      var type3 = Core.Any.Instance<Type>();
 
       //THEN
       Assert.Multiple(() =>
@@ -109,7 +108,7 @@ namespace TddEbook.TddToolkitSpecification
     [Test]
     public void ShouldBeAbleToProxyConcreteReturnTypesOfMethods()
     {
-      var obj = Any.Instance<ISimple>();
+      var obj = Core.Any.Instance<ISimple>();
 
       Assert.AreNotEqual(default(int), obj.GetInt());
       Assert.AreNotEqual(string.Empty, obj.GetString());
@@ -122,7 +121,7 @@ namespace TddEbook.TddToolkitSpecification
     public void ShouldBeAbleToProxyMethodsThatReturnInterfaces()
     {
       //GIVEN
-      var obj = Any.Instance<ISimple>();
+      var obj = Core.Any.Instance<ISimple>();
 
       //WHEN
       obj = obj.GetInterface();
@@ -140,7 +139,7 @@ namespace TddEbook.TddToolkitSpecification
     public void ShouldAlwaysReturnTheSameValueFromProxiedMethodOnTheSameObject()
     {
       //GIVEN
-      var obj = Any.Instance<ISimple>();
+      var obj = Core.Any.Instance<ISimple>();
 
       //WHEN
       var valueFirstTime = obj.GetString();
@@ -154,8 +153,8 @@ namespace TddEbook.TddToolkitSpecification
     public void ShouldAlwaysReturnTheDifferentValueFromProxiedTheSameMethodOnDifferentObject()
     {
       //GIVEN
-      var obj = Any.Instance<ISimple>();
-      var obj2 = Any.Instance<ISimple>();
+      var obj = Core.Any.Instance<ISimple>();
+      var obj2 = Core.Any.Instance<ISimple>();
 
       //WHEN
       var valueFromFirstInstance = obj.GetString();
@@ -168,14 +167,14 @@ namespace TddEbook.TddToolkitSpecification
     [Test]
     public void ShouldCreateNonNullUri()
     {
-      Assert.NotNull(Any.Uri());
+      Assert.NotNull(Core.Any.Uri());
     }
 
     [Test]
     public void ShouldGenerateFiniteEnumerables()
     {
       //GIVEN
-      var o = Any.Instance<ISimple>();
+      var o = Core.Any.Instance<ISimple>();
 
       //WHEN
       var enumerable = o.Simples;
@@ -192,8 +191,8 @@ namespace TddEbook.TddToolkitSpecification
     public void ShouldGenerateMembersReturningTypeOfType()
     {
       //GIVEN
-      var obj1 = Any.Instance<ISimple>();
-      var obj2 = Any.Instance<ISimple>();
+      var obj1 = Core.Any.Instance<ISimple>();
+      var obj2 = Core.Any.Instance<ISimple>();
 
       //THEN
       Assert.Multiple(() =>
@@ -210,7 +209,7 @@ namespace TddEbook.TddToolkitSpecification
     public void ShouldBeAbleToGenerateInstancesOfConcreteClassesWithInterfacesAsTheirConstructorArguments()
     {
       //GIVEN
-      var createdProxy = Any.Instance<ObjectWithInterfaceInConstructor>();
+      var createdProxy = Core.Any.Instance<ObjectWithInterfaceInConstructor>();
 
       //THEN
       Assert.NotNull(createdProxy._constructorArgument);
@@ -221,7 +220,7 @@ namespace TddEbook.TddToolkitSpecification
     public void ShouldFillPropertiesWhenCreatingDataStructures()
     {
       //WHEN
-      var instance = Any.Instance<ConcreteDataStructure>();
+      var instance = Core.Any.Instance<ConcreteDataStructure>();
 
       //THEN
       Assert.NotNull(instance.Data);
@@ -233,7 +232,7 @@ namespace TddEbook.TddToolkitSpecification
     public void ShouldBeAbleToGenerateInstancesOfAbstractClasses()
     {
       //GIVEN
-      var createdProxy = Any.Instance<AbstractObjectWithInterfaceInConstructor>();
+      var createdProxy = Core.Any.Instance<AbstractObjectWithInterfaceInConstructor>();
 
       //THEN
       Assert.Multiple(() =>
@@ -249,7 +248,7 @@ namespace TddEbook.TddToolkitSpecification
     public void ShouldOverrideVirtualMethodsThatReturnDefaultTypeValuesOnAbstractClassProxy()
     {
       //GIVEN
-      var obj = Any.Instance<AbstractObjectWithVirtualMethods>();
+      var obj = Core.Any.Instance<AbstractObjectWithVirtualMethods>();
 
       //THEN
       Assert.AreNotEqual(default(string), obj.GetSomething());
@@ -260,7 +259,7 @@ namespace TddEbook.TddToolkitSpecification
     public void ShouldOverrideVirtualMethodsThatThrowExceptionsOnAbstractClassProxy()
     {
       //GIVEN
-      var obj = Any.Instance<AbstractObjectWithVirtualMethods>();
+      var obj = Core.Any.Instance<AbstractObjectWithVirtualMethods>();
 
       //THEN
       Assert.AreNotEqual(default(string), obj.GetSomethingButThrowExceptionWhileGettingIt());
@@ -270,8 +269,8 @@ namespace TddEbook.TddToolkitSpecification
     public void ShouldNotCreateTheSameMethodInfoTwiceInARow()
     {
       //GIVEN
-      var x = Any.Instance<MethodInfo>();
-      var y = Any.Instance<MethodInfo>();
+      var x = Core.Any.Instance<MethodInfo>();
+      var y = Core.Any.Instance<MethodInfo>();
 
       //THEN
       Assert.AreNotEqual(x, y);
@@ -281,8 +280,8 @@ namespace TddEbook.TddToolkitSpecification
     public void ShouldCreateDifferentExceptionEachTime()
     {
       //GIVEN
-      var exception1 = Any.Instance<Exception>();
-      var exception2 = Any.Instance<Exception>();
+      var exception1 = Core.Any.Instance<Exception>();
+      var exception2 = Core.Any.Instance<Exception>();
 
       //THEN
       NotAlike(exception2, exception1);
@@ -292,13 +291,13 @@ namespace TddEbook.TddToolkitSpecification
     public void ShouldGenerateDifferentEnumValueEachTimeBesidesSpecified()
     {
       //WHEN
-      var dof1 = Any.OtherThan(DayOfWeek.Sunday);
-      var dof2 = Any.OtherThan(DayOfWeek.Sunday);
-      var dof3 = Any.OtherThan(DayOfWeek.Sunday);
-      var dof4 = Any.OtherThan(DayOfWeek.Sunday);
-      var dof5 = Any.OtherThan(DayOfWeek.Sunday);
-      var dof6 = Any.OtherThan(DayOfWeek.Sunday);
-      var dof7 = Any.OtherThan(DayOfWeek.Sunday);
+      var dof1 = Core.Any.OtherThan(DayOfWeek.Sunday);
+      var dof2 = Core.Any.OtherThan(DayOfWeek.Sunday);
+      var dof3 = Core.Any.OtherThan(DayOfWeek.Sunday);
+      var dof4 = Core.Any.OtherThan(DayOfWeek.Sunday);
+      var dof5 = Core.Any.OtherThan(DayOfWeek.Sunday);
+      var dof6 = Core.Any.OtherThan(DayOfWeek.Sunday);
+      var dof7 = Core.Any.OtherThan(DayOfWeek.Sunday);
 
       //THEN
       CollectionAssert.AllItemsAreUnique(new [] {dof1, dof2, dof3, dof4, dof5, dof6});
@@ -309,13 +308,13 @@ namespace TddEbook.TddToolkitSpecification
     public void ShouldGenerateDifferentValueEachTime()
     {
       //WHEN
-      var dof1 = Any.Instance<DayOfWeek>();
-      var dof2 = Any.Instance<DayOfWeek>();
-      var dof3 = Any.Instance<DayOfWeek>();
-      var dof4 = Any.Instance<DayOfWeek>();
-      var dof5 = Any.Instance<DayOfWeek>();
-      var dof6 = Any.Instance<DayOfWeek>();
-      var dof7 = Any.Instance<DayOfWeek>();
+      var dof1 = Core.Any.Instance<DayOfWeek>();
+      var dof2 = Core.Any.Instance<DayOfWeek>();
+      var dof3 = Core.Any.Instance<DayOfWeek>();
+      var dof4 = Core.Any.Instance<DayOfWeek>();
+      var dof5 = Core.Any.Instance<DayOfWeek>();
+      var dof6 = Core.Any.Instance<DayOfWeek>();
+      var dof7 = Core.Any.Instance<DayOfWeek>();
 
       //THEN
       CollectionAssert.AllItemsAreUnique(new[] { dof1, dof2, dof3, dof4, dof5, dof6, dof7 });
@@ -326,8 +325,8 @@ namespace TddEbook.TddToolkitSpecification
     public void ShouldGenerateDifferentValueEachTimeAndNotAmongPassedOnesWhenAskedToCreateAnyValueBesidesGiven()
     {
       //WHEN
-      var int1 = Any.OtherThan(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
-      var int2 = Any.OtherThan(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+      var int1 = Core.Any.OtherThan(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+      var int2 = Core.Any.OtherThan(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
 
       //THEN
       Assert.AreNotEqual(int1, int2);
@@ -340,12 +339,12 @@ namespace TddEbook.TddToolkitSpecification
     public void ShouldGeneratePickNextValueEachTimeFromPassedOnesWhenAskedToCreateAnyValueFromGiven()
     {
       //WHEN
-      var int1 = Any.From(Enumerable.Range(1, 3).ToArray());
-      var int2 = Any.From(Enumerable.Range(1, 3).ToArray());
-      var int3 = Any.From(Enumerable.Range(1, 3).ToArray());
-      var int4 = Any.From(Enumerable.Range(1, 3).ToArray());
-      var int5 = Any.From(Enumerable.Range(5, 2).ToArray());
-      var int6 = Any.From(Enumerable.Range(10, 4).ToArray());
+      var int1 = Core.Any.From(Enumerable.Range(1, 3).ToArray());
+      var int2 = Core.Any.From(Enumerable.Range(1, 3).ToArray());
+      var int3 = Core.Any.From(Enumerable.Range(1, 3).ToArray());
+      var int4 = Core.Any.From(Enumerable.Range(1, 3).ToArray());
+      var int5 = Core.Any.From(Enumerable.Range(5, 2).ToArray());
+      var int6 = Core.Any.From(Enumerable.Range(10, 4).ToArray());
 
       //THEN
       Assert.Multiple(() =>
@@ -370,7 +369,7 @@ namespace TddEbook.TddToolkitSpecification
       const string exampleRegex = @"content/([A-Za-z0-9\-]+)\.aspx$";
 
       //WHEN
-      var result = Any.StringMatching(exampleRegex);
+      var result = Core.Any.StringMatching(exampleRegex);
 
       //THEN
       Assert.True(Regex.IsMatch(result, exampleRegex));
@@ -382,7 +381,7 @@ namespace TddEbook.TddToolkitSpecification
     public void ShouldGenerateStringOfGivenLength(int stringLength)
     {
       //WHEN
-      var str = Any.String(stringLength);
+      var str = Core.Any.String(stringLength);
 
       //THEN
       Assert.AreEqual(stringLength, str.Length);
@@ -392,7 +391,7 @@ namespace TddEbook.TddToolkitSpecification
     public void ShouldCreateSortedSetWithThreeDistinctValues()
     {
       //WHEN
-      var set = Any.SortedSet<int>();
+      var set = Core.Any.SortedSet<int>();
 
       //THEN
       CollectionAssert.IsOrdered(set);
@@ -404,9 +403,9 @@ namespace TddEbook.TddToolkitSpecification
     public void ShouldBeAbleToGenerateDistinctLettersEachTime()
     {
       //WHEN
-      var char1 = Any.AlphaChar();
-      var char2 = Any.AlphaChar();
-      var char3 = Any.AlphaChar();
+      var char1 = Core.Any.AlphaChar();
+      var char2 = Core.Any.AlphaChar();
+      var char3 = Core.Any.AlphaChar();
 
       //THEN
       Assert.Multiple(() =>
@@ -423,9 +422,9 @@ namespace TddEbook.TddToolkitSpecification
     public void ShouldBeAbleToGenerateDistinctDigitsEachTime()
     {
       //WHEN
-      var char1 = Any.DigitChar();
-      var char2 = Any.DigitChar();
-      var char3 = Any.DigitChar();
+      var char1 = Core.Any.DigitChar();
+      var char2 = Core.Any.DigitChar();
+      var char3 = Core.Any.DigitChar();
 
       //THEN
       Assert.Multiple(() =>
@@ -441,14 +440,14 @@ namespace TddEbook.TddToolkitSpecification
     [Test, Timeout(1000)]
     public void ShouldHandleEmptyExcludedStringsWhenGeneratingAnyStringNotContainingGiven()
     {
-      Assert.DoesNotThrow(() => Any.StringNotContaining(string.Empty));
+      Assert.DoesNotThrow(() => Core.Any.StringNotContaining(string.Empty));
     }
 
     [Test]
     public void ShouldBeAbleToGenerateBothPrimitiveTypeInstanceAndInterfaceUsingNewInstanceMethod()
     {
-      var primitive = Any.Instance<int>();
-      var interfaceImplementation = Any.Instance<ISimple>();
+      var primitive = Core.Any.Instance<int>();
+      var interfaceImplementation = Core.Any.Instance<ISimple>();
 
       Assert.Multiple(() =>
       {
@@ -461,7 +460,7 @@ namespace TddEbook.TddToolkitSpecification
     [Test]
     public void ShouldSupportRecursiveInterfacesWithLists()
     {
-      var factories = Any.Enumerable<RecursiveInterface>().ToList();
+      var factories = Core.Any.Enumerable<RecursiveInterface>().ToList();
 
       var x = factories[0];
       var y = x.GetNested();
@@ -476,13 +475,13 @@ namespace TddEbook.TddToolkitSpecification
     [Test]
     public void ShouldSupportGeneratingOtherObjectsThanNull()
     {
-      Assert.DoesNotThrow(() => Any.OtherThan<string>(null));
+      Assert.DoesNotThrow(() => Core.Any.OtherThan<string>(null));
     }
 
     [Test]
     public void ShouldSupportRecursiveInterfacesWithDictionaries()
     {
-      var factories = Any.Enumerable<RecursiveInterface>().ToList();
+      var factories = Core.Any.Enumerable<RecursiveInterface>().ToList();
 
       var x = factories[0];
       var y = x.NestedAsDictionary;
@@ -501,18 +500,18 @@ namespace TddEbook.TddToolkitSpecification
     public void ShouldSupportGeneratingRangedCollections()
     {
       const int anyCount = 4;
-      var list = Any.List<RecursiveInterface>(anyCount);
-      var array = Any.Array<RecursiveInterface>(anyCount);
-      var set = Any.Set<RecursiveInterface>(anyCount);
-      var dictionary = Any.Dictionary<RecursiveInterface, ISimple>(anyCount);
-      var sortedList = Any.SortedList<string, ISimple>(anyCount);
-      var sortedDictionary = Any.SortedDictionary<string, ISimple>(anyCount);
-      var sortedEnumerable = Any.EnumerableSortedDescending<string>(anyCount);
-      var enumerable = Any.Enumerable<RecursiveInterface>(anyCount);
-      var concurrentDictionary = Any.ConcurrentDictionary<string, ISimple>(anyCount);
-      var concurrentBag = Any.ConcurrentBag<string>(anyCount);
-      var concurrentQueue = Any.ConcurrentQueue<string>(anyCount);
-      var concurrentStack = Any.ConcurrentStack<string>(anyCount);
+      var list = Core.Any.List<RecursiveInterface>(anyCount);
+      var array = Core.Any.Array<RecursiveInterface>(anyCount);
+      var set = Core.Any.Set<RecursiveInterface>(anyCount);
+      var dictionary = Core.Any.Dictionary<RecursiveInterface, ISimple>(anyCount);
+      var sortedList = Core.Any.SortedList<string, ISimple>(anyCount);
+      var sortedDictionary = Core.Any.SortedDictionary<string, ISimple>(anyCount);
+      var sortedEnumerable = Core.Any.EnumerableSortedDescending<string>(anyCount);
+      var enumerable = Core.Any.Enumerable<RecursiveInterface>(anyCount);
+      var concurrentDictionary = Core.Any.ConcurrentDictionary<string, ISimple>(anyCount);
+      var concurrentBag = Core.Any.ConcurrentBag<string>(anyCount);
+      var concurrentQueue = Core.Any.ConcurrentQueue<string>(anyCount);
+      var concurrentStack = Core.Any.ConcurrentStack<string>(anyCount);
 
       Assert.Multiple(() =>
       {
@@ -535,18 +534,18 @@ namespace TddEbook.TddToolkitSpecification
     public void ShouldSupportGeneratingCollections()
     {
       const int anyCount = 3;
-      var list = Any.List<RecursiveInterface>();
-      var array = Any.Array<RecursiveInterface>();
-      var set = Any.Set<RecursiveInterface>();
-      var dictionary = Any.Dictionary<RecursiveInterface, ISimple>();
-      var sortedList = Any.SortedList<string, ISimple>();
-      var sortedDictionary = Any.SortedDictionary<string, ISimple>();
-      var sortedEnumerable = Any.EnumerableSortedDescending<string>();
-      var enumerable = Any.Enumerable<RecursiveInterface>();
-      var concurrentDictionary = Any.ConcurrentDictionary<string, ISimple>();
-      var concurrentBag = Any.ConcurrentBag<string>();
-      var concurrentQueue = Any.ConcurrentQueue<string>();
-      var concurrentStack = Any.ConcurrentStack<string>();
+      var list = Core.Any.List<RecursiveInterface>();
+      var array = Core.Any.Array<RecursiveInterface>();
+      var set = Core.Any.Set<RecursiveInterface>();
+      var dictionary = Core.Any.Dictionary<RecursiveInterface, ISimple>();
+      var sortedList = Core.Any.SortedList<string, ISimple>();
+      var sortedDictionary = Core.Any.SortedDictionary<string, ISimple>();
+      var sortedEnumerable = Core.Any.EnumerableSortedDescending<string>();
+      var enumerable = Core.Any.Enumerable<RecursiveInterface>();
+      var concurrentDictionary = Core.Any.ConcurrentDictionary<string, ISimple>();
+      var concurrentBag = Core.Any.ConcurrentBag<string>();
+      var concurrentQueue = Core.Any.ConcurrentQueue<string>();
+      var concurrentStack = Core.Any.ConcurrentStack<string>();
 
       Assert.Multiple(() =>
       {
@@ -569,17 +568,17 @@ namespace TddEbook.TddToolkitSpecification
     public void ShouldSupportGeneratingCollectionsUsingGenericInstanceMethod()
     {
       const int anyCount = 3;
-      var list = Any.Instance<List<RecursiveInterface>>();
-      var array = Any.Instance<RecursiveInterface[]>();
-      var set = Any.Instance<HashSet<RecursiveInterface>>();
-      var dictionary = Any.Instance<Dictionary<RecursiveInterface, ISimple>>();
-      var sortedList = Any.Instance<SortedList<string, ISimple>>();
-      var sortedDictionary = Any.Instance<SortedDictionary<string, ISimple>>();
-      var enumerable = Any.Instance<IEnumerable<RecursiveInterface>>();
-      var concurrentDictionary = Any.Instance<ConcurrentDictionary<string, ISimple>>();
-      var concurrentStack = Any.Instance<ConcurrentStack<string>>();
-      var concurrentBag = Any.Instance<ConcurrentBag<string>>();
-      var concurrentQueue = Any.Instance<ConcurrentQueue<string>>();
+      var list = Core.Any.Instance<List<RecursiveInterface>>();
+      var array = Core.Any.Instance<RecursiveInterface[]>();
+      var set = Core.Any.Instance<HashSet<RecursiveInterface>>();
+      var dictionary = Core.Any.Instance<Dictionary<RecursiveInterface, ISimple>>();
+      var sortedList = Core.Any.Instance<SortedList<string, ISimple>>();
+      var sortedDictionary = Core.Any.Instance<SortedDictionary<string, ISimple>>();
+      var enumerable = Core.Any.Instance<IEnumerable<RecursiveInterface>>();
+      var concurrentDictionary = Core.Any.Instance<ConcurrentDictionary<string, ISimple>>();
+      var concurrentStack = Core.Any.Instance<ConcurrentStack<string>>();
+      var concurrentBag = Core.Any.Instance<ConcurrentBag<string>>();
+      var concurrentQueue = Core.Any.Instance<ConcurrentQueue<string>>();
 
       Assert.Multiple(() =>
       {
@@ -600,7 +599,7 @@ namespace TddEbook.TddToolkitSpecification
     [Test]
     public void ShouldAllowCreatingCustomCollectionInstances()
     {
-      var customCollection = Any.Instance<MyOwnCollection<RecursiveInterface>>();
+      var customCollection = Core.Any.Instance<MyOwnCollection<RecursiveInterface>>();
 
       Assert.AreEqual(3, customCollection.Count);
       foreach (var recursiveInterface in customCollection)
@@ -612,7 +611,7 @@ namespace TddEbook.TddToolkitSpecification
     [Test]
     public void ShouldSupportCreatingArraysWithSpecificLiteralElements()
     {
-      var array = Any.ArrayWith(1, 2, 3);
+      var array = Core.Any.ArrayWith(1, 2, 3);
 
       CollectionAssert.Contains(array, 1);
       CollectionAssert.Contains(array, 2);
@@ -623,7 +622,7 @@ namespace TddEbook.TddToolkitSpecification
     [Test]
     public void ShouldSupportCreatingListsWithSpecificLiteralElements()
     {
-      var list = Any.ListWith(1, 2, 3);
+      var list = Core.Any.ListWith(1, 2, 3);
 
       CollectionAssert.Contains(list, 1);
       CollectionAssert.Contains(list, 2);
@@ -634,7 +633,7 @@ namespace TddEbook.TddToolkitSpecification
     [Test]
     public void ShouldSupportCreatingListsWithSpecificEnumerableOfElements()
     {
-      var array = Any.ListWith<int>(new List<int> {1, 2, 3});
+      var array = Core.Any.ListWith<int>(new List<int> {1, 2, 3});
 
       CollectionAssert.Contains(array, 1);
       CollectionAssert.Contains(array, 2);
@@ -645,7 +644,7 @@ namespace TddEbook.TddToolkitSpecification
     [Test]
     public void ShouldSupportCreatingArraysWithSpecificEnumerableOfElements()
     {
-      var array = Any.ArrayWith<int>(new List<int> {1, 2, 3});
+      var array = Core.Any.ArrayWith<int>(new List<int> {1, 2, 3});
 
       CollectionAssert.Contains(array, 1);
       CollectionAssert.Contains(array, 2);
@@ -656,7 +655,7 @@ namespace TddEbook.TddToolkitSpecification
     [Test]
     public void ShouldSupportCreationOfKeyValuePairs()
     {
-      var kvp = Any.Instance<KeyValuePair<string, RecursiveInterface>>();
+      var kvp = Core.Any.Instance<KeyValuePair<string, RecursiveInterface>>();
       Assert.Multiple(() =>
       {
         Assert.NotNull(kvp.Key);
@@ -668,7 +667,7 @@ namespace TddEbook.TddToolkitSpecification
     public void ShouldSupportActions()
     {
       //WHEN
-      var action = Any.Instance<Action<ISimple, string>>();
+      var action = Core.Any.Instance<Action<ISimple, string>>();
 
       //THEN
       Assert.NotNull(action);
@@ -677,8 +676,8 @@ namespace TddEbook.TddToolkitSpecification
     [Test]
     public void ShouldAllowCreatingDifferentMaybesOfConcreteClasses()
     {
-      var maybeString1 = Any.Instance<Maybe<string>>();
-      var maybeString2 = Any.Instance<Maybe<string>>();
+      var maybeString1 = Core.Any.Instance<Maybe<string>>();
+      var maybeString2 = Core.Any.Instance<Maybe<string>>();
 
       Assert.AreNotEqual(maybeString1, maybeString2);
     }
@@ -686,8 +685,8 @@ namespace TddEbook.TddToolkitSpecification
     [Test]
     public void ShouldAllowCreatingDifferentMaybesOfInterfaces()
     {
-      var maybeImplementation1 = Any.Instance<Maybe<RecursiveInterface>>();
-      var maybeImplementation2 = Any.Instance<Maybe<RecursiveInterface>>();
+      var maybeImplementation1 = Core.Any.Instance<Maybe<RecursiveInterface>>();
+      var maybeImplementation2 = Core.Any.Instance<Maybe<RecursiveInterface>>();
 
       Assert.AreNotEqual(maybeImplementation1, maybeImplementation2);
     }
@@ -696,7 +695,7 @@ namespace TddEbook.TddToolkitSpecification
     public void ShouldBeAbleToGenerateFiniteInstancesOfGenericEnumerators()
     {
       //GIVEN
-      var enumerator = Any.Instance<IEnumerator<string>>();
+      var enumerator = Core.Any.Instance<IEnumerator<string>>();
 
       //WHEN
       var element1 = enumerator.Current;
@@ -711,7 +710,7 @@ namespace TddEbook.TddToolkitSpecification
     public void ShouldBeAbleToGenerateFiniteInstancesOfNonGenericEnumerators()
     {
       //GIVEN
-      var enumerator = Any.Instance<IEnumerator>();
+      var enumerator = Core.Any.Instance<IEnumerator>();
 
       //WHEN
       enumerator.MoveNext();
@@ -728,7 +727,7 @@ namespace TddEbook.TddToolkitSpecification
     public void ShouldBeAbleToGenerateInstancesOfGenericKeyValueEnumerables()
     {
       //GIVEN
-      var instance = Any.Instance<IObservableConcurrentDictionary<string, string>>();
+      var instance = Core.Any.Instance<IObservableConcurrentDictionary<string, string>>();
 
       //WHEN
       var element1 = instance.GetEnumerator().Current;
@@ -742,8 +741,8 @@ namespace TddEbook.TddToolkitSpecification
     [Test]
     public void ShouldAllowGeneratingIntegersFromSequence()
     {
-      var value1 = Any.IntegerFromSequence(startingValue: 12, step: 112);
-      var value2 = Any.IntegerFromSequence(startingValue: 12, step: 112);
+      var value1 = Core.Any.IntegerFromSequence(startingValue: 12, step: 112);
+      var value2 = Core.Any.IntegerFromSequence(startingValue: 12, step: 112);
 
       Assert.AreEqual(value1, value2 - 112);
       Assert.Greater(value1, 12);
@@ -752,8 +751,8 @@ namespace TddEbook.TddToolkitSpecification
     [Test]
     public void ShouldAllowGeneratingDivisibleIntegers()
     {
-      var value1 = Any.IntegerDivisibleBy(5);
-      var value2 = Any.IntegerDivisibleBy(5);
+      var value1 = Core.Any.IntegerDivisibleBy(5);
+      var value2 = Core.Any.IntegerDivisibleBy(5);
 
       Assert.AreNotEqual(value1, value2);
       Assert.AreEqual(0, value1%5);
@@ -763,8 +762,8 @@ namespace TddEbook.TddToolkitSpecification
     [Test]
     public void ShouldAllowGeneratingNotDivisibleIntegers()
     {
-      var value1 = Any.IntegerNotDivisibleBy(5);
-      var value2 = Any.IntegerNotDivisibleBy(5);
+      var value1 = Core.Any.IntegerNotDivisibleBy(5);
+      var value2 = Core.Any.IntegerNotDivisibleBy(5);
 
       Assert.AreNotEqual(value1, value2);
       Assert.AreNotEqual(0, value1%5);
@@ -774,27 +773,27 @@ namespace TddEbook.TddToolkitSpecification
     [Test]
     public void ShouldAllowGeneratingDummyObjectsBypassingConstructors()
     {
-      Alike(Enumerable.Empty<string>(), Any.Dummy<IEnumerable<string>>());
-      Alike(new List<string>(), Any.Dummy<List<string>>());
-      Alike(new List<string>(), Any.Dummy<IList<string>>());
-      Alike(new List<string>(), Any.Dummy<ICollection<string>>());
-      Alike(new string[] {}, Any.Dummy<string[]>());
-      Alike(new RecursiveClass[] {}, Any.Dummy<RecursiveClass[]>());
-      Alike(new Dictionary<int, int>(), Any.Dummy<IDictionary<int, int>>());
-      Alike(new Dictionary<int, int>(), Any.Dummy<IDictionary<int, int>>());
+      Alike(Enumerable.Empty<string>(), Core.Any.Dummy<IEnumerable<string>>());
+      Alike(new List<string>(), Core.Any.Dummy<List<string>>());
+      Alike(new List<string>(), Core.Any.Dummy<IList<string>>());
+      Alike(new List<string>(), Core.Any.Dummy<ICollection<string>>());
+      Alike(new string[] {}, Core.Any.Dummy<string[]>());
+      Alike(new RecursiveClass[] {}, Core.Any.Dummy<RecursiveClass[]>());
+      Alike(new Dictionary<int, int>(), Core.Any.Dummy<IDictionary<int, int>>());
+      Alike(new Dictionary<int, int>(), Core.Any.Dummy<IDictionary<int, int>>());
       Assert.Multiple(() =>
       {
-        Assert.Throws<TargetInvocationException>(() => Any.Instance<ThrowingInConstructor>());
-        Assert.NotNull(Any.Dummy<ThrowingInConstructor>());
-        Assert.NotNull(Any.Dummy<string>());
-        Assert.NotNull(Any.Dummy<int>());
+        Assert.Throws<TargetInvocationException>(() => Core.Any.Instance<ThrowingInConstructor>());
+        Assert.NotNull(Core.Any.Dummy<ThrowingInConstructor>());
+        Assert.NotNull(Core.Any.Dummy<string>());
+        Assert.NotNull(Core.Any.Dummy<int>());
       });
     }
 
     [Test]
     public void ShouldGenerateComplexGraphsWithNonNullPublicProperties()
     {
-      var entity = Any.Instance<AreaEntity>();
+      var entity = Core.Any.Instance<AreaEntity>();
       Assert.NotNull(entity.Feature);
     }
 
@@ -802,8 +801,8 @@ namespace TddEbook.TddToolkitSpecification
     public void ShouldAllowAccessToValuesSetOnPropertiesOnInterfaceInstancesWhenBothGetAndSetArePublic()
     {
       //GIVEN
-      var someValue = Any.Integer();
-      var obj = Any.Instance<IGetSettable<int>>();
+      var someValue = Core.Any.Integer();
+      var obj = Core.Any.Instance<IGetSettable<int>>();
 
       //WHEN
       obj.Value = 123;
@@ -817,8 +816,8 @@ namespace TddEbook.TddToolkitSpecification
     public void ShouldAllowSettingPropertiesOnInterfaceInstancesWhenOnlySetIsPublic()
     {
       //GIVEN
-      var someValue = Any.Integer();
-      var obj = Any.Instance<ISettable<int>>();
+      var someValue = Core.Any.Integer();
+      var obj = Core.Any.Instance<ISettable<int>>();
 
       //WHEN - THEN
       Assert.DoesNotThrow(() => { obj.Value = someValue; });
@@ -828,8 +827,8 @@ namespace TddEbook.TddToolkitSpecification
     public void ShouldAllowAccessToValueSetOnPropertiesOnAbstractClassesWhenBothGetAndSetArePublic()
     {
       //GIVEN
-      var someValue = Any.Integer();
-      var obj = Any.Instance<GetSettable<int>>();
+      var someValue = Core.Any.Integer();
+      var obj = Core.Any.Instance<GetSettable<int>>();
 
       //WHEN
       obj.Value = 123;
@@ -844,8 +843,8 @@ namespace TddEbook.TddToolkitSpecification
     public void ShouldAllowSettingPropertiesOnAbstractClassesInstancesWhenOnlySetIsPublic()
     {
       //GIVEN
-      var someValue = Any.Integer();
-      var obj = Any.Instance<Settable<int>>();
+      var someValue = Core.Any.Integer();
+      var obj = Core.Any.Instance<Settable<int>>();
 
       //WHEN - THEN
       Assert.DoesNotThrow(() => { obj.Value = someValue; });
@@ -855,8 +854,8 @@ namespace TddEbook.TddToolkitSpecification
     public void ShouldAllowGeneratingDistinctIntegersWithMaxNumberOfDigits()
     {
       var maxLength = MaxLengthOfInt();
-      var value1 = Any.IntegerWithExactDigitsCount(maxLength);
-      var value2 = Any.IntegerWithExactDigitsCount(maxLength);
+      var value1 = Core.Any.IntegerWithExactDigitsCount(maxLength);
+      var value2 = Core.Any.IntegerWithExactDigitsCount(maxLength);
 
       Assert.AreEqual(maxLength,
         value1.ToString().Length,
@@ -870,8 +869,8 @@ namespace TddEbook.TddToolkitSpecification
     public void ShouldAllowGeneratingDistinctUnsignedIntegersWithMaxNumberOfDigits()
     {
       var maxLength = MaxLengthOfUInt();
-      var value1 = Any.UnsignedIntegerWithExactDigitsCount(maxLength);
-      var value2 = Any.UnsignedIntegerWithExactDigitsCount(maxLength);
+      var value1 = Core.Any.UnsignedIntegerWithExactDigitsCount(maxLength);
+      var value2 = Core.Any.UnsignedIntegerWithExactDigitsCount(maxLength);
 
       Assert.AreEqual(maxLength,
         value1.ToString().Length,
@@ -885,8 +884,8 @@ namespace TddEbook.TddToolkitSpecification
     public void ShouldAllowGeneratingDistinctLongWithMaxNumberOfDigits()
     {
       var maxLength = MaxLengthOfLong();
-      var value1 = Any.LongIntegerWithExactDigitsCount(maxLength);
-      var value2 = Any.LongIntegerWithExactDigitsCount(maxLength);
+      var value1 = Core.Any.LongIntegerWithExactDigitsCount(maxLength);
+      var value2 = Core.Any.LongIntegerWithExactDigitsCount(maxLength);
 
       Assert.AreEqual(maxLength,
         value1.ToString().Length,
@@ -900,8 +899,8 @@ namespace TddEbook.TddToolkitSpecification
     public void ShouldAllowGeneratingDistinctUnsignedLongWithMaxNumberOfDigits()
     {
       var maxLength = MaxLengthOfULong();
-      var value1 = Any.UnsignedLongIntegerWithExactDigitsCount(maxLength);
-      var value2 = Any.UnsignedLongIntegerWithExactDigitsCount(maxLength);
+      var value1 = Core.Any.UnsignedLongIntegerWithExactDigitsCount(maxLength);
+      var value2 = Core.Any.UnsignedLongIntegerWithExactDigitsCount(maxLength);
 
       Assert.AreEqual(maxLength,
         value1.ToString().Length,
@@ -915,8 +914,8 @@ namespace TddEbook.TddToolkitSpecification
     public void ShouldAllowGeneratingDistinctIntegersWithExactNumberOfDigits()
     {
       var length = MaxLengthOfInt() - 1;
-      var value1 = Any.IntegerWithExactDigitsCount(length);
-      var value2 = Any.IntegerWithExactDigitsCount(length);
+      var value1 = Core.Any.IntegerWithExactDigitsCount(length);
+      var value2 = Core.Any.IntegerWithExactDigitsCount(length);
 
       Assert.AreEqual(length, value1.ToString().Length, value1.ToString());
       Assert.AreEqual(length, value2.ToString().Length, value2.ToString());
@@ -927,8 +926,8 @@ namespace TddEbook.TddToolkitSpecification
     public void ShouldAllowGeneratingDistinctUnsignedIntegersWithExactNumberOfDigits()
     {
       var length = MaxLengthOfUInt() - 1;
-      var value1 = Any.UnsignedIntegerWithExactDigitsCount(length);
-      var value2 = Any.UnsignedIntegerWithExactDigitsCount(length);
+      var value1 = Core.Any.UnsignedIntegerWithExactDigitsCount(length);
+      var value2 = Core.Any.UnsignedIntegerWithExactDigitsCount(length);
 
       Assert.AreEqual(length,
         value1.ToString().Length,
@@ -942,8 +941,8 @@ namespace TddEbook.TddToolkitSpecification
     public void ShouldAllowGeneratingDistinctLongWithExactNumberOfDigits()
     {
       var length = MaxLengthOfLong() - 1;
-      var value1 = Any.LongIntegerWithExactDigitsCount(length);
-      var value2 = Any.LongIntegerWithExactDigitsCount(length);
+      var value1 = Core.Any.LongIntegerWithExactDigitsCount(length);
+      var value2 = Core.Any.LongIntegerWithExactDigitsCount(length);
 
       Assert.AreEqual(length,
         value1.ToString().Length,
@@ -957,8 +956,8 @@ namespace TddEbook.TddToolkitSpecification
     public void ShouldAllowGeneratingDistinctUnsignedLongWithExactNumberOfDigits()
     {
       var length = MaxLengthOfULong() - 1;
-      var value1 = Any.UnsignedLongIntegerWithExactDigitsCount(length);
-      var value2 = Any.UnsignedLongIntegerWithExactDigitsCount(length);
+      var value1 = Core.Any.UnsignedLongIntegerWithExactDigitsCount(length);
+      var value2 = Core.Any.UnsignedLongIntegerWithExactDigitsCount(length);
 
       Assert.AreEqual(length,
         value1.ToString().Length,
@@ -971,11 +970,11 @@ namespace TddEbook.TddToolkitSpecification
     [Test]
     public void ShouldThrowArgumentOutOfRangeExceptionWhenGeneratingIntegersWithExactNumberOfDigitsOverflows()
     {
-      Assert.Throws<ArgumentOutOfRangeException>(() => Any.IntegerWithExactDigitsCount(MaxLengthOfInt() + 1));
-      Assert.Throws<ArgumentOutOfRangeException>(() => Any.LongIntegerWithExactDigitsCount(MaxLengthOfLong() + 1));
-      Assert.Throws<ArgumentOutOfRangeException>(() => Any.UnsignedIntegerWithExactDigitsCount(MaxLengthOfUInt() + 1));
+      Assert.Throws<ArgumentOutOfRangeException>(() => Core.Any.IntegerWithExactDigitsCount(MaxLengthOfInt() + 1));
+      Assert.Throws<ArgumentOutOfRangeException>(() => Core.Any.LongIntegerWithExactDigitsCount(MaxLengthOfLong() + 1));
+      Assert.Throws<ArgumentOutOfRangeException>(() => Core.Any.UnsignedIntegerWithExactDigitsCount(MaxLengthOfUInt() + 1));
       Assert.Throws<ArgumentOutOfRangeException>(
-        () => Any.UnsignedLongIntegerWithExactDigitsCount(MaxLengthOfULong() + 1));
+        () => Core.Any.UnsignedLongIntegerWithExactDigitsCount(MaxLengthOfULong() + 1));
     }
 
     [TestCase(10)]
@@ -983,7 +982,7 @@ namespace TddEbook.TddToolkitSpecification
     [Repeat(100)]
     public void ShouldAllowGeneratingNumericStringOfArbitraryLength(int length)
     {
-      var value1 = Any.NumericString(length);
+      var value1 = Core.Any.NumericString(length);
 
       AssertStringIsNumeric(value1, length);
     }
@@ -991,7 +990,7 @@ namespace TddEbook.TddToolkitSpecification
     [Test, Repeat(100)]
     public void ShouldAllowGeneratingNumericStringOfLength1()
     {
-      var value1 = Any.NumericString(1);
+      var value1 = Core.Any.NumericString(1);
 
       AssertStringIsNumeric(value1, 1);
     }
@@ -999,14 +998,14 @@ namespace TddEbook.TddToolkitSpecification
     [Test]
     public void ShouldHandleCopyConstructorsSomehow()
     {
-      var o = Any.Instance<ObjectWithCopyConstructor>();
+      var o = Core.Any.Instance<ObjectWithCopyConstructor>();
       Assert.Null(o._field);
     }
 
     [Test]
     public void ShouldTryToUsePublicStaticNonRecursiveFactoryMethodsOverPublicRecursiveConstructors()
     {
-      var o2 = Any.Instance<ComplexObjectWithFactoryMethodAndRecursiveConstructor>();
+      var o2 = Core.Any.Instance<ComplexObjectWithFactoryMethodAndRecursiveConstructor>();
 
       Assert.NotNull(o2.ToString());
       Assert.IsNotEmpty(o2.ToString());
@@ -1021,11 +1020,11 @@ namespace TddEbook.TddToolkitSpecification
       SerializeAnyInstanceOf<ComplexObjectWithFactoryMethodAndRecursiveConstructor>();
       SerializeAnyInstanceOf<RecursiveInterface>();
 
-      var x1 = Any.Instance<AbstractObjectWithInterfaceInConstructor>();
-      var x2 = Any.Instance<AbstractObjectWithVirtualMethods>();
-      var x3 = Any.Instance<RecursiveInterface>();
-      var x4 = Any.Instance<ObjectWithCopyConstructor>();
-      var x5 = Any.Instance<ComplexObjectWithFactoryMethodAndRecursiveConstructor>();
+      var x1 = Core.Any.Instance<AbstractObjectWithInterfaceInConstructor>();
+      var x2 = Core.Any.Instance<AbstractObjectWithVirtualMethods>();
+      var x3 = Core.Any.Instance<RecursiveInterface>();
+      var x4 = Core.Any.Instance<ObjectWithCopyConstructor>();
+      var x5 = Core.Any.Instance<ComplexObjectWithFactoryMethodAndRecursiveConstructor>();
       CallSomeMethodsOn(x1, x2, x3);
       Serialize(x1);
       Serialize(x2);
@@ -1038,7 +1037,7 @@ namespace TddEbook.TddToolkitSpecification
     public void ShouldHaveRecursionLimitSetPerType()
     {
       //GIVEN
-      var instance = Any.Instance<RecursiveClass>();
+      var instance = Core.Any.Instance<RecursiveClass>();
       
       Assert.NotNull(instance.Same.Same.Same);
       Assert.Null(instance.Same.Same.Same.Same);
@@ -1053,7 +1052,7 @@ namespace TddEbook.TddToolkitSpecification
     public void ShouldUseEmptyCollectionWhenRunning()
     {
       //GIVEN
-      var instance = Any.Instance<RecursiveClass>();
+      var instance = Core.Any.Instance<RecursiveClass>();
       
       Assert.NotNull(instance.Same.Same.Same);
       Assert.Null(instance.Same.Same.Same.Same.Same.Same);
@@ -1068,8 +1067,8 @@ namespace TddEbook.TddToolkitSpecification
     public void ShouldGenerateVoidNotStartedTasks()
     {
       //WHEN
-      var voidTask1 = Any.NotStartedTask();
-      var voidTask2 = Any.NotStartedTask();
+      var voidTask1 = Core.Any.NotStartedTask();
+      var voidTask2 = Core.Any.NotStartedTask();
       //THEN
       Assert.NotNull(voidTask1);
       Assert.NotNull(voidTask2);
@@ -1082,8 +1081,8 @@ namespace TddEbook.TddToolkitSpecification
     public void ShouldGenerateNotStartedTasks()
     {
       //WHEN
-      var task1 = Any.NotStartedTask<int>();
-      var task2 = Any.NotStartedTask<int>();
+      var task1 = Core.Any.NotStartedTask<int>();
+      var task2 = Core.Any.NotStartedTask<int>();
       //THEN
       Assert.NotNull(task1);
       Assert.NotNull(task2);
@@ -1111,8 +1110,8 @@ namespace TddEbook.TddToolkitSpecification
     public void ShouldGenerateStartedTasks()
     {
       //WHEN
-      var task1 = Any.StartedTask<string>();
-      var task2 = Any.StartedTask<string>();
+      var task1 = Core.Any.StartedTask<string>();
+      var task2 = Core.Any.StartedTask<string>();
       //THEN
       Assert.NotNull(task1);
       Assert.NotNull(task2);
@@ -1127,7 +1126,7 @@ namespace TddEbook.TddToolkitSpecification
     public void ShouldAllowGeneratingReadOnlyLists()
     {
       //GIVEN
-      var readOnlyList = Any.ReadOnlyList<int>();
+      var readOnlyList = Core.Any.ReadOnlyList<int>();
       //WHEN
 
       //THEN
@@ -1141,7 +1140,7 @@ namespace TddEbook.TddToolkitSpecification
     public void ShouldAllowGeneratingReadOnlyListsThroughGenericMethod()
     {
       //GIVEN
-      var readOnlyList = Any.Instance<IReadOnlyList<int>>();
+      var readOnlyList = Core.Any.Instance<IReadOnlyList<int>>();
       //WHEN
 
       //THEN
@@ -1155,7 +1154,7 @@ namespace TddEbook.TddToolkitSpecification
     public void ShouldAllowGeneratingReadOnlyDictionariesThroughGenericMethod()
     {
       //GIVEN
-      var readonlyDictionary = Any.Instance<IReadOnlyDictionary<int, int>>();
+      var readonlyDictionary = Core.Any.Instance<IReadOnlyDictionary<int, int>>();
       //WHEN
 
       //THEN
@@ -1170,7 +1169,7 @@ namespace TddEbook.TddToolkitSpecification
     {
       //GIVEN
       var length = 5;
-      var readOnlyList = Any.ReadOnlyList<int>(length);
+      var readOnlyList = Core.Any.ReadOnlyList<int>(length);
       //WHEN
 
       //THEN
@@ -1184,7 +1183,7 @@ namespace TddEbook.TddToolkitSpecification
     public void ShouldAllowGeneratingFuncs()
     {
       //GIVEN
-      var func = Any.Func<int, int, string>();
+      var func = Core.Any.Func<int, int, string>();
       
       //WHEN
       var result1 = func(1, 2);
@@ -1198,7 +1197,7 @@ namespace TddEbook.TddToolkitSpecification
     public void ShouldAllowGeneratingActions()
     {
       //GIVEN
-      var func = Any.Action<int, int, string>();
+      var func = Core.Any.Action<int, int, string>();
 
       //WHEN-THEN
       Assert.DoesNotThrow(() => func(1,2,"2"));
@@ -1212,7 +1211,7 @@ namespace TddEbook.TddToolkitSpecification
 
     private static void SerializeAnyInstanceOf<T>()
     {
-      Serialize<T>(Any.Instance<T>());
+      Serialize<T>(Core.Any.Instance<T>());
     }
     private static void Serialize<T>(T instance)
     {

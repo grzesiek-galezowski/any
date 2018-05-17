@@ -1,5 +1,4 @@
 ﻿using Generators;
-using TddEbook.TddToolkit.Generators;
 using TddXt.AnyExtensibility;
 
 namespace TddXt.AnyCore.Strings

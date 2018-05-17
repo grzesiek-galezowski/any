@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
-using TddEbook.TddToolkit.TypeResolution.FakeChainElements;
-using TddEbook.TypeReflection;
+using TddXt.AnyGenerators.Generic.ExtensionPoints;
+using TypeResolution.FakeChainElements;
 
-namespace TddEbook.TddToolkit.Generators
+namespace Generators.ImplementationDetails
 {
   public class SpecialCasesOfResolutions<T> : ISpecialCasesOfResolutions<T>
   {

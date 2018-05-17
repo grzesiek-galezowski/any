@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using TddXt.AnyExtensibility;
 
-namespace Generators
+namespace TddXt.AnyGenerators.Collections
 {
   internal static class CollectionFiller //todo make up a better name
   {

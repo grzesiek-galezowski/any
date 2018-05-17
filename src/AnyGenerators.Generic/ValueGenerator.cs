@@ -1,10 +1,9 @@
 using System;
 using System.Linq;
 using AutoFixture;
-using Generators;
-using TddEbook.TddToolkit.TypeResolution.Interfaces;
+using TypeResolution.Interfaces;
 
-namespace TddEbook.TddToolkit.Generators
+namespace TddXt.AnyGenerators.Generic
 {
   [Serializable]
   public class ValueGenerator : IValueGenerator

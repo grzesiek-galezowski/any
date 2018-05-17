@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace TddEbook.TddToolkitSpecification.Fixtures
+namespace TddToolkitSpecification.Fixtures
 {
   public interface RecursiveInterface
   {

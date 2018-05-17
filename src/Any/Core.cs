@@ -1,4 +1,4 @@
-﻿using TddEbook.TddToolkit.Subgenerators;
+﻿using Generators.ImplementationDetails;
 using TddXt.AnyExtensibility;
 
 namespace TddXt.AnyCore

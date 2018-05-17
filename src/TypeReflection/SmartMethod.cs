@@ -3,7 +3,7 @@ using System.Linq;
 using System.Reflection;
 using TypeReflection.Interfaces;
 
-namespace TddEbook.TypeReflection
+namespace TypeReflection
 {
   public class SmartMethod : IMethod
   {

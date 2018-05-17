@@ -1,18 +1,21 @@
 using System.Threading.Tasks;
 using TddXt.AnyExtensibility;
 
-public class NotStartedTaskGenerator : InlineGenerator<Task>
+namespace TddXt.AnyGenerators.Invokable
 {
-  public Task GenerateInstance(InstanceGenerator instanceGenerator)
+  public class NotStartedTaskGenerator : InlineGenerator<Task>
   {
-    return new Task(() => Task.Delay(1).Wait());
+    public Task GenerateInstance(InstanceGenerator instanceGenerator)
+    {
+      return new Task(() => Task.Delay(1).Wait());
+    }
   }
-}
 
-public class NotStartedTaskGenerator<T> : InlineGenerator<Task<T>>
-{
-  public Task<T> GenerateInstance(InstanceGenerator instanceGenerator)
+  public class NotStartedTaskGenerator<T> : InlineGenerator<Task<T>>
   {
-    return new Task<T>(instanceGenerator.Instance<T>);
+    public Task<T> GenerateInstance(InstanceGenerator instanceGenerator)
+    {
+      return new Task<T>(instanceGenerator.Instance<T>);
+    }
   }
 }

@@ -1,7 +1,7 @@
 using System.Globalization;
 using TddXt.AnyExtensibility;
 
-namespace Generators
+namespace TddXt.AnyGenerators.Strings
 {
   public class IdentifierStringGenerator : InlineGenerator<string>
   {

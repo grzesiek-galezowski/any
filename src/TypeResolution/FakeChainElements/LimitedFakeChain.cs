@@ -1,9 +1,8 @@
 using System;
 using System.Reflection;
-using TddEbook.TypeReflection;
 using TddXt.AnyExtensibility;
 
-namespace TddEbook.TddToolkit.TypeResolution.FakeChainElements
+namespace TypeResolution.FakeChainElements
 {
   public class LimitedFakeChain<T> : IFakeChain<T>
   {

@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace TddEbook.TddToolkit.TypeResolution.CustomCollections
+namespace TypeResolution.CustomCollections
 {
   public class LatestArraysWithPossibleValues<T>
   {

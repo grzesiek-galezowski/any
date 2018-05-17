@@ -2,7 +2,7 @@ using AutoFixture;
 using AutoFixture.Kernel;
 using TddXt.AnyExtensibility;
 
-namespace TddEbook.TddToolkit.Generators
+namespace TddXt.AnyGenerators.Strings
 {
   public class StringMatchingRegexGenerator : InlineGenerator<string>
   {

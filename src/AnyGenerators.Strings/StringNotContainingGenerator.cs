@@ -2,7 +2,7 @@ using System;
 using System.Linq;
 using TddXt.AnyExtensibility;
 
-namespace Generators
+namespace TddXt.AnyGenerators.Strings
 {
   public class StringNotContainingGenerator : InlineGenerator<string>
   {

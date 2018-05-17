@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using AutoFixture;
 
-namespace TddEbook.TddToolkit.Generators
+namespace TddXt.AnyGenerators.Generic.ImplementationDetails
 {
   public class EmptyCollectionInstantiation
   {

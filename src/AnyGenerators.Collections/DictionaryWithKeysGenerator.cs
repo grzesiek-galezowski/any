@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using TddXt.AnyExtensibility;
 
-namespace Generators
+namespace TddXt.AnyGenerators.Collections
 {
   public class DictionaryWithKeysGenerator<TKey, TValue> 
     : InlineGenerator<Dictionary<TKey, TValue>>

@@ -2,7 +2,7 @@ using System;
 using System.Numerics;
 using System.Text;
 
-namespace TddEbook.TddToolkit.Generators
+namespace TddXt.AnyGenerators.Math
 {
   public static class NumericTraits
   {

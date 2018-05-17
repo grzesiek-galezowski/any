@@ -1,8 +1,8 @@
-﻿using KellermanSoftware.CompareNetObjects;
+﻿using System;
+using KellermanSoftware.CompareNetObjects;
 using KellermanSoftware.CompareNetObjects.TypeComparers;
-using System;
 
-namespace TddEbook.TddToolkit.ImplementationDetails
+namespace TddToolkitSpecification.GraphComparison
 {
   public class ReflectionOrProxyComparer : BaseTypeComparer
   {

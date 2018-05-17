@@ -1,13 +1,16 @@
-using TddEbook.TddToolkit.CommonTypes;
+using CommonTypes;
 using TddXt.AnyExtensibility;
 
-public class AlphaCharGenerator : InlineGenerator<char>
+namespace TddXt.AnyGenerators.Strings
 {
-  private static readonly CircularList<char> _letters =
-    CircularList.CreateStartingFromRandom("qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM".ToCharArray());
-
-  public char GenerateInstance(InstanceGenerator instanceGenerator)
+  public class AlphaCharGenerator : InlineGenerator<char>
   {
-    return _letters.Next();
+    private static readonly CircularList<char> _letters =
+      CircularList.CreateStartingFromRandom("qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM".ToCharArray());
+
+    public char GenerateInstance(InstanceGenerator instanceGenerator)
+    {
+      return _letters.Next();
+    }
   }
 }

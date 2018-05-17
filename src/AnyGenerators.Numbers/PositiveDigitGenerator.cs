@@ -1,6 +1,6 @@
 using TddXt.AnyExtensibility;
 
-namespace Generators
+namespace TddXt.AnyGenerators.Numbers
 {
   public class PositiveDigitGenerator : InlineGenerator<byte>
   {

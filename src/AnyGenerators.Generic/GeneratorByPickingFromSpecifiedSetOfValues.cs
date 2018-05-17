@@ -1,8 +1,7 @@
-using TddEbook.TddToolkit.TypeResolution.CustomCollections;
-using TddEbook.TypeReflection;
 using TddXt.AnyExtensibility;
+using TypeResolution.CustomCollections;
 
-namespace TddEbook.TddToolkit.Generators
+namespace TddXt.AnyGenerators.Generic
 {
   public class GeneratorByPickingFromSpecifiedSetOfValues<T> : InlineGenerator<T>
   {

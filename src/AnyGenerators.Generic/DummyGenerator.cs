@@ -1,8 +1,6 @@
-﻿using TddEbook.TddToolkit.Generators;
-using TddEbook.TypeReflection;
-using TddXt.AnyExtensibility;
+﻿using TddXt.AnyExtensibility;
 
-namespace Generators.Inline
+namespace TddXt.AnyGenerators.Generic
 {
   public class DummyGenerator<T> : InlineGenerator<T>
   {

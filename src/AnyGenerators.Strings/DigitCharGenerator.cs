@@ -1,7 +1,7 @@
-using TddEbook.TddToolkit.CommonTypes;
+using CommonTypes;
 using TddXt.AnyExtensibility;
 
-namespace TddEbook.TddToolkit.Generators
+namespace TddXt.AnyGenerators.Strings
 {
   public class DigitCharGenerator : InlineGenerator<char>
   {

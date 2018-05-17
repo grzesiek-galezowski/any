@@ -1,7 +1,7 @@
 using System;
 using TddXt.AnyExtensibility;
 
-namespace Generators
+namespace TddXt.AnyGenerators.Strings
 {
   public class StringFromCharsGenerator : InlineGenerator<string>
   {

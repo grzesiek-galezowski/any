@@ -1,8 +1,6 @@
-using Generators;
-using TddEbook.TypeReflection;
 using TddXt.AnyExtensibility;
 
-namespace TddEbook.TddToolkit.Generators
+namespace TddXt.AnyGenerators.Generic
 {
   public class SimpleValueGenerator<T> : InlineGenerator<T>
   {

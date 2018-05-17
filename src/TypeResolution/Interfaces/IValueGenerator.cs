@@ -1,4 +1,4 @@
-namespace TddEbook.TddToolkit.TypeResolution.Interfaces
+namespace TypeResolution.Interfaces
 {
   public interface IValueGenerator //todo remove this interface?
   {

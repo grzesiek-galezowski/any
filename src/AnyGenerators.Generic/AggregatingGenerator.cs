@@ -2,7 +2,7 @@
 using System.Linq;
 using TddXt.AnyExtensibility;
 
-namespace Generators
+namespace TddXt.AnyGenerators.Generic
 {
 
   public class AggregatingGenerator<T> : InlineGenerator<T>

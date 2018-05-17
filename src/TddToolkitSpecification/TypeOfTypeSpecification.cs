@@ -1,10 +1,8 @@
-﻿using System;
-using NUnit.Framework;
-using TddEbook.TddToolkit;
-using TddEbook.TypeReflection;
+﻿using NUnit.Framework;
+using TypeReflection;
 using Type = System.Type;
 
-namespace TddEbook.TddToolkitSpecification
+namespace TddToolkitSpecification
 {
   public class TypeOfTypeSpecification
   {

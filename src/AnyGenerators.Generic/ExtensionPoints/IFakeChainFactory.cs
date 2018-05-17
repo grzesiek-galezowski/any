@@ -1,6 +1,6 @@
-using TddEbook.TddToolkit.Generators;
+using TypeResolution.FakeChainElements;
 
-namespace TddEbook.TddToolkit.TypeResolution.FakeChainElements
+namespace TddXt.AnyGenerators.Generic.ExtensionPoints
 {
   public interface IFakeChainFactory
   {

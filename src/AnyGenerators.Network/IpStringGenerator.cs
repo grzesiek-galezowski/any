@@ -1,7 +1,7 @@
 using System;
 using TddXt.AnyExtensibility;
 
-namespace TddEbook.TddToolkit.Generators
+namespace TddXt.AnyGenerators.Network
 {
   public class IpStringGenerator : InlineGenerator<string>
   {

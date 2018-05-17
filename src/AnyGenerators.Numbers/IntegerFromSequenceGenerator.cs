@@ -1,10 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
-using TddEbook.TddToolkit.CommonTypes;
-using TddEbook.TddToolkit.TypeResolution;
+using CommonTypes;
 using TddXt.AnyExtensibility;
 
-namespace TddEbook.TddToolkit.Generators
+namespace TddXt.AnyGenerators.Numbers
 {
   public class IntegerFromSequenceGenerator : InlineGenerator<int>
   {

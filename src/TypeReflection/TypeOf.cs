@@ -1,8 +1,7 @@
 using System;
-using TypeReflection.ImplementationDetails;
 using TypeReflection.Interfaces;
 
-namespace TddEbook.TypeReflection
+namespace TypeReflection
 {
   public static class TypeOf<T>
   {
@@ -26,17 +25,6 @@ namespace TddEbook.TypeReflection
     public static bool IsConcrete()
     {
       return Type.IsConcrete();
-    }
-
-    public static IBinaryOperator<T, bool> Equality()
-    {
-
-      return BinaryOperator<T, bool>.Wrap(Type.Equality());
-    }
-
-    public static IBinaryOperator<T, bool> Inequality()
-    {
-      return BinaryOperator<T, bool>.Wrap(Type.Inequality());
     }
 
     public static bool Is<T1>()

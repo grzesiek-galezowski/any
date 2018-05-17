@@ -5,11 +5,10 @@ using System.Net;
 using System.Reflection;
 using AutoFixture;
 using AutoFixture.Kernel;
-using TddEbook.TddToolkit.CommonTypes;
-using TddEbook.TypeReflection;
-using IMethodQuery = AutoFixture.Kernel.IMethodQuery;
+using CommonTypes;
+using TypeReflection;
 
-namespace TddEbook.TddToolkit
+namespace TddXt.AnyGenerators.Generic.ImplementationDetails
 {
   public class AutoFixtureConfiguration
   {
@@ -70,62 +69,62 @@ namespace TddEbook.TddToolkit
   public class Type11 { }
   public class Type12 { }
   public class Type13 { }
-}
 
-public class EngineWithReplacedQuery : DefaultEngineParts
-{
-  public override IEnumerator<ISpecimenBuilder> GetEnumerator()
+  public class EngineWithReplacedQuery : DefaultEngineParts
   {
-    using (var enumerator = base.GetEnumerator())
+    public override IEnumerator<ISpecimenBuilder> GetEnumerator()
     {
-      while (enumerator.MoveNext())
+      using (var enumerator = base.GetEnumerator())
       {
-        var value = enumerator.Current;
+        while (enumerator.MoveNext())
+        {
+          var value = enumerator.Current;
 
-        // Replace target method query
-        if (value is MethodInvoker mi &&
-            mi.Query is CompositeMethodQuery cmq &&
-            cmq.Queries.Skip(1).FirstOrDefault() is FactoryMethodQuery)
-        {
-          yield return new MethodInvoker(
-            new CompositeMethodQuery(
-              new ModestConstructorQuery(),
-              new PatchedFactoryMethodQuery()
-            )
-          );
-        }
-        else
-        {
-          yield return value;
+          // Replace target method query
+          if (value is MethodInvoker mi &&
+              mi.Query is CompositeMethodQuery cmq &&
+              cmq.Queries.Skip(1).FirstOrDefault() is FactoryMethodQuery)
+          {
+            yield return new MethodInvoker(
+              new CompositeMethodQuery(
+                new ModestConstructorQuery(),
+                new PatchedFactoryMethodQuery()
+              )
+            );
+          }
+          else
+          {
+            yield return value;
+          }
         }
       }
     }
   }
-}
 
-public class PatchedFactoryMethodQuery : IMethodQuery
-{
-  public IEnumerable<IMethod> SelectMethods(Type type)
+  public class PatchedFactoryMethodQuery : IMethodQuery
   {
-    var factoryMethods = SmartType.For(type).TryToObtainPublicStaticFactoryMethodWithoutRecursion()
-      .Where(m => m.HasNonPointerArgumentsOnly())
-      .Where(m => !m.IsParameterless())
-      .OrderBy(m => m.GetParametersCount());
-    return factoryMethods;
-  }
+    public IEnumerable<IMethod> SelectMethods(Type type)
+    {
+      var factoryMethods = SmartType.For(type).TryToObtainPublicStaticFactoryMethodWithoutRecursion()
+        .Where(m => m.HasNonPointerArgumentsOnly())
+        .Where(m => !m.IsParameterless())
+        .OrderBy(m => m.GetParametersCount());
+      return factoryMethods;
+    }
 
-  private static bool IsNotExplicitCast(MethodInfo mi)
-  {
-    return !string.Equals(mi.Name, "op_Explicit", StringComparison.Ordinal);
-  }
+    private static bool IsNotExplicitCast(MethodInfo mi)
+    {
+      return !string.Equals(mi.Name, "op_Explicit", StringComparison.Ordinal);
+    }
 
-  private static bool isNotImplicitCast(MethodInfo mi)
-  {
-    return !string.Equals(mi.Name, "op_Implicit", StringComparison.Ordinal);
-  }
+    private static bool isNotImplicitCast(MethodInfo mi)
+    {
+      return !string.Equals(mi.Name, "op_Implicit", StringComparison.Ordinal);
+    }
 
-  private static bool IsFactoryMethod(Type type, MethodInfo mi)
-  {
-    return mi.ReturnType == type;
+    private static bool IsFactoryMethod(Type type, MethodInfo mi)
+    {
+      return mi.ReturnType == type;
+    }
   }
 }

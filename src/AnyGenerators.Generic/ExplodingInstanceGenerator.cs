@@ -1,10 +1,9 @@
 using System;
 using Castle.DynamicProxy;
-using TddEbook.TddToolkit.TypeResolution.Interceptors;
-using TddEbook.TypeReflection;
 using TddXt.AnyExtensibility;
+using TypeResolution.Interceptors;
 
-namespace TddEbook.TddToolkit.Generators
+namespace TddXt.AnyGenerators.Generic
 {
   public class ExplodingInstanceGenerator<T> : InlineGenerator<T> where T : class
   {

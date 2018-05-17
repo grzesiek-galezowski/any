@@ -1,7 +1,7 @@
 ﻿using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
-using TddEbook.TddToolkit.Generators;
+using Generators;
 using TddXt.AnyExtensibility;
 
 namespace TddXt.AnyCore.Collections

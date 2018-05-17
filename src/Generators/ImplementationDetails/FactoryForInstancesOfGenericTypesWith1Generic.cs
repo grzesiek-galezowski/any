@@ -2,7 +2,7 @@
 using System.Reflection;
 using TddXt.AnyExtensibility;
 
-namespace TddEbook.TypeReflection
+namespace Generators.ImplementationDetails
 {
   public class FactoryForInstancesOfGenericTypesWith1Generic : FactoryForInstancesOfGenericTypes
   {

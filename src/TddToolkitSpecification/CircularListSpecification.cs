@@ -1,9 +1,9 @@
-﻿using NUnit.Framework;
-using TddEbook.TddToolkit.CommonTypes;
+﻿using CommonTypes;
+using NUnit.Framework;
+using TddXt.AnyCore;
 using TddXt.AnyCore.Numbers;
-using static TddXt.AnyCore.Core;
 
-namespace TddEbook.TddToolkitSpecification
+namespace TddToolkitSpecification
 {
   public class CircularListSpecification
   {
@@ -11,9 +11,9 @@ namespace TddEbook.TddToolkitSpecification
     public void ShouldReturnAllElementsInOrderTheyWereAdded()
     {
       //GIVEN
-      var element1 = Any.Integer();
-      var element2 = Any.Integer();
-      var element3 = Any.Integer();
+      var element1 = Core.Any.Integer();
+      var element2 = Core.Any.Integer();
+      var element3 = Core.Any.Integer();
       var list = CircularList.StartingFrom0(element1, element2, element3);
 
       //WHEN
@@ -31,8 +31,8 @@ namespace TddEbook.TddToolkitSpecification
     public void ShouldStartOverReturningElementsWhenItRunsOutOfElements()
     {
       //GIVEN
-      var element1 = Any.Integer();
-      var element2 = Any.Integer();
+      var element1 = Core.Any.Integer();
+      var element2 = Core.Any.Integer();
 
       var list = CircularList.StartingFrom0(element1, element2);
 

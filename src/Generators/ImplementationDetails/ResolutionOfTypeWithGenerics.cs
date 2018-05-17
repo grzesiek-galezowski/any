@@ -1,9 +1,9 @@
 ﻿using System.Linq;
-using TddEbook.TypeReflection;
 using TddXt.AnyExtensibility;
+using TypeResolution.FakeChainElements;
 using Type = System.Type;
 
-namespace TddEbook.TddToolkit.TypeResolution.FakeChainElements
+namespace Generators.ImplementationDetails
 {
   public class ResolutionOfTypeWithGenerics<T> : IResolution<T>
   {

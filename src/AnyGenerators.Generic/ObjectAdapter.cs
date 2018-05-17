@@ -1,8 +1,9 @@
 using System;
 using System.Reflection;
 using TddXt.AnyExtensibility;
+using TddXt.AnyGenerators.Generic.ImplementationDetails;
 
-namespace TddEbook.TddToolkit.Generators
+namespace TddXt.AnyGenerators.Generic
 {
   public class ObjectAdapter : InlineGenerator<object>
   {

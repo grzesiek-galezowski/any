@@ -1,6 +1,6 @@
 using System;
 
-namespace TddEbook.TddToolkit.TypeResolution.FakeChainElements
+namespace TypeResolution.FakeChainElements
 {
   internal class ChainFailedException : Exception
   {

@@ -1,11 +1,10 @@
 using System;
 using System.Diagnostics;
 using System.Reflection;
-using TddEbook.TddToolkit.TypeResolution.Interfaces;
-using TddEbook.TypeReflection;
 using TddXt.AnyExtensibility;
+using TypeResolution.Interfaces;
 
-namespace TddEbook.TddToolkit.TypeResolution.FakeChainElements
+namespace TypeResolution.FakeChainElements
 {
   public class FakeConcreteClass<T> : IResolution<T>
   {

@@ -2,7 +2,7 @@ using System;
 using System.Reflection;
 using Castle.DynamicProxy;
 
-namespace TddEbook.TddToolkit.TypeResolution.CustomCollections
+namespace TypeResolution.CustomCollections
 {
   [Serializable]
   public class PerMethodCacheKey : IEquatable<PerMethodCacheKey>

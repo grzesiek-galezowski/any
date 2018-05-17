@@ -1,8 +1,7 @@
-using TddEbook.TddToolkit.Generators;
-using TddEbook.TypeReflection;
 using TddXt.AnyExtensibility;
+using TypeResolution.FakeChainElements;
 
-namespace TddEbook.TddToolkit.TypeResolution.FakeChainElements
+namespace Generators.ImplementationDetails
 {
   public class ResolutionOfArrays<T> : IResolution<T>
   {

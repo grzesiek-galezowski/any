@@ -1,4 +1,4 @@
-namespace Generators
+namespace TddXt.AnyExtensibility
 {
   public static class Configuration
   {

@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.Serialization;
-using Generators;
-using TddEbook.TddToolkit.TypeResolution.FakeChainElements;
-using TddEbook.TypeReflection;
 using TddXt.AnyExtensibility;
+using TddXt.AnyGenerators.Generic.ExtensionPoints;
+using TddXt.AnyGenerators.Generic.ImplementationDetails;
+using TypeReflection;
 
-namespace TddEbook.TddToolkit.Generators
+namespace TddXt.AnyGenerators.Generic
 {
   [Serializable]
   public class AllGenerator : InstanceGenerator

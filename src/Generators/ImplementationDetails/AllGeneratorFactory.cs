@@ -1,11 +1,10 @@
 using Castle.DynamicProxy;
-using AutoFixture;
-using TddEbook.TddToolkit.Generators;
-using TddEbook.TddToolkit.TypeResolution;
-using TddEbook.TddToolkit.TypeResolution.CustomCollections;
-using TddEbook.TddToolkit.TypeResolution.FakeChainElements;
+using TddXt.AnyGenerators.Generic;
+using TddXt.AnyGenerators.Generic.ImplementationDetails;
+using TypeResolution;
+using TypeResolution.CustomCollections;
 
-namespace TddEbook.TddToolkit.Subgenerators
+namespace Generators.ImplementationDetails
 {
   public static class AllGeneratorFactory
   {

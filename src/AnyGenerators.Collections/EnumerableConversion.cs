@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using TddXt.AnyExtensibility;
 
-namespace Generators
+namespace TddXt.AnyGenerators.Collections
 {
   public class EnumerableConversion<TInput, TResult> : InlineGenerator<TResult>
   {
