@@ -1,0 +1,39 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>TddToolkit.snk</AssemblyOriginatorKeyFile>
+    <DelaySign>false</DelaySign>
+    <AssemblyName>TddXt.AnyGenerators.Root</AssemblyName>
+    <RootNamespace>TddXt.AnyGenerators.Root</RootNamespace>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <WarningLevel>2</WarningLevel>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Castle.Core" Version="4.2.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AnyGenerators.Collections\AnyGenerators.Collections.csproj" />
+    <ProjectReference Include="..\AnyGenerators.Generic\AnyGenerators.Generic.csproj" />
+    <ProjectReference Include="..\AnyGenerators.Invokable\AnyGenerators.Invokable.csproj" />
+    <ProjectReference Include="..\AnyGenerators.Math\AnyGenerators.Math.csproj" />
+    <ProjectReference Include="..\AnyGenerators.Network\AnyGenerators.Network.csproj" />
+    <ProjectReference Include="..\AnyGenerators.NSubstitute\AnyGenerators.NSubstitute.csproj" />
+    <ProjectReference Include="..\AnyGenerators.Numbers\AnyGenerators.Numbers.csproj" />
+    <ProjectReference Include="..\AnyGenerators.Strings\AnyGenerators.Strings.csproj" />
+    <ProjectReference Include="..\TypeReflection\TypeReflection.csproj" />
+    <ProjectReference Include="..\TypeResolution\TypeResolution.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Castle.Core">
+      <HintPath>..\packages\Castle.Core.4.2.1\lib\net45\Castle.Core.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

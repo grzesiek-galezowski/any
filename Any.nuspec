@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>Any</id>
+    <title>Any</title>
+    <version>1.0.0</version>
+    <owners>Grzegorz Galezowski</owners>
+    <authors>Grzegorz Galezowski</authors>
+    <summary>
+      TODO
+    </summary>
+    <description>
+      TODO
+    </description>
+    <language>en-US</language>
+    <licenseUrl>https://github.com/fluentassertions/fluentassertions/blob/master/LICENSE</licenseUrl>
+	<iconUrl>https://raw.githubusercontent.com/fluentassertions/fluentassertions/master/Src/FluentAssertions.png</iconUrl>
+    <projectUrl>http://www.fluentassertions.com</projectUrl>
+    <!-- <tags>MSTest MSTest2 xUnit xUnit2 NUnit MSpec NSpec Gallio MbUnit TDD BDD Fluent netcore netstandard uwp</tags> -->
+    <!-- <copyright>Copyright Dennis Doomen 2010-2018</copyright> -->
+    <releaseNotes>
+      See https://github.com/fluentassertions/fluentassertions/releases/
+    </releaseNotes>
+    <!-- <frameworkAssemblies>
+      <frameworkAssembly assemblyName="System.Xml" targetFramework="net45" />
+      <frameworkAssembly assemblyName="System.Xml.Linq" targetFramework="net45" />
+    </frameworkAssemblies> -->
+    <dependencies>
+      <group targetFramework="netstandard2.0">
+        <dependency id="System.Configuration.ConfigurationManager" version="4.4.0" />
+        <dependency id="System.Reflection.Emit" version="4.3.0" />
+        <dependency id="System.Reflection.Emit.Lightweight" version="4.3.0" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <!--
+    <file src=".\build\Release\net47\*.*"  target="lib\net47" />
+    <file src=".\build\Release\net45\*.*"  target="lib\net45" exclude="**\System.*" />
+    <file src=".\build\Release\netstandard1.3\FluentAssertions.*" exclude="**\*.json" target="lib\netstandard1.3" />
+    <file src=".\build\Release\netstandard1.6\FluentAssertions*.*" exclude="**\*.json" target="lib\netstandard1.6" /> -->
+    <file src=".\build\Release\netstandard2.0\*.*" exclude="**\*.json" target="lib\netstandard2.0" />
+  </files>
+</package>

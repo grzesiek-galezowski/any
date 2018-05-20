@@ -1,8 +1,8 @@
-﻿using Generators.ImplementationDetails;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using TddToolkitSpecification.Fixtures;
-using TddXt.AnyCore;
 using TddXt.AnyExtensibility;
+using TddXt.AnyGenerators.Root.ImplementationDetails;
+using TddXt.AnyRoot;
 
 namespace TddToolkitSpecification
 {
@@ -18,8 +18,8 @@ namespace TddToolkitSpecification
 
       //THEN
       Assert.True(resolution.Applies());
-      Assert.NotNull(resolution.Apply(Core.Any.Instance<InstanceGenerator>()));
-      Assert.AreEqual(3, resolution.Apply(Core.Any.Instance<InstanceGenerator>()).Length);
+      Assert.NotNull(resolution.Apply(Root.Any.Instance<InstanceGenerator>()));
+      Assert.AreEqual(3, resolution.Apply(Root.Any.Instance<InstanceGenerator>()).Length);
 
     }
 
