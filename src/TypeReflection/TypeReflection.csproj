@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -11,10 +11,6 @@
     <ProjectReference Include="..\AnyExtensibility\AnyExtensibility.csproj" />
     <ProjectReference Include="..\TypeReflection.ImplementationDetails\TypeReflection.ImplementationDetails.csproj" />
     <ProjectReference Include="..\TypeReflection.Interfaces\TypeReflection.Interfaces.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Update="NETStandard.Library" Version="2.0.2" />
   </ItemGroup>
 
 </Project>

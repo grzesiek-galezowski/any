@@ -3,42 +3,33 @@
   <metadata>
     <id>Any</id>
     <title>Any</title>
-    <version>1.0.0</version>
     <owners>Grzegorz Galezowski</owners>
     <authors>Grzegorz Galezowski</authors>
     <summary>
-      TODO
+      Anonymous value generator, supporting the "Any.Whatever()" syntax proposed on the www.sustainabletdd.com blog.
     </summary>
     <description>
-      TODO
+      Anonymous value generator, supporting the "Any.Whatever()" syntax proposed on the www.sustainabletdd.com blog. 
+      It makes use of the static usings and extension methods to achieve flexibility and extensibility.
     </description>
     <language>en-US</language>
-    <licenseUrl>https://github.com/fluentassertions/fluentassertions/blob/master/LICENSE</licenseUrl>
-	<iconUrl>https://raw.githubusercontent.com/fluentassertions/fluentassertions/master/Src/FluentAssertions.png</iconUrl>
-    <projectUrl>http://www.fluentassertions.com</projectUrl>
-    <!-- <tags>MSTest MSTest2 xUnit xUnit2 NUnit MSpec NSpec Gallio MbUnit TDD BDD Fluent netcore netstandard uwp</tags> -->
-    <!-- <copyright>Copyright Dennis Doomen 2010-2018</copyright> -->
+    <projectUrl>https://github.com/grzesiek-galezowski/any</projectUrl>
     <releaseNotes>
-      See https://github.com/fluentassertions/fluentassertions/releases/
+      First version - migrated API from Tdd Toolkit
     </releaseNotes>
-    <!-- <frameworkAssemblies>
-      <frameworkAssembly assemblyName="System.Xml" targetFramework="net45" />
-      <frameworkAssembly assemblyName="System.Xml.Linq" targetFramework="net45" />
-    </frameworkAssemblies> -->
     <dependencies>
       <group targetFramework="netstandard2.0">
-        <dependency id="System.Configuration.ConfigurationManager" version="4.4.0" />
-        <dependency id="System.Reflection.Emit" version="4.3.0" />
-        <dependency id="System.Reflection.Emit.Lightweight" version="4.3.0" />
+<dependency id="Castle.Core" version="4.2.1" />
+<dependency id="NSubstitute" version="3.1.0" />
+<dependency id="AutoFixture.SeedExtensions" version="4.3.0" />
+<dependency id="AutoFixture" version="4.3.0" />
+<dependency id="FluentAssertions" version="5.3.0" />
+<dependency id="System.Threading.Tasks.Extensions" version="4.4.0" />
+<dependency id="System.ValueTuple" version="4.4.0" />   
       </group>
     </dependencies>
   </metadata>
   <files>
-    <!--
-    <file src=".\build\Release\net47\*.*"  target="lib\net47" />
-    <file src=".\build\Release\net45\*.*"  target="lib\net45" exclude="**\System.*" />
-    <file src=".\build\Release\netstandard1.3\FluentAssertions.*" exclude="**\*.json" target="lib\netstandard1.3" />
-    <file src=".\build\Release\netstandard1.6\FluentAssertions*.*" exclude="**\*.json" target="lib\netstandard1.6" /> -->
-    <file src=".\build\Release\netstandard2.0\*.*" exclude="**\*.json" target="lib\netstandard2.0" />
+    <file src=".\publish\netstandard2.0\*.*" exclude="**\*.json" target="lib\netstandard2.0" />
   </files>
 </package>

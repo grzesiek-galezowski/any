@@ -1,8 +1,7 @@
-#tool "nuget:?package=xunit.runner.console&version=2.3.0-beta5-build3769"
-#tool "nuget:?package=nspec&version=1.0.13"
-#tool "nuget:?package=nspec&version=2.0.1"
-#tool "nuget:?package=nspec&version=3.1.0"
-#tool "nuget:?package=GitVersion.CommandLine"
+#tool "nuget:?package=NUnit.ConsoleRunner"
+#tool "nuget:?package=ILRepack"
+#addin nuget:?package=Cake.SemVer
+#addin nuget:?package=semver&version=2.0.4
 
 //////////////////////////////////////////////////////////////////////
 // ARGUMENTS
@@ -17,7 +16,8 @@ var toolpath = Argument("toolpath", @"");
 //////////////////////////////////////////////////////////////////////
 
 // Define directories.
-var buildDir = Directory("./Artifacts") + Directory(configuration);
+var buildDir = Directory("./build") + Directory(configuration);
+var publishDir = "./publish";
 GitVersion gitVersion = null; 
 
 //////////////////////////////////////////////////////////////////////
@@ -28,6 +28,7 @@ Task("Clean")
     .Does(() =>
 {
     CleanDirectory(buildDir);
+    CleanDirectory(publishDir);
 });
 
 Task("Restore-NuGet-Packages")
@@ -67,30 +68,28 @@ Task("Build")
 });
 
 Task("Run-Unit-Tests")
+	.IsDependentOn("Build")
     .Does(() =>
 {
-    XUnit2("./Tests/Net45.Specs/bin/Debug/**/*.Specs.dll", new XUnit2Settings { });
-    XUnit2("./Tests/Net47.Specs/bin/Debug/**/*.Specs.dll", new XUnit2Settings { });
-    DotNetCoreTool("./Tests/NetCore.Specs/NetCore.Specs.csproj", "xunit", "-configuration debug");
-    DotNetCoreTool("./Tests/NetCore13.Specs/NetCore13.Specs.csproj", "xunit", "-configuration debug");
-    DotNetCoreTool("./Tests/NetCore20.Specs/NetCore.Specs20.csproj", "xunit", "-configuration debug");
-
-    DotNetCoreTest("./Tests/TestFrameworks/MSpec.Specs/MSpec.Specs.csproj", new DotNetCoreTestSettings { Configuration = "Debug" });
-    DotNetCoreTest("./Tests/TestFrameworks/MSTestV2.Specs/MSTestV2.Specs.csproj", new DotNetCoreTestSettings { Configuration = "Debug" });
-    DotNetCoreTest("./Tests/TestFrameworks/NUnit3.Specs/NUnit3.Specs.csproj", new DotNetCoreTestSettings { Configuration = "Debug" });
-    DotNetCoreTool("./Tests/TestFrameworks/XUnit2.Specs/XUnit2.Specs.csproj", "xunit", "-configuration debug");
-    XUnit2("./Tests/TestFrameworks/XUnit.Net45.Specs/**/bin/Debug/**/*.Specs.dll", new XUnit2Settings { });
-    NUnit("./Tests/TestFrameworks/NUnit2.Net45.Specs/**/bin/Debug/**/*.Specs.dll", new NUnitSettings { NoResults = true });
-
-    StartProcess(Context.Tools.Resolve("nspec.1.*/**/NSpecRunner.exe"), "./Tests/TestFrameworks/NSpec.Net45.Specs/bin/Debug/net451/NSpec.Specs.dll");
-    StartProcess(Context.Tools.Resolve("nspec.2.*/**/NSpecRunner.exe"), "./Tests/TestFrameworks/NSpec2.Net45.Specs/bin/Debug/net451/NSpec2.Specs.dll");
-    StartProcess(Context.Tools.Resolve("nspec.3.*/**/NSpecRunner.exe"), "./Tests/TestFrameworks/NSpec3.Net45.Specs/bin/Debug/net451/NSpec3.Specs.dll");
+	var testAssemblies = GetFiles("./specification/*Specification.dll");
+	NUnit3(testAssemblies);
 });
 
 Task("Pack")
+	.IsDependentOn("Build")
     .Does(() => 
     {
-      NuGetPack("./Any.nuspec", new NuGetPackSettings());  
+		CopyDirectory("./build/Release/", publishDir);
+		var assemblyPaths = GetFiles(publishDir + "/netstandard2.0/*.dll");
+		var mainAssemblyPath = new FilePath(publishDir + "/netstandard2.0/TddXt.AnyRoot.dll").MakeAbsolute(Context.Environment);
+		assemblyPaths.Remove(mainAssemblyPath);
+		ILRepack(publishDir + "/netstandard2.0/TddXt.AnyRoot.dll", publishDir + "/netstandard2.0/TddXt.AnyRoot.dll", assemblyPaths);
+		DeleteFiles(assemblyPaths);
+		NuGetPack("./Any.nuspec", new NuGetPackSettings()
+		{
+			OutputDirectory = "./nuget",
+			Version = "1.0.0",
+		});  
     });
 
 //////////////////////////////////////////////////////////////////////

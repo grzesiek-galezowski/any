@@ -17,11 +17,6 @@ namespace TypeResolution
       _fallbackTypeGenerator = new FallbackTypeGenerator(type);
     }
 
-    public int GetConstructorParametersCount()
-    {
-      return _fallbackTypeGenerator.GetConstructorParametersCount();
-    }
-
     public T GenerateInstance(InstanceGenerator instanceGenerator)
     {
       var generateInstance = (T)_fallbackTypeGenerator.GenerateInstance(instanceGenerator);
@@ -57,23 +52,9 @@ namespace TypeResolution
       _type = type;
     }
 
-    public int GetConstructorParametersCount()
-    {
-      var constructor = _smartType.PickConstructorWithLeastNonPointersParameters();
-      return constructor.Value().GetParametersCount(); //bug backward compatibility (for now)
-    }
-
     public object GenerateInstance(InstanceGenerator instanceGenerator)
     {
       var instance = _smartType.PickConstructorWithLeastNonPointersParameters().Value().InvokeWithParametersCreatedBy(instanceGenerator.Instance);
-      instance.GetType().Should().Be(_type);
-      return instance;
-    }
-
-    public object GenerateInstance(IEnumerable<object> constructorParameters)
-    {
-      var instance = _smartType.PickConstructorWithLeastNonPointersParameters().Value()  //bug backward compatibility (for now)
-        .InvokeWith(constructorParameters);
       instance.GetType().Should().Be(_type);
       return instance;
     }

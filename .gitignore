@@ -287,4 +287,6 @@ __pycache__/
 *.odx.cs
 *.xsd.cs
 tools/
-Any.1.0.0.zip
+
+specification/
+nuget/
