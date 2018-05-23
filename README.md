@@ -6,7 +6,7 @@ This version is built on .NET Standard 2.0, so it requires at least .NET Core 2.
 
 # How to use?
 
-Use the package [![NuGet](https://img.shields.io/nuget/v/Nuget.Core.svg?style=flat-square)](https://www.nuget.org/packages/Any/1.0.0)
+Use the package [![NuGet](https://img.shields.io/nuget/v/Any.svg?style=flat-square)](https://www.nuget.org/packages/Any/)
 
 In the code, static use the `TddXt.AnyRoot` property like this:
 
