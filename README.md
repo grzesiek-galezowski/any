@@ -14,7 +14,7 @@ In the code, static use the `TddXt.AnyRoot.Root` property like this:
 using static TddXt.AnyRoot.Root;
 ```
 
-This will allow you to use several core methods like `Any.Instance<T>`:
+This will allow you to use several core methods like `Any.Instance<T>()`:
 
 ```csharp
 var anInt = Any.Instance<int>();
