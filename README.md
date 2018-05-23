@@ -8,7 +8,7 @@ This version is built on .NET Standard 2.0, so it requires at least .NET Core 2.
 
 Use the package [![NuGet](https://img.shields.io/nuget/v/Any.svg?style=flat-square)](https://www.nuget.org/packages/Any/)
 
-In the code, static use the `TddXt.AnyRoot` property like this:
+In the code, static use the `TddXt.AnyRoot.Root` property like this:
 
 ```csharp
 using static TddXt.AnyRoot.Root;
