@@ -23,7 +23,7 @@ namespace TddXt.AnyGenerators.Generic.ImplementationDetails
 
     public object ResultOfGenericVersionOfStaticMethod<T>(Type genericArgumentType, string name)
     {
-      return ResultOfGenericVersionOfStaticMethod<T>(genericArgumentType, name, Array.Empty<object>());
+      return ResultOfGenericVersionOfStaticMethod<T>(genericArgumentType, name, new object[] { });
     }
 
     private object ResultOfGenericVersionOfStaticMethod<T>(Type genericArgumentType, string name, params object[] parameters)

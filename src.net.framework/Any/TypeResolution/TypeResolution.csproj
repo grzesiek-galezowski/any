@@ -153,6 +153,14 @@
       <Project>{15b7beac-2ba7-450a-952e-a3cc333e7c24}</Project>
       <Name>AnyExtensibility</Name>
     </ProjectReference>
+    <ProjectReference Include="..\AutoFixtureWrapper\AutoFixtureWrapper.csproj">
+      <Project>{979601e6-cf7a-40d3-94e4-936f4746c393}</Project>
+      <Name>AutoFixtureWrapper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CommonTypes\CommonTypes.csproj">
+      <Project>{4b302f64-2ba2-47ed-afc6-28a6e3832f15}</Project>
+      <Name>CommonTypes</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TypeReflection.Interfaces\TypeReflection.Interfaces.csproj">
       <Project>{4a53fff3-3bdd-4e3e-911e-b0ad6a91eeae}</Project>
       <Name>TypeReflection.Interfaces</Name>

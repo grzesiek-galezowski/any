@@ -17,7 +17,7 @@ namespace TddXt.AnyGenerators.Generic
 
     public T ValueOtherThan<T>(params T[] omittedValues)
     {
-      omittedValues = omittedValues ?? Array.Empty<T>();
+      omittedValues = omittedValues ?? new T[] { };
       T currentValue;
       do
       {

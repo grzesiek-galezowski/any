@@ -78,5 +78,27 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AnyExtensibility\AnyExtensibility.csproj">
+      <Project>{15b7beac-2ba7-450a-952e-a3cc333e7c24}</Project>
+      <Name>AnyExtensibility</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AnyGenerators.Generic\AnyGenerators.Generic.csproj">
+      <Project>{f5ff806d-d42c-4b4a-9cac-c67b8c317364}</Project>
+      <Name>AnyGenerators.Generic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AnyGenerators.Network\AnyGenerators.Network.csproj">
+      <Project>{812e37e4-4ac9-46d2-b022-7f07e7dedafe}</Project>
+      <Name>AnyGenerators.Network</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AnyGenerators.Root\AnyGenerators.Root.csproj">
+      <Project>{39110853-360d-4124-b181-0ac8a660a812}</Project>
+      <Name>AnyGenerators.Root</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AnyGenerators.Strings\AnyGenerators.Strings.csproj">
+      <Project>{7a0aebf8-b427-4acd-b341-f7d274e4ffb4}</Project>
+      <Name>AnyGenerators.Strings</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

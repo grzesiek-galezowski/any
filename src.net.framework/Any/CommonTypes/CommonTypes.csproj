@@ -46,6 +46,9 @@
     <Compile Include="..\..\..\src\CommonTypes\Maybe.cs">
       <Link>Maybe.cs</Link>
     </Compile>
+    <Compile Include="..\..\..\src\CommonTypes\ThirdPartyGeneratorFailed.cs">
+      <Link>ThirdPartyGeneratorFailed.cs</Link>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
