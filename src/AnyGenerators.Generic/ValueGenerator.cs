@@ -1,6 +1,6 @@
 using System;
 using System.Linq;
-using AutoFixture;
+using AutoFixtureWrapper;
 using TypeResolution.Interfaces;
 
 namespace TddXt.AnyGenerators.Generic
@@ -8,11 +8,11 @@ namespace TddXt.AnyGenerators.Generic
   [Serializable]
   public class ValueGenerator : IValueGenerator
   {
-    private readonly Fixture _generator;
+    private readonly FixtureWrapper _generator;
 
-    public ValueGenerator(Fixture generator)
+    public ValueGenerator(FixtureWrapper fixtureWrapper)
     {
-      _generator = generator;
+      _generator = fixtureWrapper;
     }
 
     public T ValueOtherThan<T>(params T[] omittedValues)
@@ -29,7 +29,6 @@ namespace TddXt.AnyGenerators.Generic
 
     public T Value<T>()
     {
-      //todo get back to it later
       return _generator.Create<T>();
     }
 

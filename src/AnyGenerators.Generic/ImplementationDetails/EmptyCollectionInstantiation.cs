@@ -1,13 +1,18 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using AutoFixture;
+using AutoFixtureWrapper;
 
 namespace TddXt.AnyGenerators.Generic.ImplementationDetails
 {
   public class EmptyCollectionInstantiation
   {
-    private readonly Fixture _emptyCollectionGenerator = AutoFixtureConfiguration.InstanceForEmptyCollections();
+    private readonly FixtureWrapper _fixtureWrapper;
+
+    public EmptyCollectionInstantiation()
+    {
+      _fixtureWrapper = FixtureWrapper.InstanceForEmptyCollections();
+    }
 
     public object EmptyEnumerableOf(Type collectionItemType)
     {
@@ -18,7 +23,7 @@ namespace TddXt.AnyGenerators.Generic.ImplementationDetails
 
     public T CreateCollectionPassedAsGenericType<T>()
     {
-      return _emptyCollectionGenerator.Create<T>();
+      return _fixtureWrapper.Create<T>();
     }
 
     private class MyEnumerable

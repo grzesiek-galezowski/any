@@ -1,6 +1,6 @@
 using AutoFixture.Kernel;
 
-namespace TddXt.AnyGenerators.Strings
+namespace AutoFixtureWrapper
 {
   public class DummyContext : ISpecimenContext
   {

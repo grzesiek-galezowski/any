@@ -1,3 +1,4 @@
+using AutoFixtureWrapper;
 using Castle.DynamicProxy;
 using TddXt.AnyGenerators.Generic;
 using TddXt.AnyGenerators.Generic.ImplementationDetails;
@@ -30,10 +31,11 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
 
     private static ValueGenerator CreateValueGenerator()
     {
+      var fixtureWrapper = FixtureWrapper.CreateUnconfiguredInstance();
       var fixtureConfiguration = new AutoFixtureConfiguration();
-      var fixture = fixtureConfiguration.CreateUnconfiguredInstance();
-      var valueGenerator = new ValueGenerator(fixture);
-      fixtureConfiguration.ApplyTo(fixture);
+      fixtureConfiguration.ApplyTo(fixtureWrapper);
+      
+      var valueGenerator = new ValueGenerator(fixtureWrapper);
       return valueGenerator;
     }
   }

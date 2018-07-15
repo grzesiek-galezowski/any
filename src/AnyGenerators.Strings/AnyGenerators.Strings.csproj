@@ -1,5 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
-
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyName>TddXt.AnyGenerators.Strings</AssemblyName>
@@ -8,14 +7,12 @@
     <DelaySign>false</DelaySign>
     <AssemblyOriginatorKeyFile>TddToolkit.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
-
   <ItemGroup>
-    <PackageReference Include="AutoFixture" Version="4.3.0" />
+    <PackageReference Include="AutoFixture" Version="4.5.0" />
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\AnyExtensibility\AnyExtensibility.csproj" />
+    <ProjectReference Include="..\AutoFixtureWrapper\AutoFixtureWrapper.csproj" />
     <ProjectReference Include="..\CommonTypes\CommonTypes.csproj" />
   </ItemGroup>
-
 </Project>

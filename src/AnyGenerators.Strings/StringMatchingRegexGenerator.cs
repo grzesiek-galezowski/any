@@ -1,5 +1,5 @@
-using AutoFixture;
-using AutoFixture.Kernel;
+using System;
+using AutoFixtureWrapper;
 using TddXt.AnyExtensibility;
 
 namespace TddXt.AnyGenerators.Strings
@@ -7,7 +7,7 @@ namespace TddXt.AnyGenerators.Strings
   public class StringMatchingRegexGenerator : InlineGenerator<string>
   {
     private readonly string _pattern;
-    private static readonly RegularExpressionGenerator RegexGenerator = new RegularExpressionGenerator();
+    private static readonly RegexGeneratorWrapper RegexGenerator = new RegexGeneratorWrapper();
 
     public StringMatchingRegexGenerator(string pattern)
     {
@@ -16,9 +16,8 @@ namespace TddXt.AnyGenerators.Strings
 
     public string GenerateInstance(InstanceGenerator gen)
     {
-      var request = new RegularExpressionRequest(_pattern);
 
-      var result = RegexGenerator.Create(request, new DummyContext());
+      var result = RegexGenerator.Create(_pattern);
       return result.ToString();
     }
   }

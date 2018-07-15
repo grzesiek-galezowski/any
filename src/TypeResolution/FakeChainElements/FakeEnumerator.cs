@@ -6,9 +6,6 @@ namespace TypeResolution.FakeChainElements
 {
   public class FakeEnumerator<T> : IResolution<T>
   {
-    public FakeEnumerator()
-    {
-    }
 
     public bool Applies()
     {

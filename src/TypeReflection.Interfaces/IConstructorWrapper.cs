@@ -1,9 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 
 namespace TypeReflection.Interfaces
 {
-  public interface IConstructorWrapper : AutoFixture.Kernel.IMethod
+  public interface IConstructorWrapper
   {
     bool HasNonPointerArgumentsOnly();
     bool HasLessParametersThan(int numberOfParams);
@@ -18,5 +19,9 @@ namespace TypeReflection.Interfaces
     bool IsInternal();
     bool IsNotRecursive();
     bool IsRecursive();
+
+    object Invoke(IEnumerable<object> parameters);
+    IEnumerable<ParameterInfo> Parameters { get; }
+
   }
 }

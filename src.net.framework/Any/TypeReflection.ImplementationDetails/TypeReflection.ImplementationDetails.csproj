@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{C2A2D567-A895-406D-9454-42D270BF0D87}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TypeReflection.ImplementationDetails</RootNamespace>
+    <AssemblyName>TypeReflection.ImplementationDetails</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Ploeh.AutoFixture, Version=3.51.0.0, Culture=neutral, PublicKeyToken=b24654c590009d4f, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoFixture.3.51.0\lib\net40\Ploeh.AutoFixture.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\..\src\TypeReflection.ImplementationDetails\BinaryOperator.cs">
+      <Link>BinaryOperator.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\TypeReflection.ImplementationDetails\ConstructorRetrievals\ConstructorRetrieval.cs">
+      <Link>ConstructorRetrievals\ConstructorRetrieval.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\TypeReflection.ImplementationDetails\ConstructorRetrievals\InternalConstructorWithoutRecursionRetrieval.cs">
+      <Link>ConstructorRetrievals\InternalConstructorWithoutRecursionRetrieval.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\TypeReflection.ImplementationDetails\ConstructorRetrievals\InternalRecursiveConstructorRetrieval.cs">
+      <Link>ConstructorRetrievals\InternalRecursiveConstructorRetrieval.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\TypeReflection.ImplementationDetails\ConstructorRetrievals\NonPublicParameterlessConstructorRetrieval.cs">
+      <Link>ConstructorRetrievals\NonPublicParameterlessConstructorRetrieval.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\TypeReflection.ImplementationDetails\ConstructorRetrievals\PrimitiveConstructorRetrieval.cs">
+      <Link>ConstructorRetrievals\PrimitiveConstructorRetrieval.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\TypeReflection.ImplementationDetails\ConstructorRetrievals\PublicNonRecursiveConstructorRetrieval.cs">
+      <Link>ConstructorRetrievals\PublicNonRecursiveConstructorRetrieval.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\TypeReflection.ImplementationDetails\ConstructorRetrievals\PublicParameterlessConstructorRetrieval.cs">
+      <Link>ConstructorRetrievals\PublicParameterlessConstructorRetrieval.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\TypeReflection.ImplementationDetails\ConstructorRetrievals\PublicRecursiveConstructorsRetrieval.cs">
+      <Link>ConstructorRetrievals\PublicRecursiveConstructorsRetrieval.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\TypeReflection.ImplementationDetails\ConstructorRetrievals\PublicStaticFactoryMethodRetrieval.cs">
+      <Link>ConstructorRetrievals\PublicStaticFactoryMethodRetrieval.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\TypeReflection.ImplementationDetails\ConstructorWrapper.cs">
+      <Link>ConstructorWrapper.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\TypeReflection.ImplementationDetails\DefaultParameterlessConstructor.cs">
+      <Link>DefaultParameterlessConstructor.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\TypeReflection.ImplementationDetails\EventWrapper.cs">
+      <Link>EventWrapper.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\TypeReflection.ImplementationDetails\FieldWrapper.cs">
+      <Link>FieldWrapper.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\src\TypeReflection.ImplementationDetails\PropertyWrapper.cs">
+      <Link>PropertyWrapper.cs</Link>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CommonTypes\CommonTypes.csproj">
+      <Project>{4b302f64-2ba2-47ed-afc6-28a6e3832f15}</Project>
+      <Name>CommonTypes</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TypeReflection.Interfaces\TypeReflection.Interfaces.csproj">
+      <Project>{4a53fff3-3bdd-4e3e-911e-b0ad6a91eeae}</Project>
+      <Name>TypeReflection.Interfaces</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

@@ -1,6 +1,7 @@
 using System;
 using System.Diagnostics;
 using System.Reflection;
+using AutoFixtureWrapper;
 using TddXt.AnyExtensibility;
 using TypeResolution.Interfaces;
 
@@ -30,7 +31,7 @@ namespace TypeResolution.FakeChainElements
       {
         return _valueGenerator.Value<T>();
       }
-      catch (AutoFixture.ObjectCreationException e)
+      catch (ThirdPartyGeneratorFailed e)
       {
         if (Debugger.IsAttached)
         {

@@ -11,6 +11,7 @@ namespace TypeReflection
 {
   public interface ISmartType : IType, IConstructorQueries
   {
+    IEnumerable<IConstructorWrapper> FactoryMethods();
   }
 
   public class SmartType : ISmartType
@@ -31,6 +32,16 @@ namespace TypeReflection
       return GetPublicParameterlessConstructor().HasValue || _typeInfo.IsPrimitive || _typeInfo.IsAbstract;
     }
 
+    public IEnumerable<IConstructorWrapper> FactoryMethods()
+    {
+      var factoryMethods = TryToObtainPublicStaticFactoryMethodWithoutRecursion()
+        .Where(m => m.HasNonPointerArgumentsOnly())
+        .Where(m => !m.IsParameterless())
+        .OrderBy(m => m.GetParametersCount());
+      return factoryMethods;
+    }
+
+    
     public Maybe<IConstructorWrapper> GetNonPublicParameterlessConstructorInfo()
     {
       var constructorInfo = _type.GetConstructor(BindingFlags.NonPublic | BindingFlags.Instance, null, Type.EmptyTypes, null);
