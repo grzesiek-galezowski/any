@@ -43,7 +43,9 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
     private static IFakeChain<T> GetInstanceWithMemoization<T>(Func<IFakeChain<T>> func, ConcurrentDictionary<Type, object> cache)
     {
       var key = typeof(T);
-      if(!cache.TryGetValue(key, out var outVal))
+
+      object outVal;
+      if(!cache.TryGetValue(key, out outVal))
       {
         var newInstance = func.Invoke();
         cache[key] = newInstance;

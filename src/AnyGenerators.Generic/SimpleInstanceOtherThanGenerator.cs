@@ -6,7 +6,11 @@ namespace TddXt.AnyGenerators.Generic
   {
     private readonly T[] _excluded;
 
-    public SimpleInstanceOtherThanGenerator(T[] excluded) => _excluded = excluded;
+    public SimpleInstanceOtherThanGenerator(T[] excluded)
+    {
+      _excluded = excluded;
+    }
+
     public T GenerateInstance(InstanceGenerator gen) => gen.OtherThan(_excluded);
   }
 }
