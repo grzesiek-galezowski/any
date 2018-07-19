@@ -20,6 +20,19 @@ var buildDir = Directory("./build") + Directory(configuration);
 var publishDir = "./publish";
 GitVersion gitVersion = null; 
 
+public void RestorePackages(string path)
+{
+	DotNetCoreRestore(path);
+
+    NuGetRestore(path, new NuGetRestoreSettings 
+	{ 
+		NoCache = true,
+		Verbosity = NuGetVerbosity.Detailed,
+		ToolPath = FilePath.FromString("./tools/nuget.exe")
+	});
+}
+
+
 //////////////////////////////////////////////////////////////////////
 // TASKS
 //////////////////////////////////////////////////////////////////////
@@ -35,14 +48,8 @@ Task("Restore-NuGet-Packages")
     .IsDependentOn("Clean")
     .Does(() =>
 {
-	DotNetCoreRestore("./src/Any.sln");
-
-    NuGetRestore("./src/Any.sln", new NuGetRestoreSettings 
-	{ 
-		NoCache = true,
-		Verbosity = NuGetVerbosity.Detailed,
-		ToolPath = FilePath.FromString("./tools/nuget.exe")
-	});
+	RestorePackages("./src/Any.sln");
+	RestorePackages("./src.net.framework/Any/Any.sln");
 });
 
 Task("Build")
