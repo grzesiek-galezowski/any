@@ -1,0 +1,272 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\NUnit.3.10.1\build\NUnit.props" Condition="Exists('..\packages\NUnit.3.10.1\build\NUnit.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{7EC59B58-2F25-4FF8-B1D6-B4F40A8A7966}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TddToolkitSpecification</RootNamespace>
+    <AssemblyName>TddToolkitSpecification</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Castle.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <HintPath>..\packages\Castle.Core.4.2.0\lib\net45\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentAssertions, Version=5.4.1.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
+      <HintPath>..\packages\FluentAssertions.5.4.1\lib\net45\FluentAssertions.dll</HintPath>
+    </Reference>
+    <Reference Include="KellermanSoftware.Compare-NET-Objects, Version=4.55.0.0, Culture=neutral, PublicKeyToken=d970ace04cc85217, processorArchitecture=MSIL">
+      <HintPath>..\packages\CompareNETObjects.4.55.0.0\lib\net45\KellermanSoftware.Compare-NET-Objects.dll</HintPath>
+    </Reference>
+    <Reference Include="NSubstitute, Version=3.1.0.0, Culture=neutral, PublicKeyToken=92dd2e9066daa5ca, processorArchitecture=MSIL">
+      <HintPath>..\packages\NSubstitute.3.1.0\lib\net45\NSubstitute.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework, Version=3.10.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\NUnit.3.10.1\lib\net45\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="Ploeh.AutoFixture, Version=3.51.0.0, Culture=neutral, PublicKeyToken=b24654c590009d4f, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoFixture.3.51.0\lib\net40\Ploeh.AutoFixture.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.3.0\lib\portable-net45+win8+wp8+wpa81\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ValueTuple, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.4.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\src\TddToolkitSpecification\AnySpecification.cs">
+      <Link>AnySpecification.cs</Link>
+    </Compile>
+    <Compile Include="..\..\src\TddToolkitSpecification\AnySubstituteSpecification.cs">
+      <Link>AnySubstituteSpecification.cs</Link>
+    </Compile>
+    <Compile Include="..\..\src\TddToolkitSpecification\CircularListSpecification.cs">
+      <Link>CircularListSpecification.cs</Link>
+    </Compile>
+    <Compile Include="..\..\src\TddToolkitSpecification\Fixtures\AbstractObjectWithInterfaceInConstructor.cs">
+      <Link>Fixtures\AbstractObjectWithInterfaceInConstructor.cs</Link>
+    </Compile>
+    <Compile Include="..\..\src\TddToolkitSpecification\Fixtures\AbstractObjectWithVirtualMethods.cs">
+      <Link>Fixtures\AbstractObjectWithVirtualMethods.cs</Link>
+    </Compile>
+    <Compile Include="..\..\src\TddToolkitSpecification\Fixtures\AreaEntity.cs">
+      <Link>Fixtures\AreaEntity.cs</Link>
+    </Compile>
+    <Compile Include="..\..\src\TddToolkitSpecification\Fixtures\ComplexObjectWithFactoryMethodAndRecursiveConstructor.cs">
+      <Link>Fixtures\ComplexObjectWithFactoryMethodAndRecursiveConstructor.cs</Link>
+    </Compile>
+    <Compile Include="..\..\src\TddToolkitSpecification\Fixtures\ConcreteDataStructure.cs">
+      <Link>Fixtures\ConcreteDataStructure.cs</Link>
+    </Compile>
+    <Compile Include="..\..\src\TddToolkitSpecification\Fixtures\ConcreteDataStructure2.cs">
+      <Link>Fixtures\ConcreteDataStructure2.cs</Link>
+    </Compile>
+    <Compile Include="..\..\src\TddToolkitSpecification\Fixtures\Feature.cs">
+      <Link>Fixtures\Feature.cs</Link>
+    </Compile>
+    <Compile Include="..\..\src\TddToolkitSpecification\Fixtures\FileExtension.cs">
+      <Link>Fixtures\FileExtension.cs</Link>
+    </Compile>
+    <Compile Include="..\..\src\TddToolkitSpecification\Fixtures\FileExtensionAssert.cs">
+      <Link>Fixtures\FileExtensionAssert.cs</Link>
+    </Compile>
+    <Compile Include="..\..\src\TddToolkitSpecification\Fixtures\FileName.cs">
+      <Link>Fixtures\FileName.cs</Link>
+    </Compile>
+    <Compile Include="..\..\src\TddToolkitSpecification\Fixtures\FileNameWithoutExtension.cs">
+      <Link>Fixtures\FileNameWithoutExtension.cs</Link>
+    </Compile>
+    <Compile Include="..\..\src\TddToolkitSpecification\Fixtures\GetSettable.cs">
+      <Link>Fixtures\GetSettable.cs</Link>
+    </Compile>
+    <Compile Include="..\..\src\TddToolkitSpecification\Fixtures\IGeometry.cs">
+      <Link>Fixtures\IGeometry.cs</Link>
+    </Compile>
+    <Compile Include="..\..\src\TddToolkitSpecification\Fixtures\IGetSettable.cs">
+      <Link>Fixtures\IGetSettable.cs</Link>
+    </Compile>
+    <Compile Include="..\..\src\TddToolkitSpecification\Fixtures\IncrementalType.cs">
+      <Link>Fixtures\IncrementalType.cs</Link>
+    </Compile>
+    <Compile Include="..\..\src\TddToolkitSpecification\Fixtures\IObservableConcurrentDictionary.cs">
+      <Link>Fixtures\IObservableConcurrentDictionary.cs</Link>
+    </Compile>
+    <Compile Include="..\..\src\TddToolkitSpecification\Fixtures\ISettable.cs">
+      <Link>Fixtures\ISettable.cs</Link>
+    </Compile>
+    <Compile Include="..\..\src\TddToolkitSpecification\Fixtures\ISimple.cs">
+      <Link>Fixtures\ISimple.cs</Link>
+    </Compile>
+    <Compile Include="..\..\src\TddToolkitSpecification\Fixtures\MyOwnCollection.cs">
+      <Link>Fixtures\MyOwnCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\..\src\TddToolkitSpecification\Fixtures\MyService.cs">
+      <Link>Fixtures\MyService.cs</Link>
+    </Compile>
+    <Compile Include="..\..\src\TddToolkitSpecification\Fixtures\ObjectWithAttributeOnMethod.cs">
+      <Link>Fixtures\ObjectWithAttributeOnMethod.cs</Link>
+    </Compile>
+    <Compile Include="..\..\src\TddToolkitSpecification\Fixtures\ObjectWithCopyConstructor.cs">
+      <Link>Fixtures\ObjectWithCopyConstructor.cs</Link>
+    </Compile>
+    <Compile Include="..\..\src\TddToolkitSpecification\Fixtures\ObjectWithInterfaceInConstructor.cs">
+      <Link>Fixtures\ObjectWithInterfaceInConstructor.cs</Link>
+    </Compile>
+    <Compile Include="..\..\src\TddToolkitSpecification\Fixtures\RecursiveClass.cs">
+      <Link>Fixtures\RecursiveClass.cs</Link>
+    </Compile>
+    <Compile Include="..\..\src\TddToolkitSpecification\Fixtures\RecursiveClass2.cs">
+      <Link>Fixtures\RecursiveClass2.cs</Link>
+    </Compile>
+    <Compile Include="..\..\src\TddToolkitSpecification\Fixtures\RecursiveInterface.cs">
+      <Link>Fixtures\RecursiveInterface.cs</Link>
+    </Compile>
+    <Compile Include="..\..\src\TddToolkitSpecification\Fixtures\Settable.cs">
+      <Link>Fixtures\Settable.cs</Link>
+    </Compile>
+    <Compile Include="..\..\src\TddToolkitSpecification\Fixtures\SynchronizedMyService.cs">
+      <Link>Fixtures\SynchronizedMyService.cs</Link>
+    </Compile>
+    <Compile Include="..\..\src\TddToolkitSpecification\Fixtures\ThrowingInConstructor.cs">
+      <Link>Fixtures\ThrowingInConstructor.cs</Link>
+    </Compile>
+    <Compile Include="..\..\src\TddToolkitSpecification\GraphComparison\ObjectGraph.cs">
+      <Link>GraphComparison\ObjectGraph.cs</Link>
+    </Compile>
+    <Compile Include="..\..\src\TddToolkitSpecification\GraphComparison\ReflectionOrProxyComparer.cs">
+      <Link>GraphComparison\ReflectionOrProxyComparer.cs</Link>
+    </Compile>
+    <Compile Include="..\..\src\TddToolkitSpecification\SpecialCasesResolutionsSpecification.cs">
+      <Link>SpecialCasesResolutionsSpecification.cs</Link>
+    </Compile>
+    <Compile Include="..\..\src\TddToolkitSpecification\TypeOfTypeSpecification.cs">
+      <Link>TypeOfTypeSpecification.cs</Link>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AnyExtensibility\AnyExtensibility.csproj">
+      <Project>{15b7beac-2ba7-450a-952e-a3cc333e7c24}</Project>
+      <Name>AnyExtensibility</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AnyGenerators.Collections\AnyGenerators.Collections.csproj">
+      <Project>{ecf9935f-a804-4dc8-84fc-9b2eabbd9c85}</Project>
+      <Name>AnyGenerators.Collections</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AnyGenerators.Generic\AnyGenerators.Generic.csproj">
+      <Project>{f5ff806d-d42c-4b4a-9cac-c67b8c317364}</Project>
+      <Name>AnyGenerators.Generic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AnyGenerators.Invokable\AnyGenerators.Invokable.csproj">
+      <Project>{a3795e3d-6d26-4b74-94de-05f7a979d216}</Project>
+      <Name>AnyGenerators.Invokable</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AnyGenerators.Math\AnyGenerators.Math.csproj">
+      <Project>{a6b22547-e390-45fb-83fa-5313f316b21d}</Project>
+      <Name>AnyGenerators.Math</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AnyGenerators.Network\AnyGenerators.Network.csproj">
+      <Project>{812e37e4-4ac9-46d2-b022-7f07e7dedafe}</Project>
+      <Name>AnyGenerators.Network</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AnyGenerators.NSubstitute\AnyGenerators.NSubstitute.csproj">
+      <Project>{138f2e5f-832d-42aa-93b9-8fd3dc613f82}</Project>
+      <Name>AnyGenerators.NSubstitute</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AnyGenerators.Numbers\AnyGenerators.Numbers.csproj">
+      <Project>{819e4dac-405c-4d44-a0b6-85a82a992a89}</Project>
+      <Name>AnyGenerators.Numbers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AnyGenerators.Root\AnyGenerators.Root.csproj">
+      <Project>{39110853-360d-4124-b181-0ac8a660a812}</Project>
+      <Name>AnyGenerators.Root</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AnyGenerators.Strings\AnyGenerators.Strings.csproj">
+      <Project>{7a0aebf8-b427-4acd-b341-f7d274e4ffb4}</Project>
+      <Name>AnyGenerators.Strings</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AnyRoot\AnyRoot.csproj">
+      <Project>{759d7380-0001-45d3-af04-366ce3358633}</Project>
+      <Name>AnyRoot</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AnySpecification\AnySpecification.csproj">
+      <Project>{872ed5f4-5347-428d-8062-60ca4f37bbec}</Project>
+      <Name>AnySpecification</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AutoFixtureWrapper\AutoFixtureWrapper.csproj">
+      <Project>{979601e6-cf7a-40d3-94e4-936f4746c393}</Project>
+      <Name>AutoFixtureWrapper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CommonTypes\CommonTypes.csproj">
+      <Project>{4b302f64-2ba2-47ed-afc6-28a6e3832f15}</Project>
+      <Name>CommonTypes</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TypeReflection.ImplementationDetails\TypeReflection.ImplementationDetails.csproj">
+      <Project>{c2a2d567-a895-406d-9454-42d270bf0d87}</Project>
+      <Name>TypeReflection.ImplementationDetails</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TypeReflection.Interfaces\TypeReflection.Interfaces.csproj">
+      <Project>{4a53fff3-3bdd-4e3e-911e-b0ad6a91eeae}</Project>
+      <Name>TypeReflection.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TypeReflectionSpecification\TypeReflectionSpecification.csproj">
+      <Project>{d8d2bbb5-8344-4cd9-905d-7142e1ddb231}</Project>
+      <Name>TypeReflectionSpecification</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TypeReflection\TypeReflection.csproj">
+      <Project>{de66fefd-bac1-44b1-871e-f4775cafe9ea}</Project>
+      <Name>TypeReflection</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TypeResolution\TypeResolution.csproj">
+      <Project>{e09bceec-34fb-4726-8722-02213d7d0807}</Project>
+      <Name>TypeResolution</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Readme\Compare-NET-Objects-Help.txt" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\NUnit.3.10.1\build\NUnit.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\NUnit.3.10.1\build\NUnit.props'))" />
+  </Target>
+</Project>

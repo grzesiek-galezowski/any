@@ -1,0 +1,134 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{F5FF806D-D42C-4B4A-9CAC-C67B8C317364}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AnyGenerators.Generic</RootNamespace>
+    <AssemblyName>AnyGenerators.Generic</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>..\..\src\AnyGenerators.Generic\TddToolkit.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <DelaySign>false</DelaySign>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Castle.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <HintPath>..\packages\Castle.Core.4.3.1\lib\net45\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\src\AnyGenerators.Generic\AggregatingGenerator.cs">
+      <Link>AggregatingGenerator.cs</Link>
+    </Compile>
+    <Compile Include="..\..\src\AnyGenerators.Generic\AllGenerator.cs">
+      <Link>AllGenerator.cs</Link>
+    </Compile>
+    <Compile Include="..\..\src\AnyGenerators.Generic\DummyGenerator.cs">
+      <Link>DummyGenerator.cs</Link>
+    </Compile>
+    <Compile Include="..\..\src\AnyGenerators.Generic\ExplodingInstanceGenerator.cs">
+      <Link>ExplodingInstanceGenerator.cs</Link>
+    </Compile>
+    <Compile Include="..\..\src\AnyGenerators.Generic\ExtensionPoints\IFakeChainFactory.cs">
+      <Link>ExtensionPoints\IFakeChainFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\..\src\AnyGenerators.Generic\ExtensionPoints\ISpecialCasesOfResolutions.cs">
+      <Link>ExtensionPoints\ISpecialCasesOfResolutions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\src\AnyGenerators.Generic\FixedValueGenerator.cs">
+      <Link>FixedValueGenerator.cs</Link>
+    </Compile>
+    <Compile Include="..\..\src\AnyGenerators.Generic\GeneratorByPickingFromSpecifiedSetOfValues.cs">
+      <Link>GeneratorByPickingFromSpecifiedSetOfValues.cs</Link>
+    </Compile>
+    <Compile Include="..\..\src\AnyGenerators.Generic\ImplementationDetails\EmptyCollectionInstantiation.cs">
+      <Link>ImplementationDetails\EmptyCollectionInstantiation.cs</Link>
+    </Compile>
+    <Compile Include="..\..\src\AnyGenerators.Generic\ImplementationDetails\GenericMethodProxyCalls.cs">
+      <Link>ImplementationDetails\GenericMethodProxyCalls.cs</Link>
+    </Compile>
+    <Compile Include="..\..\src\AnyGenerators.Generic\ImplementationDetails\TypeExtensions.cs">
+      <Link>ImplementationDetails\TypeExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\src\AnyGenerators.Generic\ObjectAdapter.cs">
+      <Link>ObjectAdapter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\src\AnyGenerators.Generic\SeededValueGenerator.cs">
+      <Link>SeededValueGenerator.cs</Link>
+    </Compile>
+    <Compile Include="..\..\src\AnyGenerators.Generic\SimpleInstanceOtherThanGenerator.cs">
+      <Link>SimpleInstanceOtherThanGenerator.cs</Link>
+    </Compile>
+    <Compile Include="..\..\src\AnyGenerators.Generic\SimpleValueGenerator.cs">
+      <Link>SimpleValueGenerator.cs</Link>
+    </Compile>
+    <Compile Include="..\..\src\AnyGenerators.Generic\SimpleValueOtherThanGenerator.cs">
+      <Link>SimpleValueOtherThanGenerator.cs</Link>
+    </Compile>
+    <Compile Include="..\..\src\AnyGenerators.Generic\ValueGenerator.cs">
+      <Link>ValueGenerator.cs</Link>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AnyExtensibility\AnyExtensibility.csproj">
+      <Project>{15b7beac-2ba7-450a-952e-a3cc333e7c24}</Project>
+      <Name>AnyExtensibility</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AutoFixtureWrapper\AutoFixtureWrapper.csproj">
+      <Project>{979601e6-cf7a-40d3-94e4-936f4746c393}</Project>
+      <Name>AutoFixtureWrapper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TypeReflection\TypeReflection.csproj">
+      <Project>{de66fefd-bac1-44b1-871e-f4775cafe9ea}</Project>
+      <Name>TypeReflection</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TypeResolution\TypeResolution.csproj">
+      <Project>{e09bceec-34fb-4726-8722-02213d7d0807}</Project>
+      <Name>TypeResolution</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\src\AnyGenerators.Generic\TddToolkit.snk">
+      <Link>TddToolkit.snk</Link>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

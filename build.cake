@@ -32,6 +32,25 @@ public void RestorePackages(string path)
 	});
 }
 
+public void Build(string path)
+{
+    if(IsRunningOnWindows())
+    {
+      // Use MSBuild
+      MSBuild(path, settings => {
+		settings.ToolPath = String.IsNullOrEmpty(toolpath) ? settings.ToolPath : toolpath;
+		settings.ToolVersion = MSBuildToolVersion.VS2017;
+        settings.PlatformTarget = PlatformTarget.MSIL;
+		settings.SetConfiguration(configuration);
+	  });
+    }
+    else
+    {
+      // Use XBuild
+      XBuild(path, settings =>
+        settings.SetConfiguration(configuration));
+    }
+}
 
 //////////////////////////////////////////////////////////////////////
 // TASKS
@@ -56,22 +75,8 @@ Task("Build")
     .IsDependentOn("Restore-NuGet-Packages")
     .Does(() =>
 {
-    if(IsRunningOnWindows())
-    {
-      // Use MSBuild
-      MSBuild("./src/Any.sln", settings => {
-		settings.ToolPath = String.IsNullOrEmpty(toolpath) ? settings.ToolPath : toolpath;
-		settings.ToolVersion = MSBuildToolVersion.VS2017;
-        settings.PlatformTarget = PlatformTarget.MSIL;
-		settings.SetConfiguration(configuration);
-	  });
-    }
-    else
-    {
-      // Use XBuild
-      XBuild("./src/Any.sln", settings =>
-        settings.SetConfiguration(configuration));
-    }
+    Build("./src/Any.sln");
+	Build("./src.net.framework/Any/Any.sln");
 });
 
 Task("Run-Unit-Tests")
@@ -79,7 +84,7 @@ Task("Run-Unit-Tests")
     .Does(() =>
 {
 	var testAssemblies = GetFiles("./specification/*Specification.dll");
-	NUnit3(testAssemblies);
+	NUnit3(testAssemblies); 
 });
 
 Task("Pack")
