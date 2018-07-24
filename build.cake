@@ -17,9 +17,19 @@ var toolpath = Argument("toolpath", @"");
 
 // Define directories.
 var buildDir = Directory("./build") + Directory(configuration);
-var publishDir = "./publish";
-var buildFrameworkDir = Directory("./build.net.framework") + Directory(configuration);
-var publishFrameworkDir = "./publish.net.framework";
+var publishDir = Directory("./publish");
+var srcDir = Directory("./src");
+var specificationDir = Directory("./specification") + Directory(configuration);
+var buildNetStandardDir = buildDir + Directory("netstandard2.0");
+var publishNetStandardDir = publishDir + Directory("netstandard2.0");
+var srcNetStandardDir = srcDir + Directory("netstandard2.0");
+var slnNetStandard = srcNetStandardDir + File("Any.sln");
+var specificationNetStandardDir = specificationDir + Directory("netstandard2.0");
+var buildNet45Dir = buildDir + Directory("net45");
+var publishNet45Dir = publishDir + Directory("net45");
+var srcNet45Dir = srcDir + Directory("net45");
+var specificationNet45Dir = specificationDir + Directory("netstandard2.0");
+var slnNet45 = srcNet45Dir + File("Any.sln");
 
 GitVersion gitVersion = null; 
 
@@ -64,33 +74,31 @@ Task("Clean")
 {
     CleanDirectory(buildDir);
     CleanDirectory(publishDir);
-    CleanDirectory(buildFrameworkDir);
-    CleanDirectory(publishFrameworkDir);
 });
 
 Task("Restore-NuGet-Packages")
     .IsDependentOn("Clean")
     .Does(() =>
 {
-	RestorePackages("./src/Any.sln");
-	RestorePackages("./src.net.framework/Any.sln");
+	RestorePackages(slnNetStandard);
+	RestorePackages(slnNet45);
 });
 
 Task("Build")
     .IsDependentOn("Restore-NuGet-Packages")
     .Does(() =>
 {
-    Build("./src/Any.sln");
-	Build("./src.net.framework/Any.sln");
+    Build(slnNetStandard);
+	Build(slnNet45);
 });
 
 Task("Run-Unit-Tests")
 	.IsDependentOn("Build")
     .Does(() =>
 {
-	var testAssemblies = GetFiles("./specification/*Specification.dll");
+	var testAssemblies = GetFiles(specificationNetStandardDir + File("*Specification.dll"));
 	NUnit3(testAssemblies); 
-	var frameworkTestAssemblies = GetFiles("./specification.net.framework/*Specification.dll");
+	var frameworkTestAssemblies = GetFiles(specificationNet45Dir + File("*Specification.dll"));
 	NUnit3(frameworkTestAssemblies); 
 
 });
@@ -107,10 +115,10 @@ public void BundleDependencies(DirectoryPath specificVersionPublishDir, string r
 
 public void BuildNuGetPackage()
 {
-	var specificVersionPublishDir = publishDir + "/netstandard2.0/";
+	var specificVersionPublishDir = publishDir + Directory("netstandard2.0");
 
 	CopyDirectory("./build/Release/", publishDir);
-	BundleDependencies(specificVersionPublishDir, "TddXt.AnyRoot.dll");
+	BundleDependencies(publishNetStandardDir, "TddXt.AnyRoot.dll");
 	NuGetPack("./Any.nuspec", new NuGetPackSettings()
 	{
 		Id = "Any",
