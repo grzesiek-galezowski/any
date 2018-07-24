@@ -290,3 +290,5 @@ tools/
 
 specification/
 nuget/
+specification.net.framework/
+nuget.net.framework/

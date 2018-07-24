@@ -45,6 +45,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AnyGenerators.Root", "AnyGe
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E0A26538-B283-4951-B341-A12A7BD4621F}"
 	ProjectSection(SolutionItems) = preProject
+		..\Any.backport.nuspec = ..\Any.backport.nuspec
 		..\Any.nuspec = ..\Any.nuspec
 		..\build.cake = ..\build.cake
 		..\build.ps1 = ..\build.ps1
@@ -54,7 +55,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestAppNetFramework", "TestAppNetFramework\TestAppNetFramework.csproj", "{097E1DD3-4F8F-46D9-B13C-52045FF098A9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoFixtureWrapper", "AutoFixtureWrapper\AutoFixtureWrapper.csproj", "{EF7E8E5B-833B-48C8-842B-3937864D2BDA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoFixtureWrapper", "AutoFixtureWrapper\AutoFixtureWrapper.csproj", "{EF7E8E5B-833B-48C8-842B-3937864D2BDA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
