@@ -7,8 +7,8 @@
     <ProjectGuid>{15B7BEAC-2BA7-450A-952E-A3CC333E7C24}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>AnyExtensibility</RootNamespace>
-    <AssemblyName>AnyExtensibility</AssemblyName>
+    <RootNamespace>TddXt.AnyExtensibility</RootNamespace>
+    <AssemblyName>TddXt.AnyExtensibility</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

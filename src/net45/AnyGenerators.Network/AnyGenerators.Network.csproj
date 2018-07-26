@@ -7,8 +7,8 @@
     <ProjectGuid>{812E37E4-4AC9-46D2-B022-7F07E7DEDAFE}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>AnyGenerators.Network</RootNamespace>
-    <AssemblyName>AnyGenerators.Network</AssemblyName>
+    <RootNamespace>TddXt.AnyGenerators.Network</RootNamespace>
+    <AssemblyName>TddXt.AnyGenerators.Network</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

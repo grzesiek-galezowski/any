@@ -117,7 +117,8 @@ public void BuildNuGetPackage()
 {
 	//TODO
 	CopyDirectory(buildDir, publishDir);
-	BundleDependencies(buildNetStandardDir, "TddXt.AnyRoot.dll");
+	BundleDependencies(publishNetStandardDir, "TddXt.AnyRoot.dll");
+	BundleDependencies(publishNet45Dir, "TddXt.AnyRoot.dll");
 	NuGetPack("./Any.nuspec", new NuGetPackSettings()
 	{
 		Id = "Any",
