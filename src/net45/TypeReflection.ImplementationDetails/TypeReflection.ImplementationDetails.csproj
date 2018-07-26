@@ -7,8 +7,8 @@
     <ProjectGuid>{C2A2D567-A895-406D-9454-42D270BF0D87}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TypeReflection.ImplementationDetails</RootNamespace>
-    <AssemblyName>TypeReflection.ImplementationDetails</AssemblyName>
+    <RootNamespace>TddXt.TypeReflection.ImplementationDetails</RootNamespace>
+    <AssemblyName>TddXt.TypeReflection.ImplementationDetails</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

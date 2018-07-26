@@ -7,8 +7,8 @@
     <ProjectGuid>{DE66FEFD-BAC1-44B1-871E-F4775CAFE9EA}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TypeReflection</RootNamespace>
-    <AssemblyName>TypeReflection</AssemblyName>
+    <RootNamespace>TddXt.TypeReflection</RootNamespace>
+    <AssemblyName>TddXt.TypeReflection</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

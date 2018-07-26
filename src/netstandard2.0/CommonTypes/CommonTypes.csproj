@@ -4,5 +4,7 @@
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>CommonTypes.snk</AssemblyOriginatorKeyFile>
     <DelaySign>false</DelaySign>
+    <AssemblyName>TddXt.CommonTypes</AssemblyName>
+    <RootNamespace>TddXt.CommonTypes</RootNamespace>
   </PropertyGroup>
 </Project>

@@ -5,6 +5,8 @@
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>TypeReflection.ImplementationDetails.snk</AssemblyOriginatorKeyFile>
     <DelaySign>false</DelaySign>
+    <AssemblyName>TddXt.TypeReflection.ImplementationDetails</AssemblyName>
+    <RootNamespace>TddXt.TypeReflection.ImplementationDetails</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

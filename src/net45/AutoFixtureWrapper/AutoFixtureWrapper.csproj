@@ -7,8 +7,8 @@
     <ProjectGuid>{979601E6-CF7A-40D3-94E4-936F4746C393}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>AutoFixtureWrapper</RootNamespace>
-    <AssemblyName>AutoFixtureWrapper</AssemblyName>
+    <RootNamespace>TddXt.AutoFixtureWrapper</RootNamespace>
+    <AssemblyName>TddXt.AutoFixtureWrapper</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

@@ -8,8 +8,8 @@
     <ProjectGuid>{89E88234-23DC-4C91-8182-ADB3826D9CF2}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TypeReflectionSpecification</RootNamespace>
-    <AssemblyName>TypeReflectionSpecification</AssemblyName>
+    <RootNamespace>TddXt.TypeReflectionSpecification</RootNamespace>
+    <AssemblyName>TddXt.TypeReflectionSpecification</AssemblyName>
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <NuGetPackageImportStamp>

@@ -7,8 +7,8 @@
     <ProjectGuid>{872ED5F4-5347-428D-8062-60CA4F37BBEC}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>AnySpecification</RootNamespace>
-    <AssemblyName>AnySpecification</AssemblyName>
+    <RootNamespace>TddXt.AnySpecification</RootNamespace>
+    <AssemblyName>TddXt.AnySpecification</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

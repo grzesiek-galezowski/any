@@ -7,8 +7,8 @@
     <ProjectGuid>{E09BCEEC-34FB-4726-8722-02213D7D0807}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TypeResolution</RootNamespace>
-    <AssemblyName>TypeResolution</AssemblyName>
+    <RootNamespace>TddXt.TypeResolution</RootNamespace>
+    <AssemblyName>TddXt.TypeResolution</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

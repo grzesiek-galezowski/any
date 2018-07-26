@@ -7,8 +7,8 @@
     <ProjectGuid>{759D7380-0001-45D3-AF04-366CE3358633}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>AnyRoot</RootNamespace>
-    <AssemblyName>AnyRoot</AssemblyName>
+    <RootNamespace>TddXt.AnyRoot</RootNamespace>
+    <AssemblyName>TddXt.AnyRoot</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

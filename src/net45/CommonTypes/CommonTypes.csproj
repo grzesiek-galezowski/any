@@ -7,8 +7,8 @@
     <ProjectGuid>{4B302F64-2BA2-47ED-AFC6-28A6E3832F15}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CommonTypes</RootNamespace>
-    <AssemblyName>CommonTypes</AssemblyName>
+    <RootNamespace>TddXt.CommonTypes</RootNamespace>
+    <AssemblyName>TddXt.CommonTypes</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

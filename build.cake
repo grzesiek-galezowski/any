@@ -96,54 +96,48 @@ Task("Run-Unit-Tests")
 	.IsDependentOn("Build")
     .Does(() =>
 {
-	var testAssemblies = GetFiles(specificationNetStandardDir + File("*Specification.dll"));
+	var testAssemblies = GetFiles(specificationNetStandardDir.ToString() + "/*Specification.dll");
 	NUnit3(testAssemblies); 
-	var frameworkTestAssemblies = GetFiles(specificationNet45Dir + File("*Specification.dll"));
+	var frameworkTestAssemblies = GetFiles(specificationNet45Dir.ToString() + "/*Specification.dll");
 	NUnit3(frameworkTestAssemblies); 
-
 });
 
 public void BundleDependencies(DirectoryPath specificVersionPublishDir, string rootDllName)
 {
 	var fullRootDllFilePath = specificVersionPublishDir + "/" + rootDllName;
-	var assemblyPaths = GetFiles(specificVersionPublishDir + "/*.dll");
+	var assemblyPaths = GetFiles(specificVersionPublishDir + "/TddXt*.dll");
 	var mainAssemblyPath = new FilePath(fullRootDllFilePath).MakeAbsolute(Context.Environment);
 	assemblyPaths.Remove(mainAssemblyPath);
 	ILRepack(fullRootDllFilePath, fullRootDllFilePath, assemblyPaths);
 	DeleteFiles(assemblyPaths);
 }
 
-public void BuildNuGetPackage()
-{
-	//TODO
-	CopyDirectory(buildDir, publishDir);
-	BundleDependencies(publishNetStandardDir, "TddXt.AnyRoot.dll");
-	BundleDependencies(publishNet45Dir, "TddXt.AnyRoot.dll");
-	NuGetPack("./Any.nuspec", new NuGetPackSettings()
-	{
-		Id = "Any",
-		Title = "Any",
-		Owners = new [] { "Grzegorz Galezowski" },
-		Authors = new [] { "Grzegorz Galezowski" },
-		Summary = "Anonymous value generator, supporting the &quot;Any.Whatever()&quot; syntax proposed on the www.sustainabletdd.com blog.",
-		Description = "Anonymous value generator, supporting the &quot;Any.Whatever()&quot; syntax proposed on the www.sustainabletdd.com blog. It makes use of the static usings and extension methods to achieve flexibility and extensibility.",
-		Language = "en-US",
-		ProjectUrl = new Uri("https://github.com/grzesiek-galezowski/any"),
-		OutputDirectory = "./nuget",
-		Version = "1.0.0",
-		Files = new [] 
-		{
-			new NuSpecContent {Source = @".\publish\netstandard2.0\*.*", Exclude=@"**\*.json", Target = @"lib\netstandard2.0"},
-			new NuSpecContent {Source = @".\publish\net45\*.*", Exclude=@"**\*.json", Target = @"lib\net45"},
-		}
-	});  
-}
 
 Task("Pack")
 	.IsDependentOn("Build")
     .Does(() => 
     {
-		BuildNuGetPackage();
+		CopyDirectory(buildDir, publishDir);
+		BundleDependencies(publishNetStandardDir, "TddXt.AnyRoot.dll");
+		BundleDependencies(publishNet45Dir, "TddXt.AnyRoot.dll");
+		NuGetPack("./Any.nuspec", new NuGetPackSettings()
+		{
+			Id = "Any",
+			Title = "Any",
+			Owners = new [] { "Grzegorz Galezowski" },
+			Authors = new [] { "Grzegorz Galezowski" },
+			Summary = "Anonymous value generator, supporting the &quot;Any.Whatever()&quot; syntax proposed on the www.sustainabletdd.com blog.",
+			Description = "Anonymous value generator, supporting the &quot;Any.Whatever()&quot; syntax proposed on the www.sustainabletdd.com blog. It makes use of the static usings and extension methods to achieve flexibility and extensibility.",
+			Language = "en-US",
+			ProjectUrl = new Uri("https://github.com/grzesiek-galezowski/any"),
+			OutputDirectory = "./nuget",
+			Version = "1.0.0",
+			Files = new [] 
+			{
+				new NuSpecContent {Source = @".\publish\netstandard2.0\*.*", Exclude=@"**\*.json", Target = @"lib\netstandard2.0"},
+				new NuSpecContent {Source = @".\publish\net45\*.*", Exclude=@"**\*.json", Target = @"lib\net45"},
+			}
+		});  
     });
 
 

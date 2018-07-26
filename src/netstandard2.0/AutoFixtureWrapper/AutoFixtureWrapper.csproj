@@ -4,6 +4,7 @@
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>TddToolkit.snk</AssemblyOriginatorKeyFile>
     <DelaySign>false</DelaySign>
+    <AssemblyName>TddXt.AutoFixtureWrapper</AssemblyName>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="AutoFixture" Version="4.5.0" />

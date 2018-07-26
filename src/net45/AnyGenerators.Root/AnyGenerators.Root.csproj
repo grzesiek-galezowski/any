@@ -7,8 +7,8 @@
     <ProjectGuid>{39110853-360D-4124-B181-0AC8A660A812}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>AnyGenerators.Root</RootNamespace>
-    <AssemblyName>AnyGenerators.Root</AssemblyName>
+    <RootNamespace>TddXt.AnyGenerators.Root</RootNamespace>
+    <AssemblyName>TddXt.AnyGenerators.Root</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

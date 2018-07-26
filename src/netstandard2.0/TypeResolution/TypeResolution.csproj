@@ -5,6 +5,8 @@
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>TddToolkit.snk</AssemblyOriginatorKeyFile>
     <DelaySign>false</DelaySign>
+    <AssemblyName>TddXt.TypeResolution</AssemblyName>
+    <RootNamespace>TddXt.TypeResolution</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
