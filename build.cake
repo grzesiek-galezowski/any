@@ -74,6 +74,7 @@ Task("Clean")
 {
     CleanDirectory(buildDir);
     CleanDirectory(publishDir);
+	CleanDirectory("./nuget");
 });
 
 Task("Restore-NuGet-Packages")
@@ -129,9 +130,10 @@ Task("Pack")
 			Summary = "Anonymous value generator, supporting the &quot;Any.Whatever()&quot; syntax proposed on the www.sustainabletdd.com blog.",
 			Description = "Anonymous value generator, supporting the &quot;Any.Whatever()&quot; syntax proposed on the www.sustainabletdd.com blog. It makes use of the static usings and extension methods to achieve flexibility and extensibility.",
 			Language = "en-US",
+			ReleaseNotes = new[] {"Added support for .NET 4.5", "Updated dependencies"},
 			ProjectUrl = new Uri("https://github.com/grzesiek-galezowski/any"),
 			OutputDirectory = "./nuget",
-			Version = "1.0.0",
+			Version = "1.1.0",
 			Files = new [] 
 			{
 				new NuSpecContent {Source = @".\publish\netstandard2.0\*.*", Exclude=@"**\*.json", Target = @"lib\netstandard2.0"},

@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
-    <releaseNotes>
-      First version - migrated API from Tdd Toolkit
-    </releaseNotes>
     <dependencies>
       <group targetFramework="netstandard2.0">
         <dependency id="Castle.Core" version="4.3.1" />
