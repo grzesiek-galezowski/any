@@ -115,10 +115,9 @@ public void BundleDependencies(DirectoryPath specificVersionPublishDir, string r
 
 public void BuildNuGetPackage()
 {
-	var specificVersionPublishDir = publishDir + Directory("netstandard2.0");
-
-	CopyDirectory("./build/Release/", publishDir);
-	BundleDependencies(publishNetStandardDir, "TddXt.AnyRoot.dll");
+	//TODO
+	CopyDirectory(buildDir, publishDir);
+	BundleDependencies(buildNetStandardDir, "TddXt.AnyRoot.dll");
 	NuGetPack("./Any.nuspec", new NuGetPackSettings()
 	{
 		Id = "Any",
@@ -134,6 +133,7 @@ public void BuildNuGetPackage()
 		Files = new [] 
 		{
 			new NuSpecContent {Source = @".\publish\netstandard2.0\*.*", Exclude=@"**\*.json", Target = @"lib\netstandard2.0"},
+			new NuSpecContent {Source = @".\publish\net45\*.*", Exclude=@"**\*.json", Target = @"lib\net45"},
 		}
 	});  
 }
