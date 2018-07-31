@@ -1,6 +1,6 @@
 using TddXt.AnyExtensibility;
 
-namespace TypeResolution.FakeChainElements
+namespace TddXt.TypeResolution.FakeChainElements
 {
   public class InvalidChainElement<T> : IChainElement<T>
   {

@@ -2,19 +2,17 @@
 using System.Collections.Generic;
 using TddXt.AnyRoot.NSubstitute;
 using TddXt.AnyRoot.Numbers;
-using TddXt.AnyRoot.Strings;
 using static TddXt.AnyRoot.Root;
 
-namespace TestAppNetFramework
+namespace TestAppNet45
 {
-  class Program
+  public class Class1
   {
-    public static void Main(string[] args)
+    public static void Main(String[] args)
     {
       Console.WriteLine(Any.Instance<IEnumerable<int>>());
       Console.WriteLine(Any.Integer());
       Console.WriteLine(Any.Substitute<IEnumerable<int>>());
-      Console.WriteLine(Any.StringContaining("lolek"));
     }
   }
 }

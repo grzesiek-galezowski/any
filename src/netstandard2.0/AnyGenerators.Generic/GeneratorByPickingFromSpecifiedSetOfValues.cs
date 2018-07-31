@@ -1,5 +1,5 @@
 using TddXt.AnyExtensibility;
-using TypeResolution.CustomCollections;
+using TddXt.TypeResolution.CustomCollections;
 
 namespace TddXt.AnyGenerators.Generic
 {

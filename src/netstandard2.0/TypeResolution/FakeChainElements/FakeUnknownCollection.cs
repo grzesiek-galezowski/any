@@ -3,10 +3,10 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using TddXt.AnyExtensibility;
-using TypeReflection;
+using TddXt.TypeReflection;
 using Type = System.Type;
 
-namespace TypeResolution.FakeChainElements
+namespace TddXt.TypeResolution.FakeChainElements
 {
   public class FakeUnknownCollection<T> : IResolution<T>
   {

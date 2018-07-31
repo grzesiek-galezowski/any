@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using TddXt.AnyGenerators.Generic.ExtensionPoints;
-using TypeResolution.FakeChainElements;
+using TddXt.TypeResolution.FakeChainElements;
 
 namespace TddXt.AnyGenerators.Root.ImplementationDetails
 {

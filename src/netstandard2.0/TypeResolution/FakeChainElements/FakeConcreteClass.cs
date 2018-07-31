@@ -3,9 +3,9 @@ using System.Diagnostics;
 using System.Reflection;
 using AutoFixtureWrapper;
 using TddXt.AnyExtensibility;
-using TypeResolution.Interfaces;
+using TddXt.TypeResolution.Interfaces;
 
-namespace TypeResolution.FakeChainElements
+namespace TddXt.TypeResolution.FakeChainElements
 {
   public class FakeConcreteClass<T> : IResolution<T>
   {

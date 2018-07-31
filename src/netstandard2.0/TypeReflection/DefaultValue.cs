@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace TypeReflection
+namespace TddXt.TypeReflection
 {
-  public class DefaultValue
+  public static class DefaultValue
   {
     public static object Of(Type t)
     {

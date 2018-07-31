@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using CommonTypes;
-using TypeReflection.ImplementationDetails;
-using TypeReflection.ImplementationDetails.ConstructorRetrievals;
+using TddXt.TypeReflection.ImplementationDetails;
+using TddXt.TypeReflection.ImplementationDetails.ConstructorRetrievals;
 using TypeReflection.Interfaces;
 
-namespace TypeReflection
+namespace TddXt.TypeReflection
 {
   public interface ISmartType : IType, IConstructorQueries
   {
@@ -29,14 +29,15 @@ namespace TypeReflection
 
     public bool HasPublicParameterlessConstructor()
     {
-      return GetPublicParameterlessConstructor().HasValue || _typeInfo.IsPrimitive || _typeInfo.IsAbstract;
+      return GetPublicParameterlessConstructor().HasValue
+             || _typeInfo.IsPrimitive 
+             || _typeInfo.IsAbstract;
     }
 
     public IEnumerable<IConstructorWrapper> FactoryMethods()
     {
       var factoryMethods = TryToObtainPublicStaticFactoryMethodWithoutRecursion()
-        .Where(m => m.HasNonPointerArgumentsOnly())
-        .Where(m => !m.IsParameterless())
+        .Where(m => m.HasNonPointerArgumentsOnly() && !m.IsParameterless())
         .OrderBy(m => m.GetParametersCount());
       return factoryMethods;
     }
@@ -50,7 +51,7 @@ namespace TypeReflection
         return Maybe.Wrap(DefaultParameterlessConstructor.ForOrdinaryType(constructorInfo));
       }
       else
-      {
+      { 
         return Maybe<IConstructorWrapper>.Not;
       }
     }

@@ -4,7 +4,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using TypeReflection.Interfaces;
 
-namespace TypeReflection.ImplementationDetails
+namespace TddXt.TypeReflection.ImplementationDetails
 {
   public class FieldWrapper : IFieldWrapper
   {

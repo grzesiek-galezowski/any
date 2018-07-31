@@ -2,6 +2,7 @@
 #tool "nuget:?package=ILRepack"
 #addin nuget:?package=Cake.SemVer
 #addin nuget:?package=semver&version=2.0.4
+#tool "nuget:?package=GitVersion.CommandLine"
 
 //////////////////////////////////////////////////////////////////////
 // ARGUMENTS
@@ -10,6 +11,25 @@
 var target = Argument("target", "Default");
 var configuration = Argument("configuration", "Release");
 var toolpath = Argument("toolpath", @"");
+var net45 = new Framework("net45");
+var net462 = new Framework("net462");
+var netstandard20 = new Framework("netstandard2.0");
+
+//////////////////////////////////////////////////////////////////////
+// DEPENDENCIES
+//////////////////////////////////////////////////////////////////////
+
+
+var castleCore = new[] {"Castle.Core", "4.3.1"};
+var nSubstitute = new[] {"NSubstitute", "3.1.0"};
+var autoFixtureSeed = new[] {"AutoFixture.SeedExtensions", "4.5.0"};
+var autoFixture = new[] {"AutoFixture", "4.5.0"};
+var autoFixture3510 = new[] {"AutoFixture", "3.51.0"};
+var fluentAssertions = new[] {"FluentAssertions", "5.4.1"};
+
+var taskExtensions = new[] {"System.Threading.Tasks.Extensions", "4.5.1"};
+var valueTuple = new[] {"System.ValueTuple", "4.5.0"};
+
 
 //////////////////////////////////////////////////////////////////////
 // PREPARATION
@@ -55,6 +75,7 @@ public void Build(string path)
 		settings.ToolVersion = MSBuildToolVersion.VS2017;
         settings.PlatformTarget = PlatformTarget.MSIL;
 		settings.SetConfiguration(configuration);
+		settings.SetMaxCpuCount(0);
 	  });
     }
     else
@@ -127,21 +148,63 @@ Task("Pack")
 			Title = "Any",
 			Owners = new [] { "Grzegorz Galezowski" },
 			Authors = new [] { "Grzegorz Galezowski" },
-			Summary = "Anonymous value generator, supporting the &quot;Any.Whatever()&quot; syntax proposed on the www.sustainabletdd.com blog.",
-			Description = "Anonymous value generator, supporting the &quot;Any.Whatever()&quot; syntax proposed on the www.sustainabletdd.com blog. It makes use of the static usings and extension methods to achieve flexibility and extensibility.",
+			Summary = "Anonymous value generator, supporting the 'Any.Whatever()' syntax proposed on the www.sustainabletdd.com blog.",
+			Description = "Anonymous value generator, supporting the 'Any.Whatever()' syntax proposed on the www.sustainabletdd.com blog. It makes use of the static usings and extension methods to achieve flexibility and extensibility.",
 			Language = "en-US",
-			ReleaseNotes = new[] {"Added support for .NET 4.5", "Updated dependencies"},
+			ReleaseNotes = new[] {".NET 4.6.2 now receives a .NET Standard 2.0 assembly instead of one for .NET Framework 4.5"},
 			ProjectUrl = new Uri("https://github.com/grzesiek-galezowski/any"),
 			OutputDirectory = "./nuget",
-			Version = "1.1.0",
+			Version = "1.1.1",
 			Files = new [] 
 			{
-				new NuSpecContent {Source = @".\publish\netstandard2.0\*.*", Exclude=@"**\*.json", Target = @"lib\netstandard2.0"},
-				new NuSpecContent {Source = @".\publish\net45\*.*", Exclude=@"**\*.json", Target = @"lib\net45"},
+				new NuSpecContent {Source = @".\publish\netstandard2.0\TddXt*.*", Exclude=@"**\*.json", Target = @"lib\netstandard2.0"},
+				new NuSpecContent {Source = @".\publish\netstandard2.0\TddXt*.*", Exclude=@"**\*.json", Target = @"lib\net462"},
+				new NuSpecContent {Source = @".\publish\net45\TddXt*.*", Exclude=@"**\*.json", Target = @"lib\net45"},
+			},
+
+			Dependencies = new [] 
+			{
+				netstandard20.Dependency(castleCore),
+				netstandard20.Dependency(nSubstitute),
+				netstandard20.Dependency(autoFixtureSeed),
+				netstandard20.Dependency(autoFixture),
+				netstandard20.Dependency(fluentAssertions),
+				netstandard20.Dependency(taskExtensions),
+				netstandard20.Dependency(valueTuple),
+
+				net462.Dependency(castleCore),
+				net462.Dependency(nSubstitute),
+				net462.Dependency(autoFixtureSeed),
+				net462.Dependency(autoFixture),
+				net462.Dependency(fluentAssertions),
+				net462.Dependency(taskExtensions),
+				net462.Dependency(valueTuple),
+
+				net45.Dependency(castleCore),
+				net45.Dependency(nSubstitute),
+				net45.Dependency(autoFixture3510),
+				net45.Dependency(fluentAssertions),
+				net45.Dependency(taskExtensions),
+				net45.Dependency(valueTuple),
 			}
+
 		});  
     });
 
+	public class Framework
+	{
+		string _name;
+
+		public Framework(string name)
+		{
+			_name = name;
+		}
+
+		public NuSpecDependency Dependency(params string[] idAndVersion)
+		{
+			return new NuSpecDependency { Id = idAndVersion[0], Version = idAndVersion[1], TargetFramework = _name };
+		}
+	}
 
 
 //////////////////////////////////////////////////////////////////////

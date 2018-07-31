@@ -1,8 +1,8 @@
 using System.Collections;
 using TddXt.AnyExtensibility;
-using TypeReflection;
+using TddXt.TypeReflection;
 
-namespace TypeResolution.FakeChainElements
+namespace TddXt.TypeResolution.FakeChainElements
 {
   public class FakeEnumerator<T> : IResolution<T>
   {

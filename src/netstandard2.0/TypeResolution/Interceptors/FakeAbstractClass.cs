@@ -1,8 +1,8 @@
 using Castle.DynamicProxy;
 using TddXt.AnyExtensibility;
-using TypeResolution.FakeChainElements;
+using TddXt.TypeResolution.FakeChainElements;
 
-namespace TypeResolution.Interceptors
+namespace TddXt.TypeResolution.Interceptors
 {
   public class FakeAbstractClass<T> : IResolution<T>
   {

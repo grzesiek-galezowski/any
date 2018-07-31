@@ -2,10 +2,10 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using Castle.DynamicProxy;
 using TddXt.AnyGenerators.Generic.ExtensionPoints;
-using TypeResolution;
-using TypeResolution.FakeChainElements;
-using TypeResolution.Interceptors;
-using TypeResolution.Interfaces;
+using TddXt.TypeResolution;
+using TddXt.TypeResolution.FakeChainElements;
+using TddXt.TypeResolution.Interceptors;
+using TddXt.TypeResolution.Interfaces;
 
 namespace TddXt.AnyGenerators.Root.ImplementationDetails
 {

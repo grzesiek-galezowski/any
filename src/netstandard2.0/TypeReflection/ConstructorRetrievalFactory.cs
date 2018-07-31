@@ -1,6 +1,6 @@
-using TypeReflection.ImplementationDetails.ConstructorRetrievals;
+using TddXt.TypeReflection.ImplementationDetails.ConstructorRetrievals;
 
-namespace TypeReflection
+namespace TddXt.TypeReflection
 {
   public class ConstructorRetrievalFactory
   {
@@ -20,12 +20,12 @@ namespace TypeReflection
                     )))))));
     }
 
-    private ConstructorRetrieval PublicStaticNonRecursiveFactoryMethod(ConstructorRetrieval next)
+    private static ConstructorRetrieval PublicStaticNonRecursiveFactoryMethod(ConstructorRetrieval next)
     {
       return new PublicStaticFactoryMethodRetrieval(next);
     }
 
-    private ConstructorRetrieval PrimitiveConstructor()
+    private static ConstructorRetrieval PrimitiveConstructor()
     {
       return new PrimitiveConstructorRetrieval();
     }

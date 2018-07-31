@@ -3,8 +3,8 @@ using System.Collections.Concurrent;
 using Castle.DynamicProxy;
 using TddXt.AnyGenerators.Generic;
 using TddXt.AnyGenerators.Generic.ExtensionPoints;
-using TypeResolution;
-using TypeResolution.FakeChainElements;
+using TddXt.TypeResolution;
+using TddXt.TypeResolution.FakeChainElements;
 
 namespace TddXt.AnyGenerators.Root.ImplementationDetails
 {

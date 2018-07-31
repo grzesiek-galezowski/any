@@ -58,6 +58,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestAppNetFramework", "Test
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoFixtureWrapper", "AutoFixtureWrapper\AutoFixtureWrapper.csproj", "{EF7E8E5B-833B-48C8-842B-3937864D2BDA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestAppNet45", "TestAppNet45\TestAppNet45.csproj", "{540F37D5-30C7-4F57-BCF5-08144E334FF3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -152,6 +154,10 @@ Global
 		{EF7E8E5B-833B-48C8-842B-3937864D2BDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EF7E8E5B-833B-48C8-842B-3937864D2BDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EF7E8E5B-833B-48C8-842B-3937864D2BDA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{540F37D5-30C7-4F57-BCF5-08144E334FF3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{540F37D5-30C7-4F57-BCF5-08144E334FF3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{540F37D5-30C7-4F57-BCF5-08144E334FF3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{540F37D5-30C7-4F57-BCF5-08144E334FF3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace TypeResolution
+namespace TddXt.TypeResolution
 {
   public interface NestingLimit
   {

@@ -2,7 +2,7 @@ using System;
 using System.Reflection;
 using TddXt.AnyExtensibility;
 
-namespace TypeResolution.FakeChainElements
+namespace TddXt.TypeResolution.FakeChainElements
 {
   public class LimitedFakeChain<T> : IFakeChain<T>
   {

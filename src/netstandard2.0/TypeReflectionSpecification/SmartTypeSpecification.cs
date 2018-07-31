@@ -1,5 +1,6 @@
 ﻿using System;
 using NUnit.Framework;
+using TddXt.TypeReflection;
 using TypeReflection;
 
 namespace TypeReflectionSpecification

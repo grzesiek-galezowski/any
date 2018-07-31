@@ -2,10 +2,10 @@ using System;
 using System.Collections.Generic;
 using FluentAssertions;
 using TddXt.AnyExtensibility;
-using TypeReflection;
+using TddXt.TypeReflection;
 using TypeReflection.Interfaces;
 
-namespace TypeResolution
+namespace TddXt.TypeResolution
 {
   public class FallbackTypeGenerator<T>
   {

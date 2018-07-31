@@ -1,6 +1,6 @@
 using System;
 
-namespace TypeResolution.Interceptors
+namespace TddXt.TypeResolution.Interceptors
 {
   public class BoooooomException : Exception
   {

@@ -2,7 +2,7 @@
 using System.Reflection;
 using TypeReflection.Interfaces;
 
-namespace TypeReflection.ImplementationDetails
+namespace TddXt.TypeReflection.ImplementationDetails
 {
   public class PropertyWrapper : IPropertyWrapper
   {

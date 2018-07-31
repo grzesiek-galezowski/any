@@ -1,7 +1,7 @@
 using System;
 using Castle.DynamicProxy;
 
-namespace TypeResolution.Interceptors
+namespace TddXt.TypeResolution.Interceptors
 {
   [Serializable]
   internal class AbstractClassInterceptor : IInterceptor

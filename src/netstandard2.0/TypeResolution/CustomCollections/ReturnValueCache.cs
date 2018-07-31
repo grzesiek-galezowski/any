@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace TypeResolution.CustomCollections
+namespace TddXt.TypeResolution.CustomCollections
 {
   [Serializable]
   public class PerMethodCache<T>

@@ -2,7 +2,7 @@
 using TddToolkitSpecification.Fixtures;
 using TddXt.AnyExtensibility;
 using TddXt.AnyGenerators.Root.ImplementationDetails;
-using TddXt.AnyRoot;
+using static TddXt.AnyRoot.Root;
 
 namespace TddToolkitSpecification
 {
@@ -18,8 +18,8 @@ namespace TddToolkitSpecification
 
       //THEN
       Assert.True(resolution.Applies());
-      Assert.NotNull(resolution.Apply(Root.Any.Instance<InstanceGenerator>()));
-      Assert.AreEqual(3, resolution.Apply(Root.Any.Instance<InstanceGenerator>()).Length);
+      Assert.NotNull(resolution.Apply(Any.Instance<InstanceGenerator>()));
+      Assert.AreEqual(3, resolution.Apply(Any.Instance<InstanceGenerator>()).Length);
 
     }
 

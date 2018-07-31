@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using TypeReflection.Interfaces;
 
-namespace TypeReflection.ImplementationDetails
+namespace TddXt.TypeReflection.ImplementationDetails
 {
   public class DefaultParameterlessConstructor : IConstructorWrapper
   {

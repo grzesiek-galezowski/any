@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using TddXt.AnyExtensibility;
-using TypeResolution.FakeChainElements;
+using TddXt.TypeResolution.FakeChainElements;
 using Type = System.Type;
 
 namespace TddXt.AnyGenerators.Root.ImplementationDetails

@@ -1,8 +1,8 @@
 using System;
 using Castle.DynamicProxy;
-using TypeResolution.CustomCollections;
+using TddXt.TypeResolution.CustomCollections;
 
-namespace TypeResolution
+namespace TddXt.TypeResolution
 {
   [Serializable]
   public class CachedReturnValueGeneration

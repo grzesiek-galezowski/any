@@ -3,7 +3,7 @@ using CommonTypes;
 using TypeReflection.Interfaces;
 using TypeReflection.Interfaces.Exceptions;
 
-namespace TypeReflection.ImplementationDetails
+namespace TddXt.TypeReflection.ImplementationDetails
 {
 
   public class BinaryOperator<T, TResult> : IBinaryOperator<T,TResult>

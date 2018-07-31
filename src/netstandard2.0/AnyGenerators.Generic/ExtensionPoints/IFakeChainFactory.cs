@@ -1,4 +1,4 @@
-using TypeResolution.FakeChainElements;
+using TddXt.TypeResolution.FakeChainElements;
 
 namespace TddXt.AnyGenerators.Generic.ExtensionPoints
 {

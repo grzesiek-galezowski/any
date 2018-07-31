@@ -1,5 +1,5 @@
 using TddXt.AnyExtensibility;
-using TypeResolution.FakeChainElements;
+using TddXt.TypeResolution.FakeChainElements;
 
 namespace TddXt.AnyGenerators.Root.ImplementationDetails
 {

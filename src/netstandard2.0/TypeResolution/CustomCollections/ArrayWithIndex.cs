@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace TypeResolution.CustomCollections
+namespace TddXt.TypeResolution.CustomCollections
 {
   public class ArrayWithIndex<T>
   {

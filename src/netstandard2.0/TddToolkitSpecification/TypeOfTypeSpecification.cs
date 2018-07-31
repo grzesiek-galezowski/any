@@ -1,5 +1,5 @@
 ﻿using NUnit.Framework;
-using TypeReflection;
+using TddXt.TypeReflection;
 using Type = System.Type;
 
 namespace TddToolkitSpecification

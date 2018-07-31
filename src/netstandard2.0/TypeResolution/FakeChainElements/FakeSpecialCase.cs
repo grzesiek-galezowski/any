@@ -1,9 +1,9 @@
 using System.Reflection;
 using TddXt.AnyExtensibility;
-using TypeReflection;
-using TypeResolution.Interfaces;
+using TddXt.TypeReflection;
+using TddXt.TypeResolution.Interfaces;
 
-namespace TypeResolution.FakeChainElements
+namespace TddXt.TypeResolution.FakeChainElements
 {
   public class FakeSpecialCase<T> : IResolution<T>
   {

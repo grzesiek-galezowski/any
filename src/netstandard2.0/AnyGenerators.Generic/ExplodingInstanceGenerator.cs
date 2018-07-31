@@ -1,7 +1,7 @@
 using System;
 using Castle.DynamicProxy;
 using TddXt.AnyExtensibility;
-using TypeResolution.Interceptors;
+using TddXt.TypeResolution.Interceptors;
 
 namespace TddXt.AnyGenerators.Generic
 {
