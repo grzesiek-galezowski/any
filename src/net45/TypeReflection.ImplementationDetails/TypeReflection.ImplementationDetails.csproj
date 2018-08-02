@@ -49,9 +49,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\netstandard2.0\TypeReflection.ImplementationDetails\BinaryOperator.cs">
-      <Link>BinaryOperator.cs</Link>
-    </Compile>
     <Compile Include="..\..\netstandard2.0\TypeReflection.ImplementationDetails\ConstructorRetrievals\ConstructorRetrieval.cs">
       <Link>ConstructorRetrievals\ConstructorRetrieval.cs</Link>
     </Compile>
@@ -84,9 +81,6 @@
     </Compile>
     <Compile Include="..\..\netstandard2.0\TypeReflection.ImplementationDetails\DefaultParameterlessConstructor.cs">
       <Link>DefaultParameterlessConstructor.cs</Link>
-    </Compile>
-    <Compile Include="..\..\netstandard2.0\TypeReflection.ImplementationDetails\EventWrapper.cs">
-      <Link>EventWrapper.cs</Link>
     </Compile>
     <Compile Include="..\..\netstandard2.0\TypeReflection.ImplementationDetails\FieldWrapper.cs">
       <Link>FieldWrapper.cs</Link>

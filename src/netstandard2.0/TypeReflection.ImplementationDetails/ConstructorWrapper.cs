@@ -91,11 +91,6 @@ namespace TddXt.TypeReflection.ImplementationDetails
       return GetParametersCount() == 0;
     }
 
-    public string GetDescriptionForParameter(int i)
-    {
-      return GetDescriptionFor(_parameters[i]);
-    }
-
     public object InvokeWithParametersCreatedBy(Func<Type, object> instanceGenerator)
     {
       return _invocation(this.GenerateAnyParameterValues(instanceGenerator).ToArray());

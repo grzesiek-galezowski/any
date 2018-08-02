@@ -49,23 +49,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\netstandard2.0\TypeReflection.Interfaces\Exceptions\ConstructorNotFoundException.cs">
-      <Link>Exceptions\ConstructorNotFoundException.cs</Link>
-    </Compile>
-    <Compile Include="..\..\netstandard2.0\TypeReflection.Interfaces\Exceptions\NoSuchOperatorInTypeException.cs">
-      <Link>Exceptions\NoSuchOperatorInTypeException.cs</Link>
-    </Compile>
-    <Compile Include="..\..\netstandard2.0\TypeReflection.Interfaces\IBinaryOperator.cs">
-      <Link>IBinaryOperator.cs</Link>
-    </Compile>
     <Compile Include="..\..\netstandard2.0\TypeReflection.Interfaces\IConstructorQueries.cs">
       <Link>IConstructorQueries.cs</Link>
     </Compile>
     <Compile Include="..\..\netstandard2.0\TypeReflection.Interfaces\IConstructorWrapper.cs">
       <Link>IConstructorWrapper.cs</Link>
-    </Compile>
-    <Compile Include="..\..\netstandard2.0\TypeReflection.Interfaces\IEventWrapper.cs">
-      <Link>IEventWrapper.cs</Link>
     </Compile>
     <Compile Include="..\..\netstandard2.0\TypeReflection.Interfaces\IFieldWrapper.cs">
       <Link>IFieldWrapper.cs</Link>

@@ -140,9 +140,6 @@
     <Compile Include="..\..\netstandard2.0\TypeResolution\Interceptors\InterfaceInterceptor.cs">
       <Link>Interceptors\InterfaceInterceptor.cs</Link>
     </Compile>
-    <Compile Include="..\..\netstandard2.0\TypeResolution\Interceptors\WrappingInterceptor.cs">
-      <Link>Interceptors\WrappingInterceptor.cs</Link>
-    </Compile>
     <Compile Include="..\..\netstandard2.0\TypeResolution\Interfaces\IValueGenerator.cs">
       <Link>Interfaces\IValueGenerator.cs</Link>
     </Compile>

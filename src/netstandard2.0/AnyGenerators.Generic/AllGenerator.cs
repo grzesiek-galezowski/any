@@ -7,7 +7,6 @@ using TddXt.AnyExtensibility;
 using TddXt.AnyGenerators.Generic.ExtensionPoints;
 using TddXt.AnyGenerators.Generic.ImplementationDetails;
 using TddXt.TypeReflection;
-using TypeReflection;
 
 namespace TddXt.AnyGenerators.Generic
 {

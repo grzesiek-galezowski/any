@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Reflection;
-using System.Text;
 using TddXt.TypeReflection.Interfaces;
 
 namespace TddXt.TypeReflection.ImplementationDetails
@@ -20,20 +19,5 @@ namespace TddXt.TypeReflection.ImplementationDetails
     }
 
     public Type FieldType { get { return _fieldInfo.FieldType; } }
-
-    public bool HasName(string name)
-    {
-      return _fieldInfo.Name == name;
-    }
-
-    public bool HasValue(object name)
-    {
-      return _fieldInfo.GetValue(null).Equals(name);
-    }
-
-    public void AddNameTo(StringBuilder builder)
-    {
-      builder.Append(_fieldInfo.Name + " <" + _fieldInfo.GetValue(null) + ">");
-    }
   }
 }

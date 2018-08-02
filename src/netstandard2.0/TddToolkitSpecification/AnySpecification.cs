@@ -1207,6 +1207,7 @@ namespace TddToolkitSpecification
     private static void CallSomeMethodsOn(AbstractObjectWithInterfaceInConstructor x1, AbstractObjectWithVirtualMethods x2,
       RecursiveInterface x3)
     {
+      // ReSharper disable once UnusedVariable
       var arr = new object[] {x1.AbstractInt, x2.GetSomething(), x3.NestedAsDictionary, x2.GetSomething2(), x3.Nested};
     }
 

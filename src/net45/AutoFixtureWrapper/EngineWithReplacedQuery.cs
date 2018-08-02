@@ -3,7 +3,7 @@ using System.Linq;
 using Ploeh.AutoFixture;
 using Ploeh.AutoFixture.Kernel;
 
-namespace AutoFixtureWrapper
+namespace TddXt.AutoFixtureWrapper
 {
   public class EngineWithReplacedQuery : DefaultEngineParts
   {

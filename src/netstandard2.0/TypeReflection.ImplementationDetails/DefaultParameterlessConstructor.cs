@@ -44,24 +44,9 @@ namespace TddXt.TypeReflection.ImplementationDetails
       return true;
     }
 
-    public string GetDescriptionForParameter(int i)
-    {
-      return string.Empty;
-    }
-
     public object InvokeWithParametersCreatedBy(Func<Type, object> instanceGenerator)
     {
       return _creation.Invoke();
-    }
-
-    public object InvokeWith(IEnumerable<object> constructorParameters)
-    {
-      return _creation.Invoke();
-    }
-
-    public bool HasAnyArgumentOfType(Type type)
-    {
-      return false;
     }
 
     public bool IsInternal()
@@ -91,7 +76,7 @@ namespace TddXt.TypeReflection.ImplementationDetails
 
     public object Invoke(IEnumerable<object> parameters)
     {
-      return InvokeWith(parameters);
+      return _creation.Invoke();
     }
 
     public IEnumerable<ParameterInfo> Parameters { get; } = new List<ParameterInfo>();

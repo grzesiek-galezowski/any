@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Ploeh.AutoFixture.Kernel;
-using TypeReflection;
+using TddXt.TypeReflection;
 
-namespace AutoFixtureWrapper
+namespace TddXt.AutoFixtureWrapper
 {
     public class PatchedFactoryMethodQuery : IMethodQuery
     {
