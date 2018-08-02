@@ -19,7 +19,6 @@ var netstandard20 = new Framework("netstandard2.0");
 // DEPENDENCIES
 //////////////////////////////////////////////////////////////////////
 
-
 var castleCore = new[] {"Castle.Core", "4.3.1"};
 var nSubstitute = new[] {"NSubstitute", "3.1.0"};
 var autoFixtureSeed = new[] {"AutoFixture.SeedExtensions", "4.5.0"};
@@ -130,7 +129,14 @@ public void BundleDependencies(DirectoryPath specificVersionPublishDir, string r
 	var assemblyPaths = GetFiles(specificVersionPublishDir + "/TddXt*.dll");
 	var mainAssemblyPath = new FilePath(fullRootDllFilePath).MakeAbsolute(Context.Environment);
 	assemblyPaths.Remove(mainAssemblyPath);
-	ILRepack(fullRootDllFilePath, fullRootDllFilePath, assemblyPaths);
+	ILRepack(fullRootDllFilePath, fullRootDllFilePath, assemblyPaths, 
+		new ILRepackSettings 
+		{ 
+			Parallel = true,
+			Keyfile = "./src/netstandard2.0/AnyRoot/TddToolkit.snk",
+			DelaySign = false,
+			NDebug = false
+		});
 	DeleteFiles(assemblyPaths);
 }
 
@@ -151,10 +157,10 @@ Task("Pack")
 			Summary = "Anonymous value generator, supporting the 'Any.Whatever()' syntax proposed on the www.sustainabletdd.com blog.",
 			Description = "Anonymous value generator, supporting the 'Any.Whatever()' syntax proposed on the www.sustainabletdd.com blog. It makes use of the static usings and extension methods to achieve flexibility and extensibility.",
 			Language = "en-US",
-			ReleaseNotes = new[] {".NET 4.6.2 now receives a .NET Standard 2.0 assembly instead of one for .NET Framework 4.5"},
+			ReleaseNotes = new[] {"Tweaked ILRepack settings to produce signed assembly"},
 			ProjectUrl = new Uri("https://github.com/grzesiek-galezowski/any"),
 			OutputDirectory = "./nuget",
-			Version = "1.1.1",
+			Version = "1.1.3",
 			Files = new [] 
 			{
 				new NuSpecContent {Source = @".\publish\netstandard2.0\TddXt*.*", Exclude=@"**\*.json", Target = @"lib\netstandard2.0"},
