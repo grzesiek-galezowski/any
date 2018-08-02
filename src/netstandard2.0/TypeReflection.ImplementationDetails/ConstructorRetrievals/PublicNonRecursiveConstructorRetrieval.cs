@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
-using TypeReflection.Interfaces;
+using TddXt.TypeReflection.Interfaces;
 
 namespace TddXt.TypeReflection.ImplementationDetails.ConstructorRetrievals
 {

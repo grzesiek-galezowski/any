@@ -8,7 +8,6 @@ using System.Net;
 using System.Reflection;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text.RegularExpressions;
-using CommonTypes;
 using FluentAssertions;
 using NUnit.Framework;
 using TddToolkitSpecification.Fixtures;
@@ -20,6 +19,7 @@ using TddXt.AnyRoot.Math;
 using TddXt.AnyRoot.Network;
 using TddXt.AnyRoot.Numbers;
 using TddXt.AnyRoot.Strings;
+using TddXt.CommonTypes;
 using static TddXt.AnyRoot.Root;
 
 // ReSharper disable PublicConstructorInAbstractClass

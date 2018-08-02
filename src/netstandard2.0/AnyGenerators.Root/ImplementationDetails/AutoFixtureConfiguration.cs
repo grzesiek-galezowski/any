@@ -2,9 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Reflection;
-using CommonTypes;
+using TddXt.AutoFixtureWrapper;
+using TddXt.CommonTypes;
 
-namespace AutoFixtureWrapper
+namespace TddXt.AnyGenerators.Root.ImplementationDetails
 {
   public class AutoFixtureConfiguration
   {

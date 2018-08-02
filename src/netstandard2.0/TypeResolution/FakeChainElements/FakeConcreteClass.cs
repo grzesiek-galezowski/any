@@ -1,8 +1,8 @@
 using System;
 using System.Diagnostics;
 using System.Reflection;
-using AutoFixtureWrapper;
 using TddXt.AnyExtensibility;
+using TddXt.CommonTypes;
 using TddXt.TypeResolution.Interfaces;
 
 namespace TddXt.TypeResolution.FakeChainElements

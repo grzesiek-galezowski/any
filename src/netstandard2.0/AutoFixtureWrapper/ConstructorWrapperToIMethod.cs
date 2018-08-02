@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.Reflection;
-using TypeReflection.Interfaces;
+using TddXt.TypeReflection.Interfaces;
 using IMethod = AutoFixture.Kernel.IMethod;
 
-namespace AutoFixtureWrapper
+namespace TddXt.AutoFixtureWrapper
 {
     public class ConstructorWrapperToIMethod : IMethod
     {

@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using AutoFixtureWrapper;
+using TddXt.AutoFixtureWrapper;
 
 namespace TddXt.AnyGenerators.Generic.ImplementationDetails
 {

@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using TypeReflection.Interfaces;
+using TddXt.TypeReflection.Interfaces;
 
 namespace TddXt.TypeReflection.ImplementationDetails.ConstructorRetrievals
 {

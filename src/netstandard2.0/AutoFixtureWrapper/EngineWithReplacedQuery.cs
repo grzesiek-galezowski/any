@@ -3,7 +3,7 @@ using System.Linq;
 using AutoFixture;
 using AutoFixture.Kernel;
 
-namespace AutoFixtureWrapper
+namespace TddXt.AutoFixtureWrapper
 {
     public class EngineWithReplacedQuery : DefaultEngineParts
     {

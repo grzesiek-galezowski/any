@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using TypeReflection.Interfaces;
+using TddXt.TypeReflection.Interfaces;
 
 namespace TddXt.TypeReflection.ImplementationDetails
 {

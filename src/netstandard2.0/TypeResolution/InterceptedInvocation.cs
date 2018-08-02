@@ -42,7 +42,7 @@ namespace TddXt.TypeResolution
     public void GenerateAndAddPropertyGetterReturnValueTo(PerMethodCache<object> perMethodCache)
     {
       var key = GetPropertyGetterCacheKey();
-      perMethodCache.Overwrite(key, _invocation.Arguments.First());
+      perMethodCache.Overwrite(key, _invocation.Arguments[0]);
     }
 
     public void GenerateAndAddMethodReturnValueTo(PerMethodCache<object> perMethodCache)

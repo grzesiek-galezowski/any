@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
-using CommonTypes;
+using TddXt.CommonTypes;
 
-namespace TypeReflection.Interfaces
+namespace TddXt.TypeReflection.Interfaces
 {
   public interface IType
   {

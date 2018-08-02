@@ -2,10 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using CommonTypes;
+using TddXt.CommonTypes;
 using TddXt.TypeReflection.ImplementationDetails;
 using TddXt.TypeReflection.ImplementationDetails.ConstructorRetrievals;
-using TypeReflection.Interfaces;
+using TddXt.TypeReflection.Interfaces;
 
 namespace TddXt.TypeReflection
 {
@@ -141,7 +141,7 @@ namespace TddXt.TypeReflection
     public List<ConstructorWrapper> TryToObtainPublicConstructors()
     {
       return _typeInfo.GetConstructors(BindingFlags.Public | BindingFlags.Instance)
-        .Select(c => ConstructorWrapper.FromConstructorInfo(c)).ToList();
+        .Select(ConstructorWrapper.FromConstructorInfo).ToList();
     }
 
     public IEnumerable<IConstructorWrapper> TryToObtainPublicConstructorsWithoutRecursiveArguments()

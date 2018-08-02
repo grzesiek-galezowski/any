@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 
-namespace TypeReflection.Interfaces
+namespace TddXt.TypeReflection.Interfaces
 {
   public interface IConstructorWrapper
   {
@@ -12,10 +12,7 @@ namespace TypeReflection.Interfaces
     bool HasAbstractOrInterfaceArguments();
     List<object> GenerateAnyParameterValues(Func<Type, object> instanceGenerator);
     bool IsParameterless();
-    string GetDescriptionForParameter(int i);
     object InvokeWithParametersCreatedBy(Func<Type, object> instanceGenerator);
-    object InvokeWith(IEnumerable<object> constructorParameters);
-    bool HasAnyArgumentOfType(Type type);
     bool IsInternal();
     bool IsNotRecursive();
     bool IsRecursive();

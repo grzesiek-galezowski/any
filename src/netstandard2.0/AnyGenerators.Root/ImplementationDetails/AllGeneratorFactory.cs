@@ -1,7 +1,7 @@
-using AutoFixtureWrapper;
 using Castle.DynamicProxy;
 using TddXt.AnyGenerators.Generic;
 using TddXt.AnyGenerators.Generic.ImplementationDetails;
+using TddXt.AutoFixtureWrapper;
 using TddXt.TypeResolution;
 using TddXt.TypeResolution.CustomCollections;
 

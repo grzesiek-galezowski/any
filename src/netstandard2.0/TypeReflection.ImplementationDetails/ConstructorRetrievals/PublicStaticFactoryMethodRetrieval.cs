@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
-using TypeReflection.Interfaces;
+using TddXt.TypeReflection.Interfaces;
 
 namespace TddXt.TypeReflection.ImplementationDetails.ConstructorRetrievals
 {
@@ -16,11 +16,14 @@ namespace TddXt.TypeReflection.ImplementationDetails.ConstructorRetrievals
     public IEnumerable<IConstructorWrapper> RetrieveFrom(IConstructorQueries constructors)
     {
       var methods = constructors.TryToObtainPublicStaticFactoryMethodWithoutRecursion();
-      if (methods.Count() == 0)
+      if (methods.Any())
+      {
+        return methods;
+      }
+      else
       {
         return _next.RetrieveFrom(constructors);
       }
-      return methods;
     }
   }
 }

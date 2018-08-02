@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using FluentAssertions;
 using TddXt.AnyExtensibility;
 using TddXt.TypeReflection;
-using TypeReflection.Interfaces;
+using TddXt.TypeReflection.Interfaces;
 
 namespace TddXt.TypeResolution
 {

@@ -5,6 +5,7 @@
     <AssemblyOriginatorKeyFile>TddToolkit.snk</AssemblyOriginatorKeyFile>
     <DelaySign>false</DelaySign>
     <AssemblyName>TddXt.AutoFixtureWrapper</AssemblyName>
+    <RootNamespace>TddXt.AutoFixtureWrapper</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="AutoFixture" Version="4.5.0" />

@@ -1,6 +1,6 @@
 using System;
 
-namespace CommonTypes
+namespace TddXt.CommonTypes
 {
   public static class CircularList
   {

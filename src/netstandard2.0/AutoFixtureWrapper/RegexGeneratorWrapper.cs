@@ -1,7 +1,8 @@
 using AutoFixture;
 using AutoFixture.Kernel;
+using TddXt.CommonTypes;
 
-namespace AutoFixtureWrapper
+namespace TddXt.AutoFixtureWrapper
 {
     public class RegexGeneratorWrapper
     {

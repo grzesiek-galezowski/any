@@ -1,6 +1,6 @@
 using System;
 
-namespace AutoFixtureWrapper
+namespace TddXt.CommonTypes
 {
     public class ThirdPartyGeneratorFailed : Exception
     {

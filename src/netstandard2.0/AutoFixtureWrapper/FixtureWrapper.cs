@@ -1,7 +1,8 @@
 using System;
 using AutoFixture;
+using TddXt.CommonTypes;
 
-namespace AutoFixtureWrapper
+namespace TddXt.AutoFixtureWrapper
 {
     [Serializable]
     public class FixtureWrapper 

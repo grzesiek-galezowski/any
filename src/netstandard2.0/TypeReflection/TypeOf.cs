@@ -1,5 +1,5 @@
 using System;
-using TypeReflection.Interfaces;
+using TddXt.TypeReflection.Interfaces;
 
 namespace TddXt.TypeReflection
 {

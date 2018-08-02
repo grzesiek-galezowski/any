@@ -1,7 +1,7 @@
-﻿using CommonTypes;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using TddXt.AnyRoot;
 using TddXt.AnyRoot.Numbers;
+using TddXt.CommonTypes;
 
 namespace TddToolkitSpecification
 {

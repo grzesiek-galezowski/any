@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CommonTypes
+namespace TddXt.CommonTypes
 {
   public static class Maybe
   {
@@ -58,18 +58,6 @@ namespace CommonTypes
     public override string ToString()
     {
       return HasValue ? Value().ToString() : "<Nothing>";
-    }
-
-    public Maybe<U> To<U>() where U : class
-    {
-      if (!HasValue)
-      {
-        return Maybe<U>.Not;
-      }
-      else
-      {
-        return Maybe.Wrap(Value() as U);
-      }
     }
   }
 

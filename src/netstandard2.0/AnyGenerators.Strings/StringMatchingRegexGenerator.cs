@@ -1,6 +1,6 @@
 using System;
-using AutoFixtureWrapper;
 using TddXt.AnyExtensibility;
+using TddXt.AutoFixtureWrapper;
 
 namespace TddXt.AnyGenerators.Strings
 {

@@ -1,5 +1,5 @@
-using CommonTypes;
 using TddXt.AnyExtensibility;
+using TddXt.CommonTypes;
 
 namespace TddXt.AnyGenerators.Strings
 {

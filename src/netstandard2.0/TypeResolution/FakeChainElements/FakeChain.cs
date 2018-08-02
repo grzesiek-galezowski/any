@@ -10,8 +10,6 @@ namespace TddXt.TypeResolution.FakeChainElements
   public class FakeChain<T> : IFakeChain<T>
   {
     private readonly IChainElement<T> _chainHead;
-    //bug pass CollectionGenerator here, but make non-static
-
 
     public FakeChain(IChainElement<T> chainHead)
     {

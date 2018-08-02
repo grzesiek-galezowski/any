@@ -1,6 +1,6 @@
 using System;
 
-namespace TypeReflection.Interfaces
+namespace TddXt.TypeReflection.Interfaces
 {
   public interface IMethod
   {
