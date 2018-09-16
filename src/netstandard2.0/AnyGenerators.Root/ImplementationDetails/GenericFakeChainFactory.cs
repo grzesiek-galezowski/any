@@ -1,6 +1,11 @@
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using System.Reflection.Emit;
 using Castle.DynamicProxy;
+using TddXt.AnyExtensibility;
 using TddXt.AnyGenerators.Generic.ExtensionPoints;
 using TddXt.TypeResolution;
 using TddXt.TypeResolution.FakeChainElements;
@@ -30,7 +35,8 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
         valueGenerator));
     }
 
-    public FakeChain<T> UnconstrainedInstance(CachedReturnValueGeneration eachMethodReturnsTheSameValueOnEveryCall, ProxyGenerator generationIsDoneUsingProxies, IValueGenerator valueGenerator)
+    public FakeChain<T> UnconstrainedInstance(CachedReturnValueGeneration eachMethodReturnsTheSameValueOnEveryCall,
+      ProxyGenerator generationIsDoneUsingProxies, IValueGenerator valueGenerator)
     {
       return OrderedChainOfGenerationsWithTheFollowingLogic(TryTo(
         ResolveTheMostSpecificCases(valueGenerator),
@@ -39,22 +45,29 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
             ElseTryTo(ResolveAsSimpleSet(),
               ElseTryTo(ResolveAsSimpleDictionary(),
                 ElseTryTo(ResolveAsSortedList(),
-                  ElseTryTo(ResolveAsSortedSet(),
-                    ElseTryTo(ResolveAsSortedDictionary(),
-                      ElseTryTo(ResolveAsConcurrentDictionary(),
-                        ElseTryTo(ResolveAsConcurrentBag(),
-                          ElseTryTo(ResolveAsConcurrentQueue(),
-                            ElseTryTo(ResolveAsConcurrentStack(),
-                              ElseTryTo(ResolveAsKeyValuePair(),
-                                ElseTryTo(ResolveAsGenericEnumerator(),
-                                  ElseTryTo(ResolveAsObjectEnumerator(),
-                                    ElseTryTo(ResolveAsCollectionWithHeuristics(),
-                                      ElseTryTo(ResolveAsInterfaceImplementationWhere(eachMethodReturnsTheSameValueOnEveryCall, generationIsDoneUsingProxies),
-                                        ElseTryTo(ResolveAsAbstractClassImplementationWhere(eachMethodReturnsTheSameValueOnEveryCall, generationIsDoneUsingProxies),
-                                          ElseTryTo(ResolveAsConcreteTypeWithNonConcreteTypesInConstructorSignature(),
-                                            ElseTryTo(ResolveAsConcreteClass(valueGenerator),
-                                              ElseReportUnsupportedType()
-                                            )))))))))))))))))))));
+                  ElseTryTo(ResolveAsDelegate(),
+                    ElseTryTo(ResolveAsSortedSet(),
+                      ElseTryTo(ResolveAsSortedDictionary(),
+                        ElseTryTo(ResolveAsConcurrentDictionary(),
+                          ElseTryTo(ResolveAsConcurrentBag(),
+                            ElseTryTo(ResolveAsConcurrentQueue(),
+                              ElseTryTo(ResolveAsConcurrentStack(),
+                                ElseTryTo(ResolveAsKeyValuePair(),
+                                  ElseTryTo(ResolveAsGenericEnumerator(),
+                                    ElseTryTo(ResolveAsObjectEnumerator(),
+                                      ElseTryTo(ResolveAsCollectionWithHeuristics(),
+                                        ElseTryTo(ResolveAsInterfaceImplementationWhere(eachMethodReturnsTheSameValueOnEveryCall, generationIsDoneUsingProxies),
+                                          ElseTryTo(ResolveAsAbstractClassImplementationWhere(eachMethodReturnsTheSameValueOnEveryCall, generationIsDoneUsingProxies),
+                                            ElseTryTo(ResolveAsConcreteTypeWithNonConcreteTypesInConstructorSignature(),
+                                              ElseTryTo(ResolveAsConcreteClass(valueGenerator),
+                                                ElseReportUnsupportedType()
+                                              ))))))))))))))))))))));
+    }
+
+    private IResolution<T> ResolveAsDelegate()
+    {
+      return new FakeDelegate<T>();
+
     }
 
     private static FakeChain<T> OrderedChainOfGenerationsWithTheFollowingLogic(IChainElement<T> first)
@@ -215,4 +228,5 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
       return _specialCasesOfResolutions.CreateResolutionOfArray();
     }
   }
+
 }

@@ -9,6 +9,7 @@ using System.Reflection;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text.RegularExpressions;
 using FluentAssertions;
+using Newtonsoft.Json;
 using NUnit.Framework;
 using TddToolkitSpecification.Fixtures;
 using TddToolkitSpecification.GraphComparison;
@@ -1184,6 +1185,8 @@ namespace TddToolkitSpecification
     public void ShouldAllowGeneratingFuncs()
     {
       //GIVEN
+      var func0 = Any.Func<int>();
+      var func1 = Any.Func<int, int>();
       var func = Any.Func<int, int, string>();
       
       //WHEN
@@ -1192,6 +1195,17 @@ namespace TddToolkitSpecification
 
       //THEN
       Assert.AreEqual(result2, result1);
+    }
+
+    [Test]
+    public void ShouldBeAbleToCreateJsonSerializerSettingsFromNewtonsoftJson()
+    {
+      //WHEN
+      var serializerSettings = Any.Instance<JsonSerializerSettings>();
+      
+
+      //THEN
+      Assert.NotNull(serializerSettings);
     }
 
     [Test]

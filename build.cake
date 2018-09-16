@@ -24,7 +24,7 @@ var nSubstitute = new[] {"NSubstitute", "3.1.0"};
 var autoFixtureSeed = new[] {"AutoFixture.SeedExtensions", "4.5.0"};
 var autoFixture = new[] {"AutoFixture", "4.5.0"};
 var autoFixture3510 = new[] {"AutoFixture", "3.51.0"};
-var fluentAssertions = new[] {"FluentAssertions", "5.4.1"};
+var fluentAssertions = new[] {"FluentAssertions", "5.4.2"};
 
 var taskExtensions = new[] {"System.Threading.Tasks.Extensions", "4.5.1"};
 var valueTuple = new[] {"System.ValueTuple", "4.5.0"};
@@ -157,10 +157,11 @@ Task("Pack")
 			Summary = "Anonymous value generator, supporting the 'Any.Whatever()' syntax proposed on the www.sustainabletdd.com blog.",
 			Description = "Anonymous value generator, supporting the 'Any.Whatever()' syntax proposed on the www.sustainabletdd.com blog. It makes use of the static usings and extension methods to achieve flexibility and extensibility.",
 			Language = "en-US",
-			ReleaseNotes = new[] {"Tweaked ILRepack settings to produce signed assembly"},
+			ReleaseNotes = new[] {"Fixed hanging when generating Func with interface as return type or parameter. Any can now generate JsonSerializerSettings from Newtonsoft.Json"},
 			ProjectUrl = new Uri("https://github.com/grzesiek-galezowski/any"),
 			OutputDirectory = "./nuget",
-			Version = "1.1.3",
+			Version = "1.1.5",
+      Symbols = false,
 			Files = new [] 
 			{
 				new NuSpecContent {Source = @".\publish\netstandard2.0\TddXt*.*", Exclude=@"**\*.json", Target = @"lib\netstandard2.0"},
