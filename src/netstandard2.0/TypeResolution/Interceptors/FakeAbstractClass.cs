@@ -12,11 +12,12 @@ namespace TddXt.TypeResolution.Interceptors
 
     public FakeAbstractClass(
       CachedReturnValueGeneration generation, 
-      ProxyGenerator proxyGenerator)
+      ProxyGenerator proxyGenerator, 
+      FallbackTypeGenerator<T> fallbackTypeGenerator)
     {
       _generation = generation;
       _proxyGenerator = proxyGenerator;
-      _fallbackTypeGenerator = new FallbackTypeGenerator<T>(); //bug extract?
+      _fallbackTypeGenerator = fallbackTypeGenerator; //bug extract?
     }
 
     public bool Applies()

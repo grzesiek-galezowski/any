@@ -3,6 +3,7 @@ using System.Collections.Concurrent;
 using Castle.DynamicProxy;
 using TddXt.AnyGenerators.Generic;
 using TddXt.AnyGenerators.Generic.ExtensionPoints;
+using TddXt.TypeReflection;
 using TddXt.TypeResolution;
 using TddXt.TypeResolution.FakeChainElements;
 
@@ -32,7 +33,7 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
     public IFakeChain<T> GetInstance<T>()
     {
       return GetInstanceWithMemoization(() => 
-        new GenericFakeChainFactory<T>(CreateSpecialCasesOfResolutions<T>()).NewInstance(
+        CreateGenericFakeChainFactory<T>().NewInstance(
             _cachedReturnValueGeneration,
             _nestingLimit,
             _proxyGenerator,
@@ -44,8 +45,7 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
     {
       var key = typeof(T);
 
-      object outVal;
-      if(!cache.TryGetValue(key, out outVal))
+      if(!cache.TryGetValue(key, out var outVal))
       {
         var newInstance = func.Invoke();
         cache[key] = newInstance;
@@ -58,11 +58,21 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
     public IFakeChain<T> GetUnconstrainedInstance<T>()
     {
       return GetInstanceWithMemoization(() => 
-      new GenericFakeChainFactory<T>(CreateSpecialCasesOfResolutions<T>())
+      CreateGenericFakeChainFactory<T>()
         .UnconstrainedInstance(
           _cachedReturnValueGeneration,
           _proxyGenerator, _valueGenerator), 
           _unconstrainedFactoryCache);
+    }
+
+    private GenericFakeChainFactory<T> CreateGenericFakeChainFactory<T>()
+    {
+      return new GenericFakeChainFactory<T>(CreateSpecialCasesOfResolutions<T>(), new FallbackTypeGenerator<T>(new FallbackTypeGenerator(
+        new IFallbackGeneratedObjectCustomization[]
+        {
+          new FillPropertiesCustomization(),
+          new FillFieldsCustomization()
+        }, SmartType.For(typeof(T)))));
     }
 
     public ISpecialCasesOfResolutions<T> CreateSpecialCasesOfResolutions<T>()

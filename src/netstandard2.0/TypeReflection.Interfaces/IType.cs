@@ -17,5 +17,6 @@ namespace TddXt.TypeReflection.Interfaces
     bool IsException();
     bool HasPublicConstructorCountOfAtMost(int i);
     bool IsOpenGeneric(Type type);
+    void AssertMatchesTypeOf(object instance);
   }
 }

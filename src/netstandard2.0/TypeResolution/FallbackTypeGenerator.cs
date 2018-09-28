@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using FluentAssertions;
+using FluentAssertions.Types;
 using TddXt.AnyExtensibility;
 using TddXt.TypeReflection;
 using TddXt.TypeReflection.Interfaces;
@@ -11,16 +12,15 @@ namespace TddXt.TypeResolution
   {
     private readonly FallbackTypeGenerator _fallbackTypeGenerator;
 
-    public FallbackTypeGenerator()
+    public FallbackTypeGenerator(FallbackTypeGenerator fallbackTypeGenerator)
     {
-      var type = typeof (T);
-      _fallbackTypeGenerator = new FallbackTypeGenerator(type);
+      _fallbackTypeGenerator = fallbackTypeGenerator;
     }
 
     public T GenerateInstance(InstanceGenerator instanceGenerator)
     {
       var generateInstance = (T)_fallbackTypeGenerator.GenerateInstance(instanceGenerator);
-      _fallbackTypeGenerator.FillFieldsAndPropertiesOf(generateInstance, instanceGenerator);
+      _fallbackTypeGenerator.CustomizeCreatedValue(generateInstance, instanceGenerator);
       return generateInstance;
     }
 
@@ -37,25 +37,25 @@ namespace TddXt.TypeResolution
 
     public void FillFieldsAndPropertiesOf(T result, InstanceGenerator instanceGenerator)
     {
-      _fallbackTypeGenerator.FillFieldsAndPropertiesOf(result, instanceGenerator);
+      _fallbackTypeGenerator.CustomizeCreatedValue(result, instanceGenerator);
     }
   }
 
   public class FallbackTypeGenerator
   {
     private readonly IType _smartType;
-    private readonly Type _type;
+    private readonly IFallbackGeneratedObjectCustomization[] _customizations;
 
-    public FallbackTypeGenerator(Type type)
+    public FallbackTypeGenerator(IFallbackGeneratedObjectCustomization[] customizations, ISmartType smartType)
     {
-      _smartType = SmartType.For(type);
-      _type = type;
+      _smartType = smartType;
+      _customizations = customizations;
     }
 
     public object GenerateInstance(InstanceGenerator instanceGenerator)
     {
       var instance = _smartType.PickConstructorWithLeastNonPointersParameters().Value().InvokeWithParametersCreatedBy(instanceGenerator.Instance);
-      instance.GetType().Should().Be(_type);
+      _smartType.AssertMatchesTypeOf(instance);
       return instance;
     }
 
@@ -76,48 +76,14 @@ namespace TddXt.TypeResolution
     }
 
 
-    public void FillFieldsAndPropertiesOf(object result, InstanceGenerator instanceGenerator)
+    public void CustomizeCreatedValue(object result, InstanceGenerator instanceGenerator)
     {
-      FillPropertyValues(result, instanceGenerator);
-      FillFieldValues(result, instanceGenerator);
-    }
-
-    private void FillFieldValues(object result, InstanceGenerator instanceGenerator)
-    {
-      var fields = _smartType.GetAllPublicInstanceFields();
-      foreach (var field in fields)
+      foreach (var customization in _customizations)
       {
-        try
-        {
-          field.SetValue(result, instanceGenerator.Instance(field.FieldType));
-        }
-        catch (Exception e)
-        {
-          Console.WriteLine(e.Message);
-        }
-      }
-    }
-
-    private void FillPropertyValues(object result, InstanceGenerator instanceGenerator)
-    {
-      var properties = _smartType.GetPublicInstanceWritableProperties();
-
-      foreach (var property in properties)
-      {
-        try
-        {
-          var propertyType = property.PropertyType;
-
-          if (!property.HasAbstractGetter())
-          {
-            var value = instanceGenerator.Instance(propertyType);
-            property.SetValue(result, value);
-          }
-        }
-        catch (Exception e)
-        {
-          Console.WriteLine(e.Message);
-        }
+        customization.ApplyTo(
+          _smartType, 
+          result, 
+          instanceGenerator);
       }
     }
   }

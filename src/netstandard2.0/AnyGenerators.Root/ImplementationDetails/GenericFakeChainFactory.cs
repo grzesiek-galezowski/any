@@ -7,6 +7,7 @@ using System.Reflection.Emit;
 using Castle.DynamicProxy;
 using TddXt.AnyExtensibility;
 using TddXt.AnyGenerators.Generic.ExtensionPoints;
+using TddXt.TypeReflection;
 using TddXt.TypeResolution;
 using TddXt.TypeResolution.FakeChainElements;
 using TddXt.TypeResolution.Interceptors;
@@ -17,10 +18,12 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
   public class GenericFakeChainFactory<T>
   {
     private readonly ISpecialCasesOfResolutions<T> _specialCasesOfResolutions;
+    private readonly FallbackTypeGenerator<T> _fallbackTypeGenerator;
 
-    public GenericFakeChainFactory(ISpecialCasesOfResolutions<T> specialCasesOfResolutions)
+    public GenericFakeChainFactory(ISpecialCasesOfResolutions<T> specialCasesOfResolutions, FallbackTypeGenerator<T> fallbackTypeGenerator)
     {
       _specialCasesOfResolutions = specialCasesOfResolutions;
+      _fallbackTypeGenerator = fallbackTypeGenerator;
     }
 
     public IFakeChain<T> NewInstance(
@@ -80,20 +83,21 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
       return new LimitedFakeChain<T>(limit, fakeChain);
     }
 
-    private static FakeConcreteClass<T> ResolveAsConcreteClass(IValueGenerator valueGenerator)
+    private FakeConcreteClass<T> ResolveAsConcreteClass(IValueGenerator valueGenerator)
     {
       return new FakeConcreteClass<T>(
-        new FallbackTypeGenerator<T>(), valueGenerator);
+        _fallbackTypeGenerator, valueGenerator);
     }
 
-    private static FakeConcreteClassWithNonConcreteConstructor<T> ResolveAsConcreteTypeWithNonConcreteTypesInConstructorSignature()
+    private FakeConcreteClassWithNonConcreteConstructor<T> ResolveAsConcreteTypeWithNonConcreteTypesInConstructorSignature()
     {
-      return new FakeConcreteClassWithNonConcreteConstructor<T>();
+      return new FakeConcreteClassWithNonConcreteConstructor<T>(
+        _fallbackTypeGenerator);
     }
 
-    private static FakeAbstractClass<T> ResolveAsAbstractClassImplementationWhere(CachedReturnValueGeneration cachedGeneration, ProxyGenerator proxyGenerator)
+    private FakeAbstractClass<T> ResolveAsAbstractClassImplementationWhere(CachedReturnValueGeneration cachedGeneration, ProxyGenerator proxyGenerator)
     {
-      return new FakeAbstractClass<T>(cachedGeneration, proxyGenerator);
+      return new FakeAbstractClass<T>(cachedGeneration, proxyGenerator, _fallbackTypeGenerator);
     }
 
     private static FakeOrdinaryInterface<T> ResolveAsInterfaceImplementationWhere(CachedReturnValueGeneration cachedGeneration, ProxyGenerator proxyGenerator)

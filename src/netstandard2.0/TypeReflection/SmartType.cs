@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using FluentAssertions;
 using TddXt.CommonTypes;
 using TddXt.TypeReflection.ImplementationDetails;
 using TddXt.TypeReflection.ImplementationDetails.ConstructorRetrievals;
@@ -214,6 +215,11 @@ namespace TddXt.TypeReflection
     private static bool IsNotImplicitCast(MethodInfo mi)
     {
       return !string.Equals(mi.Name, "op_Implicit", StringComparison.Ordinal);
+    }
+
+    public void AssertMatchesTypeOf(object instance)
+    {
+      instance.GetType().Should().Be(_type);
     }
   }
 

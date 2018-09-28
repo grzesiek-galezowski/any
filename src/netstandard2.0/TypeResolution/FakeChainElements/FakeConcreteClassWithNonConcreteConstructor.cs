@@ -4,7 +4,12 @@ namespace TddXt.TypeResolution.FakeChainElements
 {
   public class FakeConcreteClassWithNonConcreteConstructor<T> : IResolution<T>
   {
-    readonly FallbackTypeGenerator<T> _fallbackTypeGenerator = new FallbackTypeGenerator<T>();
+    private readonly FallbackTypeGenerator<T> _fallbackTypeGenerator;
+
+    public FakeConcreteClassWithNonConcreteConstructor(FallbackTypeGenerator<T> fallbackTypeGenerator)
+    {
+      _fallbackTypeGenerator = fallbackTypeGenerator;
+    }
 
     public bool Applies()
     {

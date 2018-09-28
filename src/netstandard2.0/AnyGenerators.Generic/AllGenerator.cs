@@ -61,15 +61,16 @@ namespace TddXt.AnyGenerators.Generic
     public T Dummy<T>()
     {
       var fakeInterface = _fakeChainFactory.CreateFakeOrdinaryInterfaceGenerator<T>();
+      var unconstrainedChain = _fakeChainFactory.GetUnconstrainedInstance<T>();
 
       if (typeof(T).IsPrimitive)
       {
-        return _fakeChainFactory.GetUnconstrainedInstance<T>().Resolve(this);
+        return unconstrainedChain.Resolve(this);
       }
 
       if (typeof(T) == typeof(string))
       {
-        return _fakeChainFactory.GetUnconstrainedInstance<T>().Resolve(this);
+        return unconstrainedChain.Resolve(this);
       }
 
       var emptyCollectionInstantiation = new EmptyCollectionInstantiation();

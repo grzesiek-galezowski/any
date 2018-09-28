@@ -1203,7 +1203,6 @@ namespace TddToolkitSpecification
       //WHEN
       var serializerSettings = Any.Instance<JsonSerializerSettings>();
       
-
       //THEN
       Assert.NotNull(serializerSettings);
     }
