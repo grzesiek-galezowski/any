@@ -1,13 +1,14 @@
 using System.Collections.Generic;
 using TddXt.AnyExtensibility;
+using TddXt.CommonTypes;
 
 namespace TddXt.AnyGenerators.Collections
 {
   public class KeyValuePairGenerator<TKey, TValue> : InlineGenerator<KeyValuePair<TKey, TValue>>
   {
-    public KeyValuePair<TKey, TValue> GenerateInstance(InstanceGenerator gen)
+    public KeyValuePair<TKey, TValue> GenerateInstance(InstanceGenerator gen, GenerationTrace trace)
     {
-      return new KeyValuePair<TKey, TValue>(gen.Instance<TKey>(), gen.Instance<TValue>());
+      return new KeyValuePair<TKey, TValue>(gen.Instance<TKey>(trace), gen.Instance<TValue>(trace));
     }
   }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using TddXt.AnyExtensibility;
+using TddXt.CommonTypes;
 
 namespace TddXt.AnyGenerators.Strings
 {
@@ -17,9 +18,9 @@ namespace TddXt.AnyGenerators.Strings
       _conversion = conversion;
     }
 
-    public TResult GenerateInstance(InstanceGenerator instanceGenerator)
+    public TResult GenerateInstance(InstanceGenerator instanceGenerator, GenerationTrace trace)
     {
-      return _conversion(_enumerableGenerator.GenerateInstance(instanceGenerator));
+      return _conversion(_enumerableGenerator.GenerateInstance(instanceGenerator, trace));
     }
   }
 

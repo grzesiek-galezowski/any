@@ -1,4 +1,5 @@
 ﻿using TddXt.AnyExtensibility;
+using TddXt.CommonTypes;
 
 namespace TddXt.AnyGenerators.Generic
 {
@@ -11,6 +12,6 @@ namespace TddXt.AnyGenerators.Generic
       _excluded = excluded;
     }
 
-    public T GenerateInstance(InstanceGenerator gen) => gen.OtherThan(_excluded);
+    public T GenerateInstance(InstanceGenerator gen, GenerationTrace trace) => gen.OtherThan(_excluded);
   }
 }

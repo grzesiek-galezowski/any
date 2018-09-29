@@ -1,6 +1,7 @@
 using System;
 using TddXt.AnyExtensibility;
 using TddXt.AutoFixtureWrapper;
+using TddXt.CommonTypes;
 
 namespace TddXt.AnyGenerators.Strings
 {
@@ -14,7 +15,7 @@ namespace TddXt.AnyGenerators.Strings
       _pattern = pattern;
     }
 
-    public string GenerateInstance(InstanceGenerator gen)
+    public string GenerateInstance(InstanceGenerator gen, GenerationTrace trace)
     {
 
       var result = RegexGenerator.Create(_pattern);

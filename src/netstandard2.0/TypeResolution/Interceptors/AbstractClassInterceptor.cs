@@ -1,5 +1,6 @@
 using System;
 using Castle.DynamicProxy;
+using TddXt.CommonTypes;
 
 namespace TddXt.TypeResolution.Interceptors
 {
@@ -7,20 +8,24 @@ namespace TddXt.TypeResolution.Interceptors
   internal class AbstractClassInterceptor : IInterceptor
   {
     private readonly CachedReturnValueGeneration _cachedGeneration;
-    private readonly Func<Type, object> _instanceSource;
+    private readonly Func<Type, GenerationTrace, object> _instanceSource;
+    private readonly GenerationTrace _trace;
 
     public AbstractClassInterceptor(
-      CachedReturnValueGeneration cachedGeneration, Func<Type, object> instanceSource)
+      CachedReturnValueGeneration cachedGeneration, 
+      Func<Type, GenerationTrace, object> instanceSource, 
+      GenerationTrace trace)
     {
       _cachedGeneration = cachedGeneration;
       _instanceSource = instanceSource;
+      _trace = trace;
     }
 
     public void Intercept(IInvocation invocation)
     {
       if (invocation.Method.IsAbstract)
       {
-        _cachedGeneration.SetupReturnValueFor(invocation, _instanceSource);
+        _cachedGeneration.SetupReturnValueFor(invocation, _instanceSource, _trace);
       }
       else if (invocation.Method.IsVirtual)
       {
@@ -32,12 +37,12 @@ namespace TddXt.TypeResolution.Interceptors
 
           if (invocation.ReturnValue == previousReturnValue)
           {
-            _cachedGeneration.SetupReturnValueFor(invocation, _instanceSource);
+            _cachedGeneration.SetupReturnValueFor(invocation, _instanceSource, _trace);
           }
         }
         catch (Exception)
         {
-          _cachedGeneration.SetupReturnValueFor(invocation, _instanceSource);
+          _cachedGeneration.SetupReturnValueFor(invocation, _instanceSource, _trace);
         }
       }
     }

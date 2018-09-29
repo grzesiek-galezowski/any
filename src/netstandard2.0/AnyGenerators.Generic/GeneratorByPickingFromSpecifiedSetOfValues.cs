@@ -1,4 +1,5 @@
 using TddXt.AnyExtensibility;
+using TddXt.CommonTypes;
 using TddXt.TypeResolution.CustomCollections;
 
 namespace TddXt.AnyGenerators.Generic
@@ -14,7 +15,7 @@ namespace TddXt.AnyGenerators.Generic
       _possibleValues = possibleValues;
     }
 
-    public T GenerateInstance(InstanceGenerator instanceGenerator)
+    public T GenerateInstance(InstanceGenerator instanceGenerator, GenerationTrace trace)
     {
       var latestArraysWithPossibleValues = _arrayElementPicking.For<T>();
       if (!latestArraysWithPossibleValues.Contain(_possibleValues))

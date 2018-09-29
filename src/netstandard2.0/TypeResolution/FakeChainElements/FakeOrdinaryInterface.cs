@@ -1,5 +1,6 @@
 using Castle.DynamicProxy;
 using TddXt.AnyExtensibility;
+using TddXt.CommonTypes;
 using TddXt.TypeResolution.Interceptors;
 
 namespace TddXt.TypeResolution.FakeChainElements
@@ -20,10 +21,10 @@ namespace TddXt.TypeResolution.FakeChainElements
       return typeof (T).IsInterface;
     }
 
-    public T Apply(InstanceGenerator instanceGenerator)
+    public T Apply(InstanceGenerator instanceGenerator, GenerationTrace trace)
     {
       return (T)_proxyGenerator.CreateInterfaceProxyWithoutTarget(
-        typeof(T), new InterfaceInterceptor(_cachedGeneration, instanceGenerator.Instance));
+        typeof(T), new InterfaceInterceptor(_cachedGeneration, instanceGenerator.Instance, trace));
     }
   }
 }

@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using TddXt.AnyExtensibility;
 using TddXt.AnyGenerators.Generic.ExtensionPoints;
+using TddXt.CommonTypes;
 using TddXt.TypeResolution.FakeChainElements;
 
 namespace TddXt.AnyGenerators.Root.ImplementationDetails
@@ -16,10 +18,13 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
 
     public IResolution<T> CreateResolutionOf2GenericType(string className, params Type[] matchingTypes)
     {
+      var factoryMethod = new Func<Type, Type, InstanceGenerator, GenerationTrace, object>((type1, type2, instanceGenerator, trace) => 
+        InlineGenerators.GetByNameAndTypes(className, type1, type2)
+          .GenerateInstance(instanceGenerator, trace));
+
       return new ResolutionOfTypeWithGenerics<T>(
         new FactoryForInstancesOfGenericTypesWith2Generics(
-          (type1, type2, arg3) => InlineGenerators.GetByNameAndTypes(className,
-            type1, type2).GenerateInstance(arg3)),
+          factoryMethod),
         matchingTypes);
     }
 
@@ -28,7 +33,8 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
     {
       return new ResolutionOfTypeWithGenerics<T>(
         new FactoryForInstancesOfGenericTypesWith1Generic(
-          (type, generator) => InlineGenerators.GetByNameAndType(resolvedTypeName, type).GenerateInstance(generator)),
+          (type, generator, trace) => InlineGenerators.GetByNameAndType(resolvedTypeName, type)
+            .GenerateInstance(generator, trace)),
         genericTypes);
     }
 

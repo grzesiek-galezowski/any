@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using TddXt.CommonTypes;
 using TddXt.TypeReflection.Interfaces;
 
 namespace TddXt.TypeReflection.ImplementationDetails
@@ -75,13 +76,14 @@ namespace TddXt.TypeReflection.ImplementationDetails
       return _hasAbstractOrInterfaceArguments;
     }
 
-    public List<object> GenerateAnyParameterValues(Func<Type, object> instanceGenerator)
+    public List<object> GenerateAnyParameterValues(Func<Type, GenerationTrace, object> instanceGenerator,
+      GenerationTrace trace)
     {
       var constructorValues = new List<object>();
 
       foreach (var constructorParam in _parameterTypes)
       {
-        constructorValues.Add(instanceGenerator(constructorParam));
+        constructorValues.Add(instanceGenerator(constructorParam, trace));
       }
       return constructorValues;
     }
@@ -91,9 +93,10 @@ namespace TddXt.TypeReflection.ImplementationDetails
       return GetParametersCount() == 0;
     }
 
-    public object InvokeWithParametersCreatedBy(Func<Type, object> instanceGenerator)
+    public object InvokeWithParametersCreatedBy(Func<Type, GenerationTrace, object> instanceGenerator,
+      GenerationTrace trace)
     {
-      return _invocation(this.GenerateAnyParameterValues(instanceGenerator).ToArray());
+      return _invocation(this.GenerateAnyParameterValues(instanceGenerator, trace).ToArray());
     }
 
     public object InvokeWith(IEnumerable<object> constructorParameters)
@@ -162,5 +165,9 @@ namespace TddXt.TypeReflection.ImplementationDetails
     }
 
     public IEnumerable<ParameterInfo> Parameters => _parameters;
+    public void DumpInto(GenerationTrace trace)
+    {
+      trace.ChosenConstructor(_constructor.Name, _parameterTypes);
+    }
   }
 }

@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using TddXt.AnyExtensibility;
+using TddXt.CommonTypes;
 using TddXt.TypeResolution.FakeChainElements;
 using Type = System.Type;
 
@@ -26,10 +27,10 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
       return result;
     }
 
-    public T Apply(InstanceGenerator instanceGenerator)
+    public T Apply(InstanceGenerator instanceGenerator, GenerationTrace trace)
     {
       var type = typeof(T);
-      return (T)_factoryForInstancesOfGenericTypes.NewInstanceOf(type, instanceGenerator);
+      return (T)_factoryForInstancesOfGenericTypes.NewInstanceOf(type, instanceGenerator, trace);
     }
 
   }

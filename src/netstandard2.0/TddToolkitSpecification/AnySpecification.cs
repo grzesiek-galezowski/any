@@ -785,7 +785,7 @@ namespace TddToolkitSpecification
       Alike(new Dictionary<int, int>(), Any.Dummy<IDictionary<int, int>>());
       Assert.Multiple(() =>
       {
-        Assert.Throws<TargetInvocationException>(() => Any.Instance<ThrowingInConstructor>());
+        Assert.Throws<GenerationFailedException>(() => Any.Instance<ThrowingInConstructor>());
         Assert.NotNull(Any.Dummy<ThrowingInConstructor>());
         Assert.NotNull(Any.Dummy<string>());
         Assert.NotNull(Any.Dummy<int>());
@@ -972,10 +972,10 @@ namespace TddToolkitSpecification
     [Test]
     public void ShouldThrowArgumentOutOfRangeExceptionWhenGeneratingIntegersWithExactNumberOfDigitsOverflows()
     {
-      Assert.Throws<ArgumentOutOfRangeException>(() => Any.IntegerWithExactDigitsCount(MaxLengthOfInt() + 1));
-      Assert.Throws<ArgumentOutOfRangeException>(() => Any.LongIntegerWithExactDigitsCount(MaxLengthOfLong() + 1));
-      Assert.Throws<ArgumentOutOfRangeException>(() => Any.UnsignedIntegerWithExactDigitsCount(MaxLengthOfUInt() + 1));
-      Assert.Throws<ArgumentOutOfRangeException>(
+      Assert.Throws<GenerationFailedException>(() => Any.IntegerWithExactDigitsCount(MaxLengthOfInt() + 1));
+      Assert.Throws<GenerationFailedException>(() => Any.LongIntegerWithExactDigitsCount(MaxLengthOfLong() + 1));
+      Assert.Throws<GenerationFailedException>(() => Any.UnsignedIntegerWithExactDigitsCount(MaxLengthOfUInt() + 1));
+      Assert.Throws<GenerationFailedException>(
         () => Any.UnsignedLongIntegerWithExactDigitsCount(MaxLengthOfULong() + 1));
     }
 

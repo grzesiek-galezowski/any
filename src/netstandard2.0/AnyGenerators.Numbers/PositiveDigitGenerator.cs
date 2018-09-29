@@ -1,4 +1,5 @@
 using TddXt.AnyExtensibility;
+using TddXt.CommonTypes;
 
 namespace TddXt.AnyGenerators.Numbers
 {
@@ -11,12 +12,12 @@ namespace TddXt.AnyGenerators.Numbers
       _digitGenerator = digitGenerator;
     }
 
-    public byte GenerateInstance(InstanceGenerator instanceGenerator)
+    public byte GenerateInstance(InstanceGenerator instanceGenerator, GenerationTrace trace)
     {
-      byte digit = _digitGenerator.GenerateInstance(instanceGenerator);
+      byte digit = _digitGenerator.GenerateInstance(instanceGenerator, trace);
       while (digit == 0)
       {
-        digit = _digitGenerator.GenerateInstance(instanceGenerator);
+        digit = _digitGenerator.GenerateInstance(instanceGenerator, trace);
       }
 
       return digit;

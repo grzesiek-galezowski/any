@@ -125,6 +125,15 @@
     <Compile Include="..\..\netstandard2.0\TypeResolution\FallbackTypeGenerator.cs">
       <Link>FallbackTypeGenerator.cs</Link>
     </Compile>
+    <Compile Include="..\..\netstandard2.0\TypeResolution\FillFieldsCustomization.cs">
+      <Link>FillFieldsCustomization.cs</Link>
+    </Compile>
+    <Compile Include="..\..\netstandard2.0\TypeResolution\FillPropertiesCustomization.cs">
+      <Link>FillPropertiesCustomization.cs</Link>
+    </Compile>
+    <Compile Include="..\..\netstandard2.0\TypeResolution\IFallbackGeneratedObjectCustomization.cs">
+      <Link>IFallbackGeneratedObjectCustomization.cs</Link>
+    </Compile>
     <Compile Include="..\..\netstandard2.0\TypeResolution\InterceptedInvocation.cs">
       <Link>InterceptedInvocation.cs</Link>
     </Compile>

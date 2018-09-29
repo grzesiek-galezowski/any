@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using TddXt.AnyExtensibility;
+using TddXt.CommonTypes;
 
 namespace TddXt.AnyGenerators.Generic
 {
@@ -19,10 +20,10 @@ namespace TddXt.AnyGenerators.Generic
       _addOperation = addOperation;
     }
 
-    public T GenerateInstance(InstanceGenerator instanceGenerator)
+    public T GenerateInstance(InstanceGenerator instanceGenerator, GenerationTrace trace)
     {
       return _generators.Aggregate(_identity, 
-        (current, generator) => _addOperation(current, generator.GenerateInstance(instanceGenerator)));
+        (current, generator) => _addOperation(current, generator.GenerateInstance(instanceGenerator, trace)));
     }
   }
 }

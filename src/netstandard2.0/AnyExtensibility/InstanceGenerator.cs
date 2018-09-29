@@ -3,15 +3,15 @@ using TddXt.CommonTypes;
 
 namespace TddXt.AnyExtensibility
 {
-  public interface InstanceGenerator : BasicGenerator
+  public interface InstanceGenerator
   {
-    object Instance(Type type);
     T ValueOtherThan<T>(params T[] omittedValues);
-    T Value<T>();
-    T Value<T>(T seed);
+    T Value<T>(GenerationTrace trace);
+    T Value<T>(T seed, GenerationTrace trace);
     T OtherThan<T>(params T[] omittedValues);
-    T Dummy<T>();
+    object Instance(Type type, GenerationTrace trace);
     T Dummy<T>(GenerationTrace trace);
+    T Instance<T>(GenerationTrace trace);
   }
 
 }

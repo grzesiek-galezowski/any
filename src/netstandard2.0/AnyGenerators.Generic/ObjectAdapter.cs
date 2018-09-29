@@ -2,6 +2,7 @@ using System;
 using System.Reflection;
 using TddXt.AnyExtensibility;
 using TddXt.AnyGenerators.Generic.ImplementationDetails;
+using TddXt.CommonTypes;
 
 namespace TddXt.AnyGenerators.Generic
 {
@@ -17,9 +18,9 @@ namespace TddXt.AnyGenerators.Generic
       _methodInfo = methodInfo;
     }
 
-    public object GenerateInstance(InstanceGenerator instanceGenerator)
+    public object GenerateInstance(InstanceGenerator instanceGenerator, GenerationTrace trace)
     {
-      return _methodInfo.Invoke(_inlineGenerator, new object[] {instanceGenerator});
+      return _methodInfo.Invoke(_inlineGenerator, new object[] {instanceGenerator, trace});
     }
 
 

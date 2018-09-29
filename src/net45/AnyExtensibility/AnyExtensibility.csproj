@@ -65,5 +65,11 @@
       <Link>AnyExtensibility.snk</Link>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CommonTypes\CommonTypes.csproj">
+      <Project>{4b302f64-2ba2-47ed-afc6-28a6e3832f15}</Project>
+      <Name>CommonTypes</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

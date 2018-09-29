@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using TddXt.AnyExtensibility;
+using TddXt.CommonTypes;
 
 namespace TddXt.AnyGenerators.Collections
 {
@@ -12,7 +13,7 @@ namespace TddXt.AnyGenerators.Collections
       _excluded = excluded;
     }
 
-    public IEnumerable<T> GenerateInstance(InstanceGenerator instanceGenerator)
+    public IEnumerable<T> GenerateInstance(InstanceGenerator instanceGenerator, GenerationTrace trace)
     {
       var result = new List<T>
       {

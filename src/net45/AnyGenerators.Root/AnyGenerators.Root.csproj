@@ -130,6 +130,10 @@
       <Project>{4b302f64-2ba2-47ed-afc6-28a6e3832f15}</Project>
       <Name>CommonTypes</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TypeReflection\TypeReflection.csproj">
+      <Project>{de66fefd-bac1-44b1-871e-f4775cafe9ea}</Project>
+      <Name>TypeReflection</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TypeResolution\TypeResolution.csproj">
       <Project>{e09bceec-34fb-4726-8722-02213d7d0807}</Project>
       <Name>TypeResolution</Name>

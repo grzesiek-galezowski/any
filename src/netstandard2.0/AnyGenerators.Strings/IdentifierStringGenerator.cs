@@ -1,5 +1,6 @@
 using System.Globalization;
 using TddXt.AnyExtensibility;
+using TddXt.CommonTypes;
 
 namespace TddXt.AnyGenerators.Strings
 {
@@ -14,13 +15,13 @@ namespace TddXt.AnyGenerators.Strings
       _alphaChar = alphaChar;
     }
 
-    public string GenerateInstance(InstanceGenerator instanceGenerator)
+    public string GenerateInstance(InstanceGenerator instanceGenerator, GenerationTrace trace)
     {
-      string result = _alphaChar.GenerateInstance(instanceGenerator).ToString(CultureInfo.InvariantCulture);
+      string result = _alphaChar.GenerateInstance(instanceGenerator, trace).ToString(CultureInfo.InvariantCulture);
       for (var i = 0; i < 5; ++i)
       {
-        result += _digitChar.GenerateInstance(instanceGenerator);
-        result += _alphaChar.GenerateInstance(instanceGenerator);
+        result += _digitChar.GenerateInstance(instanceGenerator, trace);
+        result += _alphaChar.GenerateInstance(instanceGenerator, trace);
       }
 
       return result;

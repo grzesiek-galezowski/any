@@ -49,6 +49,12 @@
     <Compile Include="..\..\netstandard2.0\CommonTypes\CircularList.cs">
       <Link>CircularList.cs</Link>
     </Compile>
+    <Compile Include="..\..\netstandard2.0\CommonTypes\GenerationFailedException.cs">
+      <Link>GenerationFailedException.cs</Link>
+    </Compile>
+    <Compile Include="..\..\netstandard2.0\CommonTypes\ListBasedGenerationTrace.cs">
+      <Link>ListBasedGenerationTrace.cs</Link>
+    </Compile>
     <Compile Include="..\..\netstandard2.0\CommonTypes\Maybe.cs">
       <Link>Maybe.cs</Link>
     </Compile>

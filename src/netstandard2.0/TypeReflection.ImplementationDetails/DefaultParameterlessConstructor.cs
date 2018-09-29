@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using TddXt.CommonTypes;
 using TddXt.TypeReflection.Interfaces;
 
 namespace TddXt.TypeReflection.ImplementationDetails
@@ -34,7 +35,8 @@ namespace TddXt.TypeReflection.ImplementationDetails
       return false;
     }
 
-    public List<object> GenerateAnyParameterValues(Func<Type, object> instanceGenerator)
+    public List<object> GenerateAnyParameterValues(Func<Type, GenerationTrace, object> instanceGenerator,
+      GenerationTrace trace)
     {
       return new List<object>();
     }
@@ -44,7 +46,8 @@ namespace TddXt.TypeReflection.ImplementationDetails
       return true;
     }
 
-    public object InvokeWithParametersCreatedBy(Func<Type, object> instanceGenerator)
+    public object InvokeWithParametersCreatedBy(Func<Type, GenerationTrace, object> instanceGenerator,
+      GenerationTrace trace)
     {
       return _creation.Invoke();
     }
@@ -80,5 +83,9 @@ namespace TddXt.TypeReflection.ImplementationDetails
     }
 
     public IEnumerable<ParameterInfo> Parameters { get; } = new List<ParameterInfo>();
+    public void DumpInto(GenerationTrace trace)
+    {
+      trace.ChosenParameterlessConstructor();
+    }
   }
 }

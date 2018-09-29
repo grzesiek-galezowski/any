@@ -5,9 +5,9 @@ namespace TddXt.AnyGenerators.Generic
 {
   public class DummyGenerator<T> : InlineGenerator<T>
   {
-    public T GenerateInstance(InstanceGenerator instanceGenerator)
+    public T GenerateInstance(InstanceGenerator instanceGenerator, GenerationTrace trace)
     {
-      return instanceGenerator.Dummy<T>(new GenerationTrace());
+      return instanceGenerator.Dummy<T>(trace);
     }
   }
 }

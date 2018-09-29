@@ -1,5 +1,6 @@
 using System;
 using Castle.DynamicProxy;
+using TddXt.CommonTypes;
 using TddXt.TypeResolution.CustomCollections;
 
 namespace TddXt.TypeResolution
@@ -14,12 +15,15 @@ namespace TddXt.TypeResolution
       _cache = cache;
     }
 
-    public void SetupReturnValueFor(IInvocation invocation, Func<Type, object> instanceSource)
+    public void SetupReturnValueFor(
+      IInvocation invocation, 
+      Func<Type, GenerationTrace, object> instanceSource,
+      GenerationTrace trace)
     {
       var interceptedInvocation = new InterceptedInvocation(invocation, instanceSource);
       if (interceptedInvocation.HasReturnValue())
       {
-        interceptedInvocation.GenerateAndAddMethodReturnValueTo(_cache);
+        interceptedInvocation.GenerateAndAddMethodReturnValueTo(_cache, trace);
       }
       else if (interceptedInvocation.IsPropertySetter())
       {

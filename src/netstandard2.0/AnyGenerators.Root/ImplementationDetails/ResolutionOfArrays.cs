@@ -1,4 +1,5 @@
 using TddXt.AnyExtensibility;
+using TddXt.CommonTypes;
 using TddXt.TypeResolution.FakeChainElements;
 
 namespace TddXt.AnyGenerators.Root.ImplementationDetails
@@ -10,12 +11,12 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
       return typeof (T).IsArray;
     }
 
-    public T Apply(InstanceGenerator instanceGenerator)
+    public T Apply(InstanceGenerator instanceGenerator, GenerationTrace trace)
     {
       //todo think it through - should it need access to InlineGenerators?
       var elementType = typeof (T).GetElementType();
       var array = InlineGenerators.GetByNameAndType(nameof(InlineGenerators.Array), elementType)
-        .GenerateInstance(instanceGenerator);
+        .GenerateInstance(instanceGenerator, trace);
       return (T)array;
     }
   }

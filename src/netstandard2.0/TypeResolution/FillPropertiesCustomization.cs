@@ -1,12 +1,13 @@
 using System;
 using TddXt.AnyExtensibility;
+using TddXt.CommonTypes;
 using TddXt.TypeReflection.Interfaces;
 
 namespace TddXt.TypeResolution
 {
   public class FillPropertiesCustomization : IFallbackGeneratedObjectCustomization
   {
-    public void ApplyTo(IType smartType, object result, InstanceGenerator instanceGenerator)
+    public void ApplyTo(IType smartType, object result, InstanceGenerator instanceGenerator, GenerationTrace trace)
     {
       var properties = smartType.GetPublicInstanceWritableProperties();
 
@@ -18,7 +19,7 @@ namespace TddXt.TypeResolution
 
           if (!property.HasAbstractGetter())
           {
-            var value = instanceGenerator.Instance(propertyType);
+            var value = instanceGenerator.Instance(propertyType, trace);
             property.SetValue(result, value);
           }
         }

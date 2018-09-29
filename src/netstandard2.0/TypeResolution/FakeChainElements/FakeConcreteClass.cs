@@ -25,7 +25,7 @@ namespace TddXt.TypeResolution.FakeChainElements
       return true; //TODO consider catching exception here instead of in Apply() and returning false, then have a fallback chain element
     }
 
-    public T Apply(InstanceGenerator instanceGenerator)
+    public T Apply(InstanceGenerator instanceGenerator, GenerationTrace trace)
     {
       try
       {
@@ -33,11 +33,9 @@ namespace TddXt.TypeResolution.FakeChainElements
       }
       catch (ThirdPartyGeneratorFailed e)
       {
-        if (Debugger.IsAttached)
-        {
-          Console.WriteLine(e);
-        }
-        return _fallbackTypeGenerator.GenerateInstance(instanceGenerator);
+        trace.ThirdPartyGeneratorFailedTryingFallback(e);
+        
+        return _fallbackTypeGenerator.GenerateInstance(instanceGenerator, trace);
       }
       catch (TargetInvocationException e)
       {
@@ -45,7 +43,7 @@ namespace TddXt.TypeResolution.FakeChainElements
         {
           Console.WriteLine(e);
         }
-        return _fallbackTypeGenerator.GenerateInstance(instanceGenerator);
+        return _fallbackTypeGenerator.GenerateInstance(instanceGenerator, trace);
       }
     }
   }

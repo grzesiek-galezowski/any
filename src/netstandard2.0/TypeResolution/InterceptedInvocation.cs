@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using Castle.DynamicProxy;
 using NSubstitute.Core;
+using TddXt.CommonTypes;
 using TddXt.TypeResolution.CustomCollections;
 
 namespace TddXt.TypeResolution
@@ -9,11 +10,11 @@ namespace TddXt.TypeResolution
   public class InterceptedInvocation
   {
     private readonly IInvocation _invocation;
-    private readonly Func<Type, object> _instanceSource;
+    private readonly Func<Type, GenerationTrace, object> _instanceSource;
 
     public InterceptedInvocation(
       IInvocation invocation,
-      Func<Type, object> instanceSource)
+      Func<Type, GenerationTrace, object> instanceSource)
     {
       _invocation = invocation;
       _instanceSource = instanceSource;
@@ -45,12 +46,12 @@ namespace TddXt.TypeResolution
       perMethodCache.Overwrite(key, _invocation.Arguments[0]);
     }
 
-    public void GenerateAndAddMethodReturnValueTo(PerMethodCache<object> perMethodCache)
+    public void GenerateAndAddMethodReturnValueTo(PerMethodCache<object> perMethodCache, GenerationTrace trace)
     {
       var cacheKey = PerMethodCacheKey.For(_invocation);
       if (!perMethodCache.AlreadyContainsValueFor(cacheKey))
       {
-        var returnValue = AnyInstanceOfReturnTypeOf(_invocation);
+        var returnValue = AnyInstanceOfReturnTypeOf(_invocation, trace);
         perMethodCache.Add(cacheKey, returnValue);
         _invocation.ReturnValue = returnValue;
       }
@@ -60,9 +61,9 @@ namespace TddXt.TypeResolution
       }
     }
 
-    private object AnyInstanceOfReturnTypeOf(IInvocation invocation)
+    private object AnyInstanceOfReturnTypeOf(IInvocation invocation, GenerationTrace trace)
     {
-      return _instanceSource(invocation.Method.ReturnType);
+      return _instanceSource(invocation.Method.ReturnType, trace);
     }
 
   }

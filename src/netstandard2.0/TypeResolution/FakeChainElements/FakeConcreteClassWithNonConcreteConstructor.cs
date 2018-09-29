@@ -1,4 +1,5 @@
 using TddXt.AnyExtensibility;
+using TddXt.CommonTypes;
 
 namespace TddXt.TypeResolution.FakeChainElements
 {
@@ -16,9 +17,9 @@ namespace TddXt.TypeResolution.FakeChainElements
       return _fallbackTypeGenerator.ConstructorIsInternalOrHasAtLeastOneNonConcreteArgumentType();
     }
 
-    public T Apply(InstanceGenerator instanceGenerator)
+    public T Apply(InstanceGenerator instanceGenerator, GenerationTrace trace)
     {
-      return _fallbackTypeGenerator.GenerateInstance(instanceGenerator);
+      return _fallbackTypeGenerator.GenerateInstance(instanceGenerator, trace);
     }
   }
 }

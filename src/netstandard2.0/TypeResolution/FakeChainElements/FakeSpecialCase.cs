@@ -1,5 +1,6 @@
 using System.Reflection;
 using TddXt.AnyExtensibility;
+using TddXt.CommonTypes;
 using TddXt.TypeReflection;
 using TddXt.TypeResolution.Interfaces;
 
@@ -21,7 +22,7 @@ namespace TddXt.TypeResolution.FakeChainElements
         typeof(T) == typeof(MethodInfo);
     }
 
-    public T Apply(InstanceGenerator instanceGenerator)
+    public T Apply(InstanceGenerator instanceGenerator, GenerationTrace trace)
     {
       return _valueGenerator.Value<T>();
     }

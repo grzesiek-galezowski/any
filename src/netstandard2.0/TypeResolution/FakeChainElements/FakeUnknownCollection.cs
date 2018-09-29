@@ -3,6 +3,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using TddXt.AnyExtensibility;
+using TddXt.CommonTypes;
 using TddXt.TypeReflection;
 using Type = System.Type;
 
@@ -22,7 +23,7 @@ namespace TddXt.TypeResolution.FakeChainElements
     }
 
 
-    public T Apply(InstanceGenerator instanceGenerator)
+    public T Apply(InstanceGenerator instanceGenerator, GenerationTrace trace)
     {
       var collectionType = typeof (T);
       var collectionInstance = Activator.CreateInstance(collectionType);
@@ -35,20 +36,21 @@ namespace TddXt.TypeResolution.FakeChainElements
 
       addMethod.Invoke(
         collectionInstance, 
-        AnyInstancesOf(elementTypes, instanceGenerator));
+        AnyInstancesOf(elementTypes, instanceGenerator, trace));
       addMethod.Invoke(
         collectionInstance, 
-        AnyInstancesOf(elementTypes, instanceGenerator));
+        AnyInstancesOf(elementTypes, instanceGenerator, trace));
       addMethod.Invoke(
         collectionInstance, 
-        AnyInstancesOf(elementTypes, instanceGenerator));
+        AnyInstancesOf(elementTypes, instanceGenerator, trace));
 
       return (T) collectionInstance;
     }
 
-    private static object[] AnyInstancesOf(IEnumerable<Type> elementTypes, InstanceGenerator instanceGenerator)
+    private static object[] AnyInstancesOf(IEnumerable<Type> elementTypes, InstanceGenerator instanceGenerator,
+      GenerationTrace trace)
     {
-      return elementTypes.Select(instanceGenerator.Instance).ToArray();
+      return elementTypes.Select(type => instanceGenerator.Instance(type, trace)).ToArray();
     }
   }
 }

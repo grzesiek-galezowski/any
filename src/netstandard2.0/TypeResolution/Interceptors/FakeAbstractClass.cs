@@ -1,5 +1,6 @@
 using Castle.DynamicProxy;
 using TddXt.AnyExtensibility;
+using TddXt.CommonTypes;
 using TddXt.TypeResolution.FakeChainElements;
 
 namespace TddXt.TypeResolution.Interceptors
@@ -25,14 +26,14 @@ namespace TddXt.TypeResolution.Interceptors
       return typeof (T).IsAbstract;
     }
 
-    public T Apply(InstanceGenerator instanceGenerator)
+    public T Apply(InstanceGenerator instanceGenerator, GenerationTrace trace)
     {
-      var result = (T)(_proxyGenerator.CreateClassProxy(
+      var result = (T)_proxyGenerator.CreateClassProxy(
         typeof(T),
-        _fallbackTypeGenerator.GenerateConstructorParameters(instanceGenerator).ToArray(), 
+        _fallbackTypeGenerator.GenerateConstructorParameters(instanceGenerator, trace).ToArray(), 
         new AbstractClassInterceptor(_generation, 
-        instanceGenerator.Instance)));
-      _fallbackTypeGenerator.FillFieldsAndPropertiesOf(result, instanceGenerator);
+          instanceGenerator.Instance, trace));
+      _fallbackTypeGenerator.FillFieldsAndPropertiesOf(result, instanceGenerator, trace);
       return result;
     }
   }

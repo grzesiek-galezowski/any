@@ -1,5 +1,6 @@
 using System.Collections;
 using TddXt.AnyExtensibility;
+using TddXt.CommonTypes;
 using TddXt.TypeReflection;
 
 namespace TddXt.TypeResolution.FakeChainElements
@@ -12,9 +13,9 @@ namespace TddXt.TypeResolution.FakeChainElements
       return TypeOf<T>.Is<IEnumerator>();
     }
 
-    public T Apply(InstanceGenerator instanceGenerator)
+    public T Apply(InstanceGenerator instanceGenerator, GenerationTrace trace)
     {
-      return (T)(instanceGenerator.Instance<object[]>().GetEnumerator());
+      return (T)(instanceGenerator.Instance<object[]>(trace).GetEnumerator());
     }
   }
 }

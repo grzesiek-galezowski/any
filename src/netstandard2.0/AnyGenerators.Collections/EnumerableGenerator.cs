@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using TddXt.AnyExtensibility;
+using TddXt.CommonTypes;
 
 namespace TddXt.AnyGenerators.Collections
 {
@@ -12,10 +13,10 @@ namespace TddXt.AnyGenerators.Collections
       _length = length;
     }
 
-    public IEnumerable<T> GenerateInstance(InstanceGenerator instanceGenerator)
+    public IEnumerable<T> GenerateInstance(InstanceGenerator instanceGenerator, GenerationTrace trace)
     {
       //todo create empty collection factory to be able to use object here
-      return CollectionFiller.FillingCollection(new List<T>(), _length, instanceGenerator);
+      return CollectionFiller.FillingCollection(new List<T>(), _length, instanceGenerator, trace);
     }
 
   }

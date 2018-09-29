@@ -158,11 +158,11 @@ Task("Pack")
 			Summary = "Anonymous value generator, supporting the 'Any.Whatever()' syntax proposed on the www.sustainabletdd.com blog.",
 			Description = "Anonymous value generator, supporting the 'Any.Whatever()' syntax proposed on the www.sustainabletdd.com blog. It makes use of the static usings and extension methods to achieve flexibility and extensibility.",
 			Language = "en-US",
-			ReleaseNotes = new[] {"Added License URL to nuget so that companies with strict license policies can verify it."},
+			ReleaseNotes = new[] {"Added debugging trace in exceptions. Broken backwards-compatibility in extensibility part."},
 			ProjectUrl = new Uri("https://github.com/grzesiek-galezowski/any"),
 			OutputDirectory = "./nuget",
       LicenseUrl = new Uri("https://raw.githubusercontent.com/grzesiek-galezowski/any/master/LICENSE"),
-			Version = "1.1.6",
+			Version = "2.0.0",
       Symbols = false,
 			Files = new [] 
 			{

@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using TddXt.AnyExtensibility;
+using TddXt.CommonTypes;
 
 namespace TddXt.AnyGenerators.Strings
 {
@@ -15,17 +16,17 @@ namespace TddXt.AnyGenerators.Strings
       _stringGenerator = stringGenerator;
     }
 
-    public string GenerateInstance(InstanceGenerator instanceGenerator)
+    public string GenerateInstance(InstanceGenerator instanceGenerator, GenerationTrace trace)
     {
       var preprocessedStrings = from str in _excludedSubstrings
         where !String.IsNullOrEmpty(str)
         select str;
 
-      var result = _stringGenerator.GenerateInstance(instanceGenerator);
+      var result = _stringGenerator.GenerateInstance(instanceGenerator, trace);
       var found = false;
       for (int i = 0; i < 100; ++i)
       {
-        result = _stringGenerator.GenerateInstance(instanceGenerator);
+        result = _stringGenerator.GenerateInstance(instanceGenerator, trace);
         if (preprocessedStrings.Any(result.Contains))
         {
           found = true;

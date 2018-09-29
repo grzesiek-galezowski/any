@@ -1,9 +1,9 @@
 using NSubstitute;
 using NUnit.Framework;
 using TddToolkitSpecification.Fixtures;
-using TddXt.AnyRoot;
 using TddXt.AnyRoot.NSubstitute;
 using TddXt.AnyRoot.Strings;
+using static TddXt.AnyRoot.Root;
 
 namespace TddToolkitSpecification
 {
@@ -13,7 +13,7 @@ namespace TddToolkitSpecification
     public void ShouldBeAbleToWrapSubstitutesAndOverrideDefaultValues()
     {
       //GIVEN
-      var instance = Root.Any.Substitute<RecursiveInterface>();
+      var instance = Any.Substitute<RecursiveInterface>();
 
       //WHEN
       var result = instance.Number;
@@ -26,7 +26,7 @@ namespace TddToolkitSpecification
     public void ShouldBeAbleToWrapSubstitutesAndNotOverrideStubbedValues()
     {
       //GIVEN
-      var instance = Root.Any.Substitute<RecursiveInterface>();
+      var instance = Any.Substitute<RecursiveInterface>();
       instance.Number.Returns(44543);
 
       //WHEN
@@ -40,7 +40,7 @@ namespace TddToolkitSpecification
     public void ShouldBeAbleToWrapSubstitutesAndStillAllowVerifyingCalls()
     {
       //GIVEN
-      var instance = Root.Any.Substitute<RecursiveInterface>();
+      var instance = Any.Substitute<RecursiveInterface>();
 
       //WHEN
       instance.VoidMethod();
@@ -53,7 +53,7 @@ namespace TddToolkitSpecification
     public void ShouldReturnNonNullImplementationsOfInnerObjects()
     {
       //GIVEN
-      var instance = Root.Any.Substitute<RecursiveInterface>();
+      var instance = Any.Substitute<RecursiveInterface>();
 
       //WHEN
       var result = instance.Nested;
@@ -65,7 +65,7 @@ namespace TddToolkitSpecification
     [Test]
     public void ShouldBeAbleToWrapSubstitutesAndSkipOverridingResultsStubbedWithNonDefaultValues()
     {
-      var instance = Root.Any.Substitute<RecursiveInterface>();
+      var instance = Any.Substitute<RecursiveInterface>();
       var anotherInstance = Substitute.For<RecursiveInterface>();
       instance.Nested.Returns(anotherInstance);
 
@@ -75,18 +75,18 @@ namespace TddToolkitSpecification
     [Test]
     public void ShouldBeAbleToBypassStaticCreationMethodWhenConstructorIsInternal()
     {
-      Assert.DoesNotThrow(() => Root.Any.Instance<FileExtension>());
-      Assert.DoesNotThrow(() => Root.Any.Instance<FileName>());
+      Assert.DoesNotThrow(() => Any.Instance<FileExtension>());
+      Assert.DoesNotThrow(() => Any.Instance<FileName>());
     }
 
 
     [Test]
     public void ShouldGenerateStringsContainingOtherObjects()
     {
-      StringAssert.Contains("lol", Root.Any.StringContaining("lol"));
-      StringAssert.Contains("lol", Root.Any.StringContaining<string>("lol"));
-      StringAssert.Contains("2", Root.Any.StringContaining(2));
-      StringAssert.Contains("C", Root.Any.StringContaining('C'));
+      StringAssert.Contains("lol", Any.StringContaining("lol"));
+      StringAssert.Contains("lol", Any.StringContaining<string>("lol"));
+      StringAssert.Contains("2", Any.StringContaining(2));
+      StringAssert.Contains("C", Any.StringContaining('C'));
     }
   }
 }

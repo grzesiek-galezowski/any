@@ -1,5 +1,6 @@
 using System;
 using Castle.DynamicProxy;
+using TddXt.CommonTypes;
 
 namespace TddXt.TypeResolution.Interceptors
 {
@@ -7,17 +8,22 @@ namespace TddXt.TypeResolution.Interceptors
   public class InterfaceInterceptor : IInterceptor
   {
     private readonly CachedReturnValueGeneration _cachedGeneration;
-    private readonly Func<Type, object> _instanceSource;
+    private readonly Func<Type, GenerationTrace, object> _instanceSource;
+    private readonly GenerationTrace _trace;
 
-    public InterfaceInterceptor(CachedReturnValueGeneration cachedGeneration, Func<Type, object> instanceSource)
+    public InterfaceInterceptor(
+      CachedReturnValueGeneration cachedGeneration, 
+      Func<Type, GenerationTrace, object> instanceSource, 
+      GenerationTrace trace)
     {
       _cachedGeneration = cachedGeneration;
       _instanceSource = instanceSource;
+      _trace = trace;
     }
 
     public void Intercept(IInvocation invocation)
     {
-      _cachedGeneration.SetupReturnValueFor(invocation, _instanceSource);
+      _cachedGeneration.SetupReturnValueFor(invocation, _instanceSource, _trace);
     }
   }
 }

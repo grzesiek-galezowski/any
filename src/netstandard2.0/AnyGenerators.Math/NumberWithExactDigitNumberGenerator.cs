@@ -1,5 +1,6 @@
 using System;
 using TddXt.AnyExtensibility;
+using TddXt.CommonTypes;
 
 namespace TddXt.AnyGenerators.Math
 {
@@ -15,7 +16,7 @@ namespace TddXt.AnyGenerators.Math
       _digitsCount = digitsCount;
     }
 
-    public T GenerateInstance(InstanceGenerator instanceGenerator)
+    public T GenerateInstance(InstanceGenerator instanceGenerator, GenerationTrace trace)
     {
       return _intTraits.GenerateWithExactNumberOfDigits(_digitsCount, RandomGenerator);
     }

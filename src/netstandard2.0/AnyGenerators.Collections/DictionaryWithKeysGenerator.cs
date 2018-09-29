@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using TddXt.AnyExtensibility;
+using TddXt.CommonTypes;
 
 namespace TddXt.AnyGenerators.Collections
 {
@@ -13,13 +14,13 @@ namespace TddXt.AnyGenerators.Collections
       _keys = keys;
     }
 
-    public Dictionary<TKey, TValue> GenerateInstance(InstanceGenerator instanceGenerator)
+    public Dictionary<TKey, TValue> GenerateInstance(InstanceGenerator instanceGenerator, GenerationTrace trace)
     {
       var dict = new Dictionary<TKey, TValue>();
 
       foreach (var key in _keys)
       {
-        dict.Add(key, instanceGenerator.Instance<TValue>());
+        dict.Add(key, instanceGenerator.Instance<TValue>(trace));
       }
 
       return dict;

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using TddXt.AnyExtensibility;
+using TddXt.CommonTypes;
 
 namespace TddXt.TypeResolution.FakeChainElements
 {
@@ -13,13 +14,13 @@ namespace TddXt.TypeResolution.FakeChainElements
       return typeof(T).IsSubclassOf(typeof(Delegate));
     }
 
-    public T Apply(InstanceGenerator instanceGenerator)
+    public T Apply(InstanceGenerator instanceGenerator, GenerationTrace trace)
     {
       var methodInfo = typeof(T).GetMethods().First(m => m.Name.Equals("Invoke"));
       var parameters = methodInfo.GetParameters();
       if (methodInfo.ReturnType != typeof(void))
       {
-        var instance = CreateGenericDelegatesForFunction(instanceGenerator, methodInfo);
+        var instance = CreateGenericDelegatesForFunction(instanceGenerator, methodInfo, trace);
         return (T)(object)Delegate.CreateDelegate(typeof(T), instance, instance.GetType().GetMethod("Get" + parameters.Length));
       }
       else
@@ -29,10 +30,11 @@ namespace TddXt.TypeResolution.FakeChainElements
       }
     }
 
-    private static object CreateGenericDelegatesForFunction(InstanceGenerator instanceGenerator, MethodInfo methodInfo)
+    private static object CreateGenericDelegatesForFunction(InstanceGenerator instanceGenerator, MethodInfo methodInfo,
+      GenerationTrace trace)
     {
       var fullSignatureTypes = ReturnTypeOf(methodInfo).Concat(ParameterTypes(methodInfo));
-      return CreateGenericDelegatesObjectForConcreteTypes(fullSignatureTypes, WithArgumentGeneratedBy(instanceGenerator, methodInfo));
+      return CreateGenericDelegatesObjectForConcreteTypes(fullSignatureTypes, WithArgumentGeneratedBy(instanceGenerator, methodInfo, trace));
     }
 
     private static object CreateGenericDelegatesForAction(MethodBase methodInfo)
@@ -53,9 +55,10 @@ namespace TddXt.TypeResolution.FakeChainElements
         .GetConstructors().First().Invoke(withArgumentGeneratedBy);
     }
 
-    private static object[] WithArgumentGeneratedBy(InstanceGenerator instanceGenerator, MethodInfo methodInfo)
+    private static object[] WithArgumentGeneratedBy(InstanceGenerator instanceGenerator, MethodInfo methodInfo,
+      GenerationTrace trace)
     {
-      return new[] { instanceGenerator.Instance(methodInfo.ReturnType) };
+      return new[] { instanceGenerator.Instance(methodInfo.ReturnType, trace) };
     }
 
     private static IEnumerable<Type> RepeatDummyTypeArgToFill(IEnumerable<Type> fullSignatureTypes, int length)

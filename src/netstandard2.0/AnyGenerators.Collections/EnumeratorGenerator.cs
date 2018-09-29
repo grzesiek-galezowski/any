@@ -1,14 +1,15 @@
 using System.Collections.Generic;
 using TddXt.AnyExtensibility;
+using TddXt.CommonTypes;
 
 namespace TddXt.AnyGenerators.Collections
 {
   public class EnumeratorGenerator<T> : InlineGenerator<IEnumerator<T>>
   {
-    public IEnumerator<T> GenerateInstance(InstanceGenerator instanceGenerator)
+    public IEnumerator<T> GenerateInstance(InstanceGenerator instanceGenerator, GenerationTrace trace)
     {
       return new EnumerableGenerator<T>(Configuration.Many)
-        .AsList<T>().GenerateInstance(instanceGenerator).GetEnumerator();
+        .AsList<T>().GenerateInstance(instanceGenerator, trace).GetEnumerator();
     }
     
   }

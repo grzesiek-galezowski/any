@@ -1,5 +1,6 @@
 using System;
 using TddXt.AnyExtensibility;
+using TddXt.CommonTypes;
 
 namespace TddXt.AnyGenerators.Strings
 {
@@ -14,12 +15,12 @@ namespace TddXt.AnyGenerators.Strings
       _charGenerator = charGenerator;
     }
 
-    public string GenerateInstance(InstanceGenerator instanceGenerator)
+    public string GenerateInstance(InstanceGenerator instanceGenerator, GenerationTrace trace)
     {
       var result = String.Empty;
       for (var i = 0; i < _maxLength; ++i)
       {
-        result += _charGenerator.GenerateInstance(instanceGenerator);
+        result += _charGenerator.GenerateInstance(instanceGenerator, trace);
       }
 
       return result;

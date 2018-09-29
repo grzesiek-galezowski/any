@@ -19,7 +19,7 @@ namespace TddXt.TypeResolution.FakeChainElements
 
     public T Resolve(InstanceGenerator instanceGenerator, GenerationTrace trace)
     {
-      return _chainHead.Resolve(instanceGenerator);
+      return _chainHead.Resolve(instanceGenerator, trace);
     }
   }
 }

@@ -1,5 +1,6 @@
 using System;
 using TddXt.AnyExtensibility;
+using TddXt.CommonTypes;
 
 namespace TddXt.AnyGenerators.Network
 {
@@ -7,7 +8,7 @@ namespace TddXt.AnyGenerators.Network
   {
     private static readonly Random RandomGenerator = new Random(System.Guid.NewGuid().GetHashCode());
 
-    public int GenerateInstance(InstanceGenerator instanceGenerator)
+    public int GenerateInstance(InstanceGenerator instanceGenerator, GenerationTrace trace)
     {
       return RandomGenerator.Next(0, 65535);
     }

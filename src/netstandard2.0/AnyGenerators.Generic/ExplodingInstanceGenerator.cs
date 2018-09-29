@@ -1,6 +1,7 @@
 using System;
 using Castle.DynamicProxy;
 using TddXt.AnyExtensibility;
+using TddXt.CommonTypes;
 using TddXt.TypeResolution.Interceptors;
 
 namespace TddXt.AnyGenerators.Generic
@@ -9,7 +10,7 @@ namespace TddXt.AnyGenerators.Generic
   {
     private static readonly ProxyGenerator ProxyGenerator = new ProxyGenerator();
 
-    public T GenerateInstance(InstanceGenerator instanceGenerator) 
+    public T GenerateInstance(InstanceGenerator instanceGenerator, GenerationTrace trace) 
     {
       if (typeof(T).IsInterface)
       {

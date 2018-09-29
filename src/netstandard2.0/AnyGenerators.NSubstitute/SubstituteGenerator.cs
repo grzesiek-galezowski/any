@@ -1,5 +1,6 @@
 using NSubstitute;
 using TddXt.AnyExtensibility;
+using TddXt.CommonTypes;
 using TddXt.TypeReflection;
 
 namespace TddXt.AnyGenerators.NSubstitute
@@ -7,7 +8,7 @@ namespace TddXt.AnyGenerators.NSubstitute
   public class SubstituteGenerator<T> : InlineGenerator<T> where T : class
   {
     //todo move substitute generator to a separate nuget project
-    public T GenerateInstance(InstanceGenerator instanceGenerator) 
+    public T GenerateInstance(InstanceGenerator instanceGenerator, GenerationTrace trace) 
     {
       var type = typeof(T);
       var sub = Substitute.For<T>();
@@ -16,8 +17,8 @@ namespace TddXt.AnyGenerators.NSubstitute
 
       foreach (var method in methods)
       {
-        method.InvokeWithAnyArgsOn(sub, instanceGenerator.Instance)
-          .ReturnsForAnyArgs(method.GenerateAnyReturnValue(instanceGenerator.Instance));
+        method.InvokeWithAnyArgsOn(sub, argType => instanceGenerator.Instance(argType, trace))
+          .ReturnsForAnyArgs(method.GenerateAnyReturnValue(returnType => instanceGenerator.Instance(returnType, trace)));
       }
 
       return sub;

@@ -1,12 +1,13 @@
 ﻿using System;
+using TddXt.CommonTypes;
 
 namespace TddXt.TypeResolution
 {
   public interface NestingLimit
   {
-    void AddNestingFor<T>();
+    void AddNestingFor<T>(GenerationTrace trace);
     bool IsReachedFor<T>();
-    void RemoveNestingFor<T>();
+    void RemoveNestingFor<T>(GenerationTrace trace);
   }
 
   public class GlobalNestingLimit : NestingLimit
@@ -24,9 +25,10 @@ namespace TddXt.TypeResolution
       return new GlobalNestingLimit(limit);
     }
 
-    public void AddNestingFor<T>()
+    public void AddNestingFor<T>(GenerationTrace trace)
     {
       _nesting++;
+      trace.AddNestingAndCheckWith(_nesting, typeof(T));
     }
 
     public bool IsReachedFor<T>()
@@ -43,9 +45,10 @@ namespace TddXt.TypeResolution
 
     }
 
-    public void RemoveNestingFor<T>()
+    public void RemoveNestingFor<T>(GenerationTrace trace)
     {
       _nesting--;
+      trace.RemoveNestingAndCheckWith(_nesting, typeof(T));
     }
   }
 }

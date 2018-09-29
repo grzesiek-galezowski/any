@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using TddXt.AnyExtensibility;
+using TddXt.CommonTypes;
 
 namespace TddXt.AnyGenerators.Collections
 {
@@ -12,12 +13,12 @@ namespace TddXt.AnyGenerators.Collections
       _included = included;
     }
 
-    public IEnumerable<T> GenerateInstance(InstanceGenerator instanceGenerator)
+    public IEnumerable<T> GenerateInstance(InstanceGenerator instanceGenerator, GenerationTrace trace)
     {
       var list = new List<T>();
-      list.Add(instanceGenerator.Instance<T>());
+      list.Add(instanceGenerator.Instance<T>(trace));
       list.AddRange(_included);
-      list.Add(instanceGenerator.Instance<T>());
+      list.Add(instanceGenerator.Instance<T>(trace));
 
       return list;
     }
