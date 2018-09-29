@@ -1,4 +1,5 @@
 ﻿using System;
+using TddXt.CommonTypes;
 
 namespace TddXt.AnyExtensibility
 {
@@ -10,6 +11,7 @@ namespace TddXt.AnyExtensibility
     T Value<T>(T seed);
     T OtherThan<T>(params T[] omittedValues);
     T Dummy<T>();
+    T Dummy<T>(GenerationTrace trace);
   }
 
 }

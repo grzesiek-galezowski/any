@@ -54,7 +54,8 @@ namespace TddXt.TypeResolution
 
     public object GenerateInstance(InstanceGenerator instanceGenerator)
     {
-      var instance = _smartType.PickConstructorWithLeastNonPointersParameters().Value().InvokeWithParametersCreatedBy(instanceGenerator.Instance);
+      var instance = _smartType.PickConstructorWithLeastNonPointersParameters().Value()
+        .InvokeWithParametersCreatedBy(instanceGenerator.Instance);
       _smartType.AssertMatchesTypeOf(instance);
       return instance;
     }

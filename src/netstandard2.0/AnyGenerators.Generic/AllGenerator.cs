@@ -6,6 +6,7 @@ using System.Runtime.Serialization;
 using TddXt.AnyExtensibility;
 using TddXt.AnyGenerators.Generic.ExtensionPoints;
 using TddXt.AnyGenerators.Generic.ImplementationDetails;
+using TddXt.CommonTypes;
 using TddXt.TypeReflection;
 
 namespace TddXt.AnyGenerators.Generic
@@ -55,22 +56,29 @@ namespace TddXt.AnyGenerators.Generic
 
     public T Instance<T>()
     {
-      return _fakeChainFactory.GetInstance<T>().Resolve(this);
+      var trace = new GenerationTrace();
+      return _fakeChainFactory.GetInstance<T>().Resolve(this, trace);
     }
 
     public T Dummy<T>()
+    {
+      var trace = new GenerationTrace();
+      return Dummy<T>(trace);
+    }
+
+    public T Dummy<T>(GenerationTrace trace)
     {
       var fakeInterface = _fakeChainFactory.CreateFakeOrdinaryInterfaceGenerator<T>();
       var unconstrainedChain = _fakeChainFactory.GetUnconstrainedInstance<T>();
 
       if (typeof(T).IsPrimitive)
       {
-        return unconstrainedChain.Resolve(this);
+        return unconstrainedChain.Resolve(this, trace);
       }
 
       if (typeof(T) == typeof(string))
       {
-        return unconstrainedChain.Resolve(this);
+        return unconstrainedChain.Resolve(this, trace);
       }
 
       var emptyCollectionInstantiation = new EmptyCollectionInstantiation();
@@ -81,7 +89,7 @@ namespace TddXt.AnyGenerators.Generic
 
       if (TypeOf<T>.IsOpenGeneric(typeof(IEnumerable<>)))
       {
-        return (T) emptyCollectionInstantiation.EmptyEnumerableOf(typeof(T).GetCollectionItemType());
+        return (T)emptyCollectionInstantiation.EmptyEnumerableOf(typeof(T).GetCollectionItemType());
       }
 
       if (typeof(T).IsAbstract)
@@ -94,9 +102,8 @@ namespace TddXt.AnyGenerators.Generic
         return fakeInterface.Apply(this);
       }
 
-      return (T) FormatterServices.GetUninitializedObject(typeof(T));
+      return (T)FormatterServices.GetUninitializedObject(typeof(T));
     }
-
 
 
     public T OtherThan<T>(params T[] omittedValues)

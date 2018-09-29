@@ -9,4 +9,8 @@
     <AssemblyOriginatorKeyFile>AnyExtensibility.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\CommonTypes\CommonTypes.csproj" />
+  </ItemGroup>
+
 </Project>

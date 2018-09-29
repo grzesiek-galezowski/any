@@ -1,4 +1,5 @@
 ﻿using TddXt.AnyExtensibility;
+using TddXt.CommonTypes;
 
 namespace TddXt.AnyGenerators.Generic
 {
@@ -6,7 +7,7 @@ namespace TddXt.AnyGenerators.Generic
   {
     public T GenerateInstance(InstanceGenerator instanceGenerator)
     {
-      return instanceGenerator.Dummy<T>();
+      return instanceGenerator.Dummy<T>(new GenerationTrace());
     }
   }
 }

@@ -1,6 +1,7 @@
 using System;
 using System.Reflection;
 using TddXt.AnyExtensibility;
+using TddXt.CommonTypes;
 
 namespace TddXt.TypeResolution.FakeChainElements
 {
@@ -15,20 +16,20 @@ namespace TddXt.TypeResolution.FakeChainElements
       _fakeChain = fakeChain;
     }
 
-    public T Resolve(InstanceGenerator instanceGenerator)
+    public T Resolve(InstanceGenerator instanceGenerator, GenerationTrace trace)
     {
       try
       {
         _perTypeNestingLimit.AddNestingFor<T>();
         if (!_perTypeNestingLimit.IsReachedFor<T>())
         {
-          return _fakeChain.Resolve(instanceGenerator);
+          return _fakeChain.Resolve(instanceGenerator, trace);
         }
         else 
         {
           try
           {
-            return instanceGenerator.Dummy<T>();
+            return instanceGenerator.Dummy<T>(trace); //TODO
           }
           catch (TargetInvocationException e)
           {

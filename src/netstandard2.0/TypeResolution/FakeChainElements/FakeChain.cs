@@ -1,10 +1,11 @@
 using TddXt.AnyExtensibility;
+using TddXt.CommonTypes;
 
 namespace TddXt.TypeResolution.FakeChainElements
 {
   public interface IFakeChain<out T>
   {
-    T Resolve(InstanceGenerator instanceGenerator);
+    T Resolve(InstanceGenerator instanceGenerator, GenerationTrace trace);
   }
 
   public class FakeChain<T> : IFakeChain<T>
@@ -16,7 +17,7 @@ namespace TddXt.TypeResolution.FakeChainElements
       _chainHead = chainHead;
     }
 
-    public T Resolve(InstanceGenerator instanceGenerator)
+    public T Resolve(InstanceGenerator instanceGenerator, GenerationTrace trace)
     {
       return _chainHead.Resolve(instanceGenerator);
     }
