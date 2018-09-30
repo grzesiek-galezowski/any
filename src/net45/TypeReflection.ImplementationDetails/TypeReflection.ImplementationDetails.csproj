@@ -64,6 +64,9 @@
     <Compile Include="..\..\netstandard2.0\TypeReflection.ImplementationDetails\ConstructorRetrievals\PrimitiveConstructorRetrieval.cs">
       <Link>ConstructorRetrievals\PrimitiveConstructorRetrieval.cs</Link>
     </Compile>
+    <Compile Include="..\..\netstandard2.0\TypeReflection.ImplementationDetails\ConstructorRetrievals\PrivateOrProtectedNonRecursiveConstructorRetrieval.cs">
+      <Link>ConstructorRetrievals\PrivateOrProtectedNonRecursiveConstructorRetrieval.cs</Link>
+    </Compile>
     <Compile Include="..\..\netstandard2.0\TypeReflection.ImplementationDetails\ConstructorRetrievals\PublicNonRecursiveConstructorRetrieval.cs">
       <Link>ConstructorRetrievals\PublicNonRecursiveConstructorRetrieval.cs</Link>
     </Compile>

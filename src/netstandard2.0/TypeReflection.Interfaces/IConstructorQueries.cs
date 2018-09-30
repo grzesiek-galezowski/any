@@ -13,5 +13,6 @@ namespace TddXt.TypeReflection.Interfaces
     IEnumerable<IConstructorWrapper> TryToObtainInternalConstructorsWithRecursiveArguments();
     IEnumerable<IConstructorWrapper> TryToObtainPrimitiveTypeConstructor();
     IEnumerable<IConstructorWrapper> TryToObtainPublicStaticFactoryMethodWithoutRecursion();
+    IEnumerable<IConstructorWrapper> TryToObtainPrivateAndProtectedConstructorsWithoutRecursiveArguments();
   }
 }

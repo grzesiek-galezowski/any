@@ -127,17 +127,18 @@ namespace TddXt.TypeReflection
 
     public List<IConstructorWrapper> TryToObtainInternalConstructorsWithoutRecursiveArguments()
     {
-      return TryToObtainInternalConstructors().Where(c => c.IsNotRecursive()).ToList();
+      return TryToObtainNonPublicConstructors(ConstructorWrapper.IsInternal).Where(c => c.IsNotRecursive()).ToList();
     }
 
-    private List<IConstructorWrapper> TryToObtainInternalConstructors()
+    private List<IConstructorWrapper> TryToObtainNonPublicConstructors(Func<ConstructorInfo, bool> accessCriteria)
     {
       var constructorInfos = _typeInfo.GetConstructors(BindingFlags.Instance | BindingFlags.NonPublic);
-      var enumerable = constructorInfos.Where(ConstructorWrapper.IsInternal);
+      var enumerable = constructorInfos.Where(accessCriteria);
 
       var wrappers = enumerable.Select(c => (IConstructorWrapper) (ConstructorWrapper.FromConstructorInfo(c))).ToList();
       return wrappers;
     }
+
 
     public List<ConstructorWrapper> TryToObtainPublicConstructors()
     {
@@ -157,7 +158,7 @@ namespace TddXt.TypeReflection
 
     public IEnumerable<IConstructorWrapper> TryToObtainInternalConstructorsWithRecursiveArguments()
     {
-      return TryToObtainInternalConstructors().Where(c => c.IsRecursive()).ToList();
+      return TryToObtainNonPublicConstructors(ConstructorWrapper.IsInternal).Where(c => c.IsRecursive()).ToList();
     }
 
     public IEnumerable<IConstructorWrapper> TryToObtainPrimitiveTypeConstructor()
@@ -171,8 +172,14 @@ namespace TddXt.TypeReflection
         .Where(m => !m.IsSpecialName)
         .Where(IsNotImplicitCast)
         .Where(IsNotExplicitCast)
+        .Where(IsNotParseMethod)
         .Select(ConstructorWrapper.FromStaticMethodInfo)
         .Where(c => c.IsFactoryMethod());
+    }
+
+    public IEnumerable<IConstructorWrapper> TryToObtainPrivateAndProtectedConstructorsWithoutRecursiveArguments()
+    {
+      return TryToObtainNonPublicConstructors(ConstructorWrapper.IsPrivateOrProtected).Where(c => c.IsNotRecursive()).ToList();
     }
 
     public IEnumerable<IFieldWrapper> GetAllPublicInstanceFields()
@@ -210,6 +217,11 @@ namespace TddXt.TypeReflection
     private static bool IsNotExplicitCast(MethodInfo mi)
     {
       return !string.Equals(mi.Name, "op_Explicit", StringComparison.Ordinal);
+    }
+
+    private static bool IsNotParseMethod(MethodInfo mi)
+    {
+      return !mi.Name.Contains("Parse");
     }
 
     private static bool IsNotImplicitCast(MethodInfo mi)

@@ -14,10 +14,16 @@ namespace TddXt.TypeReflection
             InternalNonRecursiveConstructors(
               InternalParameterlessConstructors(
                 PublicStaticNonRecursiveFactoryMethod(
-                  PublicRecursiveConstructors(
-                    InternalRecursiveConstructors(
-                      PrimitiveConstructor()
-                    )))))));
+                  PrivateAndProtectedNonRecursiveConstructor(
+                    PublicRecursiveConstructors(
+                      InternalRecursiveConstructors(
+                        PrimitiveConstructor()
+                    ))))))));
+    }
+
+    private ConstructorRetrieval PrivateAndProtectedNonRecursiveConstructor(ConstructorRetrieval next)
+    {
+      return new PrivateOrProtectedNonRecursiveConstructorRetrieval(next);
     }
 
     private static ConstructorRetrieval PublicStaticNonRecursiveFactoryMethod(ConstructorRetrieval next)

@@ -169,5 +169,10 @@ namespace TddXt.TypeReflection.ImplementationDetails
     {
       trace.ChosenConstructor(_constructor.Name, _parameterTypes);
     }
+
+    public static bool IsPrivateOrProtected(ConstructorInfo arg)
+    {
+      return arg.IsPrivate || arg.IsFamily;
+    }
   }
 }

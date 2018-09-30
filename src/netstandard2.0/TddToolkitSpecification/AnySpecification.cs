@@ -1013,6 +1013,15 @@ namespace TddToolkitSpecification
       Assert.IsNotEmpty(o2.ToString());
     }
 
+    [Test]
+    public void ShouldNotUseStaticCreationMethodsWithWordParseInThem()
+    {
+      var o2 = Any.Instance<ObjectWithStaticParseMethod>();
+
+      Assert.NotNull(o2);
+      Assert.AreNotEqual(0, o2.X);
+    }
+
     [Test, Repeat(10)]
     public void ShouldCreateSerializableInstances()
     {
@@ -1283,5 +1292,18 @@ namespace TddToolkitSpecification
     }
   }
 
+  public class ObjectWithStaticParseMethod
+  {
+    public static ObjectWithStaticParseMethod ParseInt(int x)
+    {
+      throw new Exception("Thou shalt not pass!");
+    }
 
+    private ObjectWithStaticParseMethod(int x)
+    {
+      this.X = x;
+    }
+
+    public int X { get; set; }
+  }
 }
