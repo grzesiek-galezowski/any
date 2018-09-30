@@ -6,5 +6,6 @@ namespace TddXt.TypeReflection.Interfaces
   {
     void SetValue(object result, object instance);
     Type FieldType { get; }
+    bool IsNullOrDefault(object result);
   }
 }

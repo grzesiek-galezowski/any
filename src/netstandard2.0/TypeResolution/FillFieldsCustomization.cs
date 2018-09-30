@@ -14,7 +14,10 @@ namespace TddXt.TypeResolution
       {
         try
         {
-          field.SetValue(result, instanceGenerator.Instance(field.FieldType, trace));
+          if (field.IsNullOrDefault(result))
+          {
+            field.SetValue(result, instanceGenerator.Instance(field.FieldType, trace));
+          }
         }
         catch (Exception e)
         {

@@ -13,6 +13,7 @@ using Newtonsoft.Json;
 using NUnit.Framework;
 using TddToolkitSpecification.Fixtures;
 using TddToolkitSpecification.GraphComparison;
+using TddXt.AnyExtensibility;
 using TddXt.AnyRoot;
 using TddXt.AnyRoot.Collections;
 using TddXt.AnyRoot.Invokable;
@@ -790,6 +791,15 @@ namespace TddToolkitSpecification
         Assert.NotNull(Any.Dummy<string>());
         Assert.NotNull(Any.Dummy<int>());
       });
+    }
+
+    [Test]
+    public void ShouldAllowCustomizingTheFallbackGenerator()
+    {
+      Assert.DoesNotThrow(() =>
+        Any.Instance<ObjectWithThrowingDependency>(
+          new SingleTypeCustomization<ThrowingInConstructor>(
+            (gen, trace) => gen.Dummy<ThrowingInConstructor>(trace))));
     }
 
     [Test]

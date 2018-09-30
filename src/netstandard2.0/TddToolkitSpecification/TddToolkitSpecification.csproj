@@ -108,6 +108,7 @@
     <Compile Include="Fixtures\ObjectWithAttributeOnMethod.cs" />
     <Compile Include="Fixtures\ObjectWithCopyConstructor.cs" />
     <Compile Include="Fixtures\ObjectWithInterfaceInConstructor.cs" />
+    <Compile Include="Fixtures\ObjectWithThrowingDependency.cs" />
     <Compile Include="Fixtures\RecursiveClass.cs" />
     <Compile Include="Fixtures\RecursiveClass2.cs" />
     <Compile Include="Fixtures\RecursiveInterface.cs" />

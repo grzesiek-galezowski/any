@@ -18,6 +18,24 @@ namespace TddXt.TypeReflection.ImplementationDetails
       _fieldInfo.SetValue(result, instance);
     }
 
-    public Type FieldType { get { return _fieldInfo.FieldType; } }
+    public Type FieldType => _fieldInfo.FieldType;
+
+    public bool IsNullOrDefault(object result)
+    {
+      return Equals(_fieldInfo.GetValue(result), DefaultValue.Of(FieldType));
+    }
+  }
+
+  public static class DefaultValue
+  {
+    public static object Of(Type t)
+    {
+      if (t.IsValueType)
+      {
+        return Activator.CreateInstance(t);
+      }
+
+      return null;
+    }
   }
 }

@@ -149,6 +149,9 @@
     <Compile Include="..\..\netstandard2.0\TddToolkitSpecification\Fixtures\ObjectWithInterfaceInConstructor.cs">
       <Link>Fixtures\ObjectWithInterfaceInConstructor.cs</Link>
     </Compile>
+    <Compile Include="..\..\netstandard2.0\TddToolkitSpecification\Fixtures\ObjectWithThrowingDependency.cs">
+      <Link>Fixtures\ObjectWithThrowingDependency.cs</Link>
+    </Compile>
     <Compile Include="..\..\netstandard2.0\TddToolkitSpecification\Fixtures\RecursiveClass.cs">
       <Link>Fixtures\RecursiveClass.cs</Link>
     </Compile>

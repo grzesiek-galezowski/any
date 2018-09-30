@@ -58,6 +58,9 @@
     <Compile Include="..\..\netstandard2.0\AnyExtensibility\InstanceGenerator.cs">
       <Link>InstanceGenerator.cs</Link>
     </Compile>
+    <Compile Include="..\..\netstandard2.0\AnyExtensibility\SingleTypeCustomization.cs">
+      <Link>SingleTypeCustomization.cs</Link>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -6,19 +6,13 @@ namespace TddXt.AnyGenerators.Generic.ImplementationDetails
 {
   public class GenericMethodProxyCalls
   {
-    public object ResultOfGenericVersionOfMethod<T>(T instance, Type genericArgumentType, string name)
-    {
-      return ResultOfGenericVersionOfMethod(instance, genericArgumentType, name, new object[]{});
-    }
-
     public object ResultOfGenericVersionOfMethod<T>(T instance, Type genericArgumentType, string name, params object[] parameters)
     {
-      var method = FindEmptyGenericsInstanceMethod<T>(name, parameters.Length);
+      var method = FindEmptyGenericsInstanceMethod<T>(name, parameters);
 
       var genericMethod = method.MakeGenericMethod(genericArgumentType);
 
       return genericMethod.Invoke(instance, parameters);
-
     }
 
     public object ResultOfGenericVersionOfStaticMethod<T>(Type genericArgumentType, string name)
@@ -28,28 +22,12 @@ namespace TddXt.AnyGenerators.Generic.ImplementationDetails
 
     private object ResultOfGenericVersionOfStaticMethod<T>(Type genericArgumentType, string name, params object[] parameters)
     {
-      var method = FindEmptyGenericsStaticMethod<T>(name, parameters.Length);
+      var method = FindEmptyGenericsStaticMethod<T>(name, parameters);
 
       var genericMethod = method.MakeGenericMethod(genericArgumentType);
 
       return genericMethod.Invoke(null, parameters);
 
-    }
-
-    public object ResultOfGenericVersionOfMethod<T>(
-      T instance, Type type1, Type type2, string name)
-    {
-      return ResultOfGenericVersionOfMethod(instance, type1, type2, name, new object[]{});
-    }
-
-    public object ResultOfGenericVersionOfMethod<T>(
-      T instance, Type type1, Type type2, string name, params object[] parameters)
-    {
-      var method = FindEmptyGenericsInstanceMethod<T>(name, parameters.Length);
-
-      var genericMethod = method.MakeGenericMethod(type1, type2);
-
-      return genericMethod.Invoke(instance, parameters);
     }
 
     public object ResultOfGenericVersionOfStaticMethod<T>(
@@ -61,7 +39,7 @@ namespace TddXt.AnyGenerators.Generic.ImplementationDetails
     public object ResultOfGenericVersionOfStaticMethod<T>(
       Type type1, Type type2, string name, params object[] parameters)
     {
-      var method = FindEmptyGenericsStaticMethod<T>(name, parameters.Length);
+      var method = FindEmptyGenericsStaticMethod<T>(name, parameters);
 
       var genericMethod = method.MakeGenericMethod(type1, type2);
 
@@ -69,30 +47,57 @@ namespace TddXt.AnyGenerators.Generic.ImplementationDetails
     }
 
 
-    public MethodInfo FindEmptyGenericsInstanceMethod<T>(
-      string name, int parametersLength)
+    private MethodInfo FindEmptyGenericsInstanceMethod<T>(
+      string name, object[] parameters)
     {
-      return FindEmptyGenericsMethod<T>(name, parametersLength, 
+      return FindEmptyGenericsMethod<T>(name, parameters, 
         BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
     }
 
 
-    public MethodInfo FindEmptyGenericsStaticMethod<T>(
-      string name, int parametersLength)
+    private MethodInfo FindEmptyGenericsStaticMethod<T>(
+      string name, object[] parametersLength)
     {
       return FindEmptyGenericsMethod<T>(name, parametersLength,
         BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static);
     }
 
-    private static MethodInfo FindEmptyGenericsMethod<T>(string name, int parametersLength,
+    private static MethodInfo FindEmptyGenericsMethod<T>(string name, object[] parameters,
       BindingFlags bindingFlags)
     {
-      var methods = typeof(T).GetMethods(
-          bindingFlags)
+      var methods = typeof(T).GetMethods(bindingFlags)
         .Where(m => m.IsGenericMethodDefinition)
-        .Where(m => m.GetParameters().Length == parametersLength);
-      var method = methods.First(m => m.Name == name);
+        .Where(m => SameParameterTypes(parameters, m));
+      var methodInfos = methods.Where(m => m.Name == name).ToList();
+      var method = methodInfos.First();
       return method;
     }
+
+    private static bool SameParameterTypes(object[] parameters, MethodInfo m)
+    {
+      var expectedParameters = m.GetParameters().Select(p => p.ParameterType).ToList();
+      var actualParameters = parameters.Select(p => p.GetType()).ToList();
+      if (expectedParameters.Count != actualParameters.Count)
+      {
+        return false;
+      }
+
+      for (var i = 0; i < expectedParameters.Count; i++)
+      {
+        if (expectedParameters[i] != actualParameters[i])
+        {
+          if (!actualParameters[i].IsSubclassOf(expectedParameters[i]))
+          {
+            if (actualParameters[i].GetInterfaces().All(iface => iface != expectedParameters[i]))
+            {
+              return false;
+            }
+          }
+        }
+      }
+
+      return true;
+    }
+
   }
 }
