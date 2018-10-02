@@ -1,5 +1,7 @@
 using Castle.DynamicProxy;
+using TddXt.AnyExtensibility;
 using TddXt.AnyGenerators.Generic;
+using TddXt.AnyGenerators.Generic.ExtensionPoints;
 using TddXt.AnyGenerators.Generic.ImplementationDetails;
 using TddXt.AutoFixtureWrapper;
 using TddXt.TypeResolution;
@@ -9,18 +11,18 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
 {
   public static class AllGeneratorFactory
   {
-    public static AllGenerator Create()
+    public static BasicGenerator Create()
     {
       var methodProxyCalls = new GenericMethodProxyCalls();
       var valueGenerator = CreateValueGenerator();
       var proxyGenerator = new ProxyGenerator();
       var fakeChainFactory = CreateFakeChainFactory(proxyGenerator, valueGenerator);
 
-      var allGenerator = new AllGenerator(valueGenerator, fakeChainFactory, methodProxyCalls);
+      var allGenerator = new SynchronizedBasicGenerator(new AllGenerator(valueGenerator, fakeChainFactory, methodProxyCalls));
       return allGenerator;
     }
 
-    private static FakeChainFactory CreateFakeChainFactory(ProxyGenerator proxyGenerator, ValueGenerator valueGenerator)
+    private static IFakeChainFactory CreateFakeChainFactory(ProxyGenerator proxyGenerator, ValueGenerator valueGenerator)
     {
       return new FakeChainFactory(
         new CachedReturnValueGeneration(new PerMethodCache<object>()), 
@@ -37,6 +39,41 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
       
       var valueGenerator = new ValueGenerator(fixtureWrapper);
       return valueGenerator;
+    }
+  }
+
+  public class SynchronizedBasicGenerator : BasicGenerator
+  {
+    private static readonly object SyncRoot = new object();
+    private readonly AllGenerator _allGenerator;
+
+    public SynchronizedBasicGenerator(AllGenerator allGenerator)
+    {
+      _allGenerator = allGenerator;
+    }
+
+    public T Instance<T>()
+    {
+      lock (SyncRoot)
+      {
+        return _allGenerator.Instance<T>();
+      }
+    }
+
+    public T Instance<T>(params GenerationCustomization[] customizations)
+    {
+      lock (SyncRoot)
+      {
+        return _allGenerator.Instance<T>(customizations);
+      }
+    }
+
+    public T InstanceOf<T>(InlineGenerator<T> gen)
+    {
+      lock (SyncRoot)
+      {
+        return _allGenerator.InstanceOf(gen);
+      }
     }
   }
 }
