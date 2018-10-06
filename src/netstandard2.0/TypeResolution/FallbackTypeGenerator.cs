@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using FluentAssertions;
-using FluentAssertions.Types;
 using TddXt.AnyExtensibility;
 using TddXt.CommonTypes;
 using TddXt.TypeReflection;
