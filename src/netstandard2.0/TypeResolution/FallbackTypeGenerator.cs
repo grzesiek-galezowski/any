@@ -52,29 +52,51 @@ namespace TddXt.TypeResolution
 
     public object GenerateInstance(InstanceGenerator instanceGenerator, GenerationTrace trace)
     {
-      var constructorWrapper = _smartType.PickConstructorWithLeastNonPointersParameters().Value();
-      constructorWrapper.DumpInto(trace);
-      var instance = constructorWrapper
-        .InvokeWithParametersCreatedBy(instanceGenerator.Instance, trace);
-      _smartType.AssertMatchesTypeOf(instance);
-      return instance;
+      var maybeConstructor = _smartType.PickConstructorWithLeastNonPointersParameters();
+
+      if (maybeConstructor.HasValue)
+      {
+        maybeConstructor.Value().DumpInto(trace);
+        var instance = maybeConstructor.Value()
+          .InvokeWithParametersCreatedBy(instanceGenerator.Instance, trace);
+        _smartType.AssertMatchesTypeOf(instance);
+        return instance;
+      }
+      else
+      {
+        throw new ConstructorNotFoundException(_smartType.ToString());
+      }
     }
 
     public List<object> GenerateConstructorParameters(Func<Type, GenerationTrace, object> parameterFactory,
       GenerationTrace trace)
     {
       var constructor = _smartType.PickConstructorWithLeastNonPointersParameters();
-      var constructorParameters = constructor.Value()  //bug backward compatibility (for now)
-        .GenerateAnyParameterValues(parameterFactory, trace);
-      return constructorParameters;
+      if (constructor.HasValue)
+      {
+        var constructorParameters = constructor.Value()
+          .GenerateAnyParameterValues(parameterFactory, trace);
+        return constructorParameters;
+      }
+      else
+      {
+        throw new ConstructorNotFoundException(_smartType.ToString());
+      }
     }
 
     public bool ConstructorIsInternalOrHasAtLeastOneNonConcreteArgumentType()
     {
       var constructor = _smartType.PickConstructorWithLeastNonPointersParameters();
-      return constructor.Value() //bug backward compatibility (for now)
-        .HasAbstractOrInterfaceArguments()
-      || constructor.Value().IsInternal();
+      if (constructor.HasValue)
+      {
+        return constructor.Value()
+                 .HasAbstractOrInterfaceArguments()
+               || constructor.Value().IsInternal();
+      }
+      else
+      {
+        throw new ConstructorNotFoundException(_smartType.ToString());
+      }
     }
 
 
@@ -90,5 +112,12 @@ namespace TddXt.TypeResolution
     }
   }
 
-
+  public class ConstructorNotFoundException : Exception
+  {
+    public ConstructorNotFoundException(string typeDescription)
+    : base(typeDescription)
+    {
+      
+    }
+  }
 }

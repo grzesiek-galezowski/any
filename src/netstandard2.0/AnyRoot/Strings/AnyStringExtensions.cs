@@ -105,7 +105,6 @@ namespace TddXt.AnyRoot.Strings
 
     public static string NumericString(this BasicGenerator gen, int digitsCount = Configuration.Many)
     {
-      //todo gen for Many could be cached
       return gen.InstanceOf(InlineGenerators.NumericString(digitsCount));
     }
 

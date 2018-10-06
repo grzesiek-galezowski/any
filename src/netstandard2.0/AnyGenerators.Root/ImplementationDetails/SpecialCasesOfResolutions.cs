@@ -37,11 +37,9 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
         genericTypes);
     }
 
-    //should this be in this dll? or maybe inline generators should be here?
-
     public IResolution<T> CreateResolutionOfArray()
     {
-      return new ResolutionOfArrays<T>(); //todo
+      return new ResolutionOfArrays<T>();
     }
   }
 }

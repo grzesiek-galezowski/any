@@ -22,7 +22,7 @@ namespace TddXt.TypeResolution.FakeChainElements
 
     public bool Applies()
     {
-      return true; //TODO consider catching exception here instead of in Apply() and returning false, then have a fallback chain element
+      return true;
     }
 
     public T Apply(InstanceGenerator instanceGenerator, GenerationTrace trace)
