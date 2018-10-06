@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using TddXt.AnyExtensibility;
-using TddXt.CommonTypes;
 using TddXt.TypeReflection;
 using TddXt.TypeReflection.Interfaces;
 
@@ -42,8 +41,8 @@ namespace TddXt.TypeResolution
 
   public class FallbackTypeGenerator
   {
-    private readonly IType _smartType;
     private readonly IFallbackGeneratedObjectCustomization[] _customizations;
+    private readonly IType _smartType;
 
     public FallbackTypeGenerator(IFallbackGeneratedObjectCustomization[] customizations, ISmartType smartType)
     {

@@ -12,11 +12,11 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
   public class FakeChainFactory : IFakeChainFactory
   {
     private readonly CachedReturnValueGeneration _cachedReturnValueGeneration;
+    private readonly ConcurrentDictionary<Type, object> _constrainedFactoryCache = new ConcurrentDictionary<Type, object>();//new MemoryCache("constrained");
     private readonly NestingLimit _nestingLimit;
     private readonly ProxyGenerator _proxyGenerator;
-    private readonly ValueGenerator _valueGenerator;
-    private readonly ConcurrentDictionary<Type, object> _constrainedFactoryCache = new ConcurrentDictionary<Type, object>();//new MemoryCache("constrained");
     private readonly ConcurrentDictionary<Type, object> _unconstrainedFactoryCache = new ConcurrentDictionary<Type, object>();//new MemoryCache("constrained");
+    private readonly ValueGenerator _valueGenerator;
 
     public FakeChainFactory(
       CachedReturnValueGeneration cachedReturnValueGeneration, 
@@ -41,6 +41,28 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
           ), _constrainedFactoryCache);
     }
 
+    public IFakeChain<T> GetUnconstrainedInstance<T>()
+    {
+      return GetInstanceWithMemoization(() => 
+      CreateGenericFakeChainFactory<T>()
+        .UnconstrainedInstance(
+          _cachedReturnValueGeneration,
+          _proxyGenerator, _valueGenerator), 
+          _unconstrainedFactoryCache);
+    }
+
+    public ISpecialCasesOfResolutions<T> CreateSpecialCasesOfResolutions<T>()
+    {
+      return new SpecialCasesOfResolutions<T>();
+    }
+
+    public IResolution<T> CreateFakeOrdinaryInterfaceGenerator<T>()
+    {
+      //bug this doesn't fit 100% here.
+      return new FakeOrdinaryInterface<T>(
+        _cachedReturnValueGeneration, _proxyGenerator);
+    }
+
     private static IFakeChain<T> GetInstanceWithMemoization<T>(Func<IFakeChain<T>> func, ConcurrentDictionary<Type, object> cache)
     {
       var key = typeof(T);
@@ -55,16 +77,6 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
       return (IFakeChain<T>) outVal;
     }
 
-    public IFakeChain<T> GetUnconstrainedInstance<T>()
-    {
-      return GetInstanceWithMemoization(() => 
-      CreateGenericFakeChainFactory<T>()
-        .UnconstrainedInstance(
-          _cachedReturnValueGeneration,
-          _proxyGenerator, _valueGenerator), 
-          _unconstrainedFactoryCache);
-    }
-
     private GenericFakeChainFactory<T> CreateGenericFakeChainFactory<T>()
     {
       return new GenericFakeChainFactory<T>(CreateSpecialCasesOfResolutions<T>(), new FallbackTypeGenerator<T>(new FallbackTypeGenerator(
@@ -73,18 +85,6 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
           new FillPropertiesCustomization(),
           new FillFieldsCustomization()
         }, SmartType.For(typeof(T)))));
-    }
-
-    public ISpecialCasesOfResolutions<T> CreateSpecialCasesOfResolutions<T>()
-    {
-      return new SpecialCasesOfResolutions<T>();
-    }
-
-    public IResolution<T> CreateFakeOrdinaryInterfaceGenerator<T>()
-    {
-      //bug this doesn't fit 100% here.
-      return new FakeOrdinaryInterface<T>(
-        _cachedReturnValueGeneration, _proxyGenerator);
     }
   }
 }

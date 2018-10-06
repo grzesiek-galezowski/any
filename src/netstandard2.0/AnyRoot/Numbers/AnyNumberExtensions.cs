@@ -64,6 +64,5 @@ namespace TddXt.AnyRoot.Numbers
     {
       return gen.InstanceOf(InlineGenerators.PositiveDigit());
     }
-
   }
 }

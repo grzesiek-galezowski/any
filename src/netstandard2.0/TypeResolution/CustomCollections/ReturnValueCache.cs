@@ -7,7 +7,7 @@ namespace TddXt.TypeResolution.CustomCollections
   public class PerMethodCache<T>
   {
     private readonly Dictionary<PerMethodCacheKey, T> _cache = new Dictionary<PerMethodCacheKey, T>();
-    
+
     public bool AlreadyContainsValueFor(PerMethodCacheKey cacheKey)
     {
       return _cache.ContainsKey(cacheKey);

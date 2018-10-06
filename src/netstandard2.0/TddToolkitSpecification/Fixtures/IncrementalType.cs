@@ -14,6 +14,11 @@ namespace TddToolkitSpecification.Fixtures
 
     public int X { get; set; }
 
+    public bool Equals(IncrementalType other)
+    {
+      throw new NotImplementedException();
+    }
+
     public static bool operator ==(IncrementalType a, IncrementalType b)
     {
       return false;
@@ -32,11 +37,6 @@ namespace TddToolkitSpecification.Fixtures
     public override int GetHashCode()
     {
       return 0;
-    }
-
-    public bool Equals(IncrementalType other)
-    {
-      throw new NotImplementedException();
     }
   }
 }

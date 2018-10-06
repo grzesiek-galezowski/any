@@ -98,6 +98,5 @@ namespace TddXt.AnyGenerators.Generic.ImplementationDetails
 
       return true;
     }
-
   }
 }

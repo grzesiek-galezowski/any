@@ -14,7 +14,7 @@ namespace TddXt.TypeReflectionSpecification
     {
       Assert.True(SmartType.For(exceptionType).IsException());
     }
-    
+
     [Test]
     public void ShouldReportWhenItIsNotDerivedFromException()
     {

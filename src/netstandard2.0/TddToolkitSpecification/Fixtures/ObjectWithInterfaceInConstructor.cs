@@ -6,8 +6,8 @@ namespace TddToolkitSpecification.Fixtures
   public class ObjectWithInterfaceInConstructor
   {
     private readonly int _a;
-    public readonly ISimple _constructorArgument;
     private readonly string _b;
+    public readonly ISimple _constructorArgument;
     public readonly ObjectWithInterfaceInConstructor _constructorNestedArgument;
 
     public ObjectWithInterfaceInConstructor(

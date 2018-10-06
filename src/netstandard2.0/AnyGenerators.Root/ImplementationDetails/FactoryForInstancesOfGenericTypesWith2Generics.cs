@@ -1,7 +1,6 @@
 using System;
 using System.Reflection;
 using TddXt.AnyExtensibility;
-using TddXt.CommonTypes;
 
 namespace TddXt.AnyGenerators.Root.ImplementationDetails
 {

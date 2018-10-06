@@ -1,5 +1,3 @@
-using TddXt.CommonTypes;
-
 namespace TddXt.AnyExtensibility
 {
   public interface InlineGenerator<out T>

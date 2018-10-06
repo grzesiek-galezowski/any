@@ -31,6 +31,11 @@ namespace TddToolkitSpecification.Fixtures
     {
     }
 
+    public static ComplexObjectWithFactoryMethodAndRecursiveConstructor Empty
+      => new ComplexObjectWithFactoryMethodAndRecursiveConstructor(string.Empty);
+
+    private bool IsEmpty { get; set; }
+
     public static ComplexObjectWithFactoryMethodAndRecursiveConstructor Create(string parameterName)
     {
       ComplexObjectWithFactoryMethodAndRecursiveConstructor createdWrapper =
@@ -43,11 +48,6 @@ namespace TddToolkitSpecification.Fixtures
       return 123;
     }
 
-    public static ComplexObjectWithFactoryMethodAndRecursiveConstructor Empty
-      => new ComplexObjectWithFactoryMethodAndRecursiveConstructor(string.Empty);
-
-    private bool IsEmpty { get; set; }
-
     public override string ToString()
     {
       return _initialValue;
@@ -57,6 +57,5 @@ namespace TddToolkitSpecification.Fixtures
     {
       return _initialValue.GetHashCode();
     }
-
   }
 }

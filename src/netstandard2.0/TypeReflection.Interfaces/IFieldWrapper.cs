@@ -4,8 +4,8 @@ namespace TddXt.TypeReflection.Interfaces
 {
   public interface IFieldWrapper
   {
-    void SetValue(object result, object instance);
     Type FieldType { get; }
+    void SetValue(object result, object instance);
     bool IsNullOrDefault(object result);
   }
 }

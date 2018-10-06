@@ -1,13 +1,7 @@
-using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Reflection.Emit;
 using Castle.DynamicProxy;
-using TddXt.AnyExtensibility;
 using TddXt.AnyGenerators.Generic.ExtensionPoints;
-using TddXt.TypeReflection;
 using TddXt.TypeResolution;
 using TddXt.TypeResolution.FakeChainElements;
 using TddXt.TypeResolution.Interceptors;
@@ -17,8 +11,8 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
 {
   public class GenericFakeChainFactory<T>
   {
-    private readonly ISpecialCasesOfResolutions<T> _specialCasesOfResolutions;
     private readonly FallbackTypeGenerator<T> _fallbackTypeGenerator;
+    private readonly ISpecialCasesOfResolutions<T> _specialCasesOfResolutions;
 
     public GenericFakeChainFactory(ISpecialCasesOfResolutions<T> specialCasesOfResolutions, FallbackTypeGenerator<T> fallbackTypeGenerator)
     {

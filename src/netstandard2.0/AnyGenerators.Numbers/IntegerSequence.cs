@@ -4,6 +4,26 @@ namespace TddXt.AnyGenerators.Numbers
 {
   public class IntegerSequence : IEquatable<IntegerSequence>
   {
+    private readonly int _startingValue;
+    private readonly int _step;
+    private int _currentValue;
+
+    public IntegerSequence(int startingValue, int step, int initialStepsCount)
+    {
+      _startingValue = startingValue;
+      _step = step;
+
+      try
+      {
+        _currentValue = _startingValue + initialStepsCount * _step;
+      }
+      catch (OverflowException)
+      {
+        _currentValue = _startingValue;
+      }
+      
+    }
+
     public bool Equals(IntegerSequence other)
     {
       if (ReferenceEquals(null, other)) return false;
@@ -35,26 +55,6 @@ namespace TddXt.AnyGenerators.Numbers
     public static bool operator !=(IntegerSequence left, IntegerSequence right)
     {
       return !Equals(left, right);
-    }
-
-    private readonly int _startingValue;
-    private readonly int _step;
-    private int _currentValue;
-
-    public IntegerSequence(int startingValue, int step, int initialStepsCount)
-    {
-      _startingValue = startingValue;
-      _step = step;
-
-      try
-      {
-        _currentValue = _startingValue + initialStepsCount * _step;
-      }
-      catch (OverflowException)
-      {
-        _currentValue = _startingValue;
-      }
-      
     }
 
     public int Next()

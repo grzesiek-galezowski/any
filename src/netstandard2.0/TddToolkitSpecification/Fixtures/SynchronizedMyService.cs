@@ -46,9 +46,6 @@
       _innerInstance.VoidCall(i);
     }
 
-    protected abstract void ExitLock();
-    protected abstract void EnterLock();
-
     public int CallWithResult(string alabama)
     {
       try
@@ -80,5 +77,8 @@
       ExitLock();
       return result;
     }
+
+    protected abstract void ExitLock();
+    protected abstract void EnterLock();
   }
 }

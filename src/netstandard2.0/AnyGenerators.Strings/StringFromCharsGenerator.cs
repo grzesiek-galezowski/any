@@ -1,13 +1,12 @@
 using System;
 using TddXt.AnyExtensibility;
-using TddXt.CommonTypes;
 
 namespace TddXt.AnyGenerators.Strings
 {
   public class StringFromCharsGenerator : InlineGenerator<string>
   {
-    private readonly int _maxLength;
     private readonly InlineGenerator<char> _charGenerator;
+    private readonly int _maxLength;
 
     public StringFromCharsGenerator(int maxLength, InlineGenerator<char> charGenerator)
     {

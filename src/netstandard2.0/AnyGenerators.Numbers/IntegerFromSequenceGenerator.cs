@@ -8,9 +8,9 @@ namespace TddXt.AnyGenerators.Numbers
   public class IntegerFromSequenceGenerator : InlineGenerator<int>
   {
     private static readonly HashSet<IntegerSequence> Sequences = new HashSet<IntegerSequence>();
+    private readonly InlineGenerator<int> _simpleValueGenerator;
     private readonly int _startingValue;
     private readonly int _step;
-    private readonly InlineGenerator<int> _simpleValueGenerator;
 
     public IntegerFromSequenceGenerator(int startingValue, int step, InlineGenerator<int> intGenerator)
     {

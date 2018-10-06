@@ -1,13 +1,12 @@
 using System.Globalization;
 using TddXt.AnyExtensibility;
-using TddXt.CommonTypes;
 
 namespace TddXt.AnyGenerators.Strings
 {
   public class IdentifierStringGenerator : InlineGenerator<string>
   {
-    private readonly InlineGenerator<char> _digitChar;
     private readonly InlineGenerator<char> _alphaChar;
+    private readonly InlineGenerator<char> _digitChar;
 
     public IdentifierStringGenerator(InlineGenerator<char> digitChar, InlineGenerator<char> alphaChar)
     {

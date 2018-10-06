@@ -24,8 +24,5 @@ namespace TddToolkitSpecification.GraphComparison
       comparisonMechanism.Config.CustomComparers.Add(new ReflectionOrProxyComparer());
       return comparisonMechanism;
     }
-
-
-
   }
 }

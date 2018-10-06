@@ -43,6 +43,5 @@ namespace TddToolkitSpecification.GraphComparison
     {
       return type.Namespace != null && type.Namespace.StartsWith("Castle.");
     }
-
   }
 }

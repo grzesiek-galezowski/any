@@ -17,8 +17,8 @@ namespace TddXt.TypeReflection
 
   public class SmartType : ISmartType
   {
-    private readonly Type _type;
     private readonly ConstructorRetrieval _constructorRetrieval;
+    private readonly Type _type;
     private readonly TypeInfo _typeInfo;
 
     public SmartType(Type type, ConstructorRetrieval constructorRetrieval)
@@ -43,7 +43,7 @@ namespace TddXt.TypeReflection
       return factoryMethods;
     }
 
-    
+
     public Maybe<IConstructorWrapper> GetNonPublicParameterlessConstructorInfo()
     {
       var constructorInfo = _type.GetConstructor(BindingFlags.NonPublic | BindingFlags.Instance, null, Type.EmptyTypes, null);
@@ -83,12 +83,6 @@ namespace TddXt.TypeReflection
       return IsOpenGeneric(_typeInfo, openGenericType);
     }
 
-    private static bool IsOpenGeneric(Type checkedType, Type openGenericType)
-    {
-      return checkedType.GetTypeInfo().IsGenericType && 
-             checkedType.GetGenericTypeDefinition() == openGenericType;
-    }
-
     public bool IsConcrete()
     {
       return !_typeInfo.IsAbstract && !_typeInfo.IsInterface;
@@ -115,11 +109,6 @@ namespace TddXt.TypeReflection
       return Maybe.Wrap(leastParamsConstructor);
     }
 
-    public static ISmartType For(Type type)
-    {
-      return new SmartType(type, new ConstructorRetrievalFactory().Create());
-    }
-
     public IEnumerable<IConstructorWrapper> GetAllPublicConstructors()
     {
       return _constructorRetrieval.RetrieveFrom(this);
@@ -128,22 +117,6 @@ namespace TddXt.TypeReflection
     public List<IConstructorWrapper> TryToObtainInternalConstructorsWithoutRecursiveArguments()
     {
       return TryToObtainNonPublicConstructors(ConstructorWrapper.IsInternal).Where(c => c.IsNotRecursive()).ToList();
-    }
-
-    private List<IConstructorWrapper> TryToObtainNonPublicConstructors(Func<ConstructorInfo, bool> accessCriteria)
-    {
-      var constructorInfos = _typeInfo.GetConstructors(BindingFlags.Instance | BindingFlags.NonPublic);
-      var enumerable = constructorInfos.Where(accessCriteria);
-
-      var wrappers = enumerable.Select(c => (IConstructorWrapper) (ConstructorWrapper.FromConstructorInfo(c))).ToList();
-      return wrappers;
-    }
-
-
-    public List<ConstructorWrapper> TryToObtainPublicConstructors()
-    {
-      return _typeInfo.GetConstructors(BindingFlags.Public | BindingFlags.Instance)
-        .Select(ConstructorWrapper.FromConstructorInfo).ToList();
     }
 
     public IEnumerable<IConstructorWrapper> TryToObtainPublicConstructorsWithoutRecursiveArguments()
@@ -214,6 +187,38 @@ namespace TddXt.TypeReflection
       return GetAllPublicConstructors().Count() <= i;
     }
 
+    public void AssertMatchesTypeOf(object instance)
+    {
+      instance.GetType().Should().Be(_type);
+    }
+
+    private static bool IsOpenGeneric(Type checkedType, Type openGenericType)
+    {
+      return checkedType.GetTypeInfo().IsGenericType && 
+             checkedType.GetGenericTypeDefinition() == openGenericType;
+    }
+
+    public static ISmartType For(Type type)
+    {
+      return new SmartType(type, new ConstructorRetrievalFactory().Create());
+    }
+
+    private List<IConstructorWrapper> TryToObtainNonPublicConstructors(Func<ConstructorInfo, bool> accessCriteria)
+    {
+      var constructorInfos = _typeInfo.GetConstructors(BindingFlags.Instance | BindingFlags.NonPublic);
+      var enumerable = constructorInfos.Where(accessCriteria);
+
+      var wrappers = enumerable.Select(c => (IConstructorWrapper) (ConstructorWrapper.FromConstructorInfo(c))).ToList();
+      return wrappers;
+    }
+
+
+    public List<ConstructorWrapper> TryToObtainPublicConstructors()
+    {
+      return _typeInfo.GetConstructors(BindingFlags.Public | BindingFlags.Instance)
+        .Select(ConstructorWrapper.FromConstructorInfo).ToList();
+    }
+
     private static bool IsNotExplicitCast(MethodInfo mi)
     {
       return !string.Equals(mi.Name, "op_Explicit", StringComparison.Ordinal);
@@ -227,11 +232,6 @@ namespace TddXt.TypeReflection
     private static bool IsNotImplicitCast(MethodInfo mi)
     {
       return !string.Equals(mi.Name, "op_Implicit", StringComparison.Ordinal);
-    }
-
-    public void AssertMatchesTypeOf(object instance)
-    {
-      instance.GetType().Should().Be(_type);
     }
   }
 

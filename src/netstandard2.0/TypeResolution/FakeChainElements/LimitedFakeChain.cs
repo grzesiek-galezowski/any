@@ -1,14 +1,13 @@
 using System;
 using System.Reflection;
 using TddXt.AnyExtensibility;
-using TddXt.CommonTypes;
 
 namespace TddXt.TypeResolution.FakeChainElements
 {
   public class LimitedFakeChain<T> : IFakeChain<T>
   {
-    private readonly NestingLimit _nestingLimit;
     private readonly IFakeChain<T> _fakeChain;
+    private readonly NestingLimit _nestingLimit;
 
     public LimitedFakeChain(NestingLimit nestingLimit, IFakeChain<T> fakeChain)
     {

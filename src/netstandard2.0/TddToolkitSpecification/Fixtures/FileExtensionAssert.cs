@@ -3,7 +3,7 @@ using System.IO;
 
 namespace TddToolkitSpecification.Fixtures
 {
-  static internal class FileExtensionAssert
+  internal static class FileExtensionAssert
   {
     internal static void Valid(string extensionString)
     {

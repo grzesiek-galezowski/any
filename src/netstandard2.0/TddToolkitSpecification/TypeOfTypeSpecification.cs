@@ -1,6 +1,6 @@
-﻿using NUnit.Framework;
+﻿using System;
+using NUnit.Framework;
 using TddXt.TypeReflection;
-using Type = System.Type;
 
 namespace TddToolkitSpecification
 {

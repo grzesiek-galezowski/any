@@ -1,14 +1,12 @@
-using System;
 using TddXt.AnyExtensibility;
 using TddXt.AutoFixtureWrapper;
-using TddXt.CommonTypes;
 
 namespace TddXt.AnyGenerators.Strings
 {
   public class StringMatchingRegexGenerator : InlineGenerator<string>
   {
-    private readonly string _pattern;
     private static readonly RegexGeneratorWrapper RegexGenerator = new RegexGeneratorWrapper();
+    private readonly string _pattern;
 
     public StringMatchingRegexGenerator(string pattern)
     {

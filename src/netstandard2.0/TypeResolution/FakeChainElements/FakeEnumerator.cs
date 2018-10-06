@@ -1,13 +1,11 @@
 using System.Collections;
 using TddXt.AnyExtensibility;
-using TddXt.CommonTypes;
 using TddXt.TypeReflection;
 
 namespace TddXt.TypeResolution.FakeChainElements
 {
   public class FakeEnumerator<T> : IResolution<T>
   {
-
     public bool Applies()
     {
       return TypeOf<T>.Is<IEnumerator>();

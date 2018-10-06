@@ -7,7 +7,7 @@ namespace TddXt.AutoFixtureWrapper
 {
     public class EngineWithReplacedQuery : DefaultEngineParts
     {
-        public override IEnumerator<ISpecimenBuilder> GetEnumerator()
+      public override IEnumerator<ISpecimenBuilder> GetEnumerator()
         {
             using (var enumerator = base.GetEnumerator())
             {

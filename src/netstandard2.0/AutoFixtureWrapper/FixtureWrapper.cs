@@ -7,14 +7,14 @@ namespace TddXt.AutoFixtureWrapper
     [Serializable]
     public class FixtureWrapper 
     {
-        private readonly Fixture _generator;
+      private readonly Fixture _generator;
 
-        public FixtureWrapper(Fixture generator)
+      public FixtureWrapper(Fixture generator)
         {
             _generator = generator;
         }
 
-        public T Create<T>()
+      public T Create<T>()
         {
             try
             {
@@ -26,7 +26,7 @@ namespace TddXt.AutoFixtureWrapper
             }
         }
 
-        public T Create<T>(T seed)
+      public T Create<T>(T seed)
         {
             try
             {
@@ -38,19 +38,19 @@ namespace TddXt.AutoFixtureWrapper
             }
         }
 
-        public void Register<T>(Func<T> source)
+      public void Register<T>(Func<T> source)
         {
             _generator.Register(source);
         }
 
-        public static FixtureWrapper CreateUnconfiguredInstance()
+      public static FixtureWrapper CreateUnconfiguredInstance()
         {
             var fixture = new Fixture(new EngineWithReplacedQuery());
             var fixtureWrapper = new FixtureWrapper(fixture);
             return fixtureWrapper;
         }
 
-        public static FixtureWrapper InstanceForEmptyCollections()
+      public static FixtureWrapper InstanceForEmptyCollections()
         {
             return new FixtureWrapper(new Fixture
             {

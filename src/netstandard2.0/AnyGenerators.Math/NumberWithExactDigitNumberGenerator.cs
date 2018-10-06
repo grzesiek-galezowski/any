@@ -1,14 +1,13 @@
 using System;
 using TddXt.AnyExtensibility;
-using TddXt.CommonTypes;
 
 namespace TddXt.AnyGenerators.Math
 {
   public class NumberWithExactDigitNumberGenerator<T> : InlineGenerator<T>
   {
     private static readonly Random RandomGenerator = new Random(Guid.NewGuid().GetHashCode());
-    private readonly NumericTraits<T> _intTraits;
     private readonly int _digitsCount;
+    private readonly NumericTraits<T> _intTraits;
 
     public NumberWithExactDigitNumberGenerator(NumericTraits<T> intTraits, int digitsCount)
     {

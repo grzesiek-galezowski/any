@@ -1,6 +1,5 @@
 using Castle.DynamicProxy;
 using TddXt.AnyExtensibility;
-using TddXt.CommonTypes;
 using TddXt.TypeResolution.Interceptors;
 
 namespace TddXt.TypeResolution.FakeChainElements

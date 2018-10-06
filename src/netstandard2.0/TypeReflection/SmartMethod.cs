@@ -20,15 +20,14 @@ namespace TddXt.TypeReflection
       return _methodInfo.Invoke(instance, parameters);
     }
 
-    private object[] GenerateAnyValuesFor(Func<Type, object> valueFactory)
-    {
-      return _methodInfo.GetParameters().Select(p => p.ParameterType).Select(valueFactory).ToArray();
-    }
-
     public object GenerateAnyReturnValue(Func<Type, object> valueFactory)
     {
       return valueFactory.Invoke(_methodInfo.ReturnType);
     }
 
+    private object[] GenerateAnyValuesFor(Func<Type, object> valueFactory)
+    {
+      return _methodInfo.GetParameters().Select(p => p.ParameterType).Select(valueFactory).ToArray();
+    }
   }
 }

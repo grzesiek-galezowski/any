@@ -6,8 +6,8 @@ namespace TddXt.TypeResolution.CustomCollections
 {
   public class LatestArraysWithPossibleValues<T>
   {
-    private readonly List<ArrayWithIndex<T>> _arrays = new List<ArrayWithIndex<T>>();
     private const int CacheSize = 20;
+    private readonly List<ArrayWithIndex<T>> _arrays = new List<ArrayWithIndex<T>>();
     private readonly Random _random = new Random();
 
     public bool Contain(IEnumerable<T> possibleValues)

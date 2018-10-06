@@ -5,7 +5,7 @@ namespace TddXt.AnyGenerators.Network
 {
   public class PortNumberGenerator : InlineGenerator<int>
   {
-    private static readonly Random RandomGenerator = new Random(System.Guid.NewGuid().GetHashCode());
+    private static readonly Random RandomGenerator = new Random(Guid.NewGuid().GetHashCode());
 
     public int GenerateInstance(InstanceGenerator instanceGenerator, GenerationTrace trace)
     {

@@ -1,14 +1,13 @@
 ﻿using System;
 using TddXt.AnyExtensibility;
-using TddXt.CommonTypes;
 
 namespace TddXt.AnyGenerators.Strings
 {
 
   public class ValueConversion<TInput, TResult> : InlineGenerator<TResult>
   {
-    private readonly InlineGenerator<TInput> _enumerableGenerator;
     private readonly Func<TInput, TResult> _conversion;
+    private readonly InlineGenerator<TInput> _enumerableGenerator;
 
     public ValueConversion(
       InlineGenerator<TInput> enumerableGenerator,

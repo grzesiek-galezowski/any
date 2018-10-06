@@ -27,7 +27,6 @@ namespace TddXt.AnyRoot
     };
 
 
-
     public static T From<T>(this BasicGenerator gen, params T[] possibleValues)
     {
       return gen.InstanceOf(InlineGenerators.From(possibleValues));
@@ -70,8 +69,5 @@ namespace TddXt.AnyRoot
     {
       return gen.InstanceOf(InlineGenerators.Exception());
     }
-
-
-
   }
 }

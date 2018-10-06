@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using TddXt.AnyExtensibility;
-using TddXt.CommonTypes;
 
 namespace TddXt.AnyGenerators.Collections
 {
@@ -11,6 +10,5 @@ namespace TddXt.AnyGenerators.Collections
       return new EnumerableGenerator<T>(Configuration.Many)
         .AsList<T>().GenerateInstance(instanceGenerator, trace).GetEnumerator();
     }
-    
   }
 }

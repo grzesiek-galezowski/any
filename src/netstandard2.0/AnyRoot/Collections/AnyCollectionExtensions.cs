@@ -190,6 +190,7 @@ namespace TddXt.AnyRoot.Collections
     {
       return gen.InstanceOf(InlineGenerators.SortedDictionary<TKey, TValue>());
     }
+
     public static ConcurrentDictionary<TKey, TValue> ConcurrentDictionary<TKey, TValue>(this BasicGenerator gen, int length)
     {
       return gen.InstanceOf(InlineGenerators.ConcurrentDictionary<TKey, TValue>(length));
@@ -244,6 +245,5 @@ namespace TddXt.AnyRoot.Collections
     {
       return gen.InstanceOf(InlineGenerators.Enumerator<T>());
     }
-
   }
 }

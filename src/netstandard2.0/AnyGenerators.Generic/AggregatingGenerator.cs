@@ -1,16 +1,15 @@
 ﻿using System;
 using System.Linq;
 using TddXt.AnyExtensibility;
-using TddXt.CommonTypes;
 
 namespace TddXt.AnyGenerators.Generic
 {
 
   public class AggregatingGenerator<T> : InlineGenerator<T>
   {
+    private readonly Func<T, T, T> _addOperation;
     private readonly InlineGenerator<T>[] _generators;
     private readonly T _identity;
-    private readonly Func<T, T, T> _addOperation;
 
     public AggregatingGenerator(T identity, Func<T, T, T> addOperation,
       params InlineGenerator<T>[] inlineGenerators)

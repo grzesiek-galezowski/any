@@ -6,8 +6,8 @@ namespace TddToolkitSpecification.Fixtures
   public abstract class AbstractObjectWithInterfaceInConstructor
   {
     private readonly int _a;
-    public readonly ISimple _constructorArgument;
     private readonly string _b;
+    public readonly ISimple _constructorArgument;
     public readonly ObjectWithInterfaceInConstructor _constructorNestedArgument;
 
 #pragma warning disable CC0060 // Abastract class should not have public constructors.

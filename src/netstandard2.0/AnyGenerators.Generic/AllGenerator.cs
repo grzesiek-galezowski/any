@@ -7,7 +7,6 @@ using NSubstitute.Core;
 using TddXt.AnyExtensibility;
 using TddXt.AnyGenerators.Generic.ExtensionPoints;
 using TddXt.AnyGenerators.Generic.ImplementationDetails;
-using TddXt.CommonTypes;
 using TddXt.TypeReflection;
 
 namespace TddXt.AnyGenerators.Generic
@@ -15,6 +14,12 @@ namespace TddXt.AnyGenerators.Generic
   [Serializable]
   public class AllGenerator : InstanceGenerator, BasicGenerator
   {
+    [NonSerialized] private readonly IFakeChainFactory _fakeChainFactory;
+
+    [NonSerialized] private readonly GenericMethodProxyCalls _methodProxyCalls;
+
+    [NonSerialized] private readonly ValueGenerator _valueGenerator;
+
     public AllGenerator(ValueGenerator valueGenerator,
       IFakeChainFactory fakeChainFactory,
       GenericMethodProxyCalls methodProxyCalls)
@@ -22,41 +27,6 @@ namespace TddXt.AnyGenerators.Generic
       _valueGenerator = valueGenerator;
       _fakeChainFactory = fakeChainFactory;
       _methodProxyCalls = methodProxyCalls;
-    }
-
-    [NonSerialized] private readonly ValueGenerator _valueGenerator;
-    [NonSerialized] private readonly IFakeChainFactory _fakeChainFactory;
-
-    [NonSerialized] private readonly GenericMethodProxyCalls _methodProxyCalls;
-
-    public T ValueOtherThan<T>(params T[] omittedValues)
-    {
-      return _valueGenerator.ValueOtherThan(omittedValues);
-    }
-
-    public T Value<T>(GenerationTrace trace)
-    {
-      return _valueGenerator.Value<T>();
-    }
-
-    public T Value<T>(T seed, GenerationTrace trace)
-    {
-      trace.GeneratingSeedeedValue(typeof(T), seed);
-      return _valueGenerator.Value(seed);
-    }
-
-    public object Instance(Type type, GenerationTrace trace)
-    {
-      return _methodProxyCalls
-        .ResultOfGenericVersionOfMethod(
-          this, type, MethodBase.GetCurrentMethod().Name, trace);
-    }
-
-    public object Instance(Type type, GenerationTrace trace, params GenerationCustomization[] customizations)
-    {
-      return _methodProxyCalls
-        .ResultOfGenericVersionOfMethod(
-          new CustomizedGenerator(this, customizations), type, MethodBase.GetCurrentMethod().Name, trace);
     }
 
     public T Instance<T>()
@@ -87,28 +57,46 @@ namespace TddXt.AnyGenerators.Generic
       }
     }
 
-    public T Instance<T>(GenerationTrace trace)
-    {
-      return _fakeChainFactory.GetInstance<T>().Resolve(this, trace);
-    }
-
-    public T Instance<T>(GenerationTrace trace, params GenerationCustomization[] customizations)
-    {
-      return _fakeChainFactory.GetInstance<T>().Resolve(new CustomizedGenerator(this, customizations), trace);
-    }
-
-    public T Dummy<T>()
+    public T InstanceOf<T>(InlineGenerator<T> gen)
     {
       var trace = new ListBasedGenerationTrace();
       try
       {
-        trace.BeginCreatingDummyInstanceOf(typeof(T));
-        return Dummy<T>(trace);
+        trace.BeginCreatingInstanceGraphWithInlineGenerator(typeof(T), gen);
+        return gen.GenerateInstance(this, trace);
       }
       catch (Exception e)
       {
         throw new GenerationFailedException(trace, e);
       }
+    }
+
+    public T ValueOtherThan<T>(params T[] omittedValues)
+    {
+      return _valueGenerator.ValueOtherThan(omittedValues);
+    }
+
+    public T Value<T>(GenerationTrace trace)
+    {
+      return _valueGenerator.Value<T>();
+    }
+
+    public T Value<T>(T seed, GenerationTrace trace)
+    {
+      trace.GeneratingSeedeedValue(typeof(T), seed);
+      return _valueGenerator.Value(seed);
+    }
+
+    public object Instance(Type type, GenerationTrace trace)
+    {
+      return _methodProxyCalls
+        .ResultOfGenericVersionOfMethod(
+          this, type, MethodBase.GetCurrentMethod().Name, trace);
+    }
+
+    public T Instance<T>(GenerationTrace trace)
+    {
+      return _fakeChainFactory.GetInstance<T>().Resolve(this, trace);
     }
 
     public T Dummy<T>(GenerationTrace trace)
@@ -167,13 +155,25 @@ namespace TddXt.AnyGenerators.Generic
       return currentValue;
     }
 
-    public T InstanceOf<T>(InlineGenerator<T> gen)
+    public object Instance(Type type, GenerationTrace trace, params GenerationCustomization[] customizations)
+    {
+      return _methodProxyCalls
+        .ResultOfGenericVersionOfMethod(
+          new CustomizedGenerator(this, customizations), type, MethodBase.GetCurrentMethod().Name, trace);
+    }
+
+    public T Instance<T>(GenerationTrace trace, params GenerationCustomization[] customizations)
+    {
+      return _fakeChainFactory.GetInstance<T>().Resolve(new CustomizedGenerator(this, customizations), trace);
+    }
+
+    public T Dummy<T>()
     {
       var trace = new ListBasedGenerationTrace();
       try
       {
-        trace.BeginCreatingInstanceGraphWithInlineGenerator(typeof(T), gen);
-        return gen.GenerateInstance(this, trace);
+        trace.BeginCreatingDummyInstanceOf(typeof(T));
+        return Dummy<T>(trace);
       }
       catch (Exception e)
       {
@@ -184,8 +184,8 @@ namespace TddXt.AnyGenerators.Generic
 
   public class CustomizedGenerator : InstanceGenerator
   {
-    private readonly AllGenerator _inner;
     private readonly GenerationCustomization[] _customizations;
+    private readonly AllGenerator _inner;
 
     public CustomizedGenerator(AllGenerator inner, GenerationCustomization[] customizations)
     {

@@ -10,6 +10,7 @@ namespace TddXt.CommonTypes
     {
       return new CircularList<T>(0, items);
     }
+
     public static CircularList<T> CreateStartingFromRandom<T>(params T[] items)
     {
       return new CircularList<T>(_random.Next(0,items.Length - 1), items);

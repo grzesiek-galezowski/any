@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using TddXt.AnyExtensibility;
-using TddXt.CommonTypes;
 
 namespace TddXt.AnyGenerators.Collections
 {

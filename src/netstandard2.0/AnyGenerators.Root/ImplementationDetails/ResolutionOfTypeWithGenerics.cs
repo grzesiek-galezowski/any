@@ -1,15 +1,14 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using TddXt.AnyExtensibility;
-using TddXt.CommonTypes;
 using TddXt.TypeResolution.FakeChainElements;
-using Type = System.Type;
 
 namespace TddXt.AnyGenerators.Root.ImplementationDetails
 {
   public class ResolutionOfTypeWithGenerics<T> : IResolution<T>
   {
-    private readonly Type[] _matchingTypes;
     private readonly FactoryForInstancesOfGenericTypes _factoryForInstancesOfGenericTypes;
+    private readonly Type[] _matchingTypes;
 
     public ResolutionOfTypeWithGenerics(
       FactoryForInstancesOfGenericTypes factoryForInstancesOfGenericTypes, 
@@ -32,6 +31,5 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
       var type = typeof(T);
       return (T)_factoryForInstancesOfGenericTypes.NewInstanceOf(type, instanceGenerator, trace);
     }
-
   }
 }

@@ -6,9 +6,9 @@ namespace TddXt.AutoFixtureWrapper
 {
     public class RegexGeneratorWrapper
     {
-        private readonly RegularExpressionGenerator _regexGenerator = new RegularExpressionGenerator();
+      private readonly RegularExpressionGenerator _regexGenerator = new RegularExpressionGenerator();
 
-        public object Create(string pattern)
+      public object Create(string pattern)
         {
             try
             {

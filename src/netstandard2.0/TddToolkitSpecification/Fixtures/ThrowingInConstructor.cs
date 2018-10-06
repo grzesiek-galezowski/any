@@ -8,6 +8,5 @@ namespace TddToolkitSpecification.Fixtures
     {
       throw new Exception();
     }
-
   }
 }

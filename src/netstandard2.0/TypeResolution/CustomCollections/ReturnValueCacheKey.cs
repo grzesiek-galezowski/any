@@ -16,6 +16,13 @@ namespace TddXt.TypeResolution.CustomCollections
       _proxy = proxy;
     }
 
+    public bool Equals(PerMethodCacheKey other)
+    {
+      if (ReferenceEquals(null, other)) return false;
+      if (ReferenceEquals(this, other)) return true;
+      return Equals(_method, other._method) && Equals(_proxy, other._proxy);
+    }
+
     public static PerMethodCacheKey For(IInvocation invocation)
     {
       return new PerMethodCacheKey(invocation.Method, invocation.Proxy);
@@ -24,13 +31,6 @@ namespace TddXt.TypeResolution.CustomCollections
     public static PerMethodCacheKey For(MethodInfo method, object proxy)
     {
       return new PerMethodCacheKey(method, proxy);
-    }
-
-    public bool Equals(PerMethodCacheKey other)
-    {
-      if (ReferenceEquals(null, other)) return false;
-      if (ReferenceEquals(this, other)) return true;
-      return Equals(_method, other._method) && Equals(_proxy, other._proxy);
     }
 
     public override bool Equals(object obj)
@@ -58,7 +58,5 @@ namespace TddXt.TypeResolution.CustomCollections
     {
       return !Equals(left, right);
     }
-
-
   }
 }

@@ -9,7 +9,7 @@ namespace TddToolkitSpecification.Fixtures
 
     public ObjectWithCopyConstructor(ObjectWithCopyConstructor o)
     {
-      this._field = o._field;
+      _field = o._field;
     }
   }
 }

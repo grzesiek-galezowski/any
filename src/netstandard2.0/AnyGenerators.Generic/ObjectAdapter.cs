@@ -2,7 +2,6 @@ using System;
 using System.Reflection;
 using TddXt.AnyExtensibility;
 using TddXt.AnyGenerators.Generic.ImplementationDetails;
-using TddXt.CommonTypes;
 
 namespace TddXt.AnyGenerators.Generic
 {

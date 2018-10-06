@@ -1,14 +1,13 @@
 using System;
 using System.Collections.Generic;
 using TddXt.AnyExtensibility;
-using TddXt.CommonTypes;
 
 namespace TddXt.AnyGenerators.Collections
 {
   public class EnumerableConversion<TInput, TResult> : InlineGenerator<TResult>
   {
-    private readonly InlineGenerator<IEnumerable<TInput>> _enumerableGenerator;
     private readonly Func<IEnumerable<TInput>, TResult> _conversion;
+    private readonly InlineGenerator<IEnumerable<TInput>> _enumerableGenerator;
 
     public EnumerableConversion(
       InlineGenerator<IEnumerable<TInput>> enumerableGenerator,

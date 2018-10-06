@@ -15,6 +15,11 @@ namespace TddXt.AnyGenerators.Generic
       _generator = fixtureWrapper;
     }
 
+    public T Value<T>()
+    {
+      return _generator.Create<T>();
+    }
+
     public T ValueOtherThan<T>(params T[] omittedValues)
     {
       omittedValues = omittedValues ?? new T[] { };
@@ -25,11 +30,6 @@ namespace TddXt.AnyGenerators.Generic
       } while (omittedValues.Contains(currentValue));
 
       return currentValue;
-    }
-
-    public T Value<T>()
-    {
-      return _generator.Create<T>();
     }
 
     public T Value<T>(T seed)

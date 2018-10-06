@@ -36,6 +36,5 @@ namespace TddXt.AnyRoot.Network
     {
       return gen.InstanceOf(InlineGenerators.Byte());
     }
-
   }
 }

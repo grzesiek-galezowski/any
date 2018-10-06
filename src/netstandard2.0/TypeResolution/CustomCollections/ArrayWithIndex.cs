@@ -6,6 +6,13 @@ namespace TddXt.TypeResolution.CustomCollections
   public class ArrayWithIndex<T>
   {
     private readonly T[] _values;
+
+    public ArrayWithIndex(T[] values, int initialIndex)
+    {
+      _values = values;
+      Index = initialIndex;
+    }
+
     private int Index { get; set; }
 
     private IEnumerable<T> Values
@@ -16,12 +23,6 @@ namespace TddXt.TypeResolution.CustomCollections
     public bool IsEquivalentTo(IEnumerable<T> array)
     {
       return Values.SequenceEqual(array);
-    }
-
-    public ArrayWithIndex(T[] values, int initialIndex)
-    {
-      _values = values;
-      Index = initialIndex;
     }
 
     public T GetNextElement()

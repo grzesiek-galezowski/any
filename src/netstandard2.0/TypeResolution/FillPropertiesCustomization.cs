@@ -1,6 +1,5 @@
 using System;
 using TddXt.AnyExtensibility;
-using TddXt.CommonTypes;
 using TddXt.TypeReflection.Interfaces;
 
 namespace TddXt.TypeResolution

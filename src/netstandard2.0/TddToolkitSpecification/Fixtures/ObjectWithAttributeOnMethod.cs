@@ -14,6 +14,5 @@ namespace TddToolkitSpecification.Fixtures
     {
       throw new NotImplementedException();
     }
-
   }
 }

@@ -1,5 +1,4 @@
 using TddXt.AnyExtensibility;
-using TddXt.CommonTypes;
 using TddXt.TypeResolution.CustomCollections;
 
 namespace TddXt.AnyGenerators.Generic
@@ -25,6 +24,5 @@ namespace TddXt.AnyGenerators.Generic
 
       return latestArraysWithPossibleValues.PickNextElementFrom(_possibleValues);
     }
-
   }
 }
