@@ -22,6 +22,11 @@ namespace TddXt.AnyRoot.Invokable
       return gen.InstanceOf(InlineGenerators.StartedTask<T>());
     }
 
+    public static Task StartedTask(this BasicGenerator gen)
+    {
+      return gen.InstanceOf(InlineGenerators.StartedTask());
+    }
+
     public static Func<T> Func<T>(this BasicGenerator gen)
     {
       return gen.InstanceOf(InlineGenerators.Func<T>());

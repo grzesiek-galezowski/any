@@ -1,6 +1,6 @@
 using System;
 using Castle.DynamicProxy;
-using TddXt.CommonTypes;
+using TddXt.AnyExtensibility;
 using TddXt.TypeResolution.CustomCollections;
 
 namespace TddXt.TypeResolution
@@ -31,6 +31,5 @@ namespace TddXt.TypeResolution
       }
 
     }
-
   }
 }

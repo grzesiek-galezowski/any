@@ -1112,7 +1112,6 @@ namespace TddToolkitSpecification
       Assert.DoesNotThrow(() => task2.Start());
     }
 
-    /* todo re-add later
     [Test]
     public void ShouldGenerateVoidStartedTasks()
     {
@@ -1125,7 +1124,7 @@ namespace TddToolkitSpecification
       Assert.AreNotEqual(voidTask1, voidTask2);
       Assert.Throws<InvalidOperationException>(() => voidTask1.Start());
       Assert.Throws<InvalidOperationException>(() => voidTask2.Start());
-    }*/
+    }
 
     [Test]
     public void ShouldGenerateStartedTasks()
@@ -1247,6 +1246,7 @@ namespace TddToolkitSpecification
     {
       Serialize<T>(Any.Instance<T>());
     }
+
     private static void Serialize<T>(T instance)
     {
       using (MemoryStream stream = new MemoryStream())
@@ -1304,16 +1304,16 @@ namespace TddToolkitSpecification
 
   public class ObjectWithStaticParseMethod
   {
+    private ObjectWithStaticParseMethod(int x)
+    {
+      X = x;
+    }
+
+    public int X { get; set; }
+
     public static ObjectWithStaticParseMethod ParseInt(int x)
     {
       throw new Exception("Thou shalt not pass!");
     }
-
-    private ObjectWithStaticParseMethod(int x)
-    {
-      this.X = x;
-    }
-
-    public int X { get; set; }
   }
 }

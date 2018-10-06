@@ -1,6 +1,6 @@
 namespace TddXt.TypeResolution.Interfaces
 {
-  public interface IValueGenerator //todo remove this interface?
+  public interface IValueGenerator
   {
     T Value<T>();
   }

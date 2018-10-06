@@ -1,15 +1,14 @@
 using Castle.DynamicProxy;
 using TddXt.AnyExtensibility;
-using TddXt.CommonTypes;
 using TddXt.TypeResolution.FakeChainElements;
 
 namespace TddXt.TypeResolution.Interceptors
 {
   public class FakeAbstractClass<T> : IResolution<T>
   {
+    private readonly FallbackTypeGenerator<T> _fallbackTypeGenerator;
     private readonly CachedReturnValueGeneration _generation;
     private readonly ProxyGenerator _proxyGenerator;
-    private readonly FallbackTypeGenerator<T> _fallbackTypeGenerator;
 
     public FakeAbstractClass(
       CachedReturnValueGeneration generation, 
@@ -18,7 +17,7 @@ namespace TddXt.TypeResolution.Interceptors
     {
       _generation = generation;
       _proxyGenerator = proxyGenerator;
-      _fallbackTypeGenerator = fallbackTypeGenerator; //bug extract?
+      _fallbackTypeGenerator = fallbackTypeGenerator;
     }
 
     public bool Applies()

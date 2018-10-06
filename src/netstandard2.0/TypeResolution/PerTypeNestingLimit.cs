@@ -1,5 +1,5 @@
 ﻿using System;
-using TddXt.CommonTypes;
+using TddXt.AnyExtensibility;
 
 namespace TddXt.TypeResolution
 {
@@ -18,11 +18,6 @@ namespace TddXt.TypeResolution
     private GlobalNestingLimit(int limit)
     {
       _limit = limit;
-    }
-
-    public static GlobalNestingLimit Of(int limit)
-    {
-      return new GlobalNestingLimit(limit);
     }
 
     public void AddNestingFor<T>(GenerationTrace trace)
@@ -49,6 +44,11 @@ namespace TddXt.TypeResolution
     {
       _nesting--;
       trace.RemoveNestingAndCheckWith(_nesting, typeof(T));
+    }
+
+    public static GlobalNestingLimit Of(int limit)
+    {
+      return new GlobalNestingLimit(limit);
     }
   }
 }

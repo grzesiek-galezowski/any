@@ -1,4 +1,5 @@
-﻿using TddXt.AnyExtensibility;
+﻿using System;
+using TddXt.AnyExtensibility;
 using TddXt.AnyGenerators.Root;
 
 namespace TddXt.AnyRoot.Strings
@@ -45,7 +46,7 @@ namespace TddXt.AnyRoot.Strings
       return gen.InstanceOf(InlineGenerators.String(length));
     }
 
-    //todo remove this in favor of OtherThan()
+    [Obsolete("Use OtherThan() extension method instead")]
     public static string StringOtherThan(this BasicGenerator gen, params string[] alreadyUsedStrings)
     {
       return gen.InstanceOf(InlineGenerators.ValueOtherThan(alreadyUsedStrings));

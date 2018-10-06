@@ -117,7 +117,7 @@ namespace TddXt.AnyGenerators.Root
 
     public static InlineGenerator<IEnumerable<T>> EnumerableWithout<T>(T[] excluded)
     {
-      return new ExclusiveEnumerableGenerator<T>(excluded);
+      return new ExclusiveEnumerableGenerator<T>(excluded, Configuration.Many);
     }
 
     public static InlineGenerator<T[]> Array<T>(int length)
@@ -135,7 +135,7 @@ namespace TddXt.AnyGenerators.Root
 
     public static InlineGenerator<T[]> ArrayWithout<T>(T[] excluded)
     {
-      return new ExclusiveEnumerableGenerator<T>(excluded).AsArray();
+      return EnumerableWithout(excluded).AsArray();
     }
 
     public static InlineGenerator<T[]> ArrayWith<T>(T[] included)
@@ -158,7 +158,7 @@ namespace TddXt.AnyGenerators.Root
 
     public static InlineGenerator<List<T>> ListWithout<T>(T[] excluded)
     {
-      return new ExclusiveEnumerableGenerator<T>(excluded).AsList();
+      return EnumerableWithout(excluded).AsList();
     }
 
     public static InlineGenerator<List<T>> ListWith<T>(T[] included)
@@ -325,8 +325,6 @@ namespace TddXt.AnyGenerators.Root
       return new KeyValuePairGenerator<TKey, TValue>();
     }
 
-    //todo some of these can be optimized:
-
     public static InlineGenerator<char> AlphaChar()
     {
       return _alphaCharGenerator;
@@ -384,7 +382,7 @@ namespace TddXt.AnyGenerators.Root
 
     public static InlineGenerator<string> AlphaString(int maxLength)
     {
-      return new StringFromCharsGenerator(maxLength, InlineGenerators.AlphaChar());
+      return new StringFromCharsGenerator(maxLength, AlphaChar());
     }
 
     public static InlineGenerator<string> LowercaseAlphaString()
@@ -399,7 +397,7 @@ namespace TddXt.AnyGenerators.Root
 
     public static InlineGenerator<string> String(int length)
     {
-      return new StringOfLengthGenerator(length, InlineGenerators.String());
+      return new StringOfLengthGenerator(length, String());
     }
 
     public static InlineGenerator<string> Identifier()
@@ -414,12 +412,12 @@ namespace TddXt.AnyGenerators.Root
 
     public static InlineGenerator<string> StringNotContaining(string[] excludedSubstrings)
     {
-      return new StringNotContainingGenerator(excludedSubstrings, InlineGenerators.String());
+      return new StringNotContainingGenerator(excludedSubstrings, String());
     }
 
     public static InlineGenerator<string> StringNotContaining<T>(T[] excludedObjects)
     {
-      return InlineGenerators.StringNotContaining((from obj in new[] {new[] {excludedObjects}} select obj.ToString()).ToArray());
+      return StringNotContaining((from obj in new[] {new[] {excludedObjects}} select obj.ToString()).ToArray());
     }
 
     public static InlineGenerator<T> ValueOtherThan<T>(T[] excluded)
@@ -494,7 +492,7 @@ namespace TddXt.AnyGenerators.Root
 
     public static InlineGenerator<int> IntegerFromSequence(int startingValue, int step)
     {
-      return new IntegerFromSequenceGenerator(startingValue, step, InlineGenerators.Integer());
+      return new IntegerFromSequenceGenerator(startingValue, step, Integer());
     }
 
     public static InlineGenerator<byte> Digit()
@@ -630,6 +628,11 @@ namespace TddXt.AnyGenerators.Root
     public static InlineGenerator<Task<T>> StartedTask<T>()
     {
       return new StartedTaskGenerator<T>();
+    }
+
+    public static InlineGenerator<Task> StartedTask()
+    {
+      return new StartedTaskGenerator();
     }
 
     public static InlineGenerator<T> Exploding<T>() where T : class

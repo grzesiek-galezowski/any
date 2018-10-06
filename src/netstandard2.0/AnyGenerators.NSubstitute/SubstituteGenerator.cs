@@ -1,6 +1,5 @@
 using NSubstitute;
 using TddXt.AnyExtensibility;
-using TddXt.CommonTypes;
 using TddXt.TypeReflection;
 
 namespace TddXt.AnyGenerators.NSubstitute

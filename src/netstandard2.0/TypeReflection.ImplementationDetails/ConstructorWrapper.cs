@@ -2,30 +2,19 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using TddXt.CommonTypes;
+using TddXt.AnyExtensibility;
 using TddXt.TypeReflection.Interfaces;
 
 namespace TddXt.TypeReflection.ImplementationDetails
 {
   public class ConstructorWrapper : IConstructorWrapper
   {
-    public static ConstructorWrapper FromConstructorInfo(ConstructorInfo constructor)
-    {
-      return new ConstructorWrapper(constructor, constructor.Invoke, constructor.GetParameters(), constructor.DeclaringType);
-    }
-
-    public static ConstructorWrapper FromStaticMethodInfo(MethodInfo m)
-    {
-      return new ConstructorWrapper(m, args => m.Invoke(null, args), m.GetParameters(), m.ReturnType);
-    }
-
-
     private readonly MethodBase _constructor;
-    private readonly ParameterInfo[] _parameters;
-    private readonly Type _returnType;
     private readonly bool _hasAbstractOrInterfaceArguments;
     private readonly Func<object[], object> _invocation;
+    private readonly ParameterInfo[] _parameters;
     private readonly IEnumerable<TypeInfo> _parameterTypes;
+    private readonly Type _returnType;
 
     public ConstructorWrapper(
       MethodBase constructor, 
@@ -96,7 +85,44 @@ namespace TddXt.TypeReflection.ImplementationDetails
     public object InvokeWithParametersCreatedBy(Func<Type, GenerationTrace, object> instanceGenerator,
       GenerationTrace trace)
     {
-      return _invocation(this.GenerateAnyParameterValues(instanceGenerator, trace).ToArray());
+      return _invocation(GenerateAnyParameterValues(instanceGenerator, trace).ToArray());
+    }
+
+    public bool IsInternal()
+    {
+      return IsInternal(_constructor);
+    }
+
+    public bool IsNotRecursive()
+    {
+      return !HasAnyArgumentOfType(_returnType);
+    }
+
+    public bool IsRecursive()
+    {
+      return !IsNotRecursive();
+    }
+
+    public object Invoke(IEnumerable<object> parameters)
+    {
+      return InvokeWith(parameters);
+    }
+
+    public IEnumerable<ParameterInfo> Parameters => _parameters;
+
+    public void DumpInto(GenerationTrace trace)
+    {
+      trace.ChosenConstructor(_constructor.Name, _parameterTypes);
+    }
+
+    public static ConstructorWrapper FromConstructorInfo(ConstructorInfo constructor)
+    {
+      return new ConstructorWrapper(constructor, constructor.Invoke, constructor.GetParameters(), constructor.DeclaringType);
+    }
+
+    public static ConstructorWrapper FromStaticMethodInfo(MethodInfo m)
+    {
+      return new ConstructorWrapper(m, args => m.Invoke(null, args), m.GetParameters(), m.ReturnType);
     }
 
     public object InvokeWith(IEnumerable<object> constructorParameters)
@@ -134,11 +160,6 @@ namespace TddXt.TypeReflection.ImplementationDetails
       return _parameters.Any(p => p.ParameterType == type);
     }
 
-    public bool IsInternal()
-    {
-      return IsInternal(_constructor);
-    }
-
     public static bool IsInternal(MethodBase c)
     {
       return c.IsAssembly && !c.IsPublic && !c.IsStatic;
@@ -147,27 +168,6 @@ namespace TddXt.TypeReflection.ImplementationDetails
     public bool IsFactoryMethod()
     {
       return _constructor.DeclaringType == _returnType;
-    }
-
-    public bool IsNotRecursive()
-    {
-      return !HasAnyArgumentOfType(_returnType);
-    }
-
-    public bool IsRecursive()
-    {
-      return !IsNotRecursive();
-    }
-
-    public object Invoke(IEnumerable<object> parameters)
-    {
-      return InvokeWith(parameters);
-    }
-
-    public IEnumerable<ParameterInfo> Parameters => _parameters;
-    public void DumpInto(GenerationTrace trace)
-    {
-      trace.ChosenConstructor(_constructor.Name, _parameterTypes);
     }
 
     public static bool IsPrivateOrProtected(ConstructorInfo arg)

@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
-using TddXt.CommonTypes;
+using TddXt.AnyExtensibility;
 using TddXt.TypeReflection.Interfaces;
 
 namespace TddXt.TypeReflection.ImplementationDetails
@@ -57,16 +57,6 @@ namespace TddXt.TypeReflection.ImplementationDetails
       return false; //?? actually, this is not right...
     }
 
-    public static IConstructorWrapper ForOrdinaryType(ConstructorInfo constructorInfo)
-    {
-      return new DefaultParameterlessConstructor(() => constructorInfo.Invoke(new object[]{}));
-    }
-
-    public static IEnumerable<IConstructorWrapper> ForValue(Type type)
-    {
-      return new [] { new DefaultParameterlessConstructor(() => Activator.CreateInstance(type))};
-    }
-
     public bool IsNotRecursive()
     {
       return true;
@@ -83,9 +73,20 @@ namespace TddXt.TypeReflection.ImplementationDetails
     }
 
     public IEnumerable<ParameterInfo> Parameters { get; } = new List<ParameterInfo>();
+
     public void DumpInto(GenerationTrace trace)
     {
       trace.ChosenParameterlessConstructor();
+    }
+
+    public static IConstructorWrapper ForOrdinaryType(ConstructorInfo constructorInfo)
+    {
+      return new DefaultParameterlessConstructor(() => constructorInfo.Invoke(new object[]{}));
+    }
+
+    public static IEnumerable<IConstructorWrapper> ForValue(Type type)
+    {
+      return new [] { new DefaultParameterlessConstructor(() => Activator.CreateInstance(type))};
     }
   }
 }

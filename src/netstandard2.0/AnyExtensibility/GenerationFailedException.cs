@@ -1,6 +1,6 @@
 using System;
 
-namespace TddXt.CommonTypes
+namespace TddXt.AnyExtensibility
 {
   public class GenerationFailedException : Exception
   {

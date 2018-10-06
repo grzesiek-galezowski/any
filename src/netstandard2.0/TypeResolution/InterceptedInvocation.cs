@@ -2,15 +2,15 @@ using System;
 using System.Linq;
 using Castle.DynamicProxy;
 using NSubstitute.Core;
-using TddXt.CommonTypes;
+using TddXt.AnyExtensibility;
 using TddXt.TypeResolution.CustomCollections;
 
 namespace TddXt.TypeResolution
 {
   public class InterceptedInvocation
   {
-    private readonly IInvocation _invocation;
     private readonly Func<Type, GenerationTrace, object> _instanceSource;
+    private readonly IInvocation _invocation;
 
     public InterceptedInvocation(
       IInvocation invocation,
@@ -65,6 +65,5 @@ namespace TddXt.TypeResolution
     {
       return _instanceSource(invocation.Method.ReturnType, trace);
     }
-
   }
 }

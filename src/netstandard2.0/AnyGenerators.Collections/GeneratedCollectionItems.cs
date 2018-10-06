@@ -1,12 +1,11 @@
 using System.Collections.Generic;
 using TddXt.AnyExtensibility;
-using TddXt.CommonTypes;
 
 namespace TddXt.AnyGenerators.Collections
 {
-  internal static class CollectionFiller //todo make up a better name
+  internal static class GeneratedCollectionItems
   {
-    public static ICollection<T> FillingCollection<T>(ICollection<T> collection, int many,
+    public static ICollection<T> AddTo<T>(ICollection<T> collection, int many,
       InstanceGenerator instanceGenerator, GenerationTrace trace)
     {
       for (int i = 0; i < many; ++i)

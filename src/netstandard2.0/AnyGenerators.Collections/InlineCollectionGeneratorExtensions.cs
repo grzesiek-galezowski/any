@@ -12,12 +12,12 @@ namespace TddXt.AnyGenerators.Collections
 
     public static EnumerableConversion<T, T[]> AsArray<T>(this InlineGenerator<IEnumerable<T>> enumerableGenerator)
     {
-      return Conversion(enumerableGenerator, System.Linq.Enumerable.ToArray);
+      return Conversion(enumerableGenerator, Enumerable.ToArray);
     }
 
     public static EnumerableConversion<T, List<T>> AsList<T>(this InlineGenerator<IEnumerable<T>> enumerableGenerator)
     {
-      return Conversion(enumerableGenerator, System.Linq.Enumerable.ToList);
+      return Conversion(enumerableGenerator, Enumerable.ToList);
     }
 
     public static EnumerableConversion<T, IReadOnlyList<T>> AsReadOnlyList<T>(this InlineGenerator<IEnumerable<T>> enumerableGenerator)
@@ -91,12 +91,12 @@ namespace TddXt.AnyGenerators.Collections
       return Conversion(enumerableGenerator,
         enumerable => new SortedList<TKey, TValue>(enumerable.ToDictionary(x => x.Key, x => x.Value)));
     }
+
     private static EnumerableConversion<T, U> Conversion<T, U>(
       InlineGenerator<IEnumerable<T>> enumerableGenerator,
       Func<IEnumerable<T>, U> conversion)
     {
       return new EnumerableConversion<T, U>(enumerableGenerator, conversion);
     }
-
   }
 }

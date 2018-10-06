@@ -2,30 +2,17 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using static System.Environment;
+using TddXt.AnyExtensibility;
 
-namespace TddXt.CommonTypes
+namespace TddXt.AnyGenerators.Generic.ImplementationDetails
 {
-  public interface GenerationTrace
-  {
-    void AddNestingAndCheckWith(int nesting, Type type);
-    void RemoveNestingAndCheckWith(int nesting, Type type);
-    void BeginCreatingInstanceGraphWith(Type type);
-    void GeneratingSeedeedValue<T>(Type type, T seed);
-    void BeginCreatingInstanceGraphWithInlineGenerator(Type type, object gen);
-    void SelectedResolution(Type type, object resolution);
-    void NestingLimitReachedTryingDummy();
-    void ThirdPartyGeneratorFailedTryingFallback(Exception exception);
-    void ChosenParameterlessConstructor();
-    void ChosenConstructor(string constructorName, IEnumerable<TypeInfo> parameterTypes);
-    string ToString();
-  }
-
   [Serializable]
   public class ListBasedGenerationTrace : GenerationTrace
   {
-    private int _nesting;
+    [NonSerialized]
     private readonly List<string> _messages;
+
+    private int _nesting;
 
     public ListBasedGenerationTrace()
     {
@@ -40,19 +27,6 @@ namespace TddXt.CommonTypes
       AssertNestingCoherentWith(nesting);
     }
 
-    private string Spaces()
-    {
-      return new string(Enumerable.Repeat(' ', _nesting).ToArray());
-    }
-
-    private void AssertNestingCoherentWith(int nesting)
-    {
-      if (_nesting != nesting)
-      {
-        throw new Exception($"Trolololo {_nesting} vs. {nesting}"); //bug
-      }
-    }
-
     public void RemoveNestingAndCheckWith(int nesting, Type type)
     {
       _messages.Add($"{Spaces()}END: {type}");
@@ -60,24 +34,9 @@ namespace TddXt.CommonTypes
       AssertNestingCoherentWith(nesting);
     }
 
-    public void BeginCreatingInstanceGraphWith(Type type)
-    {
-      _messages.Add($"{Spaces()}BUILT-IN ROOT: {type}");
-    }
-
     public void GeneratingSeedeedValue<T>(Type type, T seed)
     {
       _messages.Add($"Generating seeded value of type {type} with seed {seed}");
-    }
-
-    public void BeginCreatingInstanceGraphWithInlineGenerator(Type type, object gen)
-    {
-      _messages.Add($"{Spaces()}INLINE({gen.GetType()}): {type}");
-    }
-
-    public void BeginCreatingDummyInstanceOf(Type type)
-    {
-      _messages.Add($"{Spaces()}DUMMY ROOT: {type}");
     }
 
     public void SelectedResolution(Type type, object resolution)
@@ -105,15 +64,53 @@ namespace TddXt.CommonTypes
       _messages.Add($"{Spaces()}Picked constructor {constructorName}{ParametersString(parameterTypes)}");
     }
 
+    public override string ToString()
+    {
+      return string.Join(Environment.NewLine, _messages);
+    }
+
+    private string Spaces()
+    {
+      return new string(Enumerable.Repeat(' ', _nesting).ToArray());
+    }
+
+    private void AssertNestingCoherentWith(int nesting)
+    {
+      if (_nesting != nesting)
+      {
+        throw new DeveloperError($"Local and global nesting levels are incoherent, " +
+                                 $"which means there's a threading issue. {_nesting} vs. {nesting}");
+      }
+    }
+
+    public void BeginCreatingInstanceGraphWith(Type type)
+    {
+      _messages.Add($"{Spaces()}BUILT-IN ROOT: {type}");
+    }
+
+    public void BeginCreatingInstanceGraphWithInlineGenerator(Type type, object gen)
+    {
+      _messages.Add($"{Spaces()}INLINE({gen.GetType()}): {type}");
+    }
+
+    public void BeginCreatingDummyInstanceOf(Type type)
+    {
+      _messages.Add($"{Spaces()}DUMMY ROOT: {type}");
+    }
+
     private static string ParametersString(IEnumerable<TypeInfo> parameterTypes)
     {
       return "(" + (parameterTypes.Any() ? string.Join(", ", parameterTypes) + ") - parameter generation will follow." : "NONE)");
     }
+  }
 
-    public override string ToString()
+  public class DeveloperError : Exception
+  {
+    public DeveloperError(string s)
+    : base(s)
+
     {
-      return string.Join(NewLine, _messages);
+      
     }
-
   }
 }

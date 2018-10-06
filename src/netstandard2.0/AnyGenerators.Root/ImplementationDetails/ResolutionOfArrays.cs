@@ -1,5 +1,4 @@
 using TddXt.AnyExtensibility;
-using TddXt.CommonTypes;
 using TddXt.TypeResolution.FakeChainElements;
 
 namespace TddXt.AnyGenerators.Root.ImplementationDetails
