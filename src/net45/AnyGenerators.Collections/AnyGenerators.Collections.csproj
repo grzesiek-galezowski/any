@@ -38,17 +38,8 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\netstandard2.0\AnyGenerators.Collections\CollectionFiller.cs">
-      <Link>CollectionFiller.cs</Link>
-    </Compile>
     <Compile Include="..\..\netstandard2.0\AnyGenerators.Collections\DictionaryWithKeysGenerator.cs">
       <Link>DictionaryWithKeysGenerator.cs</Link>
     </Compile>
@@ -63,6 +54,9 @@
     </Compile>
     <Compile Include="..\..\netstandard2.0\AnyGenerators.Collections\ExclusiveEnumerableGenerator.cs">
       <Link>ExclusiveEnumerableGenerator.cs</Link>
+    </Compile>
+    <Compile Include="..\..\netstandard2.0\AnyGenerators.Collections\GeneratedCollectionItems.cs">
+      <Link>GeneratedCollectionItems.cs</Link>
     </Compile>
     <Compile Include="..\..\netstandard2.0\AnyGenerators.Collections\InclusiveEnumerableGenerator.cs">
       <Link>InclusiveEnumerableGenerator.cs</Link>
