@@ -50,7 +50,7 @@ var srcNet45Dir = srcDir + Directory("net45");
 var specificationNet45Dir = specificationDir + Directory("netstandard2.0");
 var slnNet45 = srcNet45Dir + File("Any.sln");
 
-GitVersion gitVersion = null; 
+GitVersion nugetVersion = null; 
 
 public void RestorePackages(string path)
 {
@@ -107,11 +107,22 @@ Task("Restore-NuGet-Packages")
 
 Task("Build")
     .IsDependentOn("Restore-NuGet-Packages")
+    .IsDependentOn("GitVersion")
     .Does(() =>
 {
     Build(slnNetStandard);
 	Build(slnNet45);
 });
+
+Task("GitVersion")
+    .Does(() =>
+{
+    nugetVersion = GitVersion(new GitVersionSettings {
+        UpdateAssemblyInfo = true,
+    });
+    Console.WriteLine(nugetVersion.NuGetVersionV2);
+});
+
 
 Task("Run-Unit-Tests")
 	.IsDependentOn("Build")
@@ -162,7 +173,7 @@ Task("Pack")
 			ProjectUrl = new Uri("https://github.com/grzesiek-galezowski/any"),
 			OutputDirectory = "./nuget",
       LicenseUrl = new Uri("https://raw.githubusercontent.com/grzesiek-galezowski/any/master/LICENSE"),
-			Version = "2.1.3",
+			Version = nugetVersion.NuGetVersionV2, //"2.1.3",
       Symbols = false,
 			Files = new [] 
 			{
@@ -221,6 +232,7 @@ Task("Pack")
 //////////////////////////////////////////////////////////////////////
 
 Task("Default")
+    .IsDependentOn("GitVersion")
     .IsDependentOn("Build")
     .IsDependentOn("Run-Unit-Tests")
     .IsDependentOn("Pack");
