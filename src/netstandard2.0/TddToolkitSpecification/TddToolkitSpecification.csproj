@@ -74,7 +74,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AnySpecification.cs" />
-    <Compile Include="AnySubstituteSpecification.cs" />
     <Compile Include="CircularListSpecification.cs" />
     <Compile Include="Fixtures\AbstractObjectWithInterfaceInConstructor.cs" />
     <Compile Include="Fixtures\AbstractObjectWithVirtualMethods.cs" />

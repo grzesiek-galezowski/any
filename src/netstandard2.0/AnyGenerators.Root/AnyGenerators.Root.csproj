@@ -19,7 +19,6 @@
     <ProjectReference Include="..\AnyGenerators.Invokable\AnyGenerators.Invokable.csproj" />
     <ProjectReference Include="..\AnyGenerators.Math\AnyGenerators.Math.csproj" />
     <ProjectReference Include="..\AnyGenerators.Network\AnyGenerators.Network.csproj" />
-    <ProjectReference Include="..\AnyGenerators.NSubstitute\AnyGenerators.NSubstitute.csproj" />
     <ProjectReference Include="..\AnyGenerators.Numbers\AnyGenerators.Numbers.csproj" />
     <ProjectReference Include="..\AnyGenerators.Strings\AnyGenerators.Strings.csproj" />
     <ProjectReference Include="..\TypeReflection\TypeReflection.csproj" />

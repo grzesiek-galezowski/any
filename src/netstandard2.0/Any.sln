@@ -37,8 +37,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AnyGenerators.Invokable", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AnyGenerators.Network", "AnyGenerators.Network\AnyGenerators.Network.csproj", "{DC13C984-A4E5-47D0-8B5B-80EF681771FE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AnyGenerators.NSubstitute", "AnyGenerators.NSubstitute\AnyGenerators.NSubstitute.csproj", "{952EBE90-504C-4C1A-B569-5A6C2F1DDBB4}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AnyRoot", "AnyRoot\AnyRoot.csproj", "{6C6332AB-E70C-432E-AC8F-229211F79A84}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AnyGenerators.Root", "AnyGenerators.Root\AnyGenerators.Root.csproj", "{6EA3F045-5D9D-44D9-B114-E16C66D383BF}"
@@ -135,10 +133,6 @@ Global
 		{DC13C984-A4E5-47D0-8B5B-80EF681771FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DC13C984-A4E5-47D0-8B5B-80EF681771FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DC13C984-A4E5-47D0-8B5B-80EF681771FE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{952EBE90-504C-4C1A-B569-5A6C2F1DDBB4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{952EBE90-504C-4C1A-B569-5A6C2F1DDBB4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{952EBE90-504C-4C1A-B569-5A6C2F1DDBB4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{952EBE90-504C-4C1A-B569-5A6C2F1DDBB4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6C6332AB-E70C-432E-AC8F-229211F79A84}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6C6332AB-E70C-432E-AC8F-229211F79A84}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6C6332AB-E70C-432E-AC8F-229211F79A84}.Release|Any CPU.ActiveCfg = Release|Any CPU

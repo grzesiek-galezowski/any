@@ -103,10 +103,6 @@
       <Project>{812e37e4-4ac9-46d2-b022-7f07e7dedafe}</Project>
       <Name>AnyGenerators.Network</Name>
     </ProjectReference>
-    <ProjectReference Include="..\AnyGenerators.NSubstitute\AnyGenerators.NSubstitute.csproj">
-      <Project>{138f2e5f-832d-42aa-93b9-8fd3dc613f82}</Project>
-      <Name>AnyGenerators.NSubstitute</Name>
-    </ProjectReference>
     <ProjectReference Include="..\AnyGenerators.Numbers\AnyGenerators.Numbers.csproj">
       <Project>{819e4dac-405c-4d44-a0b6-85a82a992a89}</Project>
       <Name>AnyGenerators.Numbers</Name>

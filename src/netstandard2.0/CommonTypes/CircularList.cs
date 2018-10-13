@@ -6,7 +6,7 @@ namespace TddXt.CommonTypes
   {
     private static readonly Random _random = new Random(DateTime.UtcNow.Millisecond);
 
-    public static CircularList<T> StartingFrom0<T>(params T[] items)
+    public static CircularList<T> StartingWithFirstOf<T>(params T[] items)
     {
       return new CircularList<T>(0, items);
     }

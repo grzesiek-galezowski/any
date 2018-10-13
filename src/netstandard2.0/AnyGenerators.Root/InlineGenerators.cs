@@ -11,7 +11,6 @@ using TddXt.AnyGenerators.Generic;
 using TddXt.AnyGenerators.Invokable;
 using TddXt.AnyGenerators.Math;
 using TddXt.AnyGenerators.Network;
-using TddXt.AnyGenerators.NSubstitute;
 using TddXt.AnyGenerators.Numbers;
 using TddXt.AnyGenerators.Strings;
 
@@ -543,11 +542,6 @@ namespace TddXt.AnyGenerators.Root
     public static PortNumberGenerator Port()
     {
       return _portNumberGenerator;
-    }
-
-    public static InlineGenerator<T> Substitute<T>() where T : class
-    {
-      return new SubstituteGenerator<T>();
     }
 
     public static InlineGenerator<Func<T>> Func<T>()

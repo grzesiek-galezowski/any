@@ -52,9 +52,6 @@
     <Compile Include="..\..\netstandard2.0\AnyRoot\Network\AnyNetworkExtensions.cs">
       <Link>Network\AnyNetworkExtensions.cs</Link>
     </Compile>
-    <Compile Include="..\..\netstandard2.0\AnyRoot\NSubstitute\AnyNSubstituteExtensions.cs">
-      <Link>NSubstitute\AnyNSubstituteExtensions.cs</Link>
-    </Compile>
     <Compile Include="..\..\netstandard2.0\AnyRoot\Numbers\AnyNumberExtensions.cs">
       <Link>Numbers\AnyNumberExtensions.cs</Link>
     </Compile>

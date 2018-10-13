@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
-using TddXt.AnyRoot;
 using TddXt.AnyRoot.Numbers;
 using TddXt.CommonTypes;
+using static TddXt.AnyRoot.Root;
 
 namespace TddToolkitSpecification
 {
@@ -11,10 +11,10 @@ namespace TddToolkitSpecification
     public void ShouldReturnAllElementsInOrderTheyWereAdded()
     {
       //GIVEN
-      var element1 = Root.Any.Integer();
-      var element2 = Root.Any.Integer();
-      var element3 = Root.Any.Integer();
-      var list = CircularList.StartingFrom0(element1, element2, element3);
+      var element1 = Any.Integer();
+      var element2 = Any.Integer();
+      var element3 = Any.Integer();
+      var list = CircularList.StartingWithFirstOf(element1, element2, element3);
 
       //WHEN
       var returnedElement1 = list.Next();
@@ -31,10 +31,10 @@ namespace TddToolkitSpecification
     public void ShouldStartOverReturningElementsWhenItRunsOutOfElements()
     {
       //GIVEN
-      var element1 = Root.Any.Integer();
-      var element2 = Root.Any.Integer();
+      var element1 = Any.Integer();
+      var element2 = Any.Integer();
 
-      var list = CircularList.StartingFrom0(element1, element2);
+      var list = CircularList.StartingWithFirstOf(element1, element2);
 
       //WHEN
       var returnedElement1 = list.Next();
