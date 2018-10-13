@@ -49,7 +49,7 @@ namespace TddXt.TypeReflection
       var constructorInfo = _type.GetConstructor(BindingFlags.NonPublic | BindingFlags.Instance, null, Type.EmptyTypes, null);
       if (constructorInfo != null)
       {
-        return Maybe.Wrap(DefaultParameterlessConstructor.ForOrdinaryType(constructorInfo));
+        return Maybe.OfNullable(DefaultParameterlessConstructor.ForOrdinaryType(constructorInfo));
       }
       else
       { 
@@ -68,7 +68,7 @@ namespace TddXt.TypeReflection
       }
       else
       {
-        return Maybe.Wrap(DefaultParameterlessConstructor.ForOrdinaryType(constructorInfo));
+        return Maybe.OfNullable(DefaultParameterlessConstructor.ForOrdinaryType(constructorInfo));
       }
     }
 
@@ -106,7 +106,7 @@ namespace TddXt.TypeReflection
         }
       }
 
-      return Maybe.Wrap(leastParamsConstructor);
+      return Maybe.OfNullable(leastParamsConstructor);
     }
 
     public IEnumerable<IConstructorWrapper> GetAllPublicConstructors()
@@ -167,14 +167,6 @@ namespace TddXt.TypeReflection
         .Where(p => p.CanWrite)
         .Select(p => new PropertyWrapper(p));
     }
-
-    public IEnumerable<IMethod> GetAllPublicInstanceMethodsWithReturnValue()
-    {
-      return _typeInfo.GetMethods(BindingFlags.Public | BindingFlags.Instance)
-        .Where(p => p.ReturnType != typeof(void)).
-        Select(p => new SmartMethod(p));
-    }
-    //TODO even strict mocks can be done this way...
 
     public bool IsException()
     {

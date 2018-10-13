@@ -13,7 +13,6 @@ namespace TddXt.TypeReflection.Interfaces
     IEnumerable<IConstructorWrapper> GetAllPublicConstructors();
     IEnumerable<IFieldWrapper> GetAllPublicInstanceFields();
     IEnumerable<IPropertyWrapper> GetPublicInstanceWritableProperties();
-    IEnumerable<IMethod> GetAllPublicInstanceMethodsWithReturnValue();
     bool IsException();
     bool HasPublicConstructorCountOfAtMost(int i);
     bool IsOpenGeneric(Type type);

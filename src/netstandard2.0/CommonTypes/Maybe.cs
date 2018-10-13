@@ -4,8 +4,17 @@ namespace TddXt.CommonTypes
 {
   public static class Maybe
   {
-    public static Maybe<T> Wrap<T>(T instance) where T : class
+    public static Maybe<T> OfNullable<T>(T instance) where T : class
     {
+      return new Maybe<T>(instance);
+    }
+
+    public static Maybe<T> Just<T>(T instance) where T : class
+    {
+      if (instance == null)
+      {
+        throw new ArgumentNullException(nameof(instance));
+      }
       return new Maybe<T>(instance);
     }
   }
@@ -52,12 +61,24 @@ namespace TddXt.CommonTypes
 
     public static implicit operator Maybe<T>(T instance)
     {
-      return Maybe.Wrap(instance);
+      return Maybe.OfNullable(instance);
     }
 
     public override string ToString()
     {
       return HasValue ? Value().ToString() : "<Nothing>";
+    }
+
+    public U Fold<U>(Func<U> whenNull, Func<T, U> whenNotNull) where U : class
+    {
+      if (HasValue)
+      {
+        return whenNotNull(Value());
+      }
+      else
+      {
+        return whenNull();
+      }
     }
   }
 

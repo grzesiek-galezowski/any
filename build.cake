@@ -20,7 +20,6 @@ var netstandard20 = new Framework("netstandard2.0");
 //////////////////////////////////////////////////////////////////////
 
 var castleCore = new[] {"Castle.Core", "4.3.1"};
-var nSubstitute = new[] {"NSubstitute", "3.1.0"};
 var autoFixtureSeed = new[] {"AutoFixture.SeedExtensions", "4.5.0"};
 var autoFixture = new[] {"AutoFixture", "4.5.0"};
 var autoFixture3510 = new[] {"AutoFixture", "3.51.0"};
@@ -169,7 +168,7 @@ Task("Pack")
 			Summary = "Anonymous value generator, supporting the 'Any.Whatever()' syntax proposed on the www.sustainabletdd.com blog.",
 			Description = "Anonymous value generator, supporting the 'Any.Whatever()' syntax proposed on the www.sustainabletdd.com blog. It makes use of the static usings and extension methods to achieve flexibility and extensibility.",
 			Language = "en-US",
-			ReleaseNotes = new[] {"Fixed multithreading errors under xUnit.NET"},
+			ReleaseNotes = new[] {"Moved Any.Substitute() generator into a separate nuget"},
 			ProjectUrl = new Uri("https://github.com/grzesiek-galezowski/any"),
 			OutputDirectory = "./nuget",
       LicenseUrl = new Uri("https://raw.githubusercontent.com/grzesiek-galezowski/any/master/LICENSE"),
@@ -185,7 +184,6 @@ Task("Pack")
 			Dependencies = new [] 
 			{
 				netstandard20.Dependency(castleCore),
-				netstandard20.Dependency(nSubstitute),
 				netstandard20.Dependency(autoFixtureSeed),
 				netstandard20.Dependency(autoFixture),
 				netstandard20.Dependency(fluentAssertions),
@@ -193,7 +191,6 @@ Task("Pack")
 				netstandard20.Dependency(valueTuple),
 
 				net462.Dependency(castleCore),
-				net462.Dependency(nSubstitute),
 				net462.Dependency(autoFixtureSeed),
 				net462.Dependency(autoFixture),
 				net462.Dependency(fluentAssertions),
@@ -201,7 +198,6 @@ Task("Pack")
 				net462.Dependency(valueTuple),
 
 				net45.Dependency(castleCore),
-				net45.Dependency(nSubstitute),
 				net45.Dependency(autoFixture3510),
 				net45.Dependency(fluentAssertions),
 				net45.Dependency(taskExtensions),

@@ -46,6 +46,9 @@
     <Compile Include="..\..\netstandard2.0\CommonTypes\Maybe.cs">
       <Link>Maybe.cs</Link>
     </Compile>
+    <Compile Include="..\..\netstandard2.0\CommonTypes\MaybeExtensions.cs">
+      <Link>MaybeExtensions.cs</Link>
+    </Compile>
     <Compile Include="..\..\netstandard2.0\CommonTypes\ThirdPartyGeneratorFailed.cs">
       <Link>ThirdPartyGeneratorFailed.cs</Link>
     </Compile>

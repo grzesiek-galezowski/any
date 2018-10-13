@@ -1,7 +1,7 @@
 using System;
 using System.Linq;
+using System.Reflection;
 using Castle.DynamicProxy;
-using NSubstitute.Core;
 using TddXt.AnyExtensibility;
 using TddXt.TypeResolution.CustomCollections;
 
@@ -65,5 +65,24 @@ namespace TddXt.TypeResolution
     {
       return _instanceSource(invocation.Method.ReturnType, trace);
     }
+  }
+}
+
+public static class ReflectionExtensions
+{
+  public static PropertyInfo GetPropertyFromSetterCallOrNull(this MethodInfo call)
+  {
+    if (!CanBePropertySetterCall(call))
+    {
+      return null;
+    }
+
+    var properties = call.DeclaringType.GetProperties();
+    return properties.FirstOrDefault(x => x.GetSetMethod() == call);
+  }
+
+  private static bool CanBePropertySetterCall(MethodInfo call)
+  {
+    return call.IsSpecialName && call.Name.StartsWith("set_", StringComparison.Ordinal);
   }
 }

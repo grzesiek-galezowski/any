@@ -22,7 +22,7 @@ namespace TddXt.AnyGenerators.Numbers
     public int GenerateInstance(InstanceGenerator instanceGenerator, GenerationTrace trace)
     {
       var sequence = new IntegerSequence(_startingValue, _step, _simpleValueGenerator.GenerateInstance(instanceGenerator, trace));
-      var finalSequence = Maybe.Wrap(Sequences.FirstOrDefault(s => s.Equals(sequence))).ValueOr(sequence);
+      var finalSequence = Maybe.OfNullable(Sequences.FirstOrDefault(s => s.Equals(sequence))).ValueOr(sequence);
       Sequences.Add(finalSequence);
       return finalSequence.Next();
     }
