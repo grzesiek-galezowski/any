@@ -13,4 +13,10 @@ namespace TddXt.AnyExtensibility
     T Instance<T>(GenerationTrace trace);
   }
 
+  public interface CustomizableInstanceGenerator : InstanceGenerator
+  {
+    object Instance(Type type, GenerationTrace trace, GenerationCustomization[] customizations);
+    T Instance<T>(GenerationTrace trace, GenerationCustomization[] customizations);
+  }
+
 }

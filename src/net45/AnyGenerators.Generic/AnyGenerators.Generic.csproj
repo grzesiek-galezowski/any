@@ -73,6 +73,9 @@
     <Compile Include="..\..\netstandard2.0\AnyGenerators.Generic\GeneratorByPickingFromSpecifiedSetOfValues.cs">
       <Link>GeneratorByPickingFromSpecifiedSetOfValues.cs</Link>
     </Compile>
+    <Compile Include="..\..\netstandard2.0\AnyGenerators.Generic\ImplementationDetails\CustomizedGenerator.cs">
+      <Link>ImplementationDetails\CustomizedGenerator.cs</Link>
+    </Compile>
     <Compile Include="..\..\netstandard2.0\AnyGenerators.Generic\ImplementationDetails\EmptyCollectionInstantiation.cs">
       <Link>ImplementationDetails\EmptyCollectionInstantiation.cs</Link>
     </Compile>
@@ -81,6 +84,12 @@
     </Compile>
     <Compile Include="..\..\netstandard2.0\AnyGenerators.Generic\ImplementationDetails\ListBasedGenerationTrace.cs">
       <Link>ImplementationDetails\ListBasedGenerationTrace.cs</Link>
+    </Compile>
+    <Compile Include="..\..\netstandard2.0\AnyGenerators.Generic\ImplementationDetails\SynchronizedBasicGenerator.cs">
+      <Link>ImplementationDetails\SynchronizedBasicGenerator.cs</Link>
+    </Compile>
+    <Compile Include="..\..\netstandard2.0\AnyGenerators.Generic\ImplementationDetails\SynchronizedInstanceGenerator.cs">
+      <Link>ImplementationDetails\SynchronizedInstanceGenerator.cs</Link>
     </Compile>
     <Compile Include="..\..\netstandard2.0\AnyGenerators.Generic\ImplementationDetails\TypeExtensions.cs">
       <Link>ImplementationDetails\TypeExtensions.cs</Link>

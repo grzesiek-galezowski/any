@@ -11,6 +11,8 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
 {
   public static class AllGeneratorFactory
   {
+    private static readonly object SyncRoot = new object();
+
     public static BasicGenerator Create()
     {
       var methodProxyCalls = new GenericMethodProxyCalls();
@@ -18,7 +20,13 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
       var proxyGenerator = new ProxyGenerator();
       var fakeChainFactory = CreateFakeChainFactory(proxyGenerator, valueGenerator);
 
-      var allGenerator = new SynchronizedBasicGenerator(new AllGenerator(valueGenerator, fakeChainFactory, methodProxyCalls));
+      var allGenerator = new SynchronizedBasicGenerator(
+        new AllGenerator(
+          valueGenerator, 
+          fakeChainFactory, 
+          methodProxyCalls, 
+          SyncRoot), 
+        SyncRoot);
       return allGenerator;
     }
 
@@ -42,38 +50,5 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
     }
   }
 
-  public class SynchronizedBasicGenerator : BasicGenerator
-  {
-    private static readonly object SyncRoot = new object();
-    private readonly AllGenerator _allGenerator;
 
-    public SynchronizedBasicGenerator(AllGenerator allGenerator)
-    {
-      _allGenerator = allGenerator;
-    }
-
-    public T Instance<T>()
-    {
-      lock (SyncRoot)
-      {
-        return _allGenerator.Instance<T>();
-      }
-    }
-
-    public T Instance<T>(params GenerationCustomization[] customizations)
-    {
-      lock (SyncRoot)
-      {
-        return _allGenerator.Instance<T>(customizations);
-      }
-    }
-
-    public T InstanceOf<T>(InlineGenerator<T> gen)
-    {
-      lock (SyncRoot)
-      {
-        return _allGenerator.InstanceOf(gen);
-      }
-    }
-  }
 }
