@@ -22,7 +22,7 @@ namespace TddXt.AnyGenerators.Generic.ImplementationDetails
 
     public T Value<T>(GenerationTrace trace)
     {
-      return _inner.Value<T>(trace);
+      return _inner.Value<T>(trace, _customizations);
     }
 
     public T Value<T>(T seed, GenerationTrace trace)

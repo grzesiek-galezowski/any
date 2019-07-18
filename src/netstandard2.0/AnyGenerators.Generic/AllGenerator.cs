@@ -55,12 +55,17 @@ namespace TddXt.AnyGenerators.Generic
       try
       {
         trace.BeginCreatingInstanceGraphWith(typeof(T));
-        return _fakeChainFactory.GetInstance<T>().Resolve(new CustomizedGenerator(SynchronizedThis, customizations), trace);
+        return _fakeChainFactory.GetInstance<T>().Resolve(CreateCustomizedInstanceGenerator<T>(customizations), trace);
       }
       catch (Exception e)
       {
         throw new GenerationFailedException(trace, e);
       }
+    }
+
+    private InstanceGenerator CreateCustomizedInstanceGenerator<T>(GenerationCustomization[] customizations)
+    {
+      return new CustomizedGenerator(SynchronizedThis, customizations);
     }
 
     public T InstanceOf<T>(InlineGenerator<T> gen)
@@ -85,6 +90,11 @@ namespace TddXt.AnyGenerators.Generic
     public T Value<T>(GenerationTrace trace)
     {
       return _valueGenerator.Value<T>();
+    }
+
+    public T Value<T>(GenerationTrace trace, GenerationCustomization[] customizations)
+    {
+      return _valueGenerator.Value<T>(CreateCustomizedInstanceGenerator<T>(customizations), customizations, trace);
     }
 
     public T Value<T>(T seed, GenerationTrace trace)

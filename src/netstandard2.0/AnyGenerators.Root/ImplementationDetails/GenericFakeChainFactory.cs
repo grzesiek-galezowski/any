@@ -56,7 +56,7 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
                                         ElseTryTo(ResolveAsInterfaceImplementationWhere(eachMethodReturnsTheSameValueOnEveryCall, generationIsDoneUsingProxies),
                                           ElseTryTo(ResolveAsAbstractClassImplementationWhere(eachMethodReturnsTheSameValueOnEveryCall, generationIsDoneUsingProxies),
                                             ElseTryTo(ResolveAsConcreteTypeWithNonConcreteTypesInConstructorSignature(),
-                                              ElseTryTo(ResolveAsConcreteClass(valueGenerator),
+                                              ElseTryTo(ResolveAsConcreteClass(),
                                                 ElseReportUnsupportedType()
                                               ))))))))))))))))))))));
     }
@@ -77,10 +77,9 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
       return new LimitedFakeChain<T>(limit, fakeChain);
     }
 
-    private FakeConcreteClass<T> ResolveAsConcreteClass(IValueGenerator valueGenerator)
+    private FakeConcreteClass<T> ResolveAsConcreteClass()
     {
-      return new FakeConcreteClass<T>(
-        _fallbackTypeGenerator, valueGenerator);
+      return new FakeConcreteClass<T>(_fallbackTypeGenerator);
     }
 
     private FakeConcreteClassWithNonConcreteConstructor<T> ResolveAsConcreteTypeWithNonConcreteTypesInConstructorSignature()

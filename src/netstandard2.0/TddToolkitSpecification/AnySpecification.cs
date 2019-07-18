@@ -8,8 +8,10 @@ using System.Net;
 using System.Reflection;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text.RegularExpressions;
+using AutoFixture;
 using FluentAssertions;
 using Newtonsoft.Json;
+using NSubstitute;
 using NUnit.Framework;
 using TddToolkitSpecification.Fixtures;
 using TddToolkitSpecification.GraphComparison;
@@ -23,6 +25,7 @@ using TddXt.AnyRoot.Numbers;
 using TddXt.AnyRoot.Strings;
 using TddXt.CommonTypes;
 using static TddXt.AnyRoot.Root;
+using Console = System.Console;
 
 // ReSharper disable PublicConstructorInAbstractClass
 
@@ -800,6 +803,23 @@ namespace TddToolkitSpecification
         Any.Instance<ObjectWithThrowingDependency>(
           new SingleTypeCustomization<ThrowingInConstructor>(
             (gen, trace) => gen.Dummy<ThrowingInConstructor>(trace))));
+    }
+
+    [Test]
+    public void ShouldAllowCustomizationsToReachInnerAutoFixture()
+    {
+
+      var anyConcrete = Any.Instance<MyComplexObject>(
+        new SingleTypeCustomization<string>((gen, trace) => "CustomString"),
+        new SingleTypeCustomization<MyInnerObject>((gen, trace) => new MyInnerObject
+        {
+          InnerDummyInt = 123,
+          InnerDummyString = "InnerCustomString"
+        }));
+
+      anyConcrete.DummyString.Should().Be("DummyStringCustomString"); //autofixture appends to property name
+      anyConcrete.Inner.InnerDummyInt.Should().Be(123);
+      anyConcrete.Inner.InnerDummyString.Should().Be("InnerCustomString");
     }
 
     [Test]

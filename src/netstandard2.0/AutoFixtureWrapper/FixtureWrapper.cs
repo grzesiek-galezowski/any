@@ -1,5 +1,7 @@
 using System;
 using AutoFixture;
+using AutoFixture.Kernel;
+using TddXt.AnyExtensibility;
 using TddXt.CommonTypes;
 
 namespace TddXt.AutoFixtureWrapper
@@ -7,18 +9,18 @@ namespace TddXt.AutoFixtureWrapper
     [Serializable]
     public class FixtureWrapper 
     {
-      private readonly Fixture _generator;
+      private readonly Fixture _autoFixture;
 
-      public FixtureWrapper(Fixture generator)
+      public FixtureWrapper(Fixture autoFixture)
         {
-            _generator = generator;
+            _autoFixture = autoFixture;
         }
 
       public T Create<T>()
         {
             try
             {
-                return _generator.Create<T>();
+                return _autoFixture.Create<T>();
             }
             catch (ObjectCreationException e)
             {
@@ -30,7 +32,7 @@ namespace TddXt.AutoFixtureWrapper
         {
             try
             {
-                return _generator.Create(seed);
+                return _autoFixture.Create(seed);
             }
             catch (ObjectCreationException e)
             {
@@ -40,7 +42,7 @@ namespace TddXt.AutoFixtureWrapper
 
       public void Register<T>(Func<T> source)
         {
-            _generator.Register(source);
+            _autoFixture.Register(source);
         }
 
       public static FixtureWrapper CreateUnconfiguredInstance()
@@ -57,5 +59,64 @@ namespace TddXt.AutoFixtureWrapper
                 RepeatCount = 0
             });
         }
+
+      public IDisposable CustomizeWith(GenerationCustomization[] customizations, InstanceGenerator gen,
+        GenerationTrace trace)
+      {
+        return new CustomizationScope(_autoFixture, customizations, gen, trace);
+      }
+    }
+
+    public class CustomizationScope : IDisposable
+    {
+      private readonly Fixture _generator;
+
+      public CustomizationScope(
+        Fixture generator, 
+        GenerationCustomization[] customizations, 
+        InstanceGenerator gen,
+        GenerationTrace trace)
+      {
+        _generator = generator;
+        generator.Customizations.Add(new CustomizationRelay(customizations, gen, trace));
+      }
+
+      public void Dispose()
+      {
+        _generator.Customizations.RemoveAt(_generator.Customizations.Count - 1);
+      }
+    }
+
+    public class CustomizationRelay : ISpecimenBuilder
+    {
+      private readonly GenerationCustomization[] _customizations;
+      private readonly InstanceGenerator _gen;
+      private GenerationTrace _trace;
+
+      public CustomizationRelay(GenerationCustomization[] customizations, InstanceGenerator gen, GenerationTrace trace)
+      {
+        _customizations = customizations;
+        _gen = gen;
+        _trace = trace;
+      }
+
+      public object Create(object request, ISpecimenContext context)
+      {
+        if (context == null) throw new ArgumentNullException(nameof(context));
+
+        if (request is Type t)
+        {
+          foreach (var customization in _customizations)
+          {
+            if (customization.AppliesTo(t))
+            {
+              return customization.Generate(_gen, _trace);
+            }
+          }
+          return new NoSpecimen();
+        }
+
+        return new NoSpecimen();
+      }
     }
 }

@@ -3,21 +3,16 @@ using System.Diagnostics;
 using System.Reflection;
 using TddXt.AnyExtensibility;
 using TddXt.CommonTypes;
-using TddXt.TypeResolution.Interfaces;
 
 namespace TddXt.TypeResolution.FakeChainElements
 {
   public class FakeConcreteClass<T> : IResolution<T>
   {
     private readonly FallbackTypeGenerator<T> _fallbackTypeGenerator;
-    private readonly IValueGenerator _valueGenerator;
 
-    public FakeConcreteClass(
-      FallbackTypeGenerator<T> fallbackTypeGenerator, 
-      IValueGenerator valueGenerator)
+    public FakeConcreteClass(FallbackTypeGenerator<T> fallbackTypeGenerator)
     {
       _fallbackTypeGenerator = fallbackTypeGenerator;
-      _valueGenerator = valueGenerator;
     }
 
     public bool Applies()
@@ -29,12 +24,11 @@ namespace TddXt.TypeResolution.FakeChainElements
     {
       try
       {
-        return _valueGenerator.Value<T>();
+        return instanceGenerator.Value<T>(trace);
       }
       catch (ThirdPartyGeneratorFailed e)
       {
         trace.ThirdPartyGeneratorFailedTryingFallback(e);
-        
         return _fallbackTypeGenerator.GenerateInstance(instanceGenerator, trace);
       }
       catch (TargetInvocationException e)

@@ -17,6 +17,7 @@ namespace TddXt.AnyExtensibility
   {
     object Instance(Type type, GenerationTrace trace, GenerationCustomization[] customizations);
     T Instance<T>(GenerationTrace trace, GenerationCustomization[] customizations);
+    T Value<T>(GenerationTrace trace, GenerationCustomization[] customizations);
   }
 
 }

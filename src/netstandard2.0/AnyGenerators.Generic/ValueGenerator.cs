@@ -1,5 +1,7 @@
 using System;
 using System.Linq;
+using TddXt.AnyExtensibility;
+using TddXt.AnyGenerators.Generic.ImplementationDetails;
 using TddXt.AutoFixtureWrapper;
 using TddXt.TypeResolution.Interfaces;
 
@@ -35,6 +37,14 @@ namespace TddXt.AnyGenerators.Generic
     public T Value<T>(T seed)
     {
       return _generator.Create(seed);
+    }
+
+    public T Value<T>(InstanceGenerator gen, GenerationCustomization[] customizations, GenerationTrace trace)
+    {
+      using(_generator.CustomizeWith(customizations, gen, trace))
+      {
+        return _generator.Create<T>();
+      }
     }
   }
 }

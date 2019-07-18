@@ -91,5 +91,13 @@ namespace TddXt.AnyGenerators.Generic.ImplementationDetails
         return _allGenerator.Instance<T>(trace, customizations);
       }
     }
+
+    public T Value<T>(GenerationTrace trace, GenerationCustomization[] customizations)
+    {
+      lock (_syncRoot)
+      {
+        return _allGenerator.Value<T>(trace, customizations);
+      }
+    }
   }
 }
