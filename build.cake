@@ -70,7 +70,7 @@ public void Build(string path)
       // Use MSBuild
       MSBuild(path, settings => {
 		settings.ToolPath = String.IsNullOrEmpty(toolpath) ? settings.ToolPath : toolpath;
-		settings.ToolVersion = MSBuildToolVersion.VS2017;
+		settings.ToolVersion = MSBuildToolVersion.VS2019;
         settings.PlatformTarget = PlatformTarget.MSIL;
 		settings.SetConfiguration(configuration);
 		settings.SetMaxCpuCount(0);
