@@ -168,7 +168,7 @@ Task("Pack")
 			Summary = "Anonymous value generator, supporting the 'Any.Whatever()' syntax proposed on the www.sustainabletdd.com blog.",
 			Description = "Anonymous value generator, supporting the 'Any.Whatever()' syntax proposed on the www.sustainabletdd.com blog. It makes use of the static usings and extension methods to achieve flexibility and extensibility.",
 			Language = "en-US",
-			ReleaseNotes = new[] {"Moved Any.Substitute() generator into a separate nuget"},
+			ReleaseNotes = new[] {"Allowed customizations to be used for concrete classes and values"},
 			ProjectUrl = new Uri("https://github.com/grzesiek-galezowski/any"),
 			OutputDirectory = "./nuget",
       LicenseUrl = new Uri("https://raw.githubusercontent.com/grzesiek-galezowski/any/master/LICENSE"),
