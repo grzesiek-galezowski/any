@@ -8,10 +8,8 @@ using System.Net;
 using System.Reflection;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text.RegularExpressions;
-using AutoFixture;
 using FluentAssertions;
 using Newtonsoft.Json;
-using NSubstitute;
 using NUnit.Framework;
 using TddToolkitSpecification.Fixtures;
 using TddToolkitSpecification.GraphComparison;
@@ -25,7 +23,6 @@ using TddXt.AnyRoot.Numbers;
 using TddXt.AnyRoot.Strings;
 using TddXt.CommonTypes;
 using static TddXt.AnyRoot.Root;
-using Console = System.Console;
 
 // ReSharper disable PublicConstructorInAbstractClass
 

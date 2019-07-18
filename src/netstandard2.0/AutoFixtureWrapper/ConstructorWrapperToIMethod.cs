@@ -1,7 +1,11 @@
 using System.Collections.Generic;
 using System.Reflection;
 using TddXt.TypeReflection.Interfaces;
+#if NETFRAMEWORK
+using IMethod = Ploeh.AutoFixture.Kernel.IMethod;
+#else
 using IMethod = AutoFixture.Kernel.IMethod;
+#endif
 
 namespace TddXt.AutoFixtureWrapper
 {

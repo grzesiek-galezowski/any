@@ -7,6 +7,9 @@
     <AssemblyName>TddXt.AutoFixtureWrapper</AssemblyName>
     <RootNamespace>TddXt.AutoFixtureWrapper</RootNamespace>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DefineConstants>TRACE</DefineConstants>
+  </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="AutoFixture" Version="4.5.0" />
     <PackageReference Include="AutoFixture.SeedExtensions" Version="4.5.0" />

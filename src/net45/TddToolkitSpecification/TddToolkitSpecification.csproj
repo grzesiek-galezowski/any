@@ -126,6 +126,12 @@
     <Compile Include="..\..\netstandard2.0\TddToolkitSpecification\Fixtures\ISimple.cs">
       <Link>Fixtures\ISimple.cs</Link>
     </Compile>
+    <Compile Include="..\..\netstandard2.0\TddToolkitSpecification\Fixtures\MyComplexObject.cs">
+      <Link>Fixtures\MyComplexObject.cs</Link>
+    </Compile>
+    <Compile Include="..\..\netstandard2.0\TddToolkitSpecification\Fixtures\MyInnerObject.cs">
+      <Link>Fixtures\MyInnerObject.cs</Link>
+    </Compile>
     <Compile Include="..\..\netstandard2.0\TddToolkitSpecification\Fixtures\MyOwnCollection.cs">
       <Link>Fixtures\MyOwnCollection.cs</Link>
     </Compile>

@@ -1,7 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+#if NETFRAMEWORK
+using Ploeh.AutoFixture.Kernel;
+#else
 using AutoFixture.Kernel;
+#endif
+
 using TddXt.TypeReflection;
 
 namespace TddXt.AutoFixtureWrapper

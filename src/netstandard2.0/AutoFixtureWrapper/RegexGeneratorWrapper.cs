@@ -1,5 +1,11 @@
+#if NETFRAMEWORK
+using Ploeh.AutoFixture.Kernel;
+using Ploeh.AutoFixture;
+#else
 using AutoFixture;
 using AutoFixture.Kernel;
+#endif
+
 using TddXt.CommonTypes;
 
 namespace TddXt.AutoFixtureWrapper

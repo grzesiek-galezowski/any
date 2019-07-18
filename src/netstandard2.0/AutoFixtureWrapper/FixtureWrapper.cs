@@ -1,6 +1,11 @@
 using System;
+#if NETFRAMEWORK
+using Ploeh.AutoFixture;
+using Ploeh.AutoFixture.Kernel;
+#else
 using AutoFixture;
 using AutoFixture.Kernel;
+#endif
 using TddXt.AnyExtensibility;
 using TddXt.CommonTypes;
 
