@@ -12,7 +12,7 @@ var target = Argument("target", "Default");
 var configuration = Argument("configuration", "Release");
 var toolpath = Argument("toolpath", @"");
 var net45 = new Framework("net45");
-var net641 = new Framework("net641");
+var net461 = new Framework("net461");
 var netstandard20 = new Framework("netstandard2.0");
 
 //////////////////////////////////////////////////////////////////////
@@ -177,7 +177,7 @@ Task("Pack")
 			Files = new [] 
 			{
 				new NuSpecContent {Source = @".\publish\netstandard2.0\TddXt*.*", Exclude=@"**\*.json", Target = @"lib\netstandard2.0"},
-				new NuSpecContent {Source = @".\publish\netstandard2.0\TddXt*.*", Exclude=@"**\*.json", Target = @"lib\net641"},
+				new NuSpecContent {Source = @".\publish\netstandard2.0\TddXt*.*", Exclude=@"**\*.json", Target = @"lib\net461"},
 				new NuSpecContent {Source = @".\publish\net45\TddXt*.*", Exclude=@"**\*.json", Target = @"lib\net45"},
 			},
 
@@ -190,12 +190,12 @@ Task("Pack")
 				netstandard20.Dependency(taskExtensions),
 				netstandard20.Dependency(valueTuple),
 
-				net641.Dependency(castleCore),
-				net641.Dependency(autoFixtureSeed),
-				net641.Dependency(autoFixture),
-				net641.Dependency(fluentAssertions),
-				net641.Dependency(taskExtensions),
-				net641.Dependency(valueTuple),
+				net461.Dependency(castleCore),
+				net461.Dependency(autoFixtureSeed),
+				net461.Dependency(autoFixture),
+				net461.Dependency(fluentAssertions),
+				net461.Dependency(taskExtensions),
+				net461.Dependency(valueTuple),
 
 				net45.Dependency(castleCore),
 				net45.Dependency(autoFixture3510),
