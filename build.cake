@@ -40,11 +40,6 @@ var publishNetStandardDir = publishDir + Directory("netstandard2.0");
 var srcNetStandardDir = srcDir + Directory("netstandard2.0");
 var slnNetStandard = srcNetStandardDir + File("Any.sln");
 var specificationNetStandardDir = specificationDir + Directory("netstandard2.0");
-var buildNet45Dir = buildDir + Directory("net45");
-var publishNet45Dir = publishDir + Directory("net45");
-var srcNet45Dir = srcDir + Directory("net45");
-var specificationNet45Dir = specificationDir + Directory("netstandard2.0");
-var slnNet45 = srcNet45Dir + File("Any.sln");
 
 GitVersion nugetVersion = null; 
 
@@ -98,7 +93,6 @@ Task("Restore-NuGet-Packages")
     .Does(() =>
 {
 	RestorePackages(slnNetStandard);
-	RestorePackages(slnNet45);
 });
 
 Task("Build")
@@ -107,7 +101,6 @@ Task("Build")
     .Does(() =>
 {
     Build(slnNetStandard);
-	Build(slnNet45);
 });
 
 Task("GitVersion")
@@ -126,8 +119,6 @@ Task("Run-Unit-Tests")
 {
 	var testAssemblies = GetFiles(specificationNetStandardDir.ToString() + "/*Specification.dll");
 	NUnit3(testAssemblies); 
-	var frameworkTestAssemblies = GetFiles(specificationNet45Dir.ToString() + "/*Specification.dll");
-	NUnit3(frameworkTestAssemblies); 
 });
 
 public void BundleDependencies(DirectoryPath specificVersionPublishDir, string rootDllName)
@@ -155,7 +146,6 @@ Task("Pack")
     {
 		CopyDirectory(buildDir, publishDir);
 		BundleDependencies(publishNetStandardDir, "TddXt.AnyRoot.dll");
-		BundleDependencies(publishNet45Dir, "TddXt.AnyRoot.dll");
 		NuGetPack("./Any.nuspec", new NuGetPackSettings()
 		{
 			Id = "Any",
