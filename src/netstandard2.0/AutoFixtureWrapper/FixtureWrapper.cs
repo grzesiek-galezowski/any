@@ -83,12 +83,12 @@ namespace TddXt.AutoFixtureWrapper
         GenerationTrace trace)
       {
         _generator = generator;
-        generator.Customizations.Add(new CustomizationRelay(customizations, gen, trace));
+        generator.Customizations.Insert(0, new CustomizationRelay(customizations, gen, trace));
       }
 
       public void Dispose()
       {
-        _generator.Customizations.RemoveAt(_generator.Customizations.Count - 1);
+        _generator.Customizations.RemoveAt(0);
       }
     }
 
@@ -96,7 +96,7 @@ namespace TddXt.AutoFixtureWrapper
     {
       private readonly GenerationCustomization[] _customizations;
       private readonly InstanceGenerator _gen;
-      private GenerationTrace _trace;
+      private readonly GenerationTrace _trace;
 
       public CustomizationRelay(GenerationCustomization[] customizations, InstanceGenerator gen, GenerationTrace trace)
       {

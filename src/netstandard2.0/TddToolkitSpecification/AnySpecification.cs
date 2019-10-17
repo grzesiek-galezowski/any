@@ -8,6 +8,7 @@ using System.Net;
 using System.Reflection;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using FluentAssertions;
 using Newtonsoft.Json;
 using NUnit.Framework;
@@ -818,6 +819,18 @@ namespace TddToolkitSpecification
       anyConcrete.Inner.InnerDummyInt.Should().Be(123);
       anyConcrete.Inner.InnerDummyString.Should().Be("InnerCustomString");
     }
+    
+    [TestCase(LolEnum.Value1)]
+    [TestCase(LolEnum.Value2)]
+    [TestCase(LolEnum.Value3)]
+    [TestCase(LolEnum.Value4)]
+    [TestCase(LolEnum.Value5)]
+    [TestCase(LolEnum.Value6)]
+    public void ShouldAllowCustomizationsForSingleEnumElement(LolEnum value)
+    {
+      var anyConcrete = Any.Instance<ObjectWithLolEnum>(new SingleTypeCustomization<LolEnum>((gen, trace) => value));
+      anyConcrete.Lol.Should().Be(value);
+    }
 
     [Test]
     public void ShouldGenerateComplexGraphsWithNonNullPublicProperties()
@@ -1160,6 +1173,15 @@ namespace TddToolkitSpecification
     }
 
     [Test]
+    public async Task ShouldNotBlockOnAsyncMethodsInvokedOnAnyInterfaceImplementations()
+    {
+      //WHEN
+      var obj = Any.Instance<IObjectWithAsyncMethod>();
+      //THEN
+      Assert.NotNull(await obj.GetSthAsync(1));
+    }
+
+    [Test]
     public void ShouldAllowGeneratingReadOnlyLists()
     {
       //GIVEN
@@ -1332,5 +1354,20 @@ namespace TddToolkitSpecification
     {
       throw new Exception("Thou shalt not pass!");
     }
+  }
+
+  public enum LolEnum
+  {
+      Value1, Value2, Value3, Value4, Value5, Value6
+  }
+
+  public class ObjectWithLolEnum
+  {
+      public ObjectWithLolEnum(LolEnum lol)
+      {
+          Lol = lol;
+      }
+
+      public LolEnum Lol { get; }
   }
 }

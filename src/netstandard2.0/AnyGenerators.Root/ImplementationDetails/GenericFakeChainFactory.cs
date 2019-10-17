@@ -56,9 +56,21 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
                                         ElseTryTo(ResolveAsInterfaceImplementationWhere(eachMethodReturnsTheSameValueOnEveryCall, generationIsDoneUsingProxies),
                                           ElseTryTo(ResolveAsAbstractClassImplementationWhere(eachMethodReturnsTheSameValueOnEveryCall, generationIsDoneUsingProxies),
                                             ElseTryTo(ResolveAsConcreteTypeWithNonConcreteTypesInConstructorSignature(),
-                                              ElseTryTo(ResolveAsConcreteClass(),
-                                                ElseReportUnsupportedType()
-                                              ))))))))))))))))))))));
+                                              ElseTryTo(ResolveAsVoidTask(),
+                                                ElseTryTo(ResolveAsTypedTask(),
+                                                  ElseTryTo(ResolveAsConcreteClass(),
+                                                    ElseReportUnsupportedType()
+                                              ))))))))))))))))))))))));
+    }
+
+    private IResolution<T> ResolveAsTypedTask()
+    {
+      return new FakeTypedTask<T>();
+    }
+
+    private IResolution<T> ResolveAsVoidTask()
+    {
+      return new FakeVoidTask<T>();
     }
 
     private IResolution<T> ResolveAsDelegate()
@@ -225,5 +237,4 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
       return _specialCasesOfResolutions.CreateResolutionOfArray();
     }
   }
-
 }

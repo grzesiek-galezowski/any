@@ -4,7 +4,7 @@ using TddXt.AnyExtensibility;
 namespace TddXt.AnyGenerators.Generic.ImplementationDetails
 {
   [Serializable]
-  public class SynchronizedInstanceGenerator : CustomizableInstanceGenerator
+  public class SynchronizedInstanceGenerator : CustomizableInstanceGenerator, BasicGenerator
   {
     private readonly AllGenerator _allGenerator;
     private readonly object _syncRoot;
@@ -13,6 +13,30 @@ namespace TddXt.AnyGenerators.Generic.ImplementationDetails
     {
       _allGenerator = allGenerator;
       _syncRoot = syncRoot;
+    }
+
+    public T Instance<T>()
+    {
+      lock (_syncRoot)
+      {
+        return _allGenerator.Instance<T>();
+      }
+    }
+
+    public T Instance<T>(params GenerationCustomization[] customizations)
+    {
+      lock (_syncRoot)
+      {
+        return _allGenerator.Instance<T>(customizations);
+      }
+    }
+
+    public T InstanceOf<T>(InlineGenerator<T> gen)
+    {
+      lock (_syncRoot)
+      {
+        return _allGenerator.InstanceOf(gen);
+      }
     }
 
     public T ValueOtherThan<T>(params T[] omittedValues)

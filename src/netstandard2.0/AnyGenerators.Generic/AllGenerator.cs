@@ -110,7 +110,6 @@ namespace TddXt.AnyGenerators.Generic
           SynchronizedThis, type, MethodBase.GetCurrentMethod().Name, trace);
     }
 
-
     public T Instance<T>(GenerationTrace trace)
     {
       return _fakeChainFactory.GetInstance<T>().Resolve(SynchronizedThis, trace);

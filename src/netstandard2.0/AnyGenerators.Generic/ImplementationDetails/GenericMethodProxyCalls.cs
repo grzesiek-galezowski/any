@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
@@ -11,7 +12,6 @@ namespace TddXt.AnyGenerators.Generic.ImplementationDetails
       var method = FindEmptyGenericsInstanceMethod<T>(name, parameters);
 
       var genericMethod = method.MakeGenericMethod(genericArgumentType);
-
       return genericMethod.Invoke(instance, parameters);
     }
 
@@ -20,7 +20,7 @@ namespace TddXt.AnyGenerators.Generic.ImplementationDetails
       return ResultOfGenericVersionOfStaticMethod<T>(genericArgumentType, name, new object[] { });
     }
 
-    private object ResultOfGenericVersionOfStaticMethod<T>(Type genericArgumentType, string name, params object[] parameters)
+    public object ResultOfGenericVersionOfStaticMethod<T>(Type genericArgumentType, string name, params object[] parameters)
     {
       var method = FindEmptyGenericsStaticMethod<T>(name, parameters);
 
@@ -56,24 +56,23 @@ namespace TddXt.AnyGenerators.Generic.ImplementationDetails
 
 
     private MethodInfo FindEmptyGenericsStaticMethod<T>(
-      string name, object[] parametersLength)
+      string name, object[] parameters)
     {
-      return FindEmptyGenericsMethod<T>(name, parametersLength,
+      return FindEmptyGenericsMethod<T>(name, parameters,
         BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static);
     }
 
     private static MethodInfo FindEmptyGenericsMethod<T>(string name, object[] parameters,
       BindingFlags bindingFlags)
     {
-      var methods = typeof(T).GetMethods(bindingFlags)
+      return typeof(T)
+        .GetMethods(bindingFlags)
         .Where(m => m.IsGenericMethodDefinition)
-        .Where(m => SameParameterTypes(parameters, m));
-      var methodInfos = methods.Where(m => m.Name == name).ToList();
-      var method = methodInfos.First();
-      return method;
+        .Where(m => SameOrGenericParameterTypes(parameters, m))
+        .First(m => m.Name == name);
     }
 
-    private static bool SameParameterTypes(object[] parameters, MethodInfo m)
+    private static bool SameOrGenericParameterTypes(object[] parameters, MethodInfo m)
     {
       var expectedParameters = m.GetParameters().Select(p => p.ParameterType).ToList();
       var actualParameters = parameters.Select(p => p.GetType()).ToList();
@@ -90,7 +89,10 @@ namespace TddXt.AnyGenerators.Generic.ImplementationDetails
           {
             if (actualParameters[i].GetInterfaces().All(iface => iface != expectedParameters[i]))
             {
-              return false;
+              if (!actualParameters[i].IsGenericType) //because if types do not match, then
+              {
+                return false;
+              } 
             }
           }
         }
