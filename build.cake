@@ -17,12 +17,12 @@ var netstandard20 = new Framework("netstandard2.0");
 // DEPENDENCIES
 //////////////////////////////////////////////////////////////////////
 
-var castleCore = new[] {"Castle.Core", "4.3.1"};
-var autoFixtureSeed = new[] {"AutoFixture.SeedExtensions", "4.5.0"};
-var autoFixture = new[] {"AutoFixture", "4.5.0"};
-var fluentAssertions = new[] {"FluentAssertions", "5.4.2"};
+var castleCore = new[] {"Castle.Core", "4.4.0"};
+var autoFixtureSeed = new[] {"AutoFixture.SeedExtensions", "4.11.0"};
+var autoFixture = new[] {"AutoFixture", "4.11.0"};
+var fluentAssertions = new[] {"FluentAssertions", "5.9.0"};
 
-var taskExtensions = new[] {"System.Threading.Tasks.Extensions", "4.5.1"};
+var taskExtensions = new[] {"System.Threading.Tasks.Extensions", "4.5.3"};
 var valueTuple = new[] {"System.ValueTuple", "4.5.0"};
 
 
