@@ -15,6 +15,8 @@ using NUnit.Framework;
 using TddToolkitSpecification.Fixtures;
 using TddToolkitSpecification.GraphComparison;
 using TddXt.AnyExtensibility;
+using TddXt.AnyGenerators.Generic;
+using TddXt.AnyGenerators.Generic.ImplementationDetails;
 using TddXt.AnyRoot;
 using TddXt.AnyRoot.Collections;
 using TddXt.AnyRoot.Invokable;
@@ -1175,7 +1177,25 @@ namespace TddToolkitSpecification
     [Test]
     public async Task ShouldNotBlockOnAsyncMethodsInvokedOnAnyInterfaceImplementations()
     {
+      /*
+      var o = new GenericMethodProxyCalls().ResultOfGenericVersionOfMethod(
+        (SynchronizedInstanceGenerator)Any, typeof(Maybe<string>), "Instance",
+        new ListBasedGenerationTrace());
+      var instance = ((AllGenerator)Any).Instance(typeof(Maybe<string>), new ListBasedGenerationTrace());
+      await Any.Instance<Task<Maybe<string>>>();
+      */
       //WHEN
+      try
+      {
+        var o = new GenericMethodProxyCalls().ResultOfGenericVersionOfMethod(
+          (SynchronizedInstanceGenerator) Any, typeof(string), "Instance",
+          new ListBasedGenerationTrace());
+      }
+      catch (Exception e)
+      {
+        throw e;
+      }
+
       var obj = Any.Instance<IObjectWithAsyncMethod>();
       //THEN
       Assert.NotNull(await obj.GetSthAsync(1));
@@ -1283,7 +1303,7 @@ namespace TddToolkitSpecification
 
     private static void SerializeAnyInstanceOf<T>()
     {
-      Serialize<T>(Any.Instance<T>());
+      Serialize(Any.Instance<T>());
     }
 
     private static void Serialize<T>(T instance)
