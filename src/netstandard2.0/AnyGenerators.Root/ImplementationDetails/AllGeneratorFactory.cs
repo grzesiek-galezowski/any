@@ -20,7 +20,7 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
       var proxyGenerator = new ProxyGenerator();
       var fakeChainFactory = CreateFakeChainFactory(proxyGenerator, valueGenerator);
 
-      var allGenerator = new SynchronizedBasicGenerator(
+      var allGenerator = new SynchronizedInstanceGenerator(
         new AllGenerator(
           valueGenerator, 
           fakeChainFactory, 
