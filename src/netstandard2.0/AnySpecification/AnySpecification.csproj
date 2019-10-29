@@ -30,6 +30,7 @@
     <ProjectReference Include="..\AnyRoot\AnyRoot.csproj" />
     <ProjectReference Include="..\AutoFixtureWrapper\AutoFixtureWrapper.csproj" />
     <ProjectReference Include="..\CommonTypes\CommonTypes.csproj" />
+    <ProjectReference Include="..\TddToolkitSpecification\TddToolkitSpecification.csproj" />
     <ProjectReference Include="..\TypeReflection.ImplementationDetails\TypeReflection.ImplementationDetails.csproj" />
     <ProjectReference Include="..\TypeReflection.Interfaces\TypeReflection.Interfaces.csproj" />
     <ProjectReference Include="..\TypeReflectionSpecification\TypeReflectionSpecification.csproj" />

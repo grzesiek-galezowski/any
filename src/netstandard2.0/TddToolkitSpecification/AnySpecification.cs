@@ -8,6 +8,7 @@ using System.Net;
 using System.Reflection;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Newtonsoft.Json;
@@ -1239,22 +1240,6 @@ namespace TddToolkitSpecification
     }
 
     [Test]
-    public void ShouldAllowGeneratingFuncs()
-    {
-      //GIVEN
-      var func0 = Any.Func<int>();
-      var func1 = Any.Func<int, int>();
-      var func = Any.Func<int, int, string>();
-      
-      //WHEN
-      var result1 = func(1, 2);
-      var result2 = func(1, 3);
-
-      //THEN
-      Assert.AreEqual(result2, result1);
-    }
-
-    [Test]
     public void ShouldBeAbleToCreateJsonSerializerSettingsFromNewtonsoftJson()
     {
       //WHEN
@@ -1339,6 +1324,10 @@ namespace TddToolkitSpecification
       var result = comparison.Compare(expected, actual);
       result.ExceededDifferences.Should().BeTrue(result.DifferencesString);
     }
+  }
+
+  public class TestTemplateClass
+  {
   }
 
   public class ObjectWithStaticParseMethod

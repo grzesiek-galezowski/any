@@ -65,10 +65,9 @@ namespace TddXt.AnyGenerators.Generic.ImplementationDetails
     private static MethodInfo FindEmptyGenericsMethod<T>(string name, object[] parameters,
       BindingFlags bindingFlags)
     {
-      return typeof(T)
-        .GetMethods(bindingFlags)
-        .Where(m => m.IsGenericMethodDefinition)
-        .Where(m => SameOrGenericParameterTypes(parameters, m))
+        return typeof(T)
+            .GetMethods(bindingFlags).Where(m => m.IsGenericMethodDefinition)
+            .Where(m => SameOrGenericParameterTypes(parameters, m))
         .First(m => m.Name == name);
     }
 
@@ -89,10 +88,7 @@ namespace TddXt.AnyGenerators.Generic.ImplementationDetails
           {
             if (actualParameters[i].GetInterfaces().All(iface => iface != expectedParameters[i]))
             {
-              if (!actualParameters[i].IsGenericType) //because if types do not match, then
-              {
-                return false;
-              } 
+                if (!expectedParameters[i].IsGenericParameter) return false;
             }
           }
         }
