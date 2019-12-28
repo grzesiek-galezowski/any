@@ -79,6 +79,7 @@ Task("Run-Unit-Tests")
 {
 	var testAssemblies = GetFiles(specificationNetStandardDir.ToString() + "/*Specification.dll");
 	NUnit3(testAssemblies); 
+	//bug also use dotnet test
 });
 
 Task("Pack")

@@ -7,6 +7,10 @@
     <DelaySign>false</DelaySign>
     <AssemblyName>TddXt.TypeReflection</AssemblyName>
     <RootNamespace>TddXt.TypeReflection</RootNamespace>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Authors>Grzegorz Gałęzowski</Authors>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <RepositoryUrl>https://github.com/grzesiek-galezowski/any</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>
@@ -17,5 +21,10 @@
     <ProjectReference Include="..\TypeReflection.ImplementationDetails\TypeReflection.ImplementationDetails.csproj" />
     <ProjectReference Include="..\TypeReflection.Interfaces\TypeReflection.Interfaces.csproj" />
   </ItemGroup>
-
+  <ItemGroup>
+    <None Include="..\..\..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
 </Project>

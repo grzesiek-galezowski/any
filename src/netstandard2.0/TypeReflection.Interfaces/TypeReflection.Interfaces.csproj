@@ -7,11 +7,20 @@
     <AssemblyOriginatorKeyFile>TypeReflection.Interfaces.snk</AssemblyOriginatorKeyFile>
     <AssemblyName>TddXt.TypeReflection.Interfaces</AssemblyName>
     <RootNamespace>TddXt.TypeReflection.Interfaces</RootNamespace>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Authors>Grzegorz Gałęzowski</Authors>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <RepositoryUrl>https://github.com/grzesiek-galezowski/any</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\AnyExtensibility\AnyExtensibility.csproj" />
     <ProjectReference Include="..\CommonTypes\CommonTypes.csproj" />
   </ItemGroup>
-
+  <ItemGroup>
+    <None Include="..\..\..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
 </Project>

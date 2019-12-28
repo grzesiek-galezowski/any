@@ -6,6 +6,10 @@
     <SignAssembly>true</SignAssembly>
     <DelaySign>false</DelaySign>
     <AssemblyOriginatorKeyFile>TddToolkit.snk</AssemblyOriginatorKeyFile>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Authors>Grzegorz Gałęzowski</Authors>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <RepositoryUrl>https://github.com/grzesiek-galezowski/any</RepositoryUrl>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="AutoFixture" Version="4.11.0" />
@@ -14,5 +18,11 @@
     <ProjectReference Include="..\AnyExtensibility\AnyExtensibility.csproj" />
     <ProjectReference Include="..\AutoFixtureWrapper\AutoFixtureWrapper.csproj" />
     <ProjectReference Include="..\CommonTypes\CommonTypes.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 </Project>
