@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <AssemblyName>TddXt.AnyGenerators.Math</AssemblyName>
+    <AssemblyName>TddXt.Any.Generators.Math</AssemblyName>
     <RootNamespace>TddXt.AnyGenerators.Math</RootNamespace>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>TddToolkit.snk</AssemblyOriginatorKeyFile>

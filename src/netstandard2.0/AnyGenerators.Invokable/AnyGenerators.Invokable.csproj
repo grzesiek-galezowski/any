@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <AssemblyName>TddXt.AnyGenerators.Invokable</AssemblyName>
+    <AssemblyName>TddXt.Any.Generators.Invokable</AssemblyName>
     <RootNamespace>TddXt.AnyGenerators.Invokable</RootNamespace>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>TddToolkit.snk</AssemblyOriginatorKeyFile>

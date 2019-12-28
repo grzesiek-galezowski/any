@@ -4,7 +4,7 @@
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>TddToolkit.snk</AssemblyOriginatorKeyFile>
     <DelaySign>false</DelaySign>
-    <AssemblyName>TddXt.AutoFixtureWrapper</AssemblyName>
+    <AssemblyName>TddXt.Any.AutoFixtureWrapper</AssemblyName>
     <RootNamespace>TddXt.AutoFixtureWrapper</RootNamespace>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Grzegorz Gałęzowski</Authors>

@@ -5,7 +5,7 @@
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>TypeReflection.ImplementationDetails.snk</AssemblyOriginatorKeyFile>
     <DelaySign>false</DelaySign>
-    <AssemblyName>TddXt.TypeReflection.ImplementationDetails</AssemblyName>
+    <AssemblyName>TddXt.Any.TypeReflection.ImplementationDetails</AssemblyName>
     <RootNamespace>TddXt.TypeReflection.ImplementationDetails</RootNamespace>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Grzegorz Gałęzowski</Authors>

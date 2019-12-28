@@ -5,7 +5,7 @@
     <SignAssembly>true</SignAssembly>
     <DelaySign>false</DelaySign>
     <AssemblyOriginatorKeyFile>TypeReflection.Interfaces.snk</AssemblyOriginatorKeyFile>
-    <AssemblyName>TddXt.TypeReflection.Interfaces</AssemblyName>
+    <AssemblyName>TddXt.Any.TypeReflection.Interfaces</AssemblyName>
     <RootNamespace>TddXt.TypeReflection.Interfaces</RootNamespace>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Grzegorz Gałęzowski</Authors>

@@ -58,8 +58,53 @@
     <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.3\lib\netstandard2.0\System.Threading.Tasks.Extensions.dll</HintPath>
     </Reference>
-    <Reference Include="TddXt.AnyRoot, Version=1.0.0.0, Culture=neutral, PublicKeyToken=7b96bed4fdcd799b, processorArchitecture=MSIL">
-      <HintPath>..\packages\Any.4.0.2\lib\netstandard2.0\TddXt.AnyRoot.dll</HintPath>
+    <Reference Include="TddXt.Any.AutoFixtureWrapper, Version=4.1.0.0, Culture=neutral, PublicKeyToken=7b96bed4fdcd799b, processorArchitecture=MSIL">
+      <HintPath>..\packages\TddXt.Any.AutoFixtureWrapper.4.1.0\lib\netstandard2.0\TddXt.Any.AutoFixtureWrapper.dll</HintPath>
+    </Reference>
+    <Reference Include="TddXt.Any.CommonTypes, Version=4.1.0.0, Culture=neutral, PublicKeyToken=0f9a8bb627667e2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\TddXt.Any.CommonTypes.4.1.0\lib\netstandard2.0\TddXt.Any.CommonTypes.dll</HintPath>
+    </Reference>
+    <Reference Include="TddXt.Any.Extensibility, Version=4.1.0.0, Culture=neutral, PublicKeyToken=e33b67d3bb5581e4, processorArchitecture=MSIL">
+      <HintPath>..\packages\TddXt.Any.Extensibility.4.1.0\lib\netstandard2.0\TddXt.Any.Extensibility.dll</HintPath>
+    </Reference>
+    <Reference Include="TddXt.Any.Generators.Collections, Version=4.1.0.0, Culture=neutral, PublicKeyToken=7b96bed4fdcd799b, processorArchitecture=MSIL">
+      <HintPath>..\packages\TddXt.Any.Generators.Collections.4.1.0\lib\netstandard2.0\TddXt.Any.Generators.Collections.dll</HintPath>
+    </Reference>
+    <Reference Include="TddXt.Any.Generators.Generic, Version=4.1.0.0, Culture=neutral, PublicKeyToken=7b96bed4fdcd799b, processorArchitecture=MSIL">
+      <HintPath>..\packages\TddXt.Any.Generators.Generic.4.1.0\lib\netstandard2.0\TddXt.Any.Generators.Generic.dll</HintPath>
+    </Reference>
+    <Reference Include="TddXt.Any.Generators.Invokable, Version=4.1.0.0, Culture=neutral, PublicKeyToken=7b96bed4fdcd799b, processorArchitecture=MSIL">
+      <HintPath>..\packages\TddXt.Any.Generators.Invokable.4.1.0\lib\netstandard2.0\TddXt.Any.Generators.Invokable.dll</HintPath>
+    </Reference>
+    <Reference Include="TddXt.Any.Generators.Math, Version=4.1.0.0, Culture=neutral, PublicKeyToken=7b96bed4fdcd799b, processorArchitecture=MSIL">
+      <HintPath>..\packages\TddXt.Any.Generators.Math.4.1.0\lib\netstandard2.0\TddXt.Any.Generators.Math.dll</HintPath>
+    </Reference>
+    <Reference Include="TddXt.Any.Generators.Network, Version=4.1.0.0, Culture=neutral, PublicKeyToken=7b96bed4fdcd799b, processorArchitecture=MSIL">
+      <HintPath>..\packages\TddXt.Any.Generators.Network.4.1.0\lib\netstandard2.0\TddXt.Any.Generators.Network.dll</HintPath>
+    </Reference>
+    <Reference Include="TddXt.Any.Generators.Numbers, Version=4.1.0.0, Culture=neutral, PublicKeyToken=7b96bed4fdcd799b, processorArchitecture=MSIL">
+      <HintPath>..\packages\TddXt.Any.Generators.Numbers.4.1.0\lib\netstandard2.0\TddXt.Any.Generators.Numbers.dll</HintPath>
+    </Reference>
+    <Reference Include="TddXt.Any.Generators.Root, Version=4.1.0.0, Culture=neutral, PublicKeyToken=7b96bed4fdcd799b, processorArchitecture=MSIL">
+      <HintPath>..\packages\TddXt.Any.Generators.Root.4.1.0\lib\netstandard2.0\TddXt.Any.Generators.Root.dll</HintPath>
+    </Reference>
+    <Reference Include="TddXt.Any.Generators.Strings, Version=4.1.0.0, Culture=neutral, PublicKeyToken=7b96bed4fdcd799b, processorArchitecture=MSIL">
+      <HintPath>..\packages\TddXt.Any.Generators.Strings.4.1.0\lib\netstandard2.0\TddXt.Any.Generators.Strings.dll</HintPath>
+    </Reference>
+    <Reference Include="TddXt.Any.Root, Version=4.1.0.0, Culture=neutral, PublicKeyToken=7b96bed4fdcd799b, processorArchitecture=MSIL">
+      <HintPath>..\packages\Any.4.1.0\lib\netstandard2.0\TddXt.Any.Root.dll</HintPath>
+    </Reference>
+    <Reference Include="TddXt.Any.TypeReflection, Version=4.1.0.0, Culture=neutral, PublicKeyToken=4969725d69bbccf5, processorArchitecture=MSIL">
+      <HintPath>..\packages\TddXt.Any.TypeReflection.4.1.0\lib\netstandard2.0\TddXt.Any.TypeReflection.dll</HintPath>
+    </Reference>
+    <Reference Include="TddXt.Any.TypeReflection.ImplementationDetails, Version=4.1.0.0, Culture=neutral, PublicKeyToken=92d8dd859c1a6450, processorArchitecture=MSIL">
+      <HintPath>..\packages\TddXt.Any.TypeReflection.ImplementationDetails.4.1.0\lib\netstandard2.0\TddXt.Any.TypeReflection.ImplementationDetails.dll</HintPath>
+    </Reference>
+    <Reference Include="TddXt.Any.TypeReflection.Interfaces, Version=4.1.0.0, Culture=neutral, PublicKeyToken=857d433bdb72baaf, processorArchitecture=MSIL">
+      <HintPath>..\packages\TddXt.Any.TypeReflection.Interfaces.4.1.0\lib\netstandard2.0\TddXt.Any.TypeReflection.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="TddXt.Any.TypeResolution, Version=4.1.0.0, Culture=neutral, PublicKeyToken=7b96bed4fdcd799b, processorArchitecture=MSIL">
+      <HintPath>..\packages\TddXt.Any.TypeResolution.4.1.0\lib\netstandard2.0\TddXt.Any.TypeResolution.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

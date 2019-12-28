@@ -5,7 +5,7 @@
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>TypeReflection.snk</AssemblyOriginatorKeyFile>
     <DelaySign>false</DelaySign>
-    <AssemblyName>TddXt.TypeReflection</AssemblyName>
+    <AssemblyName>TddXt.Any.TypeReflection</AssemblyName>
     <RootNamespace>TddXt.TypeReflection</RootNamespace>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Grzegorz Gałęzowski</Authors>

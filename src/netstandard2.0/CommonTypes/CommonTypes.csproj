@@ -4,7 +4,7 @@
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>CommonTypes.snk</AssemblyOriginatorKeyFile>
     <DelaySign>false</DelaySign>
-    <AssemblyName>TddXt.CommonTypes</AssemblyName>
+    <AssemblyName>TddXt.Any.CommonTypes</AssemblyName>
     <RootNamespace>TddXt.CommonTypes</RootNamespace>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Grzegorz Gałęzowski</Authors>
