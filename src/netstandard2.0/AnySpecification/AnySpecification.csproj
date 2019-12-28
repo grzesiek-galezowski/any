@@ -19,20 +19,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AnyExtensibility\AnyExtensibility.csproj" />
-    <ProjectReference Include="..\AnyGenerators.Collections\AnyGenerators.Collections.csproj" />
     <ProjectReference Include="..\AnyGenerators.Generic\AnyGenerators.Generic.csproj" />
-    <ProjectReference Include="..\AnyGenerators.Invokable\AnyGenerators.Invokable.csproj" />
-    <ProjectReference Include="..\AnyGenerators.Math\AnyGenerators.Math.csproj" />
-    <ProjectReference Include="..\AnyGenerators.Network\AnyGenerators.Network.csproj" />
-    <ProjectReference Include="..\AnyGenerators.Numbers\AnyGenerators.Numbers.csproj" />
     <ProjectReference Include="..\AnyGenerators.Root\AnyGenerators.Root.csproj" />
-    <ProjectReference Include="..\AnyGenerators.Strings\AnyGenerators.Strings.csproj" />
     <ProjectReference Include="..\AnyRoot\AnyRoot.csproj" />
-    <ProjectReference Include="..\AutoFixtureWrapper\AutoFixtureWrapper.csproj" />
     <ProjectReference Include="..\CommonTypes\CommonTypes.csproj" />
-    <ProjectReference Include="..\TypeReflection.ImplementationDetails\TypeReflection.ImplementationDetails.csproj" />
-    <ProjectReference Include="..\TypeReflection.Interfaces\TypeReflection.Interfaces.csproj" />
-    <ProjectReference Include="..\TypeReflectionSpecification\TypeReflectionSpecification.csproj" />
     <ProjectReference Include="..\TypeReflection\TypeReflection.csproj" />
     <ProjectReference Include="..\TypeResolution\TypeResolution.csproj" />
   </ItemGroup>

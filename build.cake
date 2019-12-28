@@ -2,7 +2,6 @@
 #tool "nuget:?package=ILRepack"
 #addin nuget:?package=Cake.SemVer
 #addin nuget:?package=semver&version=2.0.4
-#tool "nuget:?package=GitVersion.CommandLine"
  
 ///////////////////////////////////////////////////////////////////////
 // ARGUMENTS
@@ -11,7 +10,6 @@
 var target = Argument("target", "Default");
 var configuration = Argument("configuration", "Release");
 var toolpath = Argument("toolpath", @"");
-var netstandard20 = new Framework("netstandard2.0");
 
 //////////////////////////////////////////////////////////////////////
 // DEPENDENCIES
@@ -40,41 +38,16 @@ var publishNetStandardDir = publishDir + Directory("netstandard2.0");
 var srcNetStandardDir = srcDir + Directory("netstandard2.0");
 var slnNetStandard = srcNetStandardDir + File("Any.sln");
 var specificationNetStandardDir = specificationDir + Directory("netstandard2.0");
+var version="0.50.2";
+Func<ProcessArgumentBuilder, ProcessArgumentBuilder> versionCustomization = args => args.Append("-p:VersionPrefix=" + version); 
 
-GitVersion nugetVersion = null; 
-
-public void RestorePackages(string path)
+var defaultNugetPackSettings = new DotNetCorePackSettings 
 {
-	DotNetCoreRestore(path);
-
-    NuGetRestore(path, new NuGetRestoreSettings 
-	{ 
-		NoCache = true,
-		Verbosity = NuGetVerbosity.Detailed,
-		ToolPath = FilePath.FromString("./tools/nuget.exe")
-	});
-}
-
-public void Build(string path)
-{
-    if(IsRunningOnWindows())
-    {
-      // Use MSBuild
-      MSBuild(path, settings => {
-		settings.ToolPath = String.IsNullOrEmpty(toolpath) ? settings.ToolPath : toolpath;
-		settings.ToolVersion = MSBuildToolVersion.VS2019;
-        settings.PlatformTarget = PlatformTarget.MSIL;
-		settings.SetConfiguration(configuration);
-		settings.SetMaxCpuCount(0);
-	  });
-    }
-    else
-    {
-      // Use XBuild
-      XBuild(path, settings =>
-        settings.SetConfiguration(configuration));
-    }
-}
+	IncludeSymbols = true,
+	Configuration = "Release",
+	OutputDirectory = "./nuget",
+	ArgumentCustomization = args => args.Append("--include-symbols -p:SymbolPackageFormat=snupkg -p:VersionPrefix=" + version)
+};
 
 //////////////////////////////////////////////////////////////////////
 // TASKS
@@ -88,30 +61,17 @@ Task("Clean")
 	CleanDirectory("./nuget");
 });
 
-Task("Restore-NuGet-Packages")
-    .IsDependentOn("Clean")
-    .Does(() =>
-{
-	RestorePackages(slnNetStandard);
-});
-
 Task("Build")
-    .IsDependentOn("Restore-NuGet-Packages")
-    .IsDependentOn("GitVersion")
     .Does(() =>
 {
-    Build(slnNetStandard);
-});
-
-Task("GitVersion")
-    .Does(() =>
-{
-    nugetVersion = GitVersion(new GitVersionSettings {
-        UpdateAssemblyInfo = true,
+        DotNetCoreBuild(srcNetStandardDir + Directory("AnyRoot"), new DotNetCoreBuildSettings
+    {
+        Configuration = configuration,
+        OutputDirectory = buildDir,
+	    ArgumentCustomization = versionCustomization
     });
-    Console.WriteLine(nugetVersion.NuGetVersionV2);
-});
 
+});
 
 Task("Run-Unit-Tests")
 	.IsDependentOn("Build")
@@ -121,77 +81,28 @@ Task("Run-Unit-Tests")
 	NUnit3(testAssemblies); 
 });
 
-public void BundleDependencies(DirectoryPath specificVersionPublishDir, string rootDllName)
-{
-	var fullRootDllFilePath = specificVersionPublishDir + "/" + rootDllName;
-	var assemblyPaths = GetFiles(specificVersionPublishDir + "/TddXt*.dll");
-	var mainAssemblyPath = new FilePath(fullRootDllFilePath).MakeAbsolute(Context.Environment);
-	assemblyPaths.Remove(mainAssemblyPath);
-	ILRepack(fullRootDllFilePath, fullRootDllFilePath, assemblyPaths, 
-		new ILRepackSettings 
-		{ 
-			Parallel = true,
-			Keyfile = "./src/netstandard2.0/AnyRoot/TddToolkit.snk",
-			DelaySign = false,
-      CopyAttrs = true,
-			NDebug = false
-		});
-	DeleteFiles(assemblyPaths);
-}
-
-
 Task("Pack")
-	.IsDependentOn("Build")
+	.IsDependentOn("Run-Unit-Tests")
     .Does(() => 
     {
-		CopyDirectory(buildDir, publishDir);
-		BundleDependencies(publishNetStandardDir, "TddXt.AnyRoot.dll");
-		NuGetPack("./Any.nuspec", new NuGetPackSettings()
-		{
-			Id = "Any",
-			Title = "Any",
-			Owners = new [] { "Grzegorz Galezowski" },
-			Authors = new [] { "Grzegorz Galezowski" },
-			Summary = "Anonymous value generator, supporting the 'Any.Whatever()' syntax proposed on the www.sustainabletdd.com blog.",
-			Description = "Anonymous value generator, supporting the 'Any.Whatever()' syntax proposed on the www.sustainabletdd.com blog. It makes use of the static usings and extension methods to achieve flexibility and extensibility.",
-			Language = "en-US",
-			ReleaseNotes = new[] {"Allowed customizations to be used for concrete classes and values"},
-			ProjectUrl = new Uri("https://github.com/grzesiek-galezowski/any"),
-			OutputDirectory = "./nuget",
-      LicenseUrl = new Uri("https://raw.githubusercontent.com/grzesiek-galezowski/any/master/LICENSE"),
-			Version = nugetVersion.NuGetVersionV2, //"2.1.3",
-      Symbols = false,
-			Files = new [] 
-			{
-				new NuSpecContent {Source = @".\publish\netstandard2.0\TddXt*.*", Exclude=@"**\*.json", Target = @"lib\netstandard2.0"},
-			},
-
-			Dependencies = new [] 
-			{
-				netstandard20.Dependency(castleCore),
-				netstandard20.Dependency(autoFixtureSeed),
-				netstandard20.Dependency(autoFixture),
-				netstandard20.Dependency(fluentAssertions),
-				netstandard20.Dependency(taskExtensions),
-				netstandard20.Dependency(valueTuple),
-			}
-		});  
+		DotNetCorePack(srcNetStandardDir + File("AnyRoot"), defaultNugetPackSettings);
     });
 
-	public class Framework
+Task("Push")
+    .IsDependentOn("Clean")
+    .IsDependentOn("Pack")
+	.Does(() =>
 	{
-		string _name;
-
-		public Framework(string name)
+	    var projectFiles = GetFiles("./nuget/*.nupkg");
+		foreach(var file in projectFiles)
 		{
-			_name = name;
+			DotNetCoreNuGetPush(file.FullPath, new DotNetCoreNuGetPushSettings
+			{
+				Source = "https://api.nuget.org/v3/index.json",
+			});
 		}
+	});
 
-		public NuSpecDependency Dependency(params string[] idAndVersion)
-		{
-			return new NuSpecDependency { Id = idAndVersion[0], Version = idAndVersion[1], TargetFramework = _name };
-		}
-	}
 
 
 //////////////////////////////////////////////////////////////////////
@@ -199,7 +110,6 @@ Task("Pack")
 //////////////////////////////////////////////////////////////////////
 
 Task("Default")
-    .IsDependentOn("GitVersion")
     .IsDependentOn("Build")
     .IsDependentOn("Run-Unit-Tests")
     .IsDependentOn("Pack");
