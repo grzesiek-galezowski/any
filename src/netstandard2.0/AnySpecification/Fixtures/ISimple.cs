@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace TddToolkitSpecification.Fixtures
+namespace AnySpecification.Fixtures
 {
   public interface ISimple
   {

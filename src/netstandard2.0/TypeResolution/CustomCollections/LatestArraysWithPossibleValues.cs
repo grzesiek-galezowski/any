@@ -28,14 +28,7 @@ namespace TddXt.TypeResolution.CustomCollections
 
     public T PickNextElementFrom(T[] possibleValues)
     {
-      foreach (var array in _arrays)
-      {
-        if (array.IsEquivalentTo(possibleValues))
-        {
-          return array.GetNextElement();
-        }
-      }
-      throw new Exception("Coud not pick next element in an array. Please submit an issue to fix this");
+      return _arrays.Single(a => a.IsEquivalentTo(possibleValues)).GetNextElement();
     }
   }
 }

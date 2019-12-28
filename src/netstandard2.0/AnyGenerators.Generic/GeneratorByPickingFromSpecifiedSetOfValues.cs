@@ -5,7 +5,8 @@ namespace TddXt.AnyGenerators.Generic
 {
   public class GeneratorByPickingFromSpecifiedSetOfValues<T> : InlineGenerator<T>
   {
-    private static readonly ArrayElementPicking _arrayElementPicking = new ArrayElementPicking();
+    //private static readonly ArrayElementPicking _arrayElementPicking = new ArrayElementPicking();
+    private static readonly LatestArraysWithPossibleValues<T> _cachedArraysOfCurrentType = new LatestArraysWithPossibleValues<T>();
     private readonly T[] _possibleValues;
 
 
@@ -16,13 +17,12 @@ namespace TddXt.AnyGenerators.Generic
 
     public T GenerateInstance(InstanceGenerator instanceGenerator, GenerationTrace trace)
     {
-      var latestArraysWithPossibleValues = _arrayElementPicking.For<T>();
-      if (!latestArraysWithPossibleValues.Contain(_possibleValues))
+      if (!_cachedArraysOfCurrentType.Contain(_possibleValues))
       {
-        latestArraysWithPossibleValues.Add(_possibleValues);
+        _cachedArraysOfCurrentType.Add(_possibleValues);
       }
 
-      return latestArraysWithPossibleValues.PickNextElementFrom(_possibleValues);
+      return _cachedArraysOfCurrentType.PickNextElementFrom(_possibleValues);
     }
   }
 }

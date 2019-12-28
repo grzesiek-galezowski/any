@@ -1,4 +1,4 @@
-namespace TddToolkitSpecification.Fixtures
+namespace AnySpecification.Fixtures
 {
   public class RecursiveClass2
   {

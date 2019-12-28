@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -31,6 +32,7 @@ namespace TddXt.TypeResolution.CustomCollections
       {
         Index = 0;
       }
+
       var result = _values[Index];
       Index++;
       return result;

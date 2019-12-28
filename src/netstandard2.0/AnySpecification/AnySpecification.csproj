@@ -9,10 +9,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="CompareNETObjects" Version="4.63.0" />
+    <PackageReference Include="CompareNETObjects" Version="4.65.0" />
     <PackageReference Include="Functional.Maybe" Version="2.0.18" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.3.0" />
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.4.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="NUnit" Version="3.12.0" />
     <PackageReference Include="NUnit3TestAdapter" Version="3.15.1" />
   </ItemGroup>
@@ -30,7 +30,6 @@
     <ProjectReference Include="..\AnyRoot\AnyRoot.csproj" />
     <ProjectReference Include="..\AutoFixtureWrapper\AutoFixtureWrapper.csproj" />
     <ProjectReference Include="..\CommonTypes\CommonTypes.csproj" />
-    <ProjectReference Include="..\TddToolkitSpecification\TddToolkitSpecification.csproj" />
     <ProjectReference Include="..\TypeReflection.ImplementationDetails\TypeReflection.ImplementationDetails.csproj" />
     <ProjectReference Include="..\TypeReflection.Interfaces\TypeReflection.Interfaces.csproj" />
     <ProjectReference Include="..\TypeReflectionSpecification\TypeReflectionSpecification.csproj" />

@@ -10,13 +10,12 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using AnySpecification.Fixtures;
+using AnySpecification.GraphComparison;
 using FluentAssertions;
 using Newtonsoft.Json;
 using NUnit.Framework;
-using TddToolkitSpecification.Fixtures;
-using TddToolkitSpecification.GraphComparison;
 using TddXt.AnyExtensibility;
-using TddXt.AnyGenerators.Generic;
 using TddXt.AnyGenerators.Generic.ImplementationDetails;
 using TddXt.AnyRoot;
 using TddXt.AnyRoot.Collections;
@@ -30,7 +29,7 @@ using static TddXt.AnyRoot.Root;
 
 // ReSharper disable PublicConstructorInAbstractClass
 
-namespace TddToolkitSpecification
+namespace AnySpecification
 {
   public class AnySpecification
   {
@@ -1393,5 +1392,9 @@ namespace TddToolkitSpecification
       }
 
       public LolEnum Lol { get; }
+  }
+
+  public class TestTemplateClass
+  {
   }
 }

@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 using Functional.Maybe;
 
-namespace TddToolkitSpecification.Fixtures
+namespace AnySpecification.Fixtures
 {
   public interface IObjectWithAsyncMethod
   {

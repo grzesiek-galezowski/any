@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
-namespace TddToolkitSpecification.Fixtures
+namespace AnySpecification.Fixtures
 {
   [SuppressMessage("ReSharper", "UnusedMember.Global")]
   public interface IObservableConcurrentDictionary<TKey, TValue>

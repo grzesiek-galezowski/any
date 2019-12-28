@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TddToolkitSpecification.Fixtures
+namespace AnySpecification.Fixtures
 {
   public class IncrementalType : IEquatable<IncrementalType>
   {

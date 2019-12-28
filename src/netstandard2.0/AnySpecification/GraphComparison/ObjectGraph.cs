@@ -1,6 +1,6 @@
 ﻿using KellermanSoftware.CompareNetObjects;
 
-namespace TddToolkitSpecification.GraphComparison
+namespace AnySpecification.GraphComparison
 {
   public static class ObjectGraph
   {

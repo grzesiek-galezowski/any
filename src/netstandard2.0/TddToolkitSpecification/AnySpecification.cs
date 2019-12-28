@@ -8,7 +8,6 @@ using System.Net;
 using System.Reflection;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text.RegularExpressions;
-using System.Threading;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Newtonsoft.Json;
@@ -1310,7 +1309,6 @@ namespace TddToolkitSpecification
       return ulong.MaxValue.ToString().Length;
     }
 
-
     public static void Alike<T>(T expected, T actual)
     {
       var comparison = ObjectGraph.Comparison();
@@ -1324,10 +1322,6 @@ namespace TddToolkitSpecification
       var result = comparison.Compare(expected, actual);
       result.ExceededDifferences.Should().BeTrue(result.DifferencesString);
     }
-  }
-
-  public class TestTemplateClass
-  {
   }
 
   public class ObjectWithStaticParseMethod

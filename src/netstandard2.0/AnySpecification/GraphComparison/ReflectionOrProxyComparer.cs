@@ -2,7 +2,7 @@
 using KellermanSoftware.CompareNetObjects;
 using KellermanSoftware.CompareNetObjects.TypeComparers;
 
-namespace TddToolkitSpecification.GraphComparison
+namespace AnySpecification.GraphComparison
 {
   public class ReflectionOrProxyComparer : BaseTypeComparer
   {

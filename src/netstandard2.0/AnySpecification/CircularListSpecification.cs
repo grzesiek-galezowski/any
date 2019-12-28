@@ -3,7 +3,7 @@ using TddXt.AnyRoot.Numbers;
 using TddXt.CommonTypes;
 using static TddXt.AnyRoot.Root;
 
-namespace TddToolkitSpecification
+namespace AnySpecification
 {
   public class CircularListSpecification
   {

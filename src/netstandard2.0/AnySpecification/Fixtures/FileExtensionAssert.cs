@@ -1,7 +1,7 @@
 using System;
 using System.IO;
 
-namespace TddToolkitSpecification.Fixtures
+namespace AnySpecification.Fixtures
 {
   internal static class FileExtensionAssert
   {

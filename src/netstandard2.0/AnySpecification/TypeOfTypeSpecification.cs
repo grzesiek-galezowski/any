@@ -2,7 +2,7 @@
 using NUnit.Framework;
 using TddXt.TypeReflection;
 
-namespace TddToolkitSpecification
+namespace AnySpecification
 {
   public class TypeOfTypeSpecification
   {
