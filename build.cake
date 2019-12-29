@@ -79,7 +79,17 @@ Task("Run-Unit-Tests")
 {
 	var testAssemblies = GetFiles(specificationNetStandardDir.ToString() + "/*Specification.dll");
 	NUnit3(testAssemblies); 
-	//bug also use dotnet test
+
+    var projectFiles = GetFiles(srcNetStandardDir.ToString() + "/**/*Specification.csproj");
+    foreach(var file in projectFiles)
+    {
+        DotNetCoreTest(file.FullPath, new DotNetCoreTestSettings           
+        {
+           Configuration = configuration,
+           Logger = "trx"
+        });
+    }
+
 });
 
 Task("Pack")
