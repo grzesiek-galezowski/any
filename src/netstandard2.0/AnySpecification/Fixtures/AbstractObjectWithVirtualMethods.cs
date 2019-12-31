@@ -5,9 +5,9 @@ namespace AnySpecification.Fixtures
   [Serializable]
   public abstract class AbstractObjectWithVirtualMethods
   {
-    public virtual string GetSomething()
+    public virtual string? GetSomething()
     {
-      return default(string);
+      return default;
     }
 
     public virtual string GetSomething2()

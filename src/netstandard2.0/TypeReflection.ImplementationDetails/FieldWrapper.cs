@@ -28,7 +28,7 @@ namespace TddXt.TypeReflection.ImplementationDetails
 
   public static class DefaultValue
   {
-    public static object Of(Type t)
+    public static object? Of(Type t)
     {
       if (t.IsValueType)
       {

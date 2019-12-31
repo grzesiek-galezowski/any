@@ -90,7 +90,7 @@ namespace TddXt.TypeReflection
 
     public Maybe<IConstructorWrapper> PickConstructorWithLeastNonPointersParameters()
     {
-      IConstructorWrapper leastParamsConstructor = null;
+      IConstructorWrapper? leastParamsConstructor = null;
 
       var constructors = For(_type).GetAllPublicConstructors();
       var numberOfParams = int.MaxValue;
@@ -106,7 +106,7 @@ namespace TddXt.TypeReflection
         }
       }
 
-      return Maybe.OfNullable(leastParamsConstructor);
+      return Maybe.OfNullable(leastParamsConstructor!);
     }
 
     public IEnumerable<IConstructorWrapper> GetAllPublicConstructors()

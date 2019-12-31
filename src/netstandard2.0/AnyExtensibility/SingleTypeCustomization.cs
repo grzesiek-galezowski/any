@@ -22,7 +22,7 @@ namespace TddXt.AnyExtensibility
       return type == typeof(T);
     }
 
-    public object Generate(InstanceGenerator gen, GenerationTrace trace)
+    public object? Generate(InstanceGenerator gen, GenerationTrace trace)
     {
       return _func(gen, trace);
     }

@@ -34,7 +34,7 @@ namespace TddXt.TypeResolution
     public PerMethodCacheKey GetPropertyGetterCacheKey()
     {
       var propertyFromSetterCallOrNull =
-        _invocation.Method.GetPropertyFromSetterCallOrNull();
+        _invocation.Method.GetPropertyFromSetterCall();
       var getter = propertyFromSetterCallOrNull.GetGetMethod(true);
       var key = PerMethodCacheKey.For(getter, _invocation.Proxy);
       return key;
@@ -70,11 +70,11 @@ namespace TddXt.TypeResolution
 
 public static class ReflectionExtensions
 {
-  public static PropertyInfo GetPropertyFromSetterCallOrNull(this MethodInfo call)
+  public static PropertyInfo GetPropertyFromSetterCall(this MethodInfo call)
   {
     if (!CanBePropertySetterCall(call))
     {
-      return null;
+      throw new Exception("property not settable");
     }
 
     var properties = call.DeclaringType.GetProperties();

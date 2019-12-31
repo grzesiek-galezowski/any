@@ -64,7 +64,7 @@ namespace TddXt.AnyRoot.Strings
 
     public static string StringContaining<T>(this BasicGenerator gen, T obj)
     {
-      return gen.InstanceOf(InlineGenerators.StringContaining(obj.ToString()));
+      return gen.InstanceOf(InlineGenerators.StringContaining(obj!.ToString()));
     }
 
     public static string StringContaining(this BasicGenerator gen, string str)
