@@ -14,6 +14,7 @@ using AnySpecification.Fixtures;
 using AnySpecification.GraphComparison;
 using FluentAssertions;
 using Newtonsoft.Json;
+using NSubstitute;
 using NUnit.Framework;
 using TddXt.AnyExtensibility;
 using TddXt.AnyGenerators.Generic.ImplementationDetails;
@@ -25,6 +26,7 @@ using TddXt.AnyRoot.Network;
 using TddXt.AnyRoot.Numbers;
 using TddXt.AnyRoot.Strings;
 using TddXt.CommonTypes;
+using TddXt.TypeResolution.Interceptors;
 using static TddXt.AnyRoot.Root;
 
 // ReSharper disable PublicConstructorInAbstractClass
@@ -161,13 +163,39 @@ namespace AnySpecification
       //GIVEN
       var obj = Any.Instance<ISimple>();
       var obj2 = Any.Instance<ISimple>();
-
       //WHEN
       var valueFromFirstInstance = obj.GetString();
       var valueFromSecondInstance = obj2.GetString();
 
       //THEN
       Assert.AreNotEqual(valueFromFirstInstance, valueFromSecondInstance);
+    }
+
+    [Test]
+    public void ShouldThrowExceptionWhenItsMethodInvokedDuringReceivedInOrder()
+    {
+      //GIVEN
+      var obj = Any.Instance<ISimple>();
+      //WHEN
+
+      //THEN
+      obj.Invoking(o => Received.InOrder(() => o.GetString())).Should()
+        .Throw<AnyInstanceUsedInsteadOfNSubstituteDuringAQueryException>();
+    }
+
+    [Test]
+    public void ShouldNotThrowExceptionWhenItsPropertyGetterInvokedDuringReceivedInOrder()
+    {
+      //GIVEN
+      var obj = Any.Instance<ISimple>();
+      //WHEN
+
+      //THEN
+      obj.Invoking(o => Received.InOrder(() =>
+        {
+          var x = o.GetStringProperty;
+        })).Should()
+        .NotThrow();
     }
 
     [Test]

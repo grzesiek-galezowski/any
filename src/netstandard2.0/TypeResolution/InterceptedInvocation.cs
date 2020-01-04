@@ -31,7 +31,14 @@ namespace TddXt.TypeResolution
         .Any(prop => prop.GetSetMethod() == _invocation.Method);
     }
 
-    public PerMethodCacheKey GetPropertyGetterCacheKey()
+    public bool IsPropertyGetter()
+    {
+      return _invocation.Method.DeclaringType.GetProperties()
+        .Any(prop => prop.GetGetMethod() == _invocation.Method);
+    }
+
+
+    private PerMethodCacheKey GetPropertyGetterCacheKey()
     {
       var propertyFromSetterCallOrNull =
         _invocation.Method.GetPropertyFromSetterCall();
@@ -65,6 +72,7 @@ namespace TddXt.TypeResolution
     {
       return _instanceSource(invocation.Method.ReturnType, trace);
     }
+
   }
 }
 

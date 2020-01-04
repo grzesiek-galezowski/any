@@ -1,5 +1,9 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using Castle.DynamicProxy;
+using FluentAssertions;
 using TddXt.AnyExtensibility;
 
 namespace TddXt.TypeResolution.Interceptors
@@ -23,6 +27,7 @@ namespace TddXt.TypeResolution.Interceptors
 
     public void Intercept(IInvocation invocation)
     {
+      NSubstituteHacks.AssertIsNotInvokedDuringNSubstituteQuery(invocation, _instanceSource);
       _cachedGeneration.SetupReturnValueFor(invocation, _instanceSource, _trace);
     }
   }

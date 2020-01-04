@@ -23,6 +23,8 @@ namespace TddXt.TypeResolution.Interceptors
 
     public void Intercept(IInvocation invocation)
     {
+      NSubstituteHacks.AssertIsNotInvokedDuringNSubstituteQuery(invocation, _instanceSource);
+
       if (invocation.Method.IsAbstract)
       {
         _cachedGeneration.SetupReturnValueFor(invocation, _instanceSource, _trace);

@@ -1,7 +1,4 @@
 #tool "nuget:?package=NUnit.ConsoleRunner"
-#tool "nuget:?package=ILRepack"
-#addin nuget:?package=Cake.SemVer
-#addin nuget:?package=semver&version=2.0.4
  
 ///////////////////////////////////////////////////////////////////////
 // ARGUMENTS
@@ -14,15 +11,6 @@ var toolpath = Argument("toolpath", @"");
 //////////////////////////////////////////////////////////////////////
 // DEPENDENCIES
 //////////////////////////////////////////////////////////////////////
-
-var castleCore = new[] {"Castle.Core", "4.4.0"};
-var autoFixtureSeed = new[] {"AutoFixture.SeedExtensions", "4.11.0"};
-var autoFixture = new[] {"AutoFixture", "4.11.0"};
-var fluentAssertions = new[] {"FluentAssertions", "5.9.0"};
-
-var taskExtensions = new[] {"System.Threading.Tasks.Extensions", "4.5.3"};
-var valueTuple = new[] {"System.ValueTuple", "4.5.0"};
-
 
 //////////////////////////////////////////////////////////////////////
 // PREPARATION
@@ -38,7 +26,7 @@ var publishNetStandardDir = publishDir + Directory("netstandard2.0");
 var srcNetStandardDir = srcDir + Directory("netstandard2.0");
 var slnNetStandard = srcNetStandardDir + File("Any.sln");
 var specificationNetStandardDir = specificationDir + Directory("netstandard2.0");
-var version="4.1.0";
+var version="4.2.0";
 Func<ProcessArgumentBuilder, ProcessArgumentBuilder> versionCustomization = args => args.Append("-p:VersionPrefix=" + version); 
 
 var defaultNugetPackSettings = new DotNetCorePackSettings 
