@@ -290,6 +290,17 @@ namespace AnySpecification
     }
 
     [Test]
+    public void ShouldBeAbleToCreateInstanceOfClassWithInConstructorParameter()
+    {
+      //GIVEN
+      var obj = Any.Instance<ObjectWithInConstructorParameter>();
+
+      //THEN
+      obj.Should().NotBeNull();
+      obj.A.Should().NotBe(default);
+    }
+
+    [Test]
     public void ShouldOverrideVirtualMethodsThatThrowExceptionsOnAbstractClassProxy()
     {
       //GIVEN

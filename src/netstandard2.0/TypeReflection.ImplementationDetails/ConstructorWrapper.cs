@@ -72,9 +72,27 @@ namespace TddXt.TypeReflection.ImplementationDetails
 
       foreach (var constructorParam in _parameterTypes)
       {
-        constructorValues.Add(instanceGenerator(constructorParam, trace));
+        if (IsPassedByReference(constructorParam))
+        {
+          constructorValues.Add(instanceGenerator(GetNonRefFromRefType(constructorParam), trace));
+        }
+        else
+        {
+          constructorValues.Add(instanceGenerator(constructorParam, trace));
+        }
       }
       return constructorValues;
+    }
+
+    private static Type GetNonRefFromRefType(TypeInfo constructorParam)
+    {
+      return Type.GetType(constructorParam.FullName.Replace("&", ""));
+    }
+
+    //e.g. an "in" struct
+    private static bool IsPassedByReference(TypeInfo constructorParam)
+    {
+      return constructorParam.IsByRef;
     }
 
     public bool IsParameterless()

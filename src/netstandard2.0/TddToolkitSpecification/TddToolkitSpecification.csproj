@@ -49,8 +49,8 @@
     <Reference Include="Fare, Version=2.1.0.0, Culture=neutral, PublicKeyToken=ea68d375bf33a7c8, processorArchitecture=MSIL">
       <HintPath>..\packages\Fare.2.1.2\lib\net35\Fare.dll</HintPath>
     </Reference>
-    <Reference Include="FluentAssertions, Version=5.10.0.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
-      <HintPath>..\packages\FluentAssertions.5.10.0\lib\net47\FluentAssertions.dll</HintPath>
+    <Reference Include="FluentAssertions, Version=5.10.2.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
+      <HintPath>..\packages\FluentAssertions.5.10.2\lib\net47\FluentAssertions.dll</HintPath>
     </Reference>
     <Reference Include="Functional.Maybe, Version=2.0.18.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Functional.Maybe.2.0.18\lib\netstandard1.0\Functional.Maybe.dll</HintPath>

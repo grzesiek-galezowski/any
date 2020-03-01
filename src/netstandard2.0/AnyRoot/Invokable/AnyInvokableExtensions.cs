@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using TddXt.AnyExtensibility;
 using TddXt.AnyGenerators.Root;
@@ -7,6 +8,11 @@ namespace TddXt.AnyRoot.Invokable
 {
   public static class AnyInvokableExtensions
   {
+    public static CancellationToken CancellationToken(this BasicGenerator gen)
+    {
+      return gen.Instance<CancellationToken>();
+    }
+
     public static Task NotStartedTask(this BasicGenerator gen)
     {
       return gen.InstanceOf(InlineGenerators.NotStartedTask());
