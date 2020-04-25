@@ -76,7 +76,6 @@ namespace AnySpecification
       Assert.AreNotEqual(digit1, digit2);
     }
 
-
     [Test]
     public void ShouldGenerateDifferentIpAddressEachTime()
     {
@@ -365,7 +364,6 @@ namespace AnySpecification
       CollectionAssert.AllItemsAreUnique(new[] { dof1, dof2, dof3, dof4, dof5, dof6, dof7 });
     }
 
-
     [Test]
     public void ShouldGenerateDifferentValueEachTimeAndNotAmongPassedOnesWhenAskedToCreateAnyValueBesidesGiven()
     {
@@ -500,7 +498,6 @@ namespace AnySpecification
         Assert.AreNotEqual(default(int), primitive);
       });
     }
-
 
     [Test]
     public void ShouldSupportRecursiveInterfacesWithLists()
@@ -767,7 +764,6 @@ namespace AnySpecification
       Assert.AreNotEqual(element2, element1);
     }
 
-
     [Test]
     public void ShouldBeAbleToGenerateInstancesOfGenericKeyValueEnumerables()
     {
@@ -822,8 +818,8 @@ namespace AnySpecification
       Alike(new List<string>(), Any.Dummy<List<string>>());
       Alike(new List<string>(), Any.Dummy<IList<string>>());
       Alike(new List<string>(), Any.Dummy<ICollection<string>>());
-      Alike(new string[] {}, Any.Dummy<string[]>());
-      Alike(new RecursiveClass[] {}, Any.Dummy<RecursiveClass[]>());
+      Alike(Array.Empty<string>(), Any.Dummy<string[]>());
+      Alike(Array.Empty<RecursiveClass>(), Any.Dummy<RecursiveClass[]>());
       Alike(new Dictionary<int, int>(), Any.Dummy<IDictionary<int, int>>());
       Alike(new Dictionary<int, int>(), Any.Dummy<IDictionary<int, int>>());
       Assert.Multiple(() =>
@@ -860,7 +856,7 @@ namespace AnySpecification
       anyConcrete.Inner.InnerDummyInt.Should().Be(123);
       anyConcrete.Inner.InnerDummyString.Should().Be("InnerCustomString");
     }
-    
+   
     [TestCase(LolEnum.Value1)]
     [TestCase(LolEnum.Value2)]
     [TestCase(LolEnum.Value3)]
@@ -869,7 +865,7 @@ namespace AnySpecification
     [TestCase(LolEnum.Value6)]
     public void ShouldAllowCustomizationsForSingleEnumElement(LolEnum value)
     {
-      var anyConcrete = Any.Instance<ObjectWithLolEnum>(new SingleTypeCustomization<LolEnum>((gen, trace) => value));
+      var anyConcrete = Any.Instance<ObjectWithLolEnum>(new SingleTypeCustomization<LolEnum>((_, trace) => value));
       anyConcrete.Lol.Should().Be(value);
     }
 
@@ -1305,7 +1301,7 @@ namespace AnySpecification
       var func1 = Any.Func<int, int>();
       var func = Any.Func<int, int, string>();
       var func2 = Any.Instance<Func<CancellationToken, Task<TestTemplateClass>>>();
-      
+    
       //WHEN
       var result1 = func(1, 2);
       var result2 = func(1, 3);
@@ -1340,7 +1336,7 @@ namespace AnySpecification
       RecursiveInterface x3)
     {
       // ReSharper disable once UnusedVariable
-      var arr = new object[] {x1.AbstractInt, x2.GetSomething(), x3.NestedAsDictionary, x2.GetSomething2(), x3.Nested};
+      _ = new object[] {x1.AbstractInt, x2.GetSomething(), x3.NestedAsDictionary, x2.GetSomething2(), x3.Nested};
     }
 
     private static void SerializeAnyInstanceOf<T>()
@@ -1387,15 +1383,14 @@ namespace AnySpecification
       return ulong.MaxValue.ToString().Length;
     }
 
-
-    public static void Alike<T>(T expected, T actual)
+    private static void Alike<T>(T expected, T actual)
     {
       var comparison = ObjectGraph.Comparison();
       var result = comparison.Compare(expected, actual);
       result.ExceededDifferences.Should().BeFalse(result.DifferencesString);
     }
 
-    public static void NotAlike<T>(T expected, T actual)
+    private static void NotAlike<T>(T expected, T actual)
     {
       var comparison = ObjectGraph.Comparison();
       var result = comparison.Compare(expected, actual);

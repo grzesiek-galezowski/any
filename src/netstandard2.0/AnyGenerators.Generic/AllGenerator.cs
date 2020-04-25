@@ -143,7 +143,7 @@ namespace TddXt.AnyGenerators.Generic
 
       if (typeof(T).IsAbstract)
       {
-        return default(T);
+        return default!;
       }
 
       if (fakeInterface.Applies())

@@ -26,7 +26,6 @@ namespace TddXt.AnyRoot
       typeof(string)
     };
 
-
     public static T From<T>(this BasicGenerator gen, params T[] possibleValues)
     {
       return gen.InstanceOf(InlineGenerators.From(possibleValues));
@@ -46,7 +45,7 @@ namespace TddXt.AnyRoot
     {
       if (ValueTypes.Contains(typeof(T)))
       {
-        return gen.InstanceOf(InlineGenerators.ValueOtherThan(omittedValues)); 
+        return gen.InstanceOf(InlineGenerators.ValueOtherThan(omittedValues));
       }
       else
       {
@@ -58,7 +57,6 @@ namespace TddXt.AnyRoot
     {
       return gen.InstanceOf(new DummyGenerator<T>());
     }
-
 
     public static Guid Guid(this BasicGenerator gen)
     {

@@ -12,8 +12,8 @@ namespace TddXt.TypeResolution.Interceptors
     private readonly GenerationTrace _trace;
 
     public AbstractClassInterceptor(
-      CachedReturnValueGeneration cachedGeneration, 
-      Func<Type, GenerationTrace, object> instanceSource, 
+      CachedReturnValueGeneration cachedGeneration,
+      Func<Type, GenerationTrace, object> instanceSource,
       GenerationTrace trace)
     {
       _cachedGeneration = cachedGeneration;

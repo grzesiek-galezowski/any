@@ -33,15 +33,15 @@ namespace TddXt.TypeResolution.FakeChainElements
           }
           catch (TargetInvocationException e)
           {
-            return default(T);
+            return default!;
           }
           catch (MemberAccessException e)
           {
-            return default(T);
+            return default!;
           }
           catch (ArgumentException e)
           {
-            return default(T);
+            return default!;
           }
         }
         
