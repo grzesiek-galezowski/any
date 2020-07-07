@@ -18,8 +18,8 @@
     <RepositoryUrl>https://github.com/grzesiek-galezowski/any</RepositoryUrl>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="AutoFixture.SeedExtensions" Version="4.11.0" />
-    <PackageReference Include="Castle.Core" Version="4.4.0" />
+    <PackageReference Include="AutoFixture.SeedExtensions" Version="4.12.0" />
+    <PackageReference Include="Castle.Core" Version="4.4.1" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AnyExtensibility\AnyExtensibility.csproj" />
