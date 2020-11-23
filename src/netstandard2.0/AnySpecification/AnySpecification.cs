@@ -486,6 +486,9 @@ namespace AnySpecification
       Assert.DoesNotThrow(() => Any.StringNotContaining(string.Empty));
     }
 
+    [Test, Repeat(100)]
+    public void ShouldGenerateStringsWithoutASpecificSubstring() => Any.StringNotContaining("0").Should().NotContain("0");
+
     [Test]
     public void ShouldBeAbleToGenerateBothPrimitiveTypeInstanceAndInterfaceUsingNewInstanceMethod()
     {

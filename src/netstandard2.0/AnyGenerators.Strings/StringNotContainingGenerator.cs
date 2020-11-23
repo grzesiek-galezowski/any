@@ -26,7 +26,7 @@ namespace TddXt.AnyGenerators.Strings
       for (int i = 0; i < 100; ++i)
       {
         result = _stringGenerator.GenerateInstance(instanceGenerator, trace);
-        if (preprocessedStrings.Any(result.Contains))
+        if (!preprocessedStrings.Any(result.Contains))
         {
           found = true;
           break;
