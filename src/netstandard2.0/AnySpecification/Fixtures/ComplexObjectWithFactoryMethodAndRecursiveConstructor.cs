@@ -19,7 +19,7 @@ namespace AnySpecification.Fixtures
         }
         else
         {
-          throw new ArgumentNullException("parameterName");
+          throw new ArgumentNullException(nameof(parameterName));
         }
       }
 
@@ -31,14 +31,13 @@ namespace AnySpecification.Fixtures
     {
     }
 
-    public static ComplexObjectWithFactoryMethodAndRecursiveConstructor Empty
-      => new ComplexObjectWithFactoryMethodAndRecursiveConstructor(string.Empty);
+    public static ComplexObjectWithFactoryMethodAndRecursiveConstructor Empty => new(string.Empty);
 
     private bool IsEmpty { get; set; }
 
     public static ComplexObjectWithFactoryMethodAndRecursiveConstructor Create(string parameterName)
     {
-      ComplexObjectWithFactoryMethodAndRecursiveConstructor createdWrapper =
+      var createdWrapper =
         new ComplexObjectWithFactoryMethodAndRecursiveConstructor(parameterName);
       return createdWrapper;
     }

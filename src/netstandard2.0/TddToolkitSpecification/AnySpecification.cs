@@ -416,9 +416,9 @@ namespace TddToolkitSpecification
       {
         Assert.AreNotEqual(char1, char2);
         Assert.AreNotEqual(char2, char3);
-        Assert.True(Char.IsLetter(char1));
-        Assert.True(Char.IsLetter(char2));
-        Assert.True(Char.IsLetter(char3));
+        Assert.True(char.IsLetter(char1));
+        Assert.True(char.IsLetter(char2));
+        Assert.True(char.IsLetter(char3));
       });
     }
 
@@ -435,9 +435,9 @@ namespace TddToolkitSpecification
       {
         Assert.AreNotEqual(char1, char2);
         Assert.AreNotEqual(char2, char3);
-        Assert.True(Char.IsDigit(char1));
-        Assert.True(Char.IsDigit(char2));
-        Assert.True(Char.IsDigit(char3));
+        Assert.True(char.IsDigit(char1));
+        Assert.True(char.IsDigit(char2));
+        Assert.True(char.IsDigit(char3));
       });
     }
 
@@ -1272,9 +1272,9 @@ namespace TddToolkitSpecification
 
     private static void Serialize<T>(T instance)
     {
-      using (MemoryStream stream = new MemoryStream())
+      using (var stream = new MemoryStream())
       {
-        BinaryFormatter formatter = new BinaryFormatter();
+        var formatter = new BinaryFormatter();
         formatter.Serialize(stream, instance);
       }
     }

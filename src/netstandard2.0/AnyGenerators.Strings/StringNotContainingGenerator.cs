@@ -18,7 +18,7 @@ namespace TddXt.AnyGenerators.Strings
     public string GenerateInstance(InstanceGenerator instanceGenerator, GenerationTrace trace)
     {
       var preprocessedStrings = from str in _excludedSubstrings
-        where !String.IsNullOrEmpty(str)
+        where !string.IsNullOrEmpty(str)
         select str;
 
       var result = _stringGenerator.GenerateInstance(instanceGenerator, trace);
@@ -35,7 +35,7 @@ namespace TddXt.AnyGenerators.Strings
 
       if (!found)
       {
-        foreach (var excludedSubstring in _excludedSubstrings.Where(s => s != String.Empty))
+        foreach (var excludedSubstring in _excludedSubstrings.Where(s => s != string.Empty))
         {
           result = result.Replace(excludedSubstring, "");
         }

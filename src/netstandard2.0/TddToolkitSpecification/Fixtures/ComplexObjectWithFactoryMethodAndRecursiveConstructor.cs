@@ -19,7 +19,7 @@ namespace TddToolkitSpecification.Fixtures
         }
         else
         {
-          throw new ArgumentNullException("parameterName");
+          throw new ArgumentNullException(nameof(parameterName));
         }
       }
 

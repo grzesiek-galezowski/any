@@ -6,8 +6,8 @@ namespace TddToolkitSpecification.Fixtures
 
     public T Value
     {
-      set { _value = value; }
-      private get { return _value; }
+      set => _value = value;
+      private get => _value;
     }
-  }
+    }
 }

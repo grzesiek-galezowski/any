@@ -23,7 +23,7 @@ namespace TddXt.CommonTypes
   {
     private readonly T _value;
 
-    public Maybe(T instance)
+    public Maybe(T? instance)
       : this()
     {
       if (instance != null)

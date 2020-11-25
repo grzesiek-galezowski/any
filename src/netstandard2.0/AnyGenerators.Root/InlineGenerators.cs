@@ -427,7 +427,7 @@ namespace TddXt.AnyGenerators.Root
     public static InlineGenerator<string> StringContaining(string str)
     {
       return new AggregatingGenerator<string>(
-        System.String.Empty, 
+        string.Empty, 
         (current, next) => current + next, 
         _stringGenerator, 
         new FixedValueGenerator<string>(str), 

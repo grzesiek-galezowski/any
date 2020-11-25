@@ -9,13 +9,13 @@ namespace TddToolkitSpecification.Fixtures
     {
       if (Path.GetExtension(extensionString) != extensionString)
       {
-        throw new ArgumentException("Invalid extension " + extensionString, "extensionString");
+        throw new ArgumentException("Invalid extension " + extensionString, nameof(extensionString));
       }
     }
 
     internal static void NotEmpty(string extensionString)
     {
-      if (extensionString == String.Empty)
+      if (extensionString == string.Empty)
       {
         throw new ArgumentException("Tried to create an extension with empty value");
       }

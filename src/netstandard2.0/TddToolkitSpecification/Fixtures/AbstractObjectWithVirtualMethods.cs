@@ -7,7 +7,7 @@ namespace TddToolkitSpecification.Fixtures
   {
     public virtual string GetSomething()
     {
-      return default(string);
+      return default;
     }
 
     public virtual string GetSomething2()

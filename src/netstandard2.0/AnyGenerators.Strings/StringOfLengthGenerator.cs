@@ -16,7 +16,7 @@ namespace TddXt.AnyGenerators.Strings
 
     public string GenerateInstance(InstanceGenerator instanceGenerator, GenerationTrace trace)
     {
-      var result = String.Empty;
+      var result = string.Empty;
       while (result.Length < _length)
       {
         result += _stringGenerator.GenerateInstance(instanceGenerator, trace);
