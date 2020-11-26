@@ -19,10 +19,6 @@
   <ItemGroup>
     <PackageReference Include="AutoFixture.SeedExtensions" Version="4.14.0" />
     <PackageReference Include="Castle.Core" Version="4.4.1" />
-    <PackageReference Include="NsDepCop" Version="1.10.1">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TypeReflection\TypeReflection.csproj" />

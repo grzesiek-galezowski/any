@@ -1,7 +1,0 @@
-﻿<NsDepCopConfig IsEnabled="true" CodeIssueKind="Warning">
-    <Allowed From="*" To="System.*" />
-    <Allowed From="TddXt.AnyGenerators.Generic" To="TddXt.AnyGenerators.Generic.ImplementationDetails" />
-    <Allowed From="*" To="TddXt.AnyExtensibility" />
-    <Allowed From="*" To="TddXt.AnyGenerators.Generic.ImplementationDetails" />
-
-</NsDepCopConfig>
