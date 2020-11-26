@@ -27,7 +27,7 @@ var srcNetStandardDir = srcDir + Directory("netstandard2.0");
 var slnNetStandard = srcNetStandardDir + File("Any.sln");
 var specificationNetStandardDir = specificationDir + Directory("netstandard2.0");
 Func<ProcessArgumentBuilder, ProcessArgumentBuilder> versionCustomization = args => args.Append("-p:VersionPrefix=" + version); 
-var version="4.4.1";
+var version="4.5.0";
 
 var defaultNugetPackSettings = new DotNetCorePackSettings 
 {

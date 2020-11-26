@@ -5,7 +5,7 @@ namespace TddXt.AnyExtensibility
   public interface GenerationCustomization
   {
     bool AppliesTo(Type type);
-    object Generate(InstanceGenerator gen, GenerationTrace trace);
+    object Generate(Type type, InstanceGenerator gen, GenerationTrace trace);
   }
 
   public class SingleTypeCustomization<T> : GenerationCustomization
@@ -22,9 +22,9 @@ namespace TddXt.AnyExtensibility
       return type == typeof(T);
     }
 
-    public object? Generate(InstanceGenerator gen, GenerationTrace trace)
+    public object Generate(Type type, InstanceGenerator gen, GenerationTrace trace)
     {
-      return _func(gen, trace);
+      return _func(gen, trace)!;
     }
   }
 }

@@ -40,7 +40,7 @@ namespace TddXt.AnyGenerators.Generic.ImplementationDetails
       return _customizations.Where(c => c.AppliesTo(type)).FirstOrNothing()
         .Fold(
           () => _inner.Instance(type, trace, _customizations), 
-          c => c.Generate(this, trace));
+          c => c.Generate(type, this, trace));
     }
 
     public T Dummy<T>(GenerationTrace trace)

@@ -868,8 +868,17 @@ namespace AnySpecification
     [TestCase(LolEnum.Value6)]
     public void ShouldAllowCustomizationsForSingleEnumElement(LolEnum value)
     {
-      var anyConcrete = Any.Instance<ObjectWithLolEnum>(new SingleTypeCustomization<LolEnum>((_, trace) => value));
+      var anyConcrete = Any.Instance<ObjectWithLolEnum>(new SingleTypeCustomization<LolEnum>((_, _) => value));
       anyConcrete.Lol.Should().Be(value);
+    }
+
+    [Test]
+    public void ShouldAllowGenericCustomizations()
+    {
+        var anyConcrete = Any.Instance<ObjectWithGenericCollection<int>>(
+            new GenericListCustomization());
+        anyConcrete.MyList.Should().HaveCount(4);
+        
     }
 
     [Test]
@@ -1399,6 +1408,26 @@ namespace AnySpecification
     }
   }
 
+  public class GenericListCustomization : GenerationCustomization
+  {
+      public bool AppliesTo(Type type)
+      {
+          return type.IsGenericType && type.GetGenericTypeDefinition() == typeof(List<>);
+      }
+
+      public object Generate(Type type, InstanceGenerator gen, GenerationTrace trace)
+      {
+          var list = Activator.CreateInstance(type);
+          var addMethod = type.GetMethod("Add", BindingFlags.Instance | BindingFlags.Public);
+          var elementInstance = gen.Instance(type.GetGenericArguments()[0], trace);
+          addMethod!.Invoke(list, new [] { elementInstance });
+          addMethod!.Invoke(list, new [] { elementInstance });
+          addMethod!.Invoke(list, new [] { elementInstance });
+          addMethod!.Invoke(list, new [] { elementInstance });
+          return list!;
+      }
+  }
+
   public class ObjectWithStaticParseMethod
   {
     private ObjectWithStaticParseMethod(int x)
@@ -1431,5 +1460,15 @@ namespace AnySpecification
 
   public class TestTemplateClass
   {
+  }
+
+  public class ObjectWithGenericCollection<T>
+  {
+      public ObjectWithGenericCollection(List<T> myList)
+      {
+          MyList = myList;
+      }
+
+      public List<T> MyList { get; }
   }
 }

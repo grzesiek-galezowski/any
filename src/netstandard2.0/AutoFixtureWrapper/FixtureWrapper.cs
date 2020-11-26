@@ -115,7 +115,7 @@ namespace TddXt.AutoFixtureWrapper
           {
             if (customization.AppliesTo(t))
             {
-              return customization.Generate(_gen, _trace);
+              return customization.Generate(t, _gen, _trace);
             }
           }
           return new NoSpecimen();
