@@ -252,13 +252,9 @@
       <Project>{CE0F9938-421D-45FE-91F5-43CEBCA67853}</Project>
       <Name>AnyExtensibility</Name>
     </ProjectReference>
-    <ProjectReference Include="..\AnyGenerators.Generic\AnyGenerators.Generic.csproj">
-      <Project>{A03D6E9A-79E9-4D94-B57C-5967F9929106}</Project>
-      <Name>AnyGenerators.Generic</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\AnyGenerators.Root\AnyGenerators.Root.csproj">
-      <Project>{6EA3F045-5D9D-44D9-B114-E16C66D383BF}</Project>
-      <Name>AnyGenerators.Root</Name>
+    <ProjectReference Include="..\AnyGenerators\AnyGenerators.csproj">
+      <Project>{455C0125-B537-4B9F-97C2-FCC4107E7E33}</Project>
+      <Name>AnyGenerators</Name>
     </ProjectReference>
     <ProjectReference Include="..\AnyRoot\AnyRoot.csproj">
       <Project>{6C6332AB-E70C-432E-AC8F-229211F79A84}</Project>

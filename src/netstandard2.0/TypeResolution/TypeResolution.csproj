@@ -23,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TypeReflection.Interfaces\TypeReflection.Interfaces.csproj" />
+    <ProjectReference Include="..\AnyExtensibility\AnyExtensibility.csproj" />
     <ProjectReference Include="..\TypeReflection\TypeReflection.csproj" />
   </ItemGroup>
   <ItemGroup>

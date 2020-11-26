@@ -28,8 +28,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AnyExtensibility\AnyExtensibility.csproj" />
-    <ProjectReference Include="..\AnyGenerators.Generic\AnyGenerators.Generic.csproj" />
-    <ProjectReference Include="..\AnyGenerators.Root\AnyGenerators.Root.csproj" />
     <ProjectReference Include="..\AnyRoot\AnyRoot.csproj" />
     <ProjectReference Include="..\CommonTypes\CommonTypes.csproj" />
     <ProjectReference Include="..\TypeReflection\TypeReflection.csproj" />

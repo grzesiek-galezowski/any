@@ -30,7 +30,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AnyExtensibility\AnyExtensibility.csproj" />
-    <ProjectReference Include="..\AnyGenerators.Root\AnyGenerators.Root.csproj" />
+    <ProjectReference Include="..\AnyGenerators\AnyGenerators.csproj" />
   </ItemGroup>
 
   <ItemGroup>

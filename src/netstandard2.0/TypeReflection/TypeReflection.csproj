@@ -21,15 +21,14 @@
   <ItemGroup>
     <PackageReference Include="FluentAssertions" Version="5.10.3" />
   </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\TypeReflection.ImplementationDetails\TypeReflection.ImplementationDetails.csproj" />
-    <ProjectReference Include="..\TypeReflection.Interfaces\TypeReflection.Interfaces.csproj" />
-  </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\LICENSE">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AnyExtensibility\AnyExtensibility.csproj" />
+    <ProjectReference Include="..\CommonTypes\CommonTypes.csproj" />
   </ItemGroup>
 </Project>

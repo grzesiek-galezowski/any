@@ -44,10 +44,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TypeReflection.Interfaces\TypeReflection.Interfaces.csproj">
-      <Project>{7543479C-BB88-4072-B2A2-F76FFA1F7554}</Project>
-      <Name>TypeReflection.Interfaces</Name>
-    </ProjectReference>
     <ProjectReference Include="..\TypeReflection\TypeReflection.csproj">
       <Project>{720585e8-0eb0-46b2-9155-69dd2f9ca0a1}</Project>
       <Name>TypeReflection</Name>
