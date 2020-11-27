@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using AnySpecification.Fixtures;
 using AnySpecification.GraphComparison;
 using FluentAssertions;
+using Functional.Maybe;
 using Newtonsoft.Json;
 using NSubstitute;
 using NUnit.Framework;
@@ -25,7 +26,6 @@ using TddXt.AnyRoot.Math;
 using TddXt.AnyRoot.Network;
 using TddXt.AnyRoot.Numbers;
 using TddXt.AnyRoot.Strings;
-using TddXt.CommonTypes;
 using TddXt.TypeResolution.Interceptors;
 using static TddXt.AnyRoot.Root;
 

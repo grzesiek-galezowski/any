@@ -1,7 +1,7 @@
 using System;
 using static System.Environment;
 
-namespace TddXt.CommonTypes
+namespace TddXt.TypeResolution.FakeChainElements
 {
     public class ThirdPartyGeneratorFailed : Exception
     {

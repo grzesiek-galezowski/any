@@ -20,6 +20,8 @@
 
   <ItemGroup>
     <PackageReference Include="FluentAssertions" Version="5.10.3" />
+    <PackageReference Include="Functional.Maybe" Version="2.0.20" />
+    <PackageReference Include="Functional.Maybe.Just" Version="1.5.0" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\LICENSE">
@@ -29,6 +31,5 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AnyExtensibility\AnyExtensibility.csproj" />
-    <ProjectReference Include="..\CommonTypes\CommonTypes.csproj" />
   </ItemGroup>
 </Project>

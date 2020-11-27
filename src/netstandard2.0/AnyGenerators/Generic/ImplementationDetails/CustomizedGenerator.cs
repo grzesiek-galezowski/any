@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using Functional.Maybe;
 using TddXt.AnyExtensibility;
 
 namespace TddXt.AnyGenerators.Generic.ImplementationDetails
@@ -37,10 +38,10 @@ namespace TddXt.AnyGenerators.Generic.ImplementationDetails
 
     public object Instance(Type type, GenerationTrace trace)
     {
-      return _customizations.Where(c => c.AppliesTo(type)).FirstOrNothing()
-        .Fold(
-          () => _inner.Instance(type, trace, _customizations), 
-          c => c.Generate(type, this, trace));
+      return _customizations.Where(c => c.AppliesTo(type)).FirstMaybe()
+        .SelectOrElse( 
+          c => c.Generate(type, this, trace),
+          () => _inner.Instance(type, trace, _customizations));
     }
 
     public T Dummy<T>(GenerationTrace trace)

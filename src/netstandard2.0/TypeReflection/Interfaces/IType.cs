@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using TddXt.CommonTypes;
+using Functional.Maybe;
 
 namespace TddXt.TypeReflection.Interfaces
 {

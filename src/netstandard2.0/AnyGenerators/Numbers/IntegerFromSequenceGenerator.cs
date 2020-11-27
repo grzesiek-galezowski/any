@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
+using Functional.Maybe;
 using TddXt.AnyExtensibility;
-using TddXt.CommonTypes;
 
 namespace TddXt.AnyGenerators.Numbers
 {
@@ -22,7 +22,9 @@ namespace TddXt.AnyGenerators.Numbers
     public int GenerateInstance(InstanceGenerator instanceGenerator, GenerationTrace trace)
     {
       var sequence = new IntegerSequence(_startingValue, _step, _simpleValueGenerator.GenerateInstance(instanceGenerator, trace));
-      var finalSequence = Maybe.OfNullable(Sequences.FirstOrDefault(s => s.Equals(sequence))).ValueOr(sequence);
+      var finalSequence = Sequences.FirstOrDefault(s => s.Equals(sequence))
+        .ToMaybe()
+        .OrElse(sequence);
       Sequences.Add(finalSequence);
       return finalSequence.Next();
     }

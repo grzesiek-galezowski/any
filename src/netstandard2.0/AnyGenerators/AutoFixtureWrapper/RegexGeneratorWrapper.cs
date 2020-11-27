@@ -1,6 +1,6 @@
 using AutoFixture.Kernel;
 using AutoFixture;
-using TddXt.CommonTypes;
+using TddXt.TypeResolution.FakeChainElements;
 
 namespace TddXt.AnyGenerators.AutoFixtureWrapper
 {

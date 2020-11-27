@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
+using TddXt.AnyGenerators.CommonTypes;
 using TddXt.AnyRoot.Numbers;
-using TddXt.CommonTypes;
 using static TddXt.AnyRoot.Root;
 
 namespace AnySpecification

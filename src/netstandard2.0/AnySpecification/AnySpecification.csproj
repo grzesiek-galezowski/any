@@ -29,7 +29,6 @@
   <ItemGroup>
     <ProjectReference Include="..\AnyExtensibility\AnyExtensibility.csproj" />
     <ProjectReference Include="..\AnyRoot\AnyRoot.csproj" />
-    <ProjectReference Include="..\CommonTypes\CommonTypes.csproj" />
     <ProjectReference Include="..\TypeReflection\TypeReflection.csproj" />
     <ProjectReference Include="..\TypeResolution\TypeResolution.csproj" />
   </ItemGroup>

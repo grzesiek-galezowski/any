@@ -2,7 +2,7 @@ using AutoFixture;
 using AutoFixture.Kernel;
 using System;
 using TddXt.AnyExtensibility;
-using TddXt.CommonTypes;
+using TddXt.TypeResolution.FakeChainElements;
 
 namespace TddXt.AnyGenerators.AutoFixtureWrapper
 {

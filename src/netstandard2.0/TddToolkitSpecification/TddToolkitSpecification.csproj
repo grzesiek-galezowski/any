@@ -260,10 +260,6 @@
       <Project>{6C6332AB-E70C-432E-AC8F-229211F79A84}</Project>
       <Name>AnyRoot</Name>
     </ProjectReference>
-    <ProjectReference Include="..\CommonTypes\CommonTypes.csproj">
-      <Project>{4E2950F4-5A36-44F6-A402-26BB7ED15B88}</Project>
-      <Name>CommonTypes</Name>
-    </ProjectReference>
     <ProjectReference Include="..\TypeReflection\TypeReflection.csproj">
       <Project>{01D91A21-675D-4F81-9806-6F7969B75295}</Project>
       <Name>TypeReflection</Name>

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Reflection;
 using TddXt.AnyGenerators.AutoFixtureWrapper;
-using TddXt.CommonTypes;
+using TddXt.AnyGenerators.CommonTypes;
 
 namespace TddXt.AnyGenerators.Root.ImplementationDetails
 {

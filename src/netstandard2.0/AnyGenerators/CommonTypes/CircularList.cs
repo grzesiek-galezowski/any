@@ -1,20 +1,16 @@
 using System;
 
-namespace TddXt.CommonTypes
+namespace TddXt.AnyGenerators.CommonTypes
 {
   public static class CircularList
   {
-    private static readonly Random _random = new Random(DateTime.UtcNow.Millisecond);
+    private static readonly Random Random = new(DateTime.UtcNow.Millisecond);
 
-    public static CircularList<T> StartingWithFirstOf<T>(params T[] items)
-    {
-      return new CircularList<T>(0, items);
-    }
+    public static CircularList<T> StartingWithFirstOf<T>(params T[] items) 
+      => new(0, items);
 
-    public static CircularList<T> CreateStartingFromRandom<T>(params T[] items)
-    {
-      return new CircularList<T>(_random.Next(0,items.Length - 1), items);
-    }
+    public static CircularList<T> CreateStartingFromRandom<T>(params T[] items) 
+      => new(Random.Next(0,items.Length - 1), items);
   }
 
   public class CircularList<T>

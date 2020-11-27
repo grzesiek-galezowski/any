@@ -10,6 +10,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using FluentAssertions;
+using Functional.Maybe;
 using Newtonsoft.Json;
 using NUnit.Framework;
 using TddToolkitSpecification.Fixtures;
@@ -22,7 +23,6 @@ using TddXt.AnyRoot.Math;
 using TddXt.AnyRoot.Network;
 using TddXt.AnyRoot.Numbers;
 using TddXt.AnyRoot.Strings;
-using TddXt.CommonTypes;
 using static TddXt.AnyRoot.Root;
 
 // ReSharper disable PublicConstructorInAbstractClass

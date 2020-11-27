@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using FluentAssertions;
-using TddXt.CommonTypes;
+using Functional.Maybe;
 using TddXt.TypeReflection.ImplementationDetails;
 using TddXt.TypeReflection.ImplementationDetails.ConstructorRetrievals;
 using TddXt.TypeReflection.Interfaces;
@@ -49,11 +49,11 @@ namespace TddXt.TypeReflection
       var constructorInfo = _type.GetConstructor(BindingFlags.NonPublic | BindingFlags.Instance, null, Type.EmptyTypes, null);
       if (constructorInfo != null)
       {
-        return Maybe.OfNullable(DefaultParameterlessConstructor.ForOrdinaryType(constructorInfo));
+        return DefaultParameterlessConstructor.ForOrdinaryType(constructorInfo).ToMaybe();
       }
       else
       { 
-        return Maybe<IConstructorWrapper>.Not;
+        return Maybe<IConstructorWrapper>.Nothing;
       }
     }
 
@@ -64,11 +64,11 @@ namespace TddXt.TypeReflection
         BindingFlags.Public | BindingFlags.Instance, null, Type.EmptyTypes, null);
       if (constructorInfo == null)
       {
-        return Maybe<IConstructorWrapper>.Not;
+        return Maybe<IConstructorWrapper>.Nothing;
       }
       else
       {
-        return Maybe.OfNullable(DefaultParameterlessConstructor.ForOrdinaryType(constructorInfo));
+        return DefaultParameterlessConstructor.ForOrdinaryType(constructorInfo).ToMaybe();
       }
     }
 
@@ -106,7 +106,7 @@ namespace TddXt.TypeReflection
         }
       }
 
-      return Maybe.OfNullable(leastParamsConstructor!);
+      return leastParamsConstructor!.ToMaybe();
     }
 
     public IEnumerable<IConstructorWrapper> GetAllPublicConstructors()
