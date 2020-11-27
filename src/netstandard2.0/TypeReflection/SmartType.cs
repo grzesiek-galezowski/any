@@ -176,7 +176,8 @@ namespace TddXt.TypeReflection
 
     public bool HasPublicConstructorCountOfAtMost(int i)
     {
-      return GetAllPublicConstructors().Count() <= i;
+      var count = GetAllPublicConstructors().Count();
+      return count <= i;
     }
 
     public void AssertMatchesTypeOf(object instance)

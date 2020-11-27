@@ -520,7 +520,7 @@ namespace AnySpecification
     [Test]
     public void ShouldSupportGeneratingOtherObjectsThanNull()
     {
-      Assert.DoesNotThrow(() => Any.OtherThan<string>(null));
+      Assert.DoesNotThrow(() => Any.OtherThan<string>(null!));
     }
 
     [Test]

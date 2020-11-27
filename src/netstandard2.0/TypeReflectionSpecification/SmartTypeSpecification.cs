@@ -2,7 +2,7 @@
 using NUnit.Framework;
 using TddXt.TypeReflection;
 
-namespace TddXt.TypeReflectionSpecification
+namespace TypeReflectionSpecification
 {
   public class SmartTypeSpecification
   {
@@ -21,8 +21,8 @@ namespace TddXt.TypeReflectionSpecification
       Assert.False(SmartType.For(typeof(string)).IsException());
     }
 
-    [TestCase(8, true)]
-    [TestCase(7, false)]
+    [TestCase(9, true)]
+    [TestCase(8, false)]
     public void ShouldReportWhetherTypeHasAtMostGivenConstructorCount(
       int maxCount, bool expectedResult)
     {

@@ -7,9 +7,6 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>TypeReflection.snk</AssemblyOriginatorKeyFile>
-    <DelaySign>false</DelaySign>
     <AssemblyName>TddXt.Any.TypeReflection</AssemblyName>
     <RootNamespace>TddXt.TypeReflection</RootNamespace>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>

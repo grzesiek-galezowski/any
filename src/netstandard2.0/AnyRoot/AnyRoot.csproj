@@ -9,9 +9,6 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyName>TddXt.Any.Root</AssemblyName>
     <RootNamespace>TddXt.AnyRoot</RootNamespace>
-    <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>TddToolkit.snk</AssemblyOriginatorKeyFile>
-    <DelaySign>false</DelaySign>
     <PackageId>Any</PackageId>
     <Product>Any</Product>
     <Description>Anonymous value generator, supporting the 'Any.Whatever()' syntax proposed on the www.sustainabletdd.com blog. It makes use of the static usings and extension methods to achieve flexibility and extensibility.</Description>

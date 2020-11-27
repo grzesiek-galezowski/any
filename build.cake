@@ -52,7 +52,7 @@ Task("Clean")
 Task("Build")
     .Does(() =>
 {
-        DotNetCoreBuild(srcNetStandardDir + Directory("AnyRoot"), new DotNetCoreBuildSettings
+    DotNetCoreBuild(srcNetStandardDir + Directory("AnyRoot"), new DotNetCoreBuildSettings
     {
         Configuration = configuration,
         OutputDirectory = buildDir,
@@ -65,19 +65,14 @@ Task("Run-Unit-Tests")
 	.IsDependentOn("Build")
     .Does(() =>
 {
-	var testAssemblies = GetFiles(specificationNetStandardDir.ToString() + "/*Specification.dll");
-	NUnit3(testAssemblies); 
-
     var projectFiles = GetFiles(srcNetStandardDir.ToString() + "/**/*Specification.csproj");
     foreach(var file in projectFiles)
     {
         DotNetCoreTest(file.FullPath, new DotNetCoreTestSettings           
         {
            Configuration = configuration,
-           Logger = "trx"
         });
     }
-
 });
 
 Task("Pack")

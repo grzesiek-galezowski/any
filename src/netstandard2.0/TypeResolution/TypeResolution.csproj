@@ -7,9 +7,6 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>TddToolkit.snk</AssemblyOriginatorKeyFile>
-    <DelaySign>false</DelaySign>
     <AssemblyName>TddXt.Any.TypeResolution</AssemblyName>
     <RootNamespace>TddXt.TypeResolution</RootNamespace>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>

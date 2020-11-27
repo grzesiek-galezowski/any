@@ -6,9 +6,6 @@
   </PropertyGroup>
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>TddToolkit.snk</AssemblyOriginatorKeyFile>
-    <DelaySign>false</DelaySign>
     <AssemblyName>TddXt.Any.Generators</AssemblyName>
     <RootNamespace>TddXt.AnyGenerators</RootNamespace>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
