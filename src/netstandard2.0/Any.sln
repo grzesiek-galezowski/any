@@ -34,6 +34,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AnyGenerators", "AnyGenerat
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TestApps", "TestApps", "{6D400394-CF83-4DE8-95F3-8E3141B2EADA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuildScript", "BuildScript\BuildScript.csproj", "{D11E8194-4C8E-4997-B8C9-177E709BC1B9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -76,6 +78,8 @@ Global
 		{455C0125-B537-4B9F-97C2-FCC4107E7E33}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{455C0125-B537-4B9F-97C2-FCC4107E7E33}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{455C0125-B537-4B9F-97C2-FCC4107E7E33}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D11E8194-4C8E-4997-B8C9-177E709BC1B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D11E8194-4C8E-4997-B8C9-177E709BC1B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
