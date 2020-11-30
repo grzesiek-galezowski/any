@@ -1,21 +1,19 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using AtmaFileSystem;
 using AtmaFileSystem.IO;
 using static Bullseye.Targets;
 using static SimpleExec.Command;
 
 // Define directories.
-var root = AbsoluteDirectoryPath.OfThisFile().ParentDirectory(3).Value;
+var root = AbsoluteFilePath.OfThisFile().ParentDirectory(3).Value;
 var buildDir = root.AddDirectoryName("build");
 var publishDir = root.AddDirectoryName("publish");
 var srcDir = root.AddDirectoryName("src");
 var configuration = "Release";
-var specificationDir = root.AddDirectoryName("specification").AddDirectoryName(configuration);
-var buildNetStandardDir = buildDir.AddDirectoryName("netstandard2.0");
-var publishNetStandardDir = publishDir.AddDirectoryName("netstandard2.0");
 var srcNetStandardDir = srcDir.AddDirectoryName("netstandard2.0");
-var slnNetStandard = srcNetStandardDir.AddFileName("Any.sln");
-var specificationNetStandardDir = specificationDir.AddDirectoryName("netstandard2.0");
+var nugetPath = root.AddDirectoryName("nuget");
 // bug Func<ProcessArgumentBuilder, ProcessArgumentBuilder> versionCustomization = 
 // bug     args => args.Append("-p:VersionPrefix=" + version); 
 var version="5.0.0";
@@ -36,7 +34,7 @@ Target("Clean" , () =>
 {
     buildDir.Delete(true);
     publishDir.Delete(true);
-    root.AddDirectoryName("nuget").Delete(true);
+    nugetPath.Delete(true);
 });
 
 Target("Build" , () =>
@@ -49,80 +47,45 @@ Target("Build" , () =>
         workingDirectory: srcNetStandardDir.AddDirectoryName("AnyRoot").ToString());
 });
 
-Target("Run-Unit-Tests" , () =>
+Target("Test", new[] {"Build"}, () =>
 {
     Run($"dotnet",
-        "test " +
-        $"--no-build " +
-        $"-c {configuration} " +
-        $"-o {buildDir} " +
-        $"-p:VersionPrefix={version}", 
+        "test" +
+        $" --no-build" +
+        $" -c {configuration}" +
+        $" -o {buildDir}" +
+        $" -p:VersionPrefix={version}", 
         workingDirectory: srcNetStandardDir.ToString());
 });
 
-
-
-Task("Run-Unit-Tests")
-	.IsDependentOn("Build")
-    .Does(() =>
+Target("Pack", new[] {"Test"}, () =>
 {
-    var projectFiles = GetFiles(srcNetStandardDir.ToString() + "/**/*Specification.csproj");
-    foreach(var file in projectFiles)
+    Run("dotnet",
+        $"pack" +
+        $" --include-symbols" +
+        $" --no-build" +
+        $" -p:SymbolPackageFormat=snupkg" +
+        $" -p:VersionPrefix={version}" +
+        $" -o {nugetPath}",
+        workingDirectory: srcNetStandardDir.AddDirectoryName("AnyRoot").ToString());
+});
+
+Target("Push", new[] {"Clean", "Pack"}, () =>
+{
+    foreach (var file in nugetPath.Info().GetFiles("*.nupkg"))
     {
-        DotNetCoreTest(file.FullPath, new DotNetCoreTestSettings           
-        {
-           Configuration = configuration,
-        });
+        Run("dotnet", $"push {file.FullName}" +
+                      $" --interactive" +
+                      $" --source https://api.nuget.org/v3/index.json");
+    }
+    foreach (var file in nugetPath.Info().GetFiles("*.snupkg"))
+    {
+        Run("dotnet", $"push {file.FullName}" +
+                      $" --interactive" +
+                      $" --source https://api.nuget.org/v3/index.json");
     }
 });
 
-Task("Pack")
-	.IsDependentOn("Run-Unit-Tests")
-    .Does(() => 
-    {
-		DotNetCorePack(srcNetStandardDir + File("AnyRoot"), defaultNugetPackSettings);
-    });
+Target("default", DependsOn("Pack"));
 
-Task("Push")
-    .IsDependentOn("Clean")
-    .IsDependentOn("Pack")
-	.Does(() =>
-	{
-	    var projectFiles = GetFiles("./nuget/*.nupkg");
-		foreach(var file in projectFiles)
-		{
-			DotNetCoreNuGetPush(file.FullPath, new DotNetCoreNuGetPushSettings
-			{
-				Source = "https://api.nuget.org/v3/index.json",
-			});
-		}
-	});
-
-
-
-//////////////////////////////////////////////////////////////////////
-// TASK TARGETS
-//////////////////////////////////////////////////////////////////////
-
-Task("Default")
-    .IsDependentOn("Build")
-    .IsDependentOn("Run-Unit-Tests")
-    .IsDependentOn("Pack");
-
-//////////////////////////////////////////////////////////////////////
-// EXECUTION
-//////////////////////////////////////////////////////////////////////
-
-RunTarget(target);
-
-
-namespace BuildScript
-{
-  class Program
-  {
-    static void Main(string[] args)
-    {
-      Console.WriteLine("Hello World!");
-    }
-  }
-}
+RunTargetsAndExit(args);
