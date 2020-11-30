@@ -16,7 +16,9 @@ using FluentAssertions;
 using Functional.Maybe;
 using Newtonsoft.Json;
 using NSubstitute;
+using NullableReferenceTypesExtensions;
 using NUnit.Framework;
+using Optional;
 using TddXt.AnyExtensibility;
 using TddXt.AnyGenerators.Generic.ImplementationDetails;
 using TddXt.AnyRoot;
@@ -878,7 +880,23 @@ namespace AnySpecification
         var anyConcrete = Any.Instance<ObjectWithGenericCollection<int>>(
             new GenericListCustomization());
         anyConcrete.MyList.Should().HaveCount(4);
-        
+    }
+
+    [Test]
+    public void ShouldAllowGenericCustomizationsForOptional()
+    {
+        var anyConcrete = Any.Instance<ObjectWithGenericOption<string>>(
+            new GenericOptionalCustomization());
+        var anyConcrete2 = Any.Instance<ObjectWithGenericOption<string>>(
+            new GenericOptionalCustomization());
+
+        anyConcrete.MyOption.HasValue.Should().BeTrue();
+        var value1 = anyConcrete.MyOption.ValueOr(() => throw new Exception());
+        value1.Should().NotBe(null);
+        anyConcrete2.MyOption.HasValue.Should().BeTrue();
+        var value2 = anyConcrete2.MyOption.ValueOr(() => throw new Exception());
+        value2.Should().NotBe(null);
+        value1.Should().NotBe(value2);
     }
 
     [Test]
@@ -1427,6 +1445,28 @@ namespace AnySpecification
           return list!;
       }
   }
+  
+  public class GenericOptionalCustomization : GenerationCustomization
+  {
+      public bool AppliesTo(Type type)
+      {
+          return type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Option<>);
+      }
+
+      public object Generate(Type type, InstanceGenerator gen, GenerationTrace trace)
+      {
+          var genericArgument = type.GetGenericArguments()[0];
+          var elementInstance = gen.Instance(genericArgument, trace);
+          var genericCreationMethod = typeof(Option)
+              .GetMethods(BindingFlags.Static | BindingFlags.Public)
+              .Where(info => info.Name == nameof(Option.Some))
+              .Where(info => info.IsGenericMethod)
+              .Single(info => info.GetGenericArguments().Length == 1);
+          var someMethod = genericCreationMethod.MakeGenericMethod(genericArgument);
+          var result = someMethod.Invoke(null, new []{ elementInstance });
+          return result!;
+      }
+  }
 
   public class ObjectWithStaticParseMethod
   {
@@ -1470,5 +1510,15 @@ namespace AnySpecification
       }
 
       public List<T> MyList { get; }
+  }
+
+  public class ObjectWithGenericOption<T>
+  {
+      public ObjectWithGenericOption(Option<T> myOption)
+      {
+          MyOption = myOption;
+      }
+
+      public Option<T> MyOption { get; }
   }
 }
