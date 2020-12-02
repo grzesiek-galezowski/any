@@ -10,7 +10,6 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyName>TddXt.Any.Extensibility</AssemblyName>
     <RootNamespace>TddXt.AnyExtensibility</RootNamespace>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Grzegorz Gałęzowski</Authors>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <RepositoryUrl>https://github.com/grzesiek-galezowski/any</RepositoryUrl>

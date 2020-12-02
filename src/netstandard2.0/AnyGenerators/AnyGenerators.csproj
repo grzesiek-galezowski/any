@@ -8,7 +8,6 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyName>TddXt.Any.Generators</AssemblyName>
     <RootNamespace>TddXt.AnyGenerators</RootNamespace>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Grzegorz Gałęzowski</Authors>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <RepositoryUrl>https://github.com/grzesiek-galezowski/any</RepositoryUrl>
