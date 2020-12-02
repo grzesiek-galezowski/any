@@ -1,30 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using AtmaFileSystem;
+﻿using AtmaFileSystem;
 using AtmaFileSystem.IO;
 using static Bullseye.Targets;
 using static SimpleExec.Command;
 
+var configuration = "Release";
+
 // Define directories.
 var root = AbsoluteFilePath.OfThisFile().ParentDirectory(3).Value;
-var buildDir = root.AddDirectoryName("build");
+var buildDir = root.AddDirectoryName("build").AddDirectoryName(configuration);
 var publishDir = root.AddDirectoryName("publish");
 var srcDir = root.AddDirectoryName("src");
-var configuration = "Release";
 var srcNetStandardDir = srcDir.AddDirectoryName("netstandard2.0");
 var nugetPath = root.AddDirectoryName("nuget");
-// bug Func<ProcessArgumentBuilder, ProcessArgumentBuilder> versionCustomization = 
-// bug     args => args.Append("-p:VersionPrefix=" + version); 
 var version="5.0.0";
-// bug 
-// bug var defaultNugetPackSettings = new DotNetCorePackSettings 
-// bug {
-// bug 	IncludeSymbols = true,
-// bug 	Configuration = configuration,
-// bug 	OutputDirectory = "./nuget",
-// bug 	ArgumentCustomization = args => args.Append("--include-symbols -p:SymbolPackageFormat=snupkg -p:VersionPrefix=" + version)
-// bug };
 
 //////////////////////////////////////////////////////////////////////
 // TASKS
@@ -44,7 +32,7 @@ Target("Build" , () =>
         $"-c {configuration} " +
         $"-o {buildDir} " +
         $"-p:VersionPrefix={version}", 
-        workingDirectory: srcNetStandardDir.AddDirectoryName("AnyRoot").ToString());
+        workingDirectory: srcNetStandardDir.ToString());
 });
 
 Target("Test", new[] {"Build"}, () =>
