@@ -45,7 +45,6 @@ Target("Build" , () =>
     Run($"dotnet", 
         "build " +
         $"-c {configuration} " +
-        //$"-o {buildDir} " +
         $"-p:VersionPrefix={version}", 
         workingDirectory: srcNetStandardDir.ToString());
 });
@@ -56,7 +55,6 @@ Target("Test", new[] {"Build"}, () =>
         "test" +
         $" --no-build" +
         $" -c {configuration}" +
-        //$" -o {buildDir}" +
         $" -p:VersionPrefix={version}", 
         workingDirectory: srcNetStandardDir.ToString());
 });
@@ -75,7 +73,6 @@ Target("Push", new[] {"Clean", "Pack"}, () =>
     foreach (var file in nugetPath.Info().GetFiles("*.nupkg"))
     {
         Run("dotnet", $"nuget push {file.FullName}" +
-                      $" --interactive" +
                       $" --source https://api.nuget.org/v3/index.json");
     }
 });
