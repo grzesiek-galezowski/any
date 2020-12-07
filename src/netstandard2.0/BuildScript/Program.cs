@@ -27,8 +27,6 @@ void Pack(AbsoluteDirectoryPath outputPath, AbsoluteDirectoryPath rootSourceDir,
     workingDirectory: rootSourceDir.AddDirectoryName(projectName).ToString());
 }
 
-
-
 //////////////////////////////////////////////////////////////////////
 // TASKS
 //////////////////////////////////////////////////////////////////////
@@ -74,12 +72,11 @@ Target("Pack", new[] {"Test"}, () =>
 
 Target("Push", new[] {"Clean", "Pack"}, () =>
 {
-  foreach (var file in nugetPath.Info().GetFiles("*.nupkg"))
-  {
-    Run("dotnet", $"nuget push {file.FullName}" +
-                  $" --interactive" +
-                  $" --source https://api.nuget.org/v3/index.json");
-  }
+    foreach (var file in nugetPath.Info().GetFiles("*.nupkg"))
+    {
+        Run("dotnet", $"nuget push {file.FullName}" +
+                      $" --source https://api.nuget.org/v3/index.json");
+    }
 });
 
 Target("default", DependsOn("Pack"));
