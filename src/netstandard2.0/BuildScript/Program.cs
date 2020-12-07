@@ -12,76 +12,74 @@ var srcNetStandardDir = srcDir.AddDirectoryName("netstandard2.0");
 var nugetPath = root.AddDirectoryName("nuget");
 var version="5.0.1";
 
-
-
 //////////////////////////////////////////////////////////////////////
 // HELPER FUNCTIONS
 //////////////////////////////////////////////////////////////////////
 void Pack(AbsoluteDirectoryPath outputPath, AbsoluteDirectoryPath rootSourceDir, string projectName)
 {
-    Run("dotnet",
-        $"pack" +
-        $" --include-symbols" +
-        $" --no-build" +
-        $" -p:SymbolPackageFormat=snupkg" +
-        $" -p:VersionPrefix={version}" +
-        $" -o {outputPath}",
-        workingDirectory: rootSourceDir.AddDirectoryName(projectName).ToString());
+  Run("dotnet",
+    $"pack" +
+    $" --include-symbols" +
+    $" --no-build" +
+    $" -p:SymbolPackageFormat=snupkg" +
+    $" -p:VersionPrefix={version}" +
+    $" -o {outputPath}",
+    workingDirectory: rootSourceDir.AddDirectoryName(projectName).ToString());
 }
- 
+
 
 
 //////////////////////////////////////////////////////////////////////
 // TASKS
 //////////////////////////////////////////////////////////////////////
 
-Target("Clean" , () =>
+Target("Clean", () =>
 {
-    nugetPath.Delete(true);
-    Run($"dotnet", 
-        "clean " +
-        $"-c {configuration} ",
-        workingDirectory: srcNetStandardDir.ToString());
+  nugetPath.Delete(true);
+  Run($"dotnet",
+    "clean " +
+    $"-c {configuration} ",
+    workingDirectory: srcNetStandardDir.ToString());
 });
 
-Target("Build" , () =>
+Target("Build", () =>
 {
-    Run($"dotnet", 
-        "build " +
-        $"-c {configuration} " +
-        //$"-o {buildDir} " +
-        $"-p:VersionPrefix={version}", 
-        workingDirectory: srcNetStandardDir.ToString());
+  Run($"dotnet",
+    "build " +
+    $"-c {configuration} " +
+    //$"-o {buildDir} " +
+    $"-p:VersionPrefix={version}",
+    workingDirectory: srcNetStandardDir.ToString());
 });
 
 Target("Test", new[] {"Build"}, () =>
 {
-    Run($"dotnet",
-        "test" +
-        $" --no-build" +
-        $" -c {configuration}" +
-        //$" -o {buildDir}" +
-        $" -p:VersionPrefix={version}", 
-        workingDirectory: srcNetStandardDir.ToString());
+  Run($"dotnet",
+    "test" +
+    $" --no-build" +
+    $" -c {configuration}" +
+    //$" -o {buildDir}" +
+    $" -p:VersionPrefix={version}",
+    workingDirectory: srcNetStandardDir.ToString());
 });
 
 Target("Pack", new[] {"Test"}, () =>
 {
-    Pack(nugetPath, srcNetStandardDir, "AnyExtensibility");
-    Pack(nugetPath, srcNetStandardDir, "AnyGenerators");
-    Pack(nugetPath, srcNetStandardDir, "AnyRoot");
-    Pack(nugetPath, srcNetStandardDir, "TypeReflection");
-    Pack(nugetPath, srcNetStandardDir, "TypeResolution");
+  Pack(nugetPath, srcNetStandardDir, "AnyExtensibility");
+  Pack(nugetPath, srcNetStandardDir, "AnyGenerators");
+  Pack(nugetPath, srcNetStandardDir, "AnyRoot");
+  Pack(nugetPath, srcNetStandardDir, "TypeReflection");
+  Pack(nugetPath, srcNetStandardDir, "TypeResolution");
 });
 
 Target("Push", new[] {"Clean", "Pack"}, () =>
 {
-    foreach (var file in nugetPath.Info().GetFiles("*.nupkg"))
-    {
-        Run("dotnet", $"nuget push {file.FullName}" +
-                      $" --interactive" +
-                      $" --source https://api.nuget.org/v3/index.json");
-    }
+  foreach (var file in nugetPath.Info().GetFiles("*.nupkg"))
+  {
+    Run("dotnet", $"nuget push {file.FullName}" +
+                  $" --interactive" +
+                  $" --source https://api.nuget.org/v3/index.json");
+  }
 });
 
 Target("default", DependsOn("Pack"));

@@ -8,6 +8,7 @@
   <ItemGroup>
     <PackageReference Include="AtmaFileSystem" Version="4.5.0" />
     <PackageReference Include="Bullseye" Version="3.5.0" />
+    <PackageReference Include="NScan" Version="0.60.0" />
     <PackageReference Include="SimpleExec" Version="6.3.0" />
   </ItemGroup>
 
