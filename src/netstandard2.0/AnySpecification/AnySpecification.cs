@@ -898,6 +898,23 @@ namespace AnySpecification
         value2.Should().NotBe(null);
         value1.Should().NotBe(value2);
     }
+    
+    [Test]
+    public void ShouldAllowGenericCustomizationsForOptionalWithDeeperNesting()
+    {
+        var anyConcrete = Any.Instance<ObjectWrappingObjectWithGenericOption<string>>(
+            new GenericOptionalCustomization());
+        var anyConcrete2 = Any.Instance<ObjectWrappingObjectWithGenericOption<string>>(
+            new GenericOptionalCustomization());
+
+        anyConcrete.Obj.MyOption.HasValue.Should().BeTrue();
+        var value1 = anyConcrete.Obj.MyOption.ValueOr(() => throw new Exception());
+        value1.Should().NotBe(null);
+        anyConcrete2.Obj.MyOption.HasValue.Should().BeTrue();
+        var value2 = anyConcrete2.Obj.MyOption.ValueOr(() => throw new Exception());
+        value2.Should().NotBe(null);
+        value1.Should().NotBe(value2);
+    }
 
     [Test]
     public void ShouldGenerateComplexGraphsWithNonNullPublicProperties()
@@ -1512,6 +1529,16 @@ namespace AnySpecification
       public List<T> MyList { get; }
   }
 
+  public class ObjectWrappingObjectWithGenericOption<T>
+  {
+      public ObjectWrappingObjectWithGenericOption(ObjectWithGenericOption<T> obj)
+      {
+          Obj = obj;
+      }
+
+      public ObjectWithGenericOption<T> Obj { get; }
+  }
+  
   public class ObjectWithGenericOption<T>
   {
       public ObjectWithGenericOption(Option<T> myOption)
