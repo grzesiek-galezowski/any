@@ -1,6 +1,6 @@
 using Castle.DynamicProxy;
 
-namespace TddXt.TypeResolution.Interceptors
+namespace TddXt.TypeResolution.FakeChainElements.Interceptors
 {
   public class ExplodingInterceptor : IInterceptor
   {

@@ -2,7 +2,7 @@ using System;
 using Castle.DynamicProxy;
 using TddXt.AnyExtensibility;
 
-namespace TddXt.TypeResolution.Interceptors
+namespace TddXt.TypeResolution.FakeChainElements.Interceptors
 {
   [Serializable]
   internal class AbstractClassInterceptor : IInterceptor

@@ -1,5 +1,10 @@
-﻿using AtmaFileSystem;
+﻿using System;
+using AtmaFileSystem;
 using AtmaFileSystem.IO;
+using FluentAssertions;
+using NScan.Adapter.NotifyingSupport;
+using NScan.SharedKernel.WritingProgramOutput.Ports;
+using TddXt.NScan;
 using static Bullseye.Targets;
 using static SimpleExec.Command;
 
@@ -19,6 +24,7 @@ void Pack(AbsoluteDirectoryPath outputPath, AbsoluteDirectoryPath rootSourceDir,
 {
   Run("dotnet",
     $"pack" +
+    $" -c {configuration}" +
     $" --include-symbols" +
     $" --no-build" +
     $" -p:SymbolPackageFormat=snupkg" +
@@ -50,7 +56,20 @@ Target("Build", () =>
     workingDirectory: srcNetStandardDir.ToString());
 });
 
-Target("Test", new[] {"Build"}, () =>
+Target("NScan", DependsOn("Build"), () =>
+{
+  NScanMain.Run(
+    new InputArgumentsDto
+    {
+      RulesFilePath = AbsoluteDirectoryPath.OfThisFile().AddFileName("rules.txt").AsAnyFilePath(),
+      SolutionPath = srcNetStandardDir.AddFileName("Any.sln").AsAnyFilePath()
+    },
+    new ConsoleOutput(),
+    new ConsoleSupport()
+  ).Should().Be(0);
+});
+
+Target("Test", DependsOn("Build"), () =>
 {
   Run($"dotnet",
     "test" +
@@ -61,7 +80,7 @@ Target("Test", new[] {"Build"}, () =>
     workingDirectory: srcNetStandardDir.ToString());
 });
 
-Target("Pack", new[] {"Test"}, () =>
+Target("Pack", DependsOn("Test", "NScan"), () =>
 {
   Pack(nugetPath, srcNetStandardDir, "AnyExtensibility");
   Pack(nugetPath, srcNetStandardDir, "AnyGenerators");
@@ -70,11 +89,11 @@ Target("Pack", new[] {"Test"}, () =>
   Pack(nugetPath, srcNetStandardDir, "TypeResolution");
 });
 
-Target("Push", new[] {"Clean", "Pack"}, () =>
+Target("Push", DependsOn("Clean", "Pack"), () =>
 {
-    foreach (var file in nugetPath.Info().GetFiles("*.nupkg"))
+    foreach (var nupkgPath in nugetPath.GetFiles("*.nupkg"))
     {
-        Run("dotnet", $"nuget push {file.FullName}" +
+        Run("dotnet", $"nuget push {nupkgPath}" +
                       $" --source https://api.nuget.org/v3/index.json");
     }
 });
@@ -82,3 +101,17 @@ Target("Push", new[] {"Clean", "Pack"}, () =>
 Target("default", DependsOn("Pack"));
 
 RunTargetsAndExit(args);
+
+public class ConsoleOutput : INScanOutput
+{
+  public void WriteAnalysisReport(string analysisReport)
+  {
+    Console.WriteLine(analysisReport);
+  }
+
+  public void WriteVersion(string coreVersion)
+  {
+    Console.WriteLine(coreVersion);
+  }
+}
+

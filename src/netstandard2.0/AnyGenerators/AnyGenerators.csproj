@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <LangVersion>9.0</LangVersion>
+    <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
     <WarningsAsErrors>CS8600;CS8602;CS8603</WarningsAsErrors>
   </PropertyGroup>
@@ -13,7 +13,7 @@
     <RepositoryUrl>https://github.com/grzesiek-galezowski/any</RepositoryUrl>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="AutoFixture.SeedExtensions" Version="4.14.0" />
+    <PackageReference Include="AutoFixture.SeedExtensions" Version="4.15.0" />
     <PackageReference Include="Castle.Core" Version="4.4.1" />
   </ItemGroup>
   <ItemGroup>

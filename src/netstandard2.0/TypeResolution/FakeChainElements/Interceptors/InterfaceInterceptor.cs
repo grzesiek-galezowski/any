@@ -1,12 +1,8 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
 using Castle.DynamicProxy;
-using FluentAssertions;
 using TddXt.AnyExtensibility;
 
-namespace TddXt.TypeResolution.Interceptors
+namespace TddXt.TypeResolution.FakeChainElements.Interceptors
 {
   [Serializable]
   public class InterfaceInterceptor : IInterceptor

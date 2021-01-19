@@ -28,7 +28,7 @@ using TddXt.AnyRoot.Math;
 using TddXt.AnyRoot.Network;
 using TddXt.AnyRoot.Numbers;
 using TddXt.AnyRoot.Strings;
-using TddXt.TypeResolution.Interceptors;
+using TddXt.TypeResolution.FakeChainElements.Interceptors;
 using static TddXt.AnyRoot.Root;
 
 // ReSharper disable PublicConstructorInAbstractClass
