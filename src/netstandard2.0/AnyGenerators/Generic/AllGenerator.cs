@@ -154,18 +154,22 @@ namespace TddXt.AnyGenerators.Generic
       return (T)FormatterServices.GetUninitializedObject(typeof(T));
     }
 
+    public T OtherThan<T>(params T[]? omittedValues)
+    {
+      return (T)OtherThan(typeof(T), omittedValues?.Cast<object>()?.ToArray(), new ListBasedGenerationTrace());
+    }
 
-    public T OtherThan<T>(params T[] omittedValues)
+    public object OtherThan(Type type, object[] omittedValues, GenerationTrace trace)
     {
       if (omittedValues == null)
       {
-        return Instance<T>();
+        return Instance(type, trace);
       }
 
-      T currentValue;
+      object currentValue;
       do
       {
-        currentValue = Instance<T>();
+        currentValue = Instance(type, trace);
       } while (omittedValues.Contains(currentValue));
 
       return currentValue;
@@ -175,7 +179,10 @@ namespace TddXt.AnyGenerators.Generic
     {
       return _methodProxyCalls
         .ResultOfGenericVersionOfMethod(
-          new CustomizedGenerator(SynchronizedThis, customizations), type, MethodBase.GetCurrentMethod().Name, trace);
+          new CustomizedGenerator(SynchronizedThis, customizations), 
+          type, 
+          MethodBase.GetCurrentMethod().Name, 
+          trace);
     }
 
     public T Instance<T>(GenerationTrace trace, params GenerationCustomization[] customizations)

@@ -74,6 +74,14 @@ namespace TddXt.AnyGenerators.Generic.ImplementationDetails
 
     }
 
+    public object OtherThan(Type type, object[] omittedValues, GenerationTrace trace)
+    {
+      lock (_syncRoot)
+      {
+        return _allGenerator.OtherThan(type, omittedValues, trace);
+      }
+    }
+
     public object Instance(Type type, GenerationTrace trace)
     {
       lock (_syncRoot)

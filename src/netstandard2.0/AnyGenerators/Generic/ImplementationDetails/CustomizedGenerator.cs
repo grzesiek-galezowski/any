@@ -36,6 +36,11 @@ namespace TddXt.AnyGenerators.Generic.ImplementationDetails
       return _inner.OtherThan(omittedValues);
     }
 
+    public object OtherThan(Type type, object[] omittedValues, GenerationTrace trace)
+    {
+      return _inner.OtherThan(type, omittedValues, trace);
+    }
+
     public object Instance(Type type, GenerationTrace trace)
     {
       return _customizations.Where(c => c.AppliesTo(type)).FirstMaybe()

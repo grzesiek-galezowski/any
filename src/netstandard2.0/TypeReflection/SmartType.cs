@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection;
 using FluentAssertions;
 using Functional.Maybe;
@@ -225,6 +226,16 @@ namespace TddXt.TypeReflection
     private static bool IsNotImplicitCast(MethodInfo mi)
     {
       return !string.Equals(mi.Name, "op_Implicit", StringComparison.Ordinal);
+    }
+
+    public static object Cast(Type type, object data)
+    {
+      var dataParam = Expression.Parameter(typeof(object), "data");
+      var body = Expression.Block(Expression.Convert(Expression.Convert(dataParam, data.GetType()), type));
+
+      var run = Expression.Lambda(body, dataParam).Compile();
+      var ret = run.DynamicInvoke(data);
+      return ret;
     }
   }
 

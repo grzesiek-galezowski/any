@@ -21,8 +21,10 @@ using NUnit.Framework;
 using Optional;
 using TddXt.AnyExtensibility;
 using TddXt.AnyGenerators.Generic.ImplementationDetails;
+using TddXt.AnyGenerators.Root;
 using TddXt.AnyRoot;
 using TddXt.AnyRoot.Collections;
+using TddXt.AnyRoot.Enums;
 using TddXt.AnyRoot.Invokable;
 using TddXt.AnyRoot.Math;
 using TddXt.AnyRoot.Network;
@@ -736,6 +738,30 @@ namespace AnySpecification
       var maybeImplementation2 = Any.Instance<Maybe<RecursiveInterface>>();
 
       Assert.AreNotEqual(maybeImplementation1, maybeImplementation2);
+    }
+
+    [Test]
+    public void ShouldAllowCreatingEnumValuesOutsideTheValidRange()
+    {
+      var invalidEnumMember1 = Any.Invalid<LolEnum>();
+      var invalidEnumMember2 = Any.Invalid<LolEnum>();
+      invalidEnumMember1.Should().NotBe(invalidEnumMember2);
+      Enum.GetValues<LolEnum>().Should().NotContain(invalidEnumMember1);
+      Enum.GetValues<LolEnum>().Should().NotContain(invalidEnumMember2);
+
+      var invalidEnumMember3 = Any.Invalid<LolEnumShort>();
+      var invalidEnumMember4 = Any.Invalid<LolEnumShort>();
+
+      invalidEnumMember3.Should().NotBe(invalidEnumMember4);
+      Enum.GetValues<LolEnumShort>().Should().NotContain(invalidEnumMember3);
+      Enum.GetValues<LolEnumShort>().Should().NotContain(invalidEnumMember4);
+
+      var invalidEnumMember5 = Any.Invalid<LolEnumByte>();
+      var invalidEnumMember6 = Any.Invalid<LolEnumByte>();
+
+      invalidEnumMember5.Should().NotBe(invalidEnumMember6);
+      Enum.GetValues<LolEnumByte>().Should().NotContain(invalidEnumMember5);
+      Enum.GetValues<LolEnumByte>().Should().NotContain(invalidEnumMember6);
     }
 
     [Test]
@@ -1505,6 +1531,16 @@ namespace AnySpecification
       Value1, Value2, Value3, Value4, Value5, Value6
   }
 
+  public enum LolEnumShort : short
+  {
+      Value1, Value2, Value3, Value4, Value5, Value6
+  }
+
+  public enum LolEnumByte : byte
+  {
+      Value1, Value2, Value3, Value4, Value5, Value6
+  }
+
   public class ObjectWithLolEnum
   {
       public ObjectWithLolEnum(LolEnum lol)
@@ -1548,4 +1584,5 @@ namespace AnySpecification
 
       public Option<T> MyOption { get; }
   }
+
 }
