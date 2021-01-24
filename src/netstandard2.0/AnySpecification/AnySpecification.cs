@@ -353,6 +353,26 @@ namespace AnySpecification
     }
 
     [Test]
+    public void ShouldDisallowSkippingTheSameValueTwiceWhenGeneratingAnyValueOtherThan()
+    {
+        Any.Invoking(a => a.OtherThan(2, 2))
+          .Should().Throw<Exception>();
+    }
+
+    [Test, Timeout(2000)]
+    public void ShouldDisallowSkippingAllEnumMembers()
+    {
+        Any.Invoking(a => a.OtherThan(
+            LolEnum.Value2, 
+            LolEnum.Value1, 
+            LolEnum.Value4, 
+            LolEnum.Value5, 
+            LolEnum.Value3, 
+            LolEnum.Value6))
+          .Should().Throw<Exception>();
+    }
+
+    [Test]
     public void ShouldGenerateDifferentValueEachTime()
     {
       //WHEN

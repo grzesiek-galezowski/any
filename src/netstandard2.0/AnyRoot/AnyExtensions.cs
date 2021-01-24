@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using FluentAssertions;
 using TddXt.AnyExtensibility;
 using TddXt.AnyGenerators.Generic;
 using TddXt.AnyGenerators.Root;
@@ -41,8 +42,15 @@ namespace TddXt.AnyRoot
       return gen.InstanceOf(InlineGenerators.Object());
     }
 
-    public static T OtherThan<T>(this BasicGenerator gen, params T[] omittedValues)
+    public static T OtherThan<T>(this BasicGenerator gen, params T[]? omittedValues)
     {
+      if (omittedValues == null)
+      {
+        return gen.Instance<T>();
+      }
+
+      omittedValues.Should().OnlyHaveUniqueItems("there is no point in passing a single value twice for skip");
+
       if (ValueTypes.Contains(typeof(T)))
       {
         return gen.InstanceOf(InlineGenerators.ValueOtherThan(omittedValues));

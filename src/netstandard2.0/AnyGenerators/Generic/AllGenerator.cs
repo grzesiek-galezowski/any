@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.Serialization;
+using FluentAssertions;
 using TddXt.AnyExtensibility;
 using TddXt.AnyGenerators.Generic.ExtensionPoints;
 using TddXt.AnyGenerators.Generic.ImplementationDetails;
@@ -161,9 +162,10 @@ namespace TddXt.AnyGenerators.Generic
 
     public object OtherThan(Type type, object[] omittedValues, GenerationTrace trace)
     {
-      if (omittedValues == null)
+      if (type.IsEnum)
       {
-        return Instance(type, trace);
+        Enum.GetValues(type).Should().NotBeEquivalentTo(omittedValues,
+          "skipped values consist of all the enum members. No value left to generate");
       }
 
       object currentValue;
