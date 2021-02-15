@@ -11,6 +11,6 @@ namespace TddXt.AnyGenerators.Generic
       _excluded = excluded;
     }
 
-    public T GenerateInstance(InstanceGenerator gen, GenerationTrace trace) => gen.ValueOtherThan(_excluded);
+    public T GenerateInstance(InstanceGenerator gen, GenerationRequest request) => gen.ValueOtherThan(_excluded);
   }
 }

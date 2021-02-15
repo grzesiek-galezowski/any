@@ -13,13 +13,13 @@ namespace TddXt.AnyGenerators.Collections
       _keys = keys;
     }
 
-    public Dictionary<TKey, TValue> GenerateInstance(InstanceGenerator instanceGenerator, GenerationTrace trace)
+    public Dictionary<TKey, TValue> GenerateInstance(InstanceGenerator instanceGenerator, GenerationRequest request)
     {
       var dict = new Dictionary<TKey, TValue>();
 
       foreach (var key in _keys)
       {
-        dict.Add(key, instanceGenerator.Instance<TValue>(trace));
+        dict.Add(key, instanceGenerator.Instance<TValue>(request));
       }
 
       return dict;

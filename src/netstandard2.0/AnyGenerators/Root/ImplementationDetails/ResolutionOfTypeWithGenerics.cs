@@ -26,10 +26,10 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
       return result;
     }
 
-    public T Apply(InstanceGenerator instanceGenerator, GenerationTrace trace)
+    public T Apply(InstanceGenerator instanceGenerator, GenerationRequest request)
     {
       var type = typeof(T);
-      return (T)_factoryForInstancesOfGenericTypes.NewInstanceOf(type, instanceGenerator, trace);
+      return (T)_factoryForInstancesOfGenericTypes.NewInstanceOf(type, instanceGenerator, request);
     }
   }
 }

@@ -10,12 +10,12 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
       return typeof (T).IsArray;
     }
 
-    public T Apply(InstanceGenerator instanceGenerator, GenerationTrace trace)
+    public T Apply(InstanceGenerator instanceGenerator, GenerationRequest request)
     {
       //todo think it through - should it need access to InlineGenerators?
       var elementType = typeof (T).GetElementType();
       var array = InlineGenerators.GetByNameAndType(nameof(InlineGenerators.Array), elementType)
-        .GenerateInstance(instanceGenerator, trace);
+        .GenerateInstance(instanceGenerator, request);
       return (T)array;
     }
   }

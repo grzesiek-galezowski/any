@@ -15,7 +15,7 @@ namespace TddXt.AnyGenerators.Generic
       _possibleValues = possibleValues;
     }
 
-    public T GenerateInstance(InstanceGenerator instanceGenerator, GenerationTrace trace)
+    public T GenerateInstance(InstanceGenerator instanceGenerator, GenerationRequest request)
     {
       if (!_cachedArraysOfCurrentType.Contain(_possibleValues))
       {

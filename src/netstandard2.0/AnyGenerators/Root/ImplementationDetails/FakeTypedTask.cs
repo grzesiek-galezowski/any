@@ -13,10 +13,10 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
       return typeof(T).IsGenericType && typeof(T).GetGenericTypeDefinition() == typeof(Task<>);
     }
 
-    public T Apply(InstanceGenerator instanceGenerator, GenerationTrace trace)
+    public T Apply(InstanceGenerator instanceGenerator, GenerationRequest request)
     {
       var resultType = typeof(T).GenericTypeArguments.First();
-      var parameters = instanceGenerator.Instance(resultType, trace);
+      var parameters = instanceGenerator.Instance(resultType, request);
       var result = new GenericMethodProxyCalls().ResultOfGenericVersionOfStaticMethod<Task>(
         typeof(T).GenericTypeArguments.First(),
         "FromResult", parameters);

@@ -16,9 +16,9 @@ namespace TddXt.AnyRoot.Enums
       _excludedValues = excludedValues;
     }
 
-    public object GenerateInstance(InstanceGenerator instanceGenerator, GenerationTrace trace)
+    public object GenerateInstance(InstanceGenerator instanceGenerator, GenerationRequest request)
     {
-      return instanceGenerator.OtherThan(_type, _excludedValues.ToArray(), trace);
+      return instanceGenerator.OtherThan(_type, _excludedValues.ToArray(), request);
     }
   }
 }

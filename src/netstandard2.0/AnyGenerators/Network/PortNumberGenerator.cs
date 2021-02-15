@@ -7,7 +7,7 @@ namespace TddXt.AnyGenerators.Network
   {
     private static readonly Random RandomGenerator = new Random(Guid.NewGuid().GetHashCode());
 
-    public int GenerateInstance(InstanceGenerator instanceGenerator, GenerationTrace trace)
+    public int GenerateInstance(InstanceGenerator instanceGenerator, GenerationRequest request)
     {
       return RandomGenerator.Next(0, 65535);
     }

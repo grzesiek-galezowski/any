@@ -13,13 +13,13 @@ namespace TddXt.TypeResolution.FakeChainElements
       return typeof(T).IsSubclassOf(typeof(Delegate));
     }
 
-    public T Apply(InstanceGenerator instanceGenerator, GenerationTrace trace)
+    public T Apply(InstanceGenerator instanceGenerator, GenerationRequest request)
     {
       var methodInfo = typeof(T).GetMethods().First(m => m.Name.Equals("Invoke"));
       var parameters = methodInfo.GetParameters();
       if (methodInfo.ReturnType != typeof(void))
       {
-        var instance = CreateGenericDelegatesForFunction(instanceGenerator, methodInfo, trace);
+        var instance = CreateGenericDelegatesForFunction(instanceGenerator, methodInfo, request);
         return (T)(object)Delegate.CreateDelegate(typeof(T), instance, instance.GetType().GetMethod("Get" + parameters.Length));
       }
       else
@@ -30,10 +30,10 @@ namespace TddXt.TypeResolution.FakeChainElements
     }
 
     private static object CreateGenericDelegatesForFunction(InstanceGenerator instanceGenerator, MethodInfo methodInfo,
-      GenerationTrace trace)
+      GenerationRequest request)
     {
       var fullSignatureTypes = ReturnTypeOf(methodInfo).Concat(ParameterTypes(methodInfo));
-      return CreateGenericDelegatesObjectForConcreteTypes(fullSignatureTypes, WithArgumentGeneratedBy(instanceGenerator, methodInfo, trace));
+      return CreateGenericDelegatesObjectForConcreteTypes(fullSignatureTypes, WithArgumentGeneratedBy(instanceGenerator, methodInfo, request));
     }
 
     private static object CreateGenericDelegatesForAction(MethodBase methodInfo)
@@ -55,9 +55,9 @@ namespace TddXt.TypeResolution.FakeChainElements
     }
 
     private static object[] WithArgumentGeneratedBy(InstanceGenerator instanceGenerator, MethodInfo methodInfo,
-      GenerationTrace trace)
+      GenerationRequest request)
     {
-      return new[] { instanceGenerator.Instance(methodInfo.ReturnType, trace) };
+      return new[] { instanceGenerator.Instance(methodInfo.ReturnType, request) };
     }
 
     private static IEnumerable<Type> RepeatDummyTypeArgToFill(IEnumerable<Type> fullSignatureTypes, int length)

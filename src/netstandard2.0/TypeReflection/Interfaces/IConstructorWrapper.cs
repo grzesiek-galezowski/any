@@ -13,17 +13,17 @@ namespace TddXt.TypeReflection.Interfaces
     int GetParametersCount();
     bool HasAbstractOrInterfaceArguments();
 
-    List<object> GenerateAnyParameterValues(Func<Type, GenerationTrace, object> instanceGenerator,
-      GenerationTrace trace);
+    List<object> GenerateAnyParameterValues(Func<Type, GenerationRequest, object> instanceGenerator,
+      GenerationRequest request);
 
     bool IsParameterless();
-    object InvokeWithParametersCreatedBy(Func<Type, GenerationTrace, object> instanceGenerator, GenerationTrace trace);
+    object InvokeWithParametersCreatedBy(Func<Type, GenerationRequest, object> instanceGenerator, GenerationRequest request);
     bool IsInternal();
     bool IsNotRecursive();
     bool IsRecursive();
 
     object Invoke(IEnumerable<object> parameters);
 
-    void DumpInto(GenerationTrace trace);
+    void DumpInto(GenerationRequest request);
   }
 }

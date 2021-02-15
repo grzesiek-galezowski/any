@@ -1,6 +1,7 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using Castle.DynamicProxy;
+using TddXt.AnyExtensibility;
 using TddXt.AnyGenerators.Generic.ExtensionPoints;
 using TddXt.TypeResolution;
 using TddXt.TypeResolution.FakeChainElements;
@@ -26,7 +27,7 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
       ProxyGenerator generationIsDoneUsingProxies,
       IValueGenerator valueGenerator)
     {
-      return LimitedTo(nestingLimit, UnconstrainedInstance(
+      return RecursionLimited(UnconstrainedInstance(
         eachMethodReturnsTheSameValueOnEveryCall,
         generationIsDoneUsingProxies,
         valueGenerator));
@@ -84,9 +85,9 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
       return new FakeChain<T>(first);
     }
 
-    private static IFakeChain<T> LimitedTo(NestingLimit limit, IFakeChain<T> fakeChain)
+    private static IFakeChain<T> RecursionLimited(IFakeChain<T> fakeChain)
     {
-      return new LimitedFakeChain<T>(limit, fakeChain);
+      return new LimitedFakeChain<T>(fakeChain);
     }
 
     private FakeConcreteClass<T> ResolveAsConcreteClass()

@@ -5,6 +5,6 @@ namespace TddXt.TypeResolution
 {
   public interface IFallbackGeneratedObjectCustomization
   {
-    void ApplyTo(IType smartType, object result, InstanceGenerator instanceGenerator, GenerationTrace trace);
+    void ApplyTo(IType smartType, object result, InstanceGenerator instanceGenerator, GenerationRequest request);
   }
 }

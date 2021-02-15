@@ -5,14 +5,14 @@ namespace TddXt.AnyExtensibility
   public interface GenerationCustomization
   {
     bool AppliesTo(Type type);
-    object Generate(Type type, InstanceGenerator gen, GenerationTrace trace);
+    object Generate(Type type, InstanceGenerator gen, GenerationRequest request);
   }
 
   public class SingleTypeCustomization<T> : GenerationCustomization
   {
-    private readonly Func<InstanceGenerator, GenerationTrace, T> _func;
+    private readonly Func<InstanceGenerator, GenerationRequest, T> _func;
 
-    public SingleTypeCustomization(Func<InstanceGenerator, GenerationTrace, T> func)
+    public SingleTypeCustomization(Func<InstanceGenerator, GenerationRequest, T> func)
     {
       _func = func;
     }
@@ -22,9 +22,9 @@ namespace TddXt.AnyExtensibility
       return type == typeof(T);
     }
 
-    public object Generate(Type type, InstanceGenerator gen, GenerationTrace trace)
+    public object Generate(Type type, InstanceGenerator gen, GenerationRequest request)
     {
-      return _func(gen, trace)!;
+      return _func(gen, request)!;
     }
   }
 }

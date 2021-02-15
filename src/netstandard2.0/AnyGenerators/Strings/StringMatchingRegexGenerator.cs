@@ -13,7 +13,7 @@ namespace TddXt.AnyGenerators.Strings
       _pattern = pattern;
     }
 
-    public string GenerateInstance(InstanceGenerator gen, GenerationTrace trace)
+    public string GenerateInstance(InstanceGenerator gen, GenerationRequest request)
     {
 
       var result = RegexGenerator.Create(_pattern);

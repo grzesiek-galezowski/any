@@ -5,10 +5,10 @@ namespace TddXt.AnyGenerators.Collections
 {
   public class EnumeratorGenerator<T> : InlineGenerator<IEnumerator<T>>
   {
-    public IEnumerator<T> GenerateInstance(InstanceGenerator instanceGenerator, GenerationTrace trace)
+    public IEnumerator<T> GenerateInstance(InstanceGenerator instanceGenerator, GenerationRequest request)
     {
       return new EnumerableGenerator<T>(Configuration.Many)
-        .AsList<T>().GenerateInstance(instanceGenerator, trace).GetEnumerator();
+        .AsList<T>().GenerateInstance(instanceGenerator, request).GetEnumerator();
     }
   }
 }

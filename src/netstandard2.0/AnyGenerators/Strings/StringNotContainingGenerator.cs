@@ -15,17 +15,17 @@ namespace TddXt.AnyGenerators.Strings
       _stringGenerator = stringGenerator;
     }
 
-    public string GenerateInstance(InstanceGenerator instanceGenerator, GenerationTrace trace)
+    public string GenerateInstance(InstanceGenerator instanceGenerator, GenerationRequest request)
     {
       var preprocessedStrings = from str in _excludedSubstrings
         where !string.IsNullOrEmpty(str)
         select str;
 
-      var result = _stringGenerator.GenerateInstance(instanceGenerator, trace);
+      var result = _stringGenerator.GenerateInstance(instanceGenerator, request);
       var found = false;
       for (int i = 0; i < 100; ++i)
       {
-        result = _stringGenerator.GenerateInstance(instanceGenerator, trace);
+        result = _stringGenerator.GenerateInstance(instanceGenerator, request);
         if (!preprocessedStrings.Any(result.Contains))
         {
           found = true;

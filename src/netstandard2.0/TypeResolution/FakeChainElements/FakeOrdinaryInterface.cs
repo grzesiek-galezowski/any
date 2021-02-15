@@ -20,10 +20,10 @@ namespace TddXt.TypeResolution.FakeChainElements
       return typeof (T).IsInterface;
     }
 
-    public T Apply(InstanceGenerator instanceGenerator, GenerationTrace trace)
+    public T Apply(InstanceGenerator instanceGenerator, GenerationRequest request)
     {
       return (T)_proxyGenerator.CreateInterfaceProxyWithoutTarget(
-        typeof(T), new InterfaceInterceptor(_cachedGeneration, instanceGenerator.Instance, trace));
+        typeof(T), new InterfaceInterceptor(_cachedGeneration, instanceGenerator.Instance, request));
     }
   }
 }

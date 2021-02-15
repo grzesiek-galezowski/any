@@ -7,18 +7,20 @@ using TddXt.AnyExtensibility;
 namespace TddXt.AnyGenerators.Generic.ImplementationDetails
 {
   [Serializable]
-  public class ListBasedGenerationTrace : GenerationTrace
+  public class ListBasedGeneratonTrace : GenerationTrace
   {
     [NonSerialized]
     private readonly List<string> _messages;
 
     private int _nesting;
 
-    public ListBasedGenerationTrace()
+    public ListBasedGeneratonTrace()
     {
       _nesting = 0;
       _messages = new List<string>();
     }
+
+    public GenerationTrace Trace => this;
 
     public void AddNestingAndCheckWith(int nesting, Type type)
     {
@@ -34,7 +36,7 @@ namespace TddXt.AnyGenerators.Generic.ImplementationDetails
       AssertNestingCoherentWith(nesting);
     }
 
-    public void GeneratingSeedeedValue<T>(Type type, T seed)
+    public void GeneratingSeededValue<T>(Type type, T seed)
     {
       _messages.Add($"Generating seeded value of type {type} with seed {seed}");
     }
@@ -101,16 +103,6 @@ namespace TddXt.AnyGenerators.Generic.ImplementationDetails
     private static string ParametersString(IEnumerable<TypeInfo> parameterTypes)
     {
       return "(" + (parameterTypes.Any() ? string.Join(", ", parameterTypes) + ") - parameter generation will follow." : "NONE)");
-    }
-  }
-
-  public class DeveloperError : Exception
-  {
-    public DeveloperError(string s)
-    : base(s)
-
-    {
-      
     }
   }
 }

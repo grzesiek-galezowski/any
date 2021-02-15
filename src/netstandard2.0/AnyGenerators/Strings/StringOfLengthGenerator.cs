@@ -14,12 +14,12 @@ namespace TddXt.AnyGenerators.Strings
       _stringGenerator = stringGenerator;
     }
 
-    public string GenerateInstance(InstanceGenerator instanceGenerator, GenerationTrace trace)
+    public string GenerateInstance(InstanceGenerator instanceGenerator, GenerationRequest request)
     {
       var result = string.Empty;
       while (result.Length < _length)
       {
-        result += _stringGenerator.GenerateInstance(instanceGenerator, trace);
+        result += _stringGenerator.GenerateInstance(instanceGenerator, request);
       }
 
       return result.Substring(0, _length);

@@ -21,7 +21,7 @@ namespace TddXt.TypeResolution.FakeChainElements
     }
 
 
-    public T Apply(InstanceGenerator instanceGenerator, GenerationTrace trace)
+    public T Apply(InstanceGenerator instanceGenerator, GenerationRequest request)
     {
       var collectionType = typeof (T);
       var collectionInstance = Activator.CreateInstance(collectionType);
@@ -34,21 +34,21 @@ namespace TddXt.TypeResolution.FakeChainElements
 
       addMethod.Invoke(
         collectionInstance, 
-        AnyInstancesOf(elementTypes, instanceGenerator, trace));
+        AnyInstancesOf(elementTypes, instanceGenerator, request));
       addMethod.Invoke(
         collectionInstance, 
-        AnyInstancesOf(elementTypes, instanceGenerator, trace));
+        AnyInstancesOf(elementTypes, instanceGenerator, request));
       addMethod.Invoke(
         collectionInstance, 
-        AnyInstancesOf(elementTypes, instanceGenerator, trace));
+        AnyInstancesOf(elementTypes, instanceGenerator, request));
 
       return (T) collectionInstance;
     }
 
     private static object[] AnyInstancesOf(IEnumerable<Type> elementTypes, InstanceGenerator instanceGenerator,
-      GenerationTrace trace)
+      GenerationRequest request)
     {
-      return elementTypes.Select(type => instanceGenerator.Instance(type, trace)).ToArray();
+      return elementTypes.Select(type => instanceGenerator.Instance(type, request)).ToArray();
     }
   }
 }

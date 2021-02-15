@@ -11,7 +11,7 @@ namespace TddXt.AnyGenerators.Generic
       _instance = instance;
     }
 
-    public T GenerateInstance(InstanceGenerator instanceGenerator, GenerationTrace trace)
+    public T GenerateInstance(InstanceGenerator instanceGenerator, GenerationRequest request)
     {
       return _instance;
     }

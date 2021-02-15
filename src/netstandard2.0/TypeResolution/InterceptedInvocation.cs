@@ -9,12 +9,12 @@ namespace TddXt.TypeResolution
 {
   public class InterceptedInvocation
   {
-    private readonly Func<Type, GenerationTrace, object> _instanceSource;
+    private readonly Func<Type, GenerationRequest, object> _instanceSource;
     private readonly IInvocation _invocation;
 
     public InterceptedInvocation(
       IInvocation invocation,
-      Func<Type, GenerationTrace, object> instanceSource)
+      Func<Type, GenerationRequest, object> instanceSource)
     {
       _invocation = invocation;
       _instanceSource = instanceSource;
@@ -53,12 +53,12 @@ namespace TddXt.TypeResolution
       perMethodCache.Overwrite(key, _invocation.Arguments[0]);
     }
 
-    public void GenerateAndAddMethodReturnValueTo(PerMethodCache<object> perMethodCache, GenerationTrace trace)
+    public void GenerateAndAddMethodReturnValueTo(PerMethodCache<object> perMethodCache, GenerationRequest request)
     {
       var cacheKey = PerMethodCacheKey.For(_invocation);
       if (!perMethodCache.AlreadyContainsValueFor(cacheKey))
       {
-        var returnValue = AnyInstanceOfReturnTypeOf(_invocation, trace);
+        var returnValue = AnyInstanceOfReturnTypeOf(_invocation, request);
         perMethodCache.Add(cacheKey, returnValue);
         _invocation.ReturnValue = returnValue;
       }
@@ -68,9 +68,9 @@ namespace TddXt.TypeResolution
       }
     }
 
-    private object AnyInstanceOfReturnTypeOf(IInvocation invocation, GenerationTrace trace)
+    private object AnyInstanceOfReturnTypeOf(IInvocation invocation, GenerationRequest request)
     {
-      return _instanceSource(invocation.Method.ReturnType, trace);
+      return _instanceSource(invocation.Method.ReturnType, request);
     }
 
   }

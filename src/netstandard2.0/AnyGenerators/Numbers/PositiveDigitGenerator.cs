@@ -11,12 +11,12 @@ namespace TddXt.AnyGenerators.Numbers
       _digitGenerator = digitGenerator;
     }
 
-    public byte GenerateInstance(InstanceGenerator instanceGenerator, GenerationTrace trace)
+    public byte GenerateInstance(InstanceGenerator instanceGenerator, GenerationRequest request)
     {
-      byte digit = _digitGenerator.GenerateInstance(instanceGenerator, trace);
+      byte digit = _digitGenerator.GenerateInstance(instanceGenerator, request);
       while (digit == 0)
       {
-        digit = _digitGenerator.GenerateInstance(instanceGenerator, trace);
+        digit = _digitGenerator.GenerateInstance(instanceGenerator, request);
       }
 
       return digit;

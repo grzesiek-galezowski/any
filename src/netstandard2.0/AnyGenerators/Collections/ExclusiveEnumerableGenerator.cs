@@ -15,7 +15,7 @@ namespace TddXt.AnyGenerators.Collections
       _many = many;
     }
 
-    public IEnumerable<T> GenerateInstance(InstanceGenerator instanceGenerator, GenerationTrace trace)
+    public IEnumerable<T> GenerateInstance(InstanceGenerator instanceGenerator, GenerationRequest request)
     {
       return Range(0, _many).Select(i => instanceGenerator.OtherThan(_excluded)).ToList();
     }

@@ -61,9 +61,9 @@ namespace TddXt.AnyGenerators.AutoFixtureWrapper
         }
 
       public IDisposable CustomizeWith(GenerationCustomization[] customizations, InstanceGenerator gen,
-        GenerationTrace trace)
+        GenerationRequest request)
       {
-        return new CustomizationScope(_autoFixture, customizations, gen, trace);
+        return new CustomizationScope(_autoFixture, customizations, gen, request);
       }
     }
 
@@ -75,10 +75,10 @@ namespace TddXt.AnyGenerators.AutoFixtureWrapper
         Fixture generator, 
         GenerationCustomization[] customizations, 
         InstanceGenerator gen,
-        GenerationTrace trace)
+        GenerationRequest request)
       {
         _generator = generator;
-        generator.Customizations.Insert(0, new CustomizationRelay(customizations, gen, trace));
+        generator.Customizations.Insert(0, new CustomizationRelay(customizations, gen, request));
       }
 
       public void Dispose()
@@ -91,13 +91,13 @@ namespace TddXt.AnyGenerators.AutoFixtureWrapper
     {
       private readonly GenerationCustomization[] _customizations;
       private readonly InstanceGenerator _gen;
-      private readonly GenerationTrace _trace;
+      private readonly GenerationRequest _request;
 
-      public CustomizationRelay(GenerationCustomization[] customizations, InstanceGenerator gen, GenerationTrace trace)
+      public CustomizationRelay(GenerationCustomization[] customizations, InstanceGenerator gen, GenerationRequest request)
       {
         _customizations = customizations;
         _gen = gen;
-        _trace = trace;
+        _request = request;
       }
 
       public object Create(object request, ISpecimenContext context)
@@ -110,7 +110,7 @@ namespace TddXt.AnyGenerators.AutoFixtureWrapper
           {
             if (customization.AppliesTo(t))
             {
-              return customization.Generate(t, _gen, _trace);
+              return customization.Generate(t, _gen, _request);
             }
           }
           return new NoSpecimen();

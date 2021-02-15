@@ -30,6 +30,7 @@ using TddXt.AnyRoot.Math;
 using TddXt.AnyRoot.Network;
 using TddXt.AnyRoot.Numbers;
 using TddXt.AnyRoot.Strings;
+using TddXt.TypeResolution;
 using TddXt.TypeResolution.FakeChainElements.Interceptors;
 using static TddXt.AnyRoot.Root;
 
@@ -1308,8 +1309,8 @@ namespace AnySpecification
       /*
       var o = new GenericMethodProxyCalls().ResultOfGenericVersionOfMethod(
         (SynchronizedInstanceGenerator)Any, typeof(Maybe<string>), "Instance",
-        new ListBasedGenerationTrace());
-      var instance = ((AllGenerator)Any).Instance(typeof(Maybe<string>), new ListBasedGenerationTrace());
+        new DefaultGenerationRequest());
+      var instance = ((AllGenerator)Any).Instance(typeof(Maybe<string>), new DefaultGenerationRequest());
       await Any.Instance<Task<Maybe<string>>>();
       */
       //WHEN
@@ -1317,7 +1318,7 @@ namespace AnySpecification
       {
         var o = new GenericMethodProxyCalls().ResultOfGenericVersionOfMethod(
           (SynchronizedInstanceGenerator) Any, typeof(string), "Instance",
-          new ListBasedGenerationTrace());
+          new DefaultGenerationRequest(GlobalNestingLimit.Of(5)));
       }
       catch (Exception e)
       {
@@ -1496,11 +1497,11 @@ namespace AnySpecification
           return type.IsGenericType && type.GetGenericTypeDefinition() == typeof(List<>);
       }
 
-      public object Generate(Type type, InstanceGenerator gen, GenerationTrace trace)
+      public object Generate(Type type, InstanceGenerator gen, GenerationRequest request)
       {
           var list = Activator.CreateInstance(type);
           var addMethod = type.GetMethod("Add", BindingFlags.Instance | BindingFlags.Public);
-          var elementInstance = gen.Instance(type.GetGenericArguments()[0], trace);
+          var elementInstance = gen.Instance(type.GetGenericArguments()[0], request);
           addMethod!.Invoke(list, new [] { elementInstance });
           addMethod!.Invoke(list, new [] { elementInstance });
           addMethod!.Invoke(list, new [] { elementInstance });
@@ -1516,10 +1517,10 @@ namespace AnySpecification
           return type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Option<>);
       }
 
-      public object Generate(Type type, InstanceGenerator gen, GenerationTrace trace)
+      public object Generate(Type type, InstanceGenerator gen, GenerationRequest request)
       {
           var genericArgument = type.GetGenericArguments()[0];
-          var elementInstance = gen.Instance(genericArgument, trace);
+          var elementInstance = gen.Instance(genericArgument, request);
           var genericCreationMethod = typeof(Option)
               .GetMethods(BindingFlags.Static | BindingFlags.Public)
               .Where(info => info.Name == nameof(Option.Some))

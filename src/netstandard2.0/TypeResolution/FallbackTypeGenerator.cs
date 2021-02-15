@@ -15,16 +15,16 @@ namespace TddXt.TypeResolution
       _fallbackTypeGenerator = fallbackTypeGenerator;
     }
 
-    public T GenerateInstance(InstanceGenerator instanceGenerator, GenerationTrace trace)
+    public T GenerateInstance(InstanceGenerator instanceGenerator, GenerationRequest request)
     {
-      var generateInstance = (T)_fallbackTypeGenerator.GenerateInstance(instanceGenerator, trace);
-      _fallbackTypeGenerator.CustomizeCreatedValue(generateInstance, instanceGenerator, trace);
+      var generateInstance = (T)_fallbackTypeGenerator.GenerateInstance(instanceGenerator, request);
+      _fallbackTypeGenerator.CustomizeCreatedValue(generateInstance, instanceGenerator, request);
       return generateInstance;
     }
 
-    public List<object> GenerateConstructorParameters(InstanceGenerator instanceGenerator, GenerationTrace trace)
+    public List<object> GenerateConstructorParameters(InstanceGenerator instanceGenerator, GenerationRequest request)
     {
-      return _fallbackTypeGenerator.GenerateConstructorParameters(instanceGenerator.Instance, trace);
+      return _fallbackTypeGenerator.GenerateConstructorParameters(instanceGenerator.Instance, request);
     }
 
     public bool ConstructorIsInternalOrHasAtLeastOneNonConcreteArgumentType()
@@ -33,9 +33,9 @@ namespace TddXt.TypeResolution
     }
 
 
-    public void FillFieldsAndPropertiesOf(T result, InstanceGenerator instanceGenerator, GenerationTrace trace)
+    public void FillFieldsAndPropertiesOf(T result, InstanceGenerator instanceGenerator, GenerationRequest request)
     {
-      _fallbackTypeGenerator.CustomizeCreatedValue(result, instanceGenerator, trace);
+      _fallbackTypeGenerator.CustomizeCreatedValue(result, instanceGenerator, request);
     }
   }
 
@@ -50,15 +50,15 @@ namespace TddXt.TypeResolution
       _customizations = customizations;
     }
 
-    public object GenerateInstance(InstanceGenerator instanceGenerator, GenerationTrace trace)
+    public object GenerateInstance(InstanceGenerator instanceGenerator, GenerationRequest request)
     {
       var maybeConstructor = _smartType.PickConstructorWithLeastNonPointersParameters();
 
       if (maybeConstructor.HasValue)
       {
-        maybeConstructor.Value.DumpInto(trace);
+        maybeConstructor.Value.DumpInto(request);
         var instance = maybeConstructor.Value
-          .InvokeWithParametersCreatedBy(instanceGenerator.Instance, trace);
+          .InvokeWithParametersCreatedBy(instanceGenerator.Instance, request);
         _smartType.AssertMatchesTypeOf(instance);
         return instance;
       }
@@ -68,14 +68,14 @@ namespace TddXt.TypeResolution
       }
     }
 
-    public List<object> GenerateConstructorParameters(Func<Type, GenerationTrace, object> parameterFactory,
-      GenerationTrace trace)
+    public List<object> GenerateConstructorParameters(Func<Type, GenerationRequest, object> parameterFactory,
+      GenerationRequest request)
     {
       var constructor = _smartType.PickConstructorWithLeastNonPointersParameters();
       if (constructor.HasValue)
       {
         return constructor.Value
-          .GenerateAnyParameterValues(parameterFactory, trace);
+          .GenerateAnyParameterValues(parameterFactory, request);
       }
       else
       {
@@ -99,14 +99,14 @@ namespace TddXt.TypeResolution
     }
 
 
-    public void CustomizeCreatedValue(object result, InstanceGenerator instanceGenerator, GenerationTrace trace)
+    public void CustomizeCreatedValue(object result, InstanceGenerator instanceGenerator, GenerationRequest request)
     {
       foreach (var customization in _customizations)
       {
         customization.ApplyTo(
           _smartType, 
           result, 
-          instanceGenerator, trace);
+          instanceGenerator, request);
       }
     }
   }

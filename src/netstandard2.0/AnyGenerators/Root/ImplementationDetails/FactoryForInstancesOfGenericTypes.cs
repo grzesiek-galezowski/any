@@ -5,6 +5,6 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
 {
   public interface FactoryForInstancesOfGenericTypes
   {
-    object NewInstanceOf(Type type, InstanceGenerator instanceGenerator, GenerationTrace trace);
+    object NewInstanceOf(Type type, InstanceGenerator instanceGenerator, GenerationRequest request);
   }
 }

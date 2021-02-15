@@ -17,7 +17,7 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
 
     public IResolution<T> CreateResolutionOf2GenericType(string className, params Type[] matchingTypes)
     {
-      var factoryMethod = new Func<Type, Type, InstanceGenerator, GenerationTrace, object>((type1, type2, instanceGenerator, trace) => 
+      var factoryMethod = new Func<Type, Type, InstanceGenerator, GenerationRequest, object>((type1, type2, instanceGenerator, trace) => 
         InlineGenerators.GetByNameAndTypes(className, type1, type2)
           .GenerateInstance(instanceGenerator, trace));
 

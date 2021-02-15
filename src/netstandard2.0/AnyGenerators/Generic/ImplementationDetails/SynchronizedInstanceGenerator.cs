@@ -47,20 +47,20 @@ namespace TddXt.AnyGenerators.Generic.ImplementationDetails
       }
     }
 
-    public T Value<T>(GenerationTrace trace)
+    public T Value<T>(GenerationRequest request)
     {
       lock (_syncRoot)
       {
-        return _allGenerator.Value<T>(trace);
+        return _allGenerator.Value<T>(request);
       }
 
     }
 
-    public T Value<T>(T seed, GenerationTrace trace)
+    public T Value<T>(T seed, GenerationRequest request)
     {
       lock (_syncRoot)
       {
-        return _allGenerator.Value<T>(seed, trace);
+        return _allGenerator.Value<T>(seed, request);
       }
 
     }
@@ -74,61 +74,61 @@ namespace TddXt.AnyGenerators.Generic.ImplementationDetails
 
     }
 
-    public object OtherThan(Type type, object[] omittedValues, GenerationTrace trace)
+    public object OtherThan(Type type, object[] omittedValues, GenerationRequest request)
     {
       lock (_syncRoot)
       {
-        return _allGenerator.OtherThan(type, omittedValues, trace);
+        return _allGenerator.OtherThan(type, omittedValues, request);
       }
     }
 
-    public object Instance(Type type, GenerationTrace trace)
+    public object Instance(Type type, GenerationRequest request)
     {
       lock (_syncRoot)
       {
-        return _allGenerator.Instance(type, trace);
-      }
-
-    }
-
-    public T Dummy<T>(GenerationTrace trace)
-    {
-      lock (_syncRoot)
-      {
-        return _allGenerator.Dummy<T>(trace);
+        return _allGenerator.Instance(type, request);
       }
 
     }
 
-    public T Instance<T>(GenerationTrace trace)
+    public T Dummy<T>(GenerationRequest request)
     {
       lock (_syncRoot)
       {
-        return _allGenerator.Instance<T>(trace);
+        return _allGenerator.Dummy<T>(request);
+      }
+
+    }
+
+    public T Instance<T>(GenerationRequest request)
+    {
+      lock (_syncRoot)
+      {
+        return _allGenerator.Instance<T>(request);
       }
     }
 
-    public object Instance(Type type, GenerationTrace trace, GenerationCustomization[] customizations)
+    public object Instance(Type type, GenerationRequest request, GenerationCustomization[] customizations)
     {
       lock (_syncRoot)
       {
-        return _allGenerator.Instance(type, trace, customizations);
+        return _allGenerator.Instance(type, request, customizations);
       }
     }
 
-    public T Instance<T>(GenerationTrace trace, GenerationCustomization[] customizations)
+    public T Instance<T>(GenerationRequest request, GenerationCustomization[] customizations)
     {
       lock (_syncRoot)
       {
-        return _allGenerator.Instance<T>(trace, customizations);
+        return _allGenerator.Instance<T>(request, customizations);
       }
     }
 
-    public T Value<T>(GenerationTrace trace, GenerationCustomization[] customizations)
+    public T Value<T>(GenerationRequest request, GenerationCustomization[] customizations)
     {
       lock (_syncRoot)
       {
-        return _allGenerator.Value<T>(trace, customizations);
+        return _allGenerator.Value<T>(request, customizations);
       }
     }
   }

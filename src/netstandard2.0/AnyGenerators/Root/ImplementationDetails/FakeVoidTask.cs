@@ -11,7 +11,7 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
       return typeof(T) == typeof(Task);
     }
 
-    public T Apply(InstanceGenerator instanceGenerator, GenerationTrace trace)
+    public T Apply(InstanceGenerator instanceGenerator, GenerationRequest request)
     {
       return (T)(object)Task.CompletedTask;
     }

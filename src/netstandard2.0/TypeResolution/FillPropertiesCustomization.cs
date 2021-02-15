@@ -6,7 +6,7 @@ namespace TddXt.TypeResolution
 {
   public class FillPropertiesCustomization : IFallbackGeneratedObjectCustomization
   {
-    public void ApplyTo(IType smartType, object result, InstanceGenerator instanceGenerator, GenerationTrace trace)
+    public void ApplyTo(IType smartType, object result, InstanceGenerator instanceGenerator, GenerationRequest request)
     {
       var properties = smartType.GetPublicInstanceWritableProperties();
 
@@ -18,7 +18,7 @@ namespace TddXt.TypeResolution
 
           if (!property.HasAbstractGetter())
           {
-            var value = instanceGenerator.Instance(propertyType, trace);
+            var value = instanceGenerator.Instance(propertyType, request);
             property.SetValue(result, value);
           }
         }

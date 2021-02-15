@@ -65,8 +65,8 @@ namespace TddXt.TypeReflection.ImplementationDetails
       return _hasAbstractOrInterfaceArguments;
     }
 
-    public List<object> GenerateAnyParameterValues(Func<Type, GenerationTrace, object> instanceGenerator,
-      GenerationTrace trace)
+    public List<object> GenerateAnyParameterValues(Func<Type, GenerationRequest, object> instanceGenerator,
+      GenerationRequest request)
     {
       var constructorValues = new List<object>();
 
@@ -74,11 +74,11 @@ namespace TddXt.TypeReflection.ImplementationDetails
       {
         if (IsPassedByReference(constructorParam))
         {
-          constructorValues.Add(instanceGenerator(GetNonRefFromRefType(constructorParam), trace));
+          constructorValues.Add(instanceGenerator(GetNonRefFromRefType(constructorParam), request));
         }
         else
         {
-          constructorValues.Add(instanceGenerator(constructorParam, trace));
+          constructorValues.Add(instanceGenerator(constructorParam, request));
         }
       }
       return constructorValues;
@@ -100,10 +100,10 @@ namespace TddXt.TypeReflection.ImplementationDetails
       return GetParametersCount() == 0;
     }
 
-    public object InvokeWithParametersCreatedBy(Func<Type, GenerationTrace, object> instanceGenerator,
-      GenerationTrace trace)
+    public object InvokeWithParametersCreatedBy(Func<Type, GenerationRequest, object> instanceGenerator,
+      GenerationRequest request)
     {
-      return _invocation(GenerateAnyParameterValues(instanceGenerator, trace).ToArray());
+      return _invocation(GenerateAnyParameterValues(instanceGenerator, request).ToArray());
     }
 
     public bool IsInternal()
@@ -128,9 +128,9 @@ namespace TddXt.TypeReflection.ImplementationDetails
 
     public IEnumerable<ParameterInfo> Parameters => _parameters;
 
-    public void DumpInto(GenerationTrace trace)
+    public void DumpInto(GenerationRequest request)
     {
-      trace.ChosenConstructor(_constructor.Name, _parameterTypes);
+      request.Trace.ChosenConstructor(_constructor.Name, _parameterTypes);
     }
 
     public static ConstructorWrapper FromConstructorInfo(ConstructorInfo constructor)

@@ -11,9 +11,9 @@ namespace TddXt.TypeResolution.FakeChainElements
       return TypeOf<T>.Is<IEnumerator>();
     }
 
-    public T Apply(InstanceGenerator instanceGenerator, GenerationTrace trace)
+    public T Apply(InstanceGenerator instanceGenerator, GenerationRequest request)
     {
-      return (T)(instanceGenerator.Instance<object[]>(trace).GetEnumerator());
+      return (T)(instanceGenerator.Instance<object[]>(request).GetEnumerator());
     }
   }
 }

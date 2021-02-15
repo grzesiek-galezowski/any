@@ -14,13 +14,13 @@ namespace TddXt.AnyGenerators.Strings
       _alphaChar = alphaChar;
     }
 
-    public string GenerateInstance(InstanceGenerator instanceGenerator, GenerationTrace trace)
+    public string GenerateInstance(InstanceGenerator instanceGenerator, GenerationRequest request)
     {
-      string result = _alphaChar.GenerateInstance(instanceGenerator, trace).ToString(CultureInfo.InvariantCulture);
+      string result = _alphaChar.GenerateInstance(instanceGenerator, request).ToString(CultureInfo.InvariantCulture);
       for (var i = 0; i < 5; ++i)
       {
-        result += _digitChar.GenerateInstance(instanceGenerator, trace);
-        result += _alphaChar.GenerateInstance(instanceGenerator, trace);
+        result += _digitChar.GenerateInstance(instanceGenerator, request);
+        result += _alphaChar.GenerateInstance(instanceGenerator, request);
       }
 
       return result;

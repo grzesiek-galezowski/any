@@ -19,9 +19,9 @@ namespace TddXt.AnyGenerators.Numbers
       _simpleValueGenerator = intGenerator;
     }
 
-    public int GenerateInstance(InstanceGenerator instanceGenerator, GenerationTrace trace)
+    public int GenerateInstance(InstanceGenerator instanceGenerator, GenerationRequest request)
     {
-      var sequence = new IntegerSequence(_startingValue, _step, _simpleValueGenerator.GenerateInstance(instanceGenerator, trace));
+      var sequence = new IntegerSequence(_startingValue, _step, _simpleValueGenerator.GenerateInstance(instanceGenerator, request));
       var finalSequence = Sequences.FirstOrDefault(s => s.Equals(sequence))
         .ToMaybe()
         .OrElse(sequence);

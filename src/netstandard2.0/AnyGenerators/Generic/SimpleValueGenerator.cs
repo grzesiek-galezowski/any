@@ -4,11 +4,11 @@ namespace TddXt.AnyGenerators.Generic
 {
   public class SimpleValueGenerator<T> : InlineGenerator<T>
   {
-    public T GenerateInstance(InstanceGenerator gen, GenerationTrace trace) => gen.Value<T>(trace);
+    public T GenerateInstance(InstanceGenerator gen, GenerationRequest request) => gen.Value<T>(request);
   }
 
   public class SimpleInstanceGenerator<T> : InlineGenerator<T>
   {
-    public T GenerateInstance(InstanceGenerator gen, GenerationTrace trace) => gen.Instance<T>(trace);
+    public T GenerateInstance(InstanceGenerator gen, GenerationRequest request) => gen.Instance<T>(request);
   }
 }

@@ -15,7 +15,7 @@ namespace TddXt.AnyGenerators.Math
       _digitsCount = digitsCount;
     }
 
-    public T GenerateInstance(InstanceGenerator instanceGenerator, GenerationTrace trace)
+    public T GenerateInstance(InstanceGenerator instanceGenerator, GenerationRequest request)
     {
       return _intTraits.GenerateWithExactNumberOfDigits(_digitsCount, RandomGenerator);
     }

@@ -5,20 +5,20 @@ namespace TddXt.AnyExtensibility
   public interface InstanceGenerator
   {
     T ValueOtherThan<T>(params T[] omittedValues);
-    T Value<T>(GenerationTrace trace);
-    T Value<T>(T seed, GenerationTrace trace);
+    T Value<T>(GenerationRequest request);
+    T Value<T>(T seed, GenerationRequest request);
     T OtherThan<T>(params T[] omittedValues);
-    object OtherThan(Type type, object[] omittedValues, GenerationTrace trace);
-    object Instance(Type type, GenerationTrace trace);
-    T Dummy<T>(GenerationTrace trace);
-    T Instance<T>(GenerationTrace trace);
+    object OtherThan(Type type, object[] omittedValues, GenerationRequest request);
+    object Instance(Type type, GenerationRequest request);
+    T Dummy<T>(GenerationRequest request);
+    T Instance<T>(GenerationRequest request);
   }
 
   public interface CustomizableInstanceGenerator : InstanceGenerator
   {
-    object Instance(Type type, GenerationTrace trace, GenerationCustomization[] customizations);
-    T Instance<T>(GenerationTrace trace, GenerationCustomization[] customizations);
-    T Value<T>(GenerationTrace trace, GenerationCustomization[] customizations);
+    object Instance(Type type, GenerationRequest request, GenerationCustomization[] customizations);
+    T Instance<T>(GenerationRequest request, GenerationCustomization[] customizations);
+    T Value<T>(GenerationRequest request, GenerationCustomization[] customizations);
   }
 
 }

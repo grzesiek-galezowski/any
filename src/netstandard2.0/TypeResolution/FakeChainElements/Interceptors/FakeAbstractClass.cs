@@ -24,14 +24,14 @@ namespace TddXt.TypeResolution.FakeChainElements.Interceptors
       return typeof (T).IsAbstract;
     }
 
-    public T Apply(InstanceGenerator instanceGenerator, GenerationTrace trace)
+    public T Apply(InstanceGenerator instanceGenerator, GenerationRequest request)
     {
       var result = (T)_proxyGenerator.CreateClassProxy(
         typeof(T),
-        _fallbackTypeGenerator.GenerateConstructorParameters(instanceGenerator, trace).ToArray(), 
+        _fallbackTypeGenerator.GenerateConstructorParameters(instanceGenerator, request).ToArray(), 
         new AbstractClassInterceptor(_generation, 
-          instanceGenerator.Instance, trace));
-      _fallbackTypeGenerator.FillFieldsAndPropertiesOf(result, instanceGenerator, trace);
+          instanceGenerator.Instance, request));
+      _fallbackTypeGenerator.FillFieldsAndPropertiesOf(result, instanceGenerator, request);
       return result;
     }
   }

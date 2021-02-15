@@ -8,23 +8,23 @@ namespace TddXt.TypeResolution.FakeChainElements.Interceptors
   public class InterfaceInterceptor : IInterceptor
   {
     private readonly CachedReturnValueGeneration _cachedGeneration;
-    private readonly Func<Type, GenerationTrace, object> _instanceSource;
-    private readonly GenerationTrace _trace;
+    private readonly Func<Type, GenerationRequest, object> _instanceSource;
+    private readonly GenerationRequest _request;
 
     public InterfaceInterceptor(
       CachedReturnValueGeneration cachedGeneration, 
-      Func<Type, GenerationTrace, object> instanceSource, 
-      GenerationTrace trace)
+      Func<Type, GenerationRequest, object> instanceSource, 
+      GenerationRequest request)
     {
       _cachedGeneration = cachedGeneration;
       _instanceSource = instanceSource;
-      _trace = trace;
+      _request = request;
     }
 
     public void Intercept(IInvocation invocation)
     {
       NSubstituteHacks.AssertIsNotInvokedDuringNSubstituteQuery(invocation, _instanceSource);
-      _cachedGeneration.SetupReturnValueFor(invocation, _instanceSource, _trace);
+      _cachedGeneration.SetupReturnValueFor(invocation, _instanceSource, _request);
     }
   }
 }

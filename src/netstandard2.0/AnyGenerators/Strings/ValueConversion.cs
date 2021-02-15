@@ -17,9 +17,9 @@ namespace TddXt.AnyGenerators.Strings
       _conversion = conversion;
     }
 
-    public TResult GenerateInstance(InstanceGenerator instanceGenerator, GenerationTrace trace)
+    public TResult GenerateInstance(InstanceGenerator instanceGenerator, GenerationRequest request)
     {
-      return _conversion(_enumerableGenerator.GenerateInstance(instanceGenerator, trace));
+      return _conversion(_enumerableGenerator.GenerateInstance(instanceGenerator, request));
     }
   }
 

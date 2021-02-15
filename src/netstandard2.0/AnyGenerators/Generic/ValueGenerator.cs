@@ -39,9 +39,9 @@ namespace TddXt.AnyGenerators.Generic
       return _generator.Create(seed);
     }
 
-    public T Value<T>(InstanceGenerator gen, GenerationCustomization[] customizations, GenerationTrace trace)
+    public T Value<T>(InstanceGenerator gen, GenerationCustomization[] customizations, GenerationRequest request)
     {
-      using(_generator.CustomizeWith(customizations, gen, trace))
+      using(_generator.CustomizeWith(customizations, gen, request))
       {
         return _generator.Create<T>();
       }

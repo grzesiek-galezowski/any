@@ -5,7 +5,7 @@ namespace TddXt.TypeResolution.FakeChainElements
 {
   public interface IChainElement<out T>
   {
-    T Resolve(InstanceGenerator instanceGenerator, GenerationTrace trace);
+    T Resolve(InstanceGenerator instanceGenerator, GenerationRequest request);
   }
 
   public class ChainElement<T> : IChainElement<T>
@@ -19,16 +19,16 @@ namespace TddXt.TypeResolution.FakeChainElements
       _resolution = resolution;
     }
 
-    public T Resolve(InstanceGenerator instanceGenerator, GenerationTrace trace)
+    public T Resolve(InstanceGenerator instanceGenerator, GenerationRequest request)
     {
       if (_resolution.Applies())
       {
-        trace.SelectedResolution(typeof(T), _resolution);
-        return _resolution.Apply(instanceGenerator, trace);
+        request.Trace.SelectedResolution(typeof(T), _resolution);
+        return _resolution.Apply(instanceGenerator, request);
       }
       else
       {
-        return _next.Resolve(instanceGenerator, trace);
+        return _next.Resolve(instanceGenerator, request);
       }
     }
   }

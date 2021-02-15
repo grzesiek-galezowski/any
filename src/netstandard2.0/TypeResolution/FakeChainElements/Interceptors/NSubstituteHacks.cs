@@ -9,7 +9,7 @@ namespace TddXt.TypeResolution.FakeChainElements.Interceptors
   internal static class NSubstituteHacks
   {
     public static void AssertIsNotInvokedDuringNSubstituteQuery(IInvocation invocation,
-      Func<Type, GenerationTrace, object> instanceSource)
+      Func<Type, GenerationRequest, object> instanceSource)
     {
       var interceptedInvocation = new InterceptedInvocation(invocation, instanceSource);
 

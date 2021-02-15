@@ -19,10 +19,10 @@ namespace TddXt.AnyGenerators.Generic
       _addOperation = addOperation;
     }
 
-    public T GenerateInstance(InstanceGenerator instanceGenerator, GenerationTrace trace)
+    public T GenerateInstance(InstanceGenerator instanceGenerator, GenerationRequest request)
     {
       return _generators.Aggregate(_identity, 
-        (current, generator) => _addOperation(current, generator.GenerateInstance(instanceGenerator, trace)));
+        (current, generator) => _addOperation(current, generator.GenerateInstance(instanceGenerator, request)));
     }
   }
 }

@@ -16,9 +16,9 @@ namespace TddXt.TypeResolution.FakeChainElements
       return _fallbackTypeGenerator.ConstructorIsInternalOrHasAtLeastOneNonConcreteArgumentType();
     }
 
-    public T Apply(InstanceGenerator instanceGenerator, GenerationTrace trace)
+    public T Apply(InstanceGenerator instanceGenerator, GenerationRequest request)
     {
-      return _fallbackTypeGenerator.GenerateInstance(instanceGenerator, trace);
+      return _fallbackTypeGenerator.GenerateInstance(instanceGenerator, request);
     }
   }
 }

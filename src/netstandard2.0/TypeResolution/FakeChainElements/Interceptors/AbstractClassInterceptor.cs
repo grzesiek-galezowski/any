@@ -8,17 +8,17 @@ namespace TddXt.TypeResolution.FakeChainElements.Interceptors
   internal class AbstractClassInterceptor : IInterceptor
   {
     private readonly CachedReturnValueGeneration _cachedGeneration;
-    private readonly Func<Type, GenerationTrace, object> _instanceSource;
-    private readonly GenerationTrace _trace;
+    private readonly Func<Type, GenerationRequest, object> _instanceSource;
+    private readonly GenerationRequest _request;
 
     public AbstractClassInterceptor(
       CachedReturnValueGeneration cachedGeneration,
-      Func<Type, GenerationTrace, object> instanceSource,
-      GenerationTrace trace)
+      Func<Type, GenerationRequest, object> instanceSource,
+      GenerationRequest request)
     {
       _cachedGeneration = cachedGeneration;
       _instanceSource = instanceSource;
-      _trace = trace;
+      _request = request;
     }
 
     public void Intercept(IInvocation invocation)
@@ -27,7 +27,7 @@ namespace TddXt.TypeResolution.FakeChainElements.Interceptors
 
       if (invocation.Method.IsAbstract)
       {
-        _cachedGeneration.SetupReturnValueFor(invocation, _instanceSource, _trace);
+        _cachedGeneration.SetupReturnValueFor(invocation, _instanceSource, _request);
       }
       else if (invocation.Method.IsVirtual)
       {
@@ -39,12 +39,12 @@ namespace TddXt.TypeResolution.FakeChainElements.Interceptors
 
           if (invocation.ReturnValue == previousReturnValue)
           {
-            _cachedGeneration.SetupReturnValueFor(invocation, _instanceSource, _trace);
+            _cachedGeneration.SetupReturnValueFor(invocation, _instanceSource, _request);
           }
         }
         catch (Exception)
         {
-          _cachedGeneration.SetupReturnValueFor(invocation, _instanceSource, _trace);
+          _cachedGeneration.SetupReturnValueFor(invocation, _instanceSource, _request);
         }
       }
     }

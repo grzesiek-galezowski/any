@@ -13,9 +13,9 @@ namespace TddXt.AnyGenerators.Math
       _integerDivisibleByGenerator = new IntegerDivisibleByGenerator(quotient);
     }
 
-    public int GenerateInstance(InstanceGenerator instanceGenerator, GenerationTrace trace)
+    public int GenerateInstance(InstanceGenerator instanceGenerator, GenerationRequest request)
     {
-      return _integerDivisibleByGenerator.GenerateInstance(instanceGenerator, trace) + 1;
+      return _integerDivisibleByGenerator.GenerateInstance(instanceGenerator, request) + 1;
     }
 
     private static void AssertQuotientMakesSense(int quotient)

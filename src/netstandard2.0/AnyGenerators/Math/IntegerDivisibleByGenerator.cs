@@ -16,7 +16,7 @@ namespace TddXt.AnyGenerators.Math
       _quotient = quotient;
     }
 
-    public int GenerateInstance(InstanceGenerator instanceGenerator, GenerationTrace trace)
+    public int GenerateInstance(InstanceGenerator instanceGenerator, GenerationRequest request)
     {
       return NumbersToMultiply.Next() * _quotient;
     }

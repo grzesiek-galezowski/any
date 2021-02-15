@@ -7,29 +7,25 @@ namespace TddXt.TypeResolution.FakeChainElements
   public class LimitedFakeChain<T> : IFakeChain<T>
   {
     private readonly IFakeChain<T> _fakeChain;
-    private readonly NestingLimit _nestingLimit;
 
-    public LimitedFakeChain(NestingLimit nestingLimit, IFakeChain<T> fakeChain)
+    public LimitedFakeChain(IFakeChain<T> fakeChain)
     {
-      _nestingLimit = nestingLimit;
       _fakeChain = fakeChain;
     }
 
-    public T Resolve(InstanceGenerator instanceGenerator, GenerationTrace trace)
+    public T Resolve(InstanceGenerator instanceGenerator, GenerationRequest request)
     {
-      try
-      {
-        _nestingLimit.AddNestingFor<T>(trace);
-        if (!_nestingLimit.IsReachedFor<T>())
+      return request.WithNextNestingLevel(
+        () =>
         {
-          return _fakeChain.Resolve(instanceGenerator, trace);
-        }
-        else 
+          return _fakeChain.Resolve(instanceGenerator, request);
+        }, 
+        () =>
         {
           try
           {
-            trace.NestingLimitReachedTryingDummy();
-            return instanceGenerator.Dummy<T>(trace); //TODO
+            request.Trace.NestingLimitReachedTryingDummy();
+            return instanceGenerator.Dummy<T>(request); //TODO
           }
           catch (TargetInvocationException e)
           {
@@ -43,14 +39,7 @@ namespace TddXt.TypeResolution.FakeChainElements
           {
             return default!;
           }
-        }
-        
-      }
-      finally
-      {
-        _nestingLimit.RemoveNestingFor<T>(trace);
-      }
-
+        });
     }
   }
 }

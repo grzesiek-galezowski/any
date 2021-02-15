@@ -12,10 +12,10 @@ namespace TddXt.AnyGenerators.Collections
       _length = length;
     }
 
-    public IEnumerable<T> GenerateInstance(InstanceGenerator instanceGenerator, GenerationTrace trace)
+    public IEnumerable<T> GenerateInstance(InstanceGenerator instanceGenerator, GenerationRequest request)
     {
       //todo create empty collection factory to be able to use object here
-      return GeneratedCollectionItems.AddTo(new List<T>(), _length, instanceGenerator, trace);
+      return GeneratedCollectionItems.AddTo(new List<T>(), _length, instanceGenerator, request);
     }
   }
 }

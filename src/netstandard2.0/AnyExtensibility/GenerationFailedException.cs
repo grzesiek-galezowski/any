@@ -4,8 +4,8 @@ namespace TddXt.AnyExtensibility
 {
   public class GenerationFailedException : Exception
   {
-    public GenerationFailedException(GenerationTrace trace, Exception exception)
-      : base(Environment.NewLine + trace.ToString(), exception)
+    public GenerationFailedException(GenerationRequest request, Exception exception)
+      : base(Environment.NewLine + request.Trace.ToString(), exception)
     {
       
     }

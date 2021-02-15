@@ -9,7 +9,7 @@ namespace TddXt.AnyGenerators.Generic
   {
     private static readonly ProxyGenerator ProxyGenerator = new ProxyGenerator();
 
-    public T GenerateInstance(InstanceGenerator instanceGenerator, GenerationTrace trace) 
+    public T GenerateInstance(InstanceGenerator instanceGenerator, GenerationRequest request) 
     {
       if (typeof(T).IsInterface)
       {

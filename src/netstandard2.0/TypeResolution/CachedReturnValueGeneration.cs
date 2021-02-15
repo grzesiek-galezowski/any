@@ -17,13 +17,13 @@ namespace TddXt.TypeResolution
 
     public void SetupReturnValueFor(
       IInvocation invocation, 
-      Func<Type, GenerationTrace, object> instanceSource,
-      GenerationTrace trace)
+      Func<Type, GenerationRequest, object> instanceSource,
+      GenerationRequest request)
     {
       var interceptedInvocation = new InterceptedInvocation(invocation, instanceSource);
       if (interceptedInvocation.HasReturnValue())
       {
-        interceptedInvocation.GenerateAndAddMethodReturnValueTo(_cache, trace);
+        interceptedInvocation.GenerateAndAddMethodReturnValueTo(_cache, request);
       }
       else if (interceptedInvocation.IsPropertySetter())
       {

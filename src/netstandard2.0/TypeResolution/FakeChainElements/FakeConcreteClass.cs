@@ -19,16 +19,16 @@ namespace TddXt.TypeResolution.FakeChainElements
       return true;
     }
 
-    public T Apply(InstanceGenerator instanceGenerator, GenerationTrace trace)
+    public T Apply(InstanceGenerator instanceGenerator, GenerationRequest request)
     {
       try
       {
-        return instanceGenerator.Value<T>(trace);
+        return instanceGenerator.Value<T>(request);
       }
       catch (ThirdPartyGeneratorFailed e)
       {
-        trace.ThirdPartyGeneratorFailedTryingFallback(e);
-        return _fallbackTypeGenerator.GenerateInstance(instanceGenerator, trace);
+        request.Trace.ThirdPartyGeneratorFailedTryingFallback(e);
+        return _fallbackTypeGenerator.GenerateInstance(instanceGenerator, request);
       }
       catch (TargetInvocationException e)
       {
@@ -36,7 +36,7 @@ namespace TddXt.TypeResolution.FakeChainElements
         {
           Console.WriteLine(e);
         }
-        return _fallbackTypeGenerator.GenerateInstance(instanceGenerator, trace);
+        return _fallbackTypeGenerator.GenerateInstance(instanceGenerator, request);
       }
     }
   }

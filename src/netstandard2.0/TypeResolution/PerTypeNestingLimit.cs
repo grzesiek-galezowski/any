@@ -3,13 +3,6 @@ using TddXt.AnyExtensibility;
 
 namespace TddXt.TypeResolution
 {
-  public interface NestingLimit
-  {
-    void AddNestingFor<T>(GenerationTrace trace);
-    bool IsReachedFor<T>();
-    void RemoveNestingFor<T>(GenerationTrace trace);
-  }
-
   public class GlobalNestingLimit : NestingLimit
   {
     private readonly int _limit;
@@ -20,10 +13,10 @@ namespace TddXt.TypeResolution
       _limit = limit;
     }
 
-    public void AddNestingFor<T>(GenerationTrace trace)
+    public void AddNestingFor<T>(GenerationTrace generationTrace)
     {
       _nesting++;
-      trace.AddNestingAndCheckWith(_nesting, typeof(T));
+      generationTrace.AddNestingAndCheckWith(_nesting, typeof(T));
     }
 
     public bool IsReachedFor<T>()
@@ -40,10 +33,10 @@ namespace TddXt.TypeResolution
 
     }
 
-    public void RemoveNestingFor<T>(GenerationTrace trace)
+    public void RemoveNestingFor<T>(GenerationTrace generationTrace)
     {
       _nesting--;
-      trace.RemoveNestingAndCheckWith(_nesting, typeof(T));
+      generationTrace.RemoveNestingAndCheckWith(_nesting, typeof(T));
     }
 
     public static GlobalNestingLimit Of(int limit)

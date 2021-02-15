@@ -35,8 +35,8 @@ namespace TddXt.TypeReflection.ImplementationDetails
       return false;
     }
 
-    public List<object> GenerateAnyParameterValues(Func<Type, GenerationTrace, object> instanceGenerator,
-      GenerationTrace trace)
+    public List<object> GenerateAnyParameterValues(Func<Type, GenerationRequest, object> instanceGenerator,
+      GenerationRequest request)
     {
       return new List<object>();
     }
@@ -46,8 +46,8 @@ namespace TddXt.TypeReflection.ImplementationDetails
       return true;
     }
 
-    public object InvokeWithParametersCreatedBy(Func<Type, GenerationTrace, object> instanceGenerator,
-      GenerationTrace trace)
+    public object InvokeWithParametersCreatedBy(Func<Type, GenerationRequest, object> instanceGenerator,
+      GenerationRequest request)
     {
       return _creation.Invoke();
     }
@@ -74,9 +74,9 @@ namespace TddXt.TypeReflection.ImplementationDetails
 
     public IEnumerable<ParameterInfo> Parameters { get; } = new List<ParameterInfo>();
 
-    public void DumpInto(GenerationTrace trace)
+    public void DumpInto(GenerationRequest request)
     {
-      trace.ChosenParameterlessConstructor();
+      request.Trace.ChosenParameterlessConstructor();
     }
 
     public static IConstructorWrapper ForOrdinaryType(ConstructorInfo constructorInfo)

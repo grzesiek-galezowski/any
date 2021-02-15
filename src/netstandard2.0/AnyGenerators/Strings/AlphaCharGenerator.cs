@@ -8,7 +8,7 @@ namespace TddXt.AnyGenerators.Strings
     private static readonly CircularList<char> _letters =
       CircularList.CreateStartingFromRandom("qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM".ToCharArray());
 
-    public char GenerateInstance(InstanceGenerator instanceGenerator, GenerationTrace trace)
+    public char GenerateInstance(InstanceGenerator instanceGenerator, GenerationRequest request)
     {
       return _letters.Next();
     }

@@ -6,7 +6,7 @@ namespace TddXt.TypeResolution
 {
   public class FillFieldsCustomization : IFallbackGeneratedObjectCustomization
   {
-    public void ApplyTo(IType smartType, object result, InstanceGenerator instanceGenerator, GenerationTrace trace)
+    public void ApplyTo(IType smartType, object result, InstanceGenerator instanceGenerator, GenerationRequest request)
     {
       var fields = smartType.GetAllPublicInstanceFields();
       foreach (var field in fields)
@@ -15,7 +15,7 @@ namespace TddXt.TypeResolution
         {
           if (field.IsNullOrDefault(result))
           {
-            field.SetValue(result, instanceGenerator.Instance(field.FieldType, trace));
+            field.SetValue(result, instanceGenerator.Instance(field.FieldType, request));
           }
         }
         catch (Exception e)

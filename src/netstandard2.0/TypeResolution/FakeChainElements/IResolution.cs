@@ -5,6 +5,6 @@ namespace TddXt.TypeResolution.FakeChainElements
   public interface IResolution<out T>
   {
     bool Applies();
-    T Apply(InstanceGenerator instanceGenerator, GenerationTrace trace);
+    T Apply(InstanceGenerator instanceGenerator, GenerationRequest request);
   }
 }

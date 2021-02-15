@@ -5,7 +5,7 @@ namespace TddXt.TypeResolution.FakeChainElements
 {
   public interface IFakeChain<out T>
   {
-    T Resolve(InstanceGenerator instanceGenerator, GenerationTrace trace);
+    T Resolve(InstanceGenerator instanceGenerator, GenerationRequest request);
   }
 
   public class FakeChain<T> : IFakeChain<T>
@@ -17,9 +17,9 @@ namespace TddXt.TypeResolution.FakeChainElements
       _chainHead = chainHead;
     }
 
-    public T Resolve(InstanceGenerator instanceGenerator, GenerationTrace trace)
+    public T Resolve(InstanceGenerator instanceGenerator, GenerationRequest request)
     {
-      return _chainHead.Resolve(instanceGenerator, trace);
+      return _chainHead.Resolve(instanceGenerator, request);
     }
   }
 }

@@ -8,6 +8,7 @@ using TddXt.AnyExtensibility;
 using TddXt.AnyGenerators.Generic.ExtensionPoints;
 using TddXt.AnyGenerators.Generic.ImplementationDetails;
 using TddXt.TypeReflection;
+using TddXt.TypeResolution;
 
 namespace TddXt.AnyGenerators.Generic
 {
@@ -38,29 +39,29 @@ namespace TddXt.AnyGenerators.Generic
 
     public T Instance<T>()
     {
-      var trace = new ListBasedGenerationTrace();
+      var request = CreateRequest();
       try
       {
-        trace.BeginCreatingInstanceGraphWith(typeof(T));
-        return Instance<T>(trace);
+        request.Trace.BeginCreatingInstanceGraphWith(typeof(T));
+        return Instance<T>(request);
       }
       catch (Exception e)
       {
-        throw new GenerationFailedException(trace, e);
+        throw new GenerationFailedException(request, e);
       }
     }
 
     public T Instance<T>(params GenerationCustomization[] customizations)
     {
-      var trace = new ListBasedGenerationTrace();
+      var request = CreateRequest();
       try
       {
-        trace.BeginCreatingInstanceGraphWith(typeof(T));
-        return _fakeChainFactory.GetInstance<T>().Resolve(CreateCustomizedInstanceGenerator<T>(customizations), trace);
+        request.Trace.BeginCreatingInstanceGraphWith(typeof(T));
+        return _fakeChainFactory.GetInstance<T>().Resolve(CreateCustomizedInstanceGenerator<T>(customizations), request);
       }
       catch (Exception e)
       {
-        throw new GenerationFailedException(trace, e);
+        throw new GenerationFailedException(request, e);
       }
     }
 
@@ -71,15 +72,15 @@ namespace TddXt.AnyGenerators.Generic
 
     public T InstanceOf<T>(InlineGenerator<T> gen)
     {
-      var trace = new ListBasedGenerationTrace();
+      var request = CreateRequest();
       try
       {
-        trace.BeginCreatingInstanceGraphWithInlineGenerator(typeof(T), gen);
-        return gen.GenerateInstance(SynchronizedThis, trace);
+        request.Trace.BeginCreatingInstanceGraphWithInlineGenerator(typeof(T), gen);
+        return gen.GenerateInstance(SynchronizedThis, request);
       }
       catch (Exception e)
       {
-        throw new GenerationFailedException(trace, e);
+        throw new GenerationFailedException(request, e);
       }
     }
 
@@ -88,47 +89,47 @@ namespace TddXt.AnyGenerators.Generic
       return _valueGenerator.ValueOtherThan(omittedValues);
     }
 
-    public T Value<T>(GenerationTrace trace)
+    public T Value<T>(GenerationRequest request)
     {
       return _valueGenerator.Value<T>();
     }
 
-    public T Value<T>(GenerationTrace trace, GenerationCustomization[] customizations)
+    public T Value<T>(GenerationRequest request, GenerationCustomization[] customizations)
     {
-      return _valueGenerator.Value<T>(CreateCustomizedInstanceGenerator<T>(customizations), customizations, trace);
+      return _valueGenerator.Value<T>(CreateCustomizedInstanceGenerator<T>(customizations), customizations, request);
     }
 
-    public T Value<T>(T seed, GenerationTrace trace)
+    public T Value<T>(T seed, GenerationRequest request)
     {
-      trace.GeneratingSeedeedValue(typeof(T), seed);
+      request.Trace.GeneratingSeededValue(typeof(T), seed);
       return _valueGenerator.Value(seed);
     }
 
-    public object Instance(Type type, GenerationTrace trace)
+    public object Instance(Type type, GenerationRequest request)
     {
       return _methodProxyCalls
         .ResultOfGenericVersionOfMethod(
-          SynchronizedThis, type, MethodBase.GetCurrentMethod().Name, trace);
+          SynchronizedThis, type, MethodBase.GetCurrentMethod().Name, request);
     }
 
-    public T Instance<T>(GenerationTrace trace)
+    public T Instance<T>(GenerationRequest request)
     {
-      return _fakeChainFactory.GetInstance<T>().Resolve(SynchronizedThis, trace);
+      return _fakeChainFactory.GetInstance<T>().Resolve(SynchronizedThis, request);
     }
 
-    public T Dummy<T>(GenerationTrace trace)
+    public T Dummy<T>(GenerationRequest request)
     {
       var fakeInterface = _fakeChainFactory.CreateFakeOrdinaryInterfaceGenerator<T>();
       var unconstrainedChain = _fakeChainFactory.GetUnconstrainedInstance<T>();
 
       if (typeof(T).IsPrimitive)
       {
-        return unconstrainedChain.Resolve(SynchronizedThis, trace);
+        return unconstrainedChain.Resolve(SynchronizedThis, request);
       }
 
       if (typeof(T) == typeof(string))
       {
-        return unconstrainedChain.Resolve(SynchronizedThis, trace);
+        return unconstrainedChain.Resolve(SynchronizedThis, request);
       }
 
       var emptyCollectionInstantiation = new EmptyCollectionInstantiation();
@@ -149,7 +150,7 @@ namespace TddXt.AnyGenerators.Generic
 
       if (fakeInterface.Applies())
       {
-        return fakeInterface.Apply(SynchronizedThis, trace);
+        return fakeInterface.Apply(SynchronizedThis, request);
       }
 
       return (T)FormatterServices.GetUninitializedObject(typeof(T));
@@ -157,10 +158,10 @@ namespace TddXt.AnyGenerators.Generic
 
     public T OtherThan<T>(params T[]? omittedValues)
     {
-      return (T)OtherThan(typeof(T), omittedValues?.Cast<object>()?.ToArray(), new ListBasedGenerationTrace());
+      return (T)OtherThan(typeof(T), omittedValues?.Cast<object>()?.ToArray(), CreateRequest());
     }
 
-    public object OtherThan(Type type, object[] omittedValues, GenerationTrace trace)
+    public object OtherThan(Type type, object[] omittedValues, GenerationRequest request)
     {
       if (type.IsEnum)
       {
@@ -171,39 +172,44 @@ namespace TddXt.AnyGenerators.Generic
       object currentValue;
       do
       {
-        currentValue = Instance(type, trace);
+        currentValue = Instance(type, request);
       } while (omittedValues.Contains(currentValue));
 
       return currentValue;
     }
 
-    public object Instance(Type type, GenerationTrace trace, params GenerationCustomization[] customizations)
+    public object Instance(Type type, GenerationRequest request, params GenerationCustomization[] customizations)
     {
       return _methodProxyCalls
         .ResultOfGenericVersionOfMethod(
           new CustomizedGenerator(SynchronizedThis, customizations), 
           type, 
           MethodBase.GetCurrentMethod().Name, 
-          trace);
+          request);
     }
 
-    public T Instance<T>(GenerationTrace trace, params GenerationCustomization[] customizations)
+    public T Instance<T>(GenerationRequest request, params GenerationCustomization[] customizations)
     {
-      return _fakeChainFactory.GetInstance<T>().Resolve(new CustomizedGenerator(SynchronizedThis, customizations), trace);
+      return _fakeChainFactory.GetInstance<T>().Resolve(new CustomizedGenerator(SynchronizedThis, customizations), request);
     }
 
     public T Dummy<T>()
     {
-      var trace = new ListBasedGenerationTrace();
+      var request = CreateRequest();
       try
       {
-        trace.BeginCreatingDummyInstanceOf(typeof(T));
-        return Dummy<T>(trace);
+        request.Trace.BeginCreatingDummyInstanceOf(typeof(T));
+        return Dummy<T>(request);
       }
       catch (Exception e)
       {
-        throw new GenerationFailedException(trace, e);
+        throw new GenerationFailedException(request, e);
       }
+    }
+
+    private static DefaultGenerationRequest CreateRequest()
+    {
+      return new DefaultGenerationRequest(GlobalNestingLimit.Of(5));
     }
   }
 }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Concurrent;
 using Castle.DynamicProxy;
+using TddXt.AnyExtensibility;
 using TddXt.AnyGenerators.Generic;
 using TddXt.AnyGenerators.Generic.ExtensionPoints;
 using TddXt.TypeReflection;

@@ -21,7 +21,7 @@ namespace TddXt.TypeResolution.FakeChainElements
         typeof(T) == typeof(MethodInfo);
     }
 
-    public T Apply(InstanceGenerator instanceGenerator, GenerationTrace trace)
+    public T Apply(InstanceGenerator instanceGenerator, GenerationRequest request)
     {
       return _valueGenerator.Value<T>();
     }

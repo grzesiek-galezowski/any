@@ -12,12 +12,12 @@ namespace TddXt.AnyGenerators.Collections
       _included = included;
     }
 
-    public IEnumerable<T> GenerateInstance(InstanceGenerator instanceGenerator, GenerationTrace trace)
+    public IEnumerable<T> GenerateInstance(InstanceGenerator instanceGenerator, GenerationRequest request)
     {
       var list = new List<T>();
-      list.Add(instanceGenerator.Instance<T>(trace));
+      list.Add(instanceGenerator.Instance<T>(request));
       list.AddRange(_included);
-      list.Add(instanceGenerator.Instance<T>(trace));
+      list.Add(instanceGenerator.Instance<T>(request));
 
       return list;
     }

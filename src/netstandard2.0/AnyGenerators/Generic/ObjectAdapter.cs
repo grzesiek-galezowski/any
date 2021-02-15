@@ -17,9 +17,9 @@ namespace TddXt.AnyGenerators.Generic
       _methodInfo = methodInfo;
     }
 
-    public object GenerateInstance(InstanceGenerator instanceGenerator, GenerationTrace trace)
+    public object GenerateInstance(InstanceGenerator instanceGenerator, GenerationRequest request)
     {
-      return _methodInfo.Invoke(_inlineGenerator, new object[] {instanceGenerator, trace});
+      return _methodInfo.Invoke(_inlineGenerator, new object[] {instanceGenerator, request});
     }
 
 

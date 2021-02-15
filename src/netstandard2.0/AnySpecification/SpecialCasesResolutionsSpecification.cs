@@ -18,8 +18,8 @@ namespace AnySpecification
 
       //THEN
       Assert.True(resolution.Applies());
-      Assert.NotNull(resolution.Apply(Any.Instance<InstanceGenerator>(), Any.Instance<GenerationTrace>()));
-      Assert.AreEqual(3, resolution.Apply(Any.Instance<InstanceGenerator>(), Any.Instance<GenerationTrace>()).Length);
+      Assert.NotNull(resolution.Apply(Any.Instance<InstanceGenerator>(), Any.Instance<GenerationRequest>()));
+      Assert.AreEqual(3, resolution.Apply(Any.Instance<InstanceGenerator>(), Any.Instance<GenerationRequest>()).Length);
     }
   }
 }
