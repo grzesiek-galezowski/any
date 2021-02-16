@@ -1287,6 +1287,45 @@ namespace AnySpecification
       Assert.Throws<InvalidOperationException>(() => voidTask2.Start());
     }
 
+    //bug uncomment this to test multithreading
+    //[Test, Repeat(100), Timeout(0)]
+    //public async Task Lolokimono()
+    //{
+    //  await Task.WhenAll(
+    //    Task.Run(NewMethod), 
+    //    Task.Run(NewMethod), 
+    //    Task.Run(NewMethod), 
+    //    Task.Run(NewMethod), 
+    //    Task.Run(NewMethod), 
+    //    Task.Run(NewMethod));
+    //}
+
+    private static void NewMethod()
+    {
+      for (int i = 0; i < 1000; ++i)
+      {
+        Any.Instance<ComplexObjectWithFactoryMethodAndRecursiveConstructor>();
+        Any.Instance<AbstractObjectWithInterfaceInConstructor>();
+        Any.Instance<AbstractObjectWithVirtualMethods>();
+        Any.Instance<AreaEntity>();
+        Any.Instance<ConcreteDataStructure>();
+        Any.Instance<ConcreteDataStructure2>();
+        Any.Instance<Feature>();
+        Any.Instance<FileExtension>();
+        Any.Instance<FileName>();
+        Any.Instance<FileNameWithoutExtension>();
+        Any.Instance<GetSettable<int>>();
+        Any.Instance<IGeometry>();
+        Any.Instance<IncrementalType>();
+        Any.Instance<IObjectWithAsyncMethod>();
+        Any.Instance<IObservableConcurrentDictionary<int, int>>();
+        Any.Instance<MyComplexObject>();
+        Any.Instance<ISimple>();
+        Any.Instance<MyOwnCollection<string>>();
+        Any.Instance<MyService>();
+      }
+    }
+
     [Test]
     public void ShouldGenerateStartedTasks()
     {
@@ -1301,33 +1340,6 @@ namespace AnySpecification
       Assert.Throws<InvalidOperationException>(() => task2.Start());
       Assert.NotNull(task1.Result);
       Assert.NotNull(task2.Result);
-    }
-
-    [Test]
-    public async Task ShouldNotBlockOnAsyncMethodsInvokedOnAnyInterfaceImplementations()
-    {
-      /*
-      var o = new GenericMethodProxyCalls().ResultOfGenericVersionOfMethod(
-        (SynchronizedInstanceGenerator)Any, typeof(Maybe<string>), "Instance",
-        new DefaultGenerationRequest());
-      var instance = ((AllGenerator)Any).Instance(typeof(Maybe<string>), new DefaultGenerationRequest());
-      await Any.Instance<Task<Maybe<string>>>();
-      */
-      //WHEN
-      try
-      {
-        var o = new GenericMethodProxyCalls().ResultOfGenericVersionOfMethod(
-          (SynchronizedInstanceGenerator) Any, typeof(string), "Instance",
-          new DefaultGenerationRequest(GlobalNestingLimit.Of(5)));
-      }
-      catch (Exception e)
-      {
-        throw e;
-      }
-
-      var obj = Any.Instance<IObjectWithAsyncMethod>();
-      //THEN
-      Assert.NotNull(await obj.GetSthAsync(1));
     }
 
     [Test]

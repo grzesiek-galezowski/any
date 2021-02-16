@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 
 namespace TddXt.TypeResolution.CustomCollections
@@ -6,7 +7,7 @@ namespace TddXt.TypeResolution.CustomCollections
   [Serializable]
   public class PerMethodCache<T>
   {
-    private readonly Dictionary<PerMethodCacheKey, T> _cache = new Dictionary<PerMethodCacheKey, T>();
+    private readonly Dictionary<PerMethodCacheKey, T> _cache = new();
 
     public bool AlreadyContainsValueFor(PerMethodCacheKey cacheKey)
     {

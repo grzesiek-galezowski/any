@@ -17,7 +17,7 @@ namespace TddXt.AnyGenerators.Generic.ImplementationDetails
 
     public T Instance<T>()
     {
-      lock (_syncRoot)
+      //lock (_syncRoot)
       {
         return _allGenerator.Instance<T>();
       }
@@ -25,7 +25,7 @@ namespace TddXt.AnyGenerators.Generic.ImplementationDetails
 
     public T Instance<T>(params GenerationCustomization[] customizations)
     {
-      lock (_syncRoot)
+      //lock (_syncRoot)
       {
         return _allGenerator.Instance<T>(customizations);
       }
@@ -33,7 +33,7 @@ namespace TddXt.AnyGenerators.Generic.ImplementationDetails
 
     public T InstanceOf<T>(InlineGenerator<T> gen)
     {
-      lock (_syncRoot)
+      //lock (_syncRoot)
       {
         return _allGenerator.InstanceOf(gen);
       }
@@ -41,7 +41,7 @@ namespace TddXt.AnyGenerators.Generic.ImplementationDetails
 
     public T ValueOtherThan<T>(params T[] omittedValues)
     {
-      lock (_syncRoot)
+      //lock (_syncRoot)
       {
         return _allGenerator.ValueOtherThan(omittedValues);
       }
@@ -49,7 +49,7 @@ namespace TddXt.AnyGenerators.Generic.ImplementationDetails
 
     public T Value<T>(GenerationRequest request)
     {
-      lock (_syncRoot)
+      //lock (_syncRoot)
       {
         return _allGenerator.Value<T>(request);
       }
@@ -58,7 +58,7 @@ namespace TddXt.AnyGenerators.Generic.ImplementationDetails
 
     public T Value<T>(T seed, GenerationRequest request)
     {
-      lock (_syncRoot)
+      //lock (_syncRoot)
       {
         return _allGenerator.Value<T>(seed, request);
       }
@@ -67,7 +67,7 @@ namespace TddXt.AnyGenerators.Generic.ImplementationDetails
 
     public T OtherThan<T>(params T[] omittedValues)
     {
-      lock (_syncRoot)
+      //lock (_syncRoot)
       {
         return _allGenerator.OtherThan(omittedValues);
       }
@@ -76,7 +76,7 @@ namespace TddXt.AnyGenerators.Generic.ImplementationDetails
 
     public object OtherThan(Type type, object[] omittedValues, GenerationRequest request)
     {
-      lock (_syncRoot)
+      //lock (_syncRoot)
       {
         return _allGenerator.OtherThan(type, omittedValues, request);
       }
@@ -84,7 +84,7 @@ namespace TddXt.AnyGenerators.Generic.ImplementationDetails
 
     public object Instance(Type type, GenerationRequest request)
     {
-      lock (_syncRoot)
+      //lock (_syncRoot)
       {
         return _allGenerator.Instance(type, request);
       }
@@ -93,7 +93,7 @@ namespace TddXt.AnyGenerators.Generic.ImplementationDetails
 
     public T Dummy<T>(GenerationRequest request)
     {
-      lock (_syncRoot)
+      //lock (_syncRoot)
       {
         return _allGenerator.Dummy<T>(request);
       }
@@ -102,7 +102,7 @@ namespace TddXt.AnyGenerators.Generic.ImplementationDetails
 
     public T Instance<T>(GenerationRequest request)
     {
-      lock (_syncRoot)
+      //lock (_syncRoot)
       {
         return _allGenerator.Instance<T>(request);
       }
@@ -110,7 +110,7 @@ namespace TddXt.AnyGenerators.Generic.ImplementationDetails
 
     public object Instance(Type type, GenerationRequest request, GenerationCustomization[] customizations)
     {
-      lock (_syncRoot)
+      //lock (_syncRoot)
       {
         return _allGenerator.Instance(type, request, customizations);
       }
@@ -118,7 +118,7 @@ namespace TddXt.AnyGenerators.Generic.ImplementationDetails
 
     public T Instance<T>(GenerationRequest request, GenerationCustomization[] customizations)
     {
-      lock (_syncRoot)
+      //lock (_syncRoot)
       {
         return _allGenerator.Instance<T>(request, customizations);
       }
@@ -126,7 +126,7 @@ namespace TddXt.AnyGenerators.Generic.ImplementationDetails
 
     public T Value<T>(GenerationRequest request, GenerationCustomization[] customizations)
     {
-      lock (_syncRoot)
+      //lock (_syncRoot)
       {
         return _allGenerator.Value<T>(request, customizations);
       }
