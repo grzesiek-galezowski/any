@@ -19,6 +19,7 @@ using NSubstitute;
 using NullableReferenceTypesExtensions;
 using NUnit.Framework;
 using Optional;
+using Optional.Unsafe;
 using TddXt.AnyExtensibility;
 using TddXt.AnyGenerators.Generic.ImplementationDetails;
 using TddXt.AnyGenerators.Root;
@@ -349,28 +350,28 @@ namespace AnySpecification
       var dof7 = Any.OtherThan(DayOfWeek.Sunday);
 
       //THEN
-      CollectionAssert.AllItemsAreUnique(new [] {dof1, dof2, dof3, dof4, dof5, dof6});
-      CollectionAssert.DoesNotContain(new [] {dof1, dof2, dof3, dof4, dof5, dof6, dof7}, DayOfWeek.Sunday);
+      CollectionAssert.AllItemsAreUnique(new[] {dof1, dof2, dof3, dof4, dof5, dof6});
+      CollectionAssert.DoesNotContain(new[] {dof1, dof2, dof3, dof4, dof5, dof6, dof7}, DayOfWeek.Sunday);
     }
 
     [Test]
     public void ShouldDisallowSkippingTheSameValueTwiceWhenGeneratingAnyValueOtherThan()
     {
-        Any.Invoking(a => a.OtherThan(2, 2))
-          .Should().Throw<Exception>();
+      Any.Invoking(a => a.OtherThan(2, 2))
+        .Should().Throw<Exception>();
     }
 
     [Test, Timeout(2000)]
     public void ShouldDisallowSkippingAllEnumMembers()
     {
-        Any.Invoking(a => a.OtherThan(
-            LolEnum.Value2, 
-            LolEnum.Value1, 
-            LolEnum.Value4, 
-            LolEnum.Value5, 
-            LolEnum.Value3, 
-            LolEnum.Value6))
-          .Should().Throw<Exception>();
+      Any.Invoking(a => a.OtherThan(
+          LolEnum.Value2,
+          LolEnum.Value1,
+          LolEnum.Value4,
+          LolEnum.Value5,
+          LolEnum.Value3,
+          LolEnum.Value6))
+        .Should().Throw<Exception>();
     }
 
     [Test]
@@ -386,7 +387,7 @@ namespace AnySpecification
       var dof7 = Any.Instance<DayOfWeek>();
 
       //THEN
-      CollectionAssert.AllItemsAreUnique(new[] { dof1, dof2, dof3, dof4, dof5, dof6, dof7 });
+      CollectionAssert.AllItemsAreUnique(new[] {dof1, dof2, dof3, dof4, dof5, dof6, dof7});
     }
 
     [Test]
@@ -417,10 +418,10 @@ namespace AnySpecification
       //THEN
       Assert.Multiple(() =>
       {
-        Assert.True(Enumerable.Range(1,3).Contains(int1));
-        Assert.True(Enumerable.Range(1,3).Contains(int2));
-        Assert.True(Enumerable.Range(1,3).Contains(int3));
-        Assert.True(Enumerable.Range(1,3).Contains(int4));
+        Assert.True(Enumerable.Range(1, 3).Contains(int1));
+        Assert.True(Enumerable.Range(1, 3).Contains(int2));
+        Assert.True(Enumerable.Range(1, 3).Contains(int3));
+        Assert.True(Enumerable.Range(1, 3).Contains(int4));
         Assert.AreNotEqual(int1, int2);
         Assert.AreNotEqual(int2, int3);
         Assert.AreNotEqual(int3, int4);
@@ -512,7 +513,8 @@ namespace AnySpecification
     }
 
     [Test, Repeat(100)]
-    public void ShouldGenerateStringsWithoutASpecificSubstring() => Any.StringNotContaining("0").Should().NotContain("0");
+    public void ShouldGenerateStringsWithoutASpecificSubstring() =>
+      Any.StringNotContaining("0").Should().NotContain("0");
 
     [Test]
     public void ShouldBeAbleToGenerateBothPrimitiveTypeInstanceAndInterfaceUsingNewInstanceMethod()
@@ -848,8 +850,8 @@ namespace AnySpecification
       var value2 = Any.IntegerDivisibleBy(5);
 
       Assert.AreNotEqual(value1, value2);
-      Assert.AreEqual(0, value1%5);
-      Assert.AreEqual(0, value2%5);
+      Assert.AreEqual(0, value1 % 5);
+      Assert.AreEqual(0, value2 % 5);
     }
 
     [Test]
@@ -859,8 +861,8 @@ namespace AnySpecification
       var value2 = Any.IntegerNotDivisibleBy(5);
 
       Assert.AreNotEqual(value1, value2);
-      Assert.AreNotEqual(0, value1%5);
-      Assert.AreNotEqual(0, value2%5);
+      Assert.AreNotEqual(0, value1 % 5);
+      Assert.AreNotEqual(0, value2 % 5);
     }
 
     [Test]
@@ -908,7 +910,7 @@ namespace AnySpecification
       anyConcrete.Inner.InnerDummyInt.Should().Be(123);
       anyConcrete.Inner.InnerDummyString.Should().Be("InnerCustomString");
     }
-   
+
     [TestCase(LolEnum.Value1)]
     [TestCase(LolEnum.Value2)]
     [TestCase(LolEnum.Value3)]
@@ -924,43 +926,42 @@ namespace AnySpecification
     [Test]
     public void ShouldAllowGenericCustomizations()
     {
-        var anyConcrete = Any.Instance<ObjectWithGenericCollection<int>>(
-            new GenericListCustomization());
-        anyConcrete.MyList.Should().HaveCount(4);
+      var anyConcrete = Any.Instance<ObjectWithGenericCollection<int>>(
+        new GenericListCustomization());
+      anyConcrete.MyList.Should().HaveCount(4);
     }
 
     [Test]
     public void ShouldAllowGenericCustomizationsForOptional()
     {
-        var anyConcrete = Any.Instance<ObjectWithGenericOption<string>>(
-            new GenericOptionalCustomization());
-        var anyConcrete2 = Any.Instance<ObjectWithGenericOption<string>>(
-            new GenericOptionalCustomization());
+      var anyConcrete = Any.Instance<ObjectWithGenericOption<string>>();
+      var anyConcrete2 = Any.Instance<ObjectWithGenericOption<string>>();
+      var anyOptional = Any.Instance<Option<string>>();
 
-        anyConcrete.MyOption.HasValue.Should().BeTrue();
-        var value1 = anyConcrete.MyOption.ValueOr(() => throw new Exception());
-        value1.Should().NotBe(null);
-        anyConcrete2.MyOption.HasValue.Should().BeTrue();
-        var value2 = anyConcrete2.MyOption.ValueOr(() => throw new Exception());
-        value2.Should().NotBe(null);
-        value1.Should().NotBe(value2);
+      anyConcrete.MyOption.HasValue.Should().BeTrue();
+      var value1 = anyConcrete.MyOption.ValueOr(() => throw new Exception());
+      value1.Should().NotBe(null);
+      anyConcrete2.MyOption.HasValue.Should().BeTrue();
+      var value2 = anyConcrete2.MyOption.ValueOr(() => throw new Exception());
+      value2.Should().NotBe(null);
+      value1.Should().NotBe(value2);
+      anyOptional.HasValue.Should().BeTrue();
+      anyOptional.ValueOrDefault().Should().NotBeNull();
     }
-    
+
     [Test]
     public void ShouldAllowGenericCustomizationsForOptionalWithDeeperNesting()
     {
-        var anyConcrete = Any.Instance<ObjectWrappingObjectWithGenericOption<string>>(
-            new GenericOptionalCustomization());
-        var anyConcrete2 = Any.Instance<ObjectWrappingObjectWithGenericOption<string>>(
-            new GenericOptionalCustomization());
+      var anyConcrete = Any.Instance<ObjectWrappingObjectWithGenericOption<string>>();
+      var anyConcrete2 = Any.Instance<ObjectWrappingObjectWithGenericOption<string>>();
 
-        anyConcrete.Obj.MyOption.HasValue.Should().BeTrue();
-        var value1 = anyConcrete.Obj.MyOption.ValueOr(() => throw new Exception());
-        value1.Should().NotBe(null);
-        anyConcrete2.Obj.MyOption.HasValue.Should().BeTrue();
-        var value2 = anyConcrete2.Obj.MyOption.ValueOr(() => throw new Exception());
-        value2.Should().NotBe(null);
-        value1.Should().NotBe(value2);
+      anyConcrete.Obj.MyOption.HasValue.Should().BeTrue();
+      var value1 = anyConcrete.Obj.MyOption.ValueOr(() => throw new Exception());
+      value1.Should().NotBe(null);
+      anyConcrete2.Obj.MyOption.HasValue.Should().BeTrue();
+      var value2 = anyConcrete2.Obj.MyOption.ValueOr(() => throw new Exception());
+      value2.Should().NotBe(null);
+      value1.Should().NotBe(value2);
     }
 
     [Test]
@@ -1220,7 +1221,7 @@ namespace AnySpecification
     {
       //GIVEN
       var instance = Any.Instance<RecursiveClass>();
-      
+
       Assert.NotNull(instance.Same.Same.Same);
       Assert.Null(instance.Same.Same.Same.Same);
       Assert.Null(instance.Same.Same.Same.Same);
@@ -1235,7 +1236,7 @@ namespace AnySpecification
     {
       //GIVEN
       var instance = Any.Instance<RecursiveClass>();
-      
+
       Assert.NotNull(instance.Same.Same.Same);
       Assert.Null(instance.Same.Same.Same.Same.Same.Same);
       Assert.AreEqual(0, instance.Same.Same.Same.Same.Others.Length);
@@ -1407,7 +1408,7 @@ namespace AnySpecification
       var func1 = Any.Func<int, int>();
       var func = Any.Func<int, int, string>();
       var func2 = Any.Instance<Func<CancellationToken, Task<TestTemplateClass>>>();
-    
+
       //WHEN
       var result1 = func(1, 2);
       var result2 = func(1, 3);
@@ -1423,7 +1424,7 @@ namespace AnySpecification
     {
       //WHEN
       var serializerSettings = Any.Instance<JsonSerializerSettings>();
-      
+
       //THEN
       Assert.NotNull(serializerSettings);
     }
@@ -1435,10 +1436,11 @@ namespace AnySpecification
       var func = Any.Action<int, int, string>();
 
       //WHEN-THEN
-      Assert.DoesNotThrow(() => func(1,2,"2"));
+      Assert.DoesNotThrow(() => func(1, 2, "2"));
     }
 
-    private static void CallSomeMethodsOn(AbstractObjectWithInterfaceInConstructor x1, AbstractObjectWithVirtualMethods x2,
+    private static void CallSomeMethodsOn(AbstractObjectWithInterfaceInConstructor x1,
+      AbstractObjectWithVirtualMethods x2,
       RecursiveInterface x3)
     {
       // ReSharper disable once UnusedVariable
@@ -1452,9 +1454,9 @@ namespace AnySpecification
 
     private static void Serialize<T>(T instance)
     {
-        using var stream = new MemoryStream() ;
-        var formatter = new BinaryFormatter();
-        formatter.Serialize(stream, instance);
+      using var stream = new MemoryStream();
+      var formatter = new BinaryFormatter();
+      formatter.Serialize(stream, instance);
     }
 
     private static void AssertStringIsNumeric(string theString, int expectedLength)
@@ -1464,6 +1466,7 @@ namespace AnySpecification
       {
         Assert.True(char.IsDigit(character), $"Expected digit, got {character}");
       }
+
       Assert.AreNotEqual('0', theString[0]);
     }
 
@@ -1504,44 +1507,22 @@ namespace AnySpecification
 
   public class GenericListCustomization : GenerationCustomization
   {
-      public bool AppliesTo(Type type)
-      {
-          return type.IsGenericType && type.GetGenericTypeDefinition() == typeof(List<>);
-      }
+    public bool AppliesTo(Type type)
+    {
+      return type.IsGenericType && type.GetGenericTypeDefinition() == typeof(List<>);
+    }
 
-      public object Generate(Type type, InstanceGenerator gen, GenerationRequest request)
-      {
-          var list = Activator.CreateInstance(type);
-          var addMethod = type.GetMethod("Add", BindingFlags.Instance | BindingFlags.Public);
-          var elementInstance = gen.Instance(type.GetGenericArguments()[0], request);
-          addMethod!.Invoke(list, new [] { elementInstance });
-          addMethod!.Invoke(list, new [] { elementInstance });
-          addMethod!.Invoke(list, new [] { elementInstance });
-          addMethod!.Invoke(list, new [] { elementInstance });
-          return list!;
-      }
-  }
-  
-  public class GenericOptionalCustomization : GenerationCustomization
-  {
-      public bool AppliesTo(Type type)
-      {
-          return type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Option<>);
-      }
-
-      public object Generate(Type type, InstanceGenerator gen, GenerationRequest request)
-      {
-          var genericArgument = type.GetGenericArguments()[0];
-          var elementInstance = gen.Instance(genericArgument, request);
-          var genericCreationMethod = typeof(Option)
-              .GetMethods(BindingFlags.Static | BindingFlags.Public)
-              .Where(info => info.Name == nameof(Option.Some))
-              .Where(info => info.IsGenericMethod)
-              .Single(info => info.GetGenericArguments().Length == 1);
-          var someMethod = genericCreationMethod.MakeGenericMethod(genericArgument);
-          var result = someMethod.Invoke(null, new []{ elementInstance });
-          return result!;
-      }
+    public object Generate(Type type, InstanceGenerator gen, GenerationRequest request)
+    {
+      var list = Activator.CreateInstance(type);
+      var addMethod = type.GetMethod("Add", BindingFlags.Instance | BindingFlags.Public);
+      var elementInstance = gen.Instance(type.GetGenericArguments()[0], request);
+      addMethod!.Invoke(list, new[] {elementInstance});
+      addMethod!.Invoke(list, new[] {elementInstance});
+      addMethod!.Invoke(list, new[] {elementInstance});
+      addMethod!.Invoke(list, new[] {elementInstance});
+      return list!;
+    }
   }
 
   public class ObjectWithStaticParseMethod
@@ -1561,27 +1542,42 @@ namespace AnySpecification
 
   public enum LolEnum
   {
-      Value1, Value2, Value3, Value4, Value5, Value6
+    Value1,
+    Value2,
+    Value3,
+    Value4,
+    Value5,
+    Value6
   }
 
   public enum LolEnumShort : short
   {
-      Value1, Value2, Value3, Value4, Value5, Value6
+    Value1,
+    Value2,
+    Value3,
+    Value4,
+    Value5,
+    Value6
   }
 
   public enum LolEnumByte : byte
   {
-      Value1, Value2, Value3, Value4, Value5, Value6
+    Value1,
+    Value2,
+    Value3,
+    Value4,
+    Value5,
+    Value6
   }
 
   public class ObjectWithLolEnum
   {
-      public ObjectWithLolEnum(LolEnum lol)
-      {
-          Lol = lol;
-      }
+    public ObjectWithLolEnum(LolEnum lol)
+    {
+      Lol = lol;
+    }
 
-      public LolEnum Lol { get; }
+    public LolEnum Lol { get; }
   }
 
   public class TestTemplateClass
@@ -1590,32 +1586,32 @@ namespace AnySpecification
 
   public class ObjectWithGenericCollection<T>
   {
-      public ObjectWithGenericCollection(List<T> myList)
-      {
-          MyList = myList;
-      }
+    public ObjectWithGenericCollection(List<T> myList)
+    {
+      MyList = myList;
+    }
 
-      public List<T> MyList { get; }
+    public List<T> MyList { get; }
   }
 
   public class ObjectWrappingObjectWithGenericOption<T>
   {
-      public ObjectWrappingObjectWithGenericOption(ObjectWithGenericOption<T> obj)
-      {
-          Obj = obj;
-      }
+    public ObjectWrappingObjectWithGenericOption(ObjectWithGenericOption<T> obj)
+    {
+      Obj = obj;
+    }
 
-      public ObjectWithGenericOption<T> Obj { get; }
+    public ObjectWithGenericOption<T> Obj { get; }
   }
-  
+
   public class ObjectWithGenericOption<T>
   {
-      public ObjectWithGenericOption(Option<T> myOption)
-      {
-          MyOption = myOption;
-      }
+    public ObjectWithGenericOption(Option<T> myOption)
+    {
+      MyOption = myOption;
+    }
 
-      public Option<T> MyOption { get; }
+    public Option<T> MyOption { get; }
   }
 
 }

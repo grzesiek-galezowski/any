@@ -6,6 +6,7 @@ using TddXt.AnyGenerators.Generic.ExtensionPoints;
 using TddXt.TypeResolution;
 using TddXt.TypeResolution.FakeChainElements;
 using TddXt.TypeResolution.FakeChainElements.Interceptors;
+using TddXt.TypeResolution.HackedSpecialTypes;
 using TddXt.TypeResolution.Interfaces;
 
 namespace TddXt.AnyGenerators.Root.ImplementationDetails
@@ -51,17 +52,28 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
                             ElseTryTo(ResolveAsConcurrentQueue(),
                               ElseTryTo(ResolveAsConcurrentStack(),
                                 ElseTryTo(ResolveAsKeyValuePair(),
-                                  ElseTryTo(ResolveAsGenericEnumerator(),
-                                    ElseTryTo(ResolveAsObjectEnumerator(),
-                                      ElseTryTo(ResolveAsCollectionWithHeuristics(),
-                                        ElseTryTo(ResolveAsInterfaceImplementationWhere(eachMethodReturnsTheSameValueOnEveryCall, generationIsDoneUsingProxies),
-                                          ElseTryTo(ResolveAsAbstractClassImplementationWhere(eachMethodReturnsTheSameValueOnEveryCall, generationIsDoneUsingProxies),
-                                            ElseTryTo(ResolveAsConcreteTypeWithNonConcreteTypesInConstructorSignature(),
-                                              ElseTryTo(ResolveAsVoidTask(),
-                                                ElseTryTo(ResolveAsTypedTask(),
-                                                  ElseTryTo(ResolveAsConcreteClass(),
-                                                    ElseReportUnsupportedType()
-                                              ))))))))))))))))))))))));
+                                  ElseTryTo(ResolveAsOptionalOption(),
+                                    ElseTryTo(ResolveAsGenericEnumerator(),
+                                      ElseTryTo(ResolveAsObjectEnumerator(),
+                                        ElseTryTo(ResolveAsCollectionWithHeuristics(),
+                                          ElseTryTo(
+                                            ResolveAsInterfaceImplementationWhere(
+                                              eachMethodReturnsTheSameValueOnEveryCall, generationIsDoneUsingProxies),
+                                            ElseTryTo(
+                                              ResolveAsAbstractClassImplementationWhere(
+                                                eachMethodReturnsTheSameValueOnEveryCall, generationIsDoneUsingProxies),
+                                              ElseTryTo(
+                                                ResolveAsConcreteTypeWithNonConcreteTypesInConstructorSignature(),
+                                                ElseTryTo(ResolveAsVoidTask(),
+                                                  ElseTryTo(ResolveAsTypedTask(),
+                                                    ElseTryTo(ResolveAsConcreteClass(),
+                                                      ElseReportUnsupportedType()
+                                                    )))))))))))))))))))))))));
+    }
+
+    private IResolution<T> ResolveAsOptionalOption()
+    {
+      return new OptionalOptionResolution<T>();
     }
 
     private IResolution<T> ResolveAsTypedTask()
