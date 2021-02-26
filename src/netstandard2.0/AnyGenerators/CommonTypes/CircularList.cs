@@ -17,6 +17,7 @@ namespace TddXt.AnyGenerators.CommonTypes
   {
     private readonly T[] _items;
     private int _startingIndex;
+    private readonly object _syncRoot = new();
 
     public CircularList(int startingIndex, params T[] items)
     {
@@ -26,13 +27,17 @@ namespace TddXt.AnyGenerators.CommonTypes
 
     public T Next()
     {
-      if(_startingIndex > _items.Length - 1)
-      {
-        _startingIndex = 0; 
-      }
-      var result = _items[_startingIndex];
-      _startingIndex++;
-      return result;
+        lock (_syncRoot)
+        {
+            if (_startingIndex > _items.Length - 1)
+            {
+                _startingIndex = 0;
+            }
+
+            var result = _items[_startingIndex];
+            _startingIndex++;
+            return result;
+        }
     }
   }
 }
