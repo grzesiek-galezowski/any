@@ -11,7 +11,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Any" Version="5.0.1" />
+    <PackageReference Include="Any" Version="6.1.1" />
   </ItemGroup>
 
 </Project>
