@@ -21,7 +21,7 @@ namespace TddXt.AnyGenerators.Numbers
       {
         _currentValue = _startingValue;
       }
-      
+
     }
 
     public bool Equals(IntegerSequence other)
@@ -36,14 +36,14 @@ namespace TddXt.AnyGenerators.Numbers
       if (ReferenceEquals(null, obj)) return false;
       if (ReferenceEquals(this, obj)) return true;
       if (obj.GetType() != GetType()) return false;
-      return Equals((IntegerSequence) obj);
+      return Equals((IntegerSequence)obj);
     }
 
     public override int GetHashCode()
     {
       unchecked
       {
-        return (_startingValue*397) ^ _step;
+        return (_startingValue * 397) ^ _step;
       }
     }
 

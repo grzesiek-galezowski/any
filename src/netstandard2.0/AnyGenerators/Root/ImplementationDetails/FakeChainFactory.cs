@@ -20,9 +20,9 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
     private readonly ValueGenerator _valueGenerator;
 
     public FakeChainFactory(
-      CachedReturnValueGeneration cachedReturnValueGeneration, 
-      NestingLimit nestingLimit, 
-      ProxyGenerator proxyGenerator, 
+      CachedReturnValueGeneration cachedReturnValueGeneration,
+      NestingLimit nestingLimit,
+      ProxyGenerator proxyGenerator,
       ValueGenerator valueGenerator)
     {
       _cachedReturnValueGeneration = cachedReturnValueGeneration;
@@ -33,10 +33,9 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
 
     public IFakeChain<T> GetInstance<T>()
     {
-      return GetInstanceWithMemoization(() => 
+      return GetInstanceWithMemoization(() =>
         CreateGenericFakeChainFactory<T>().NewInstance(
             _cachedReturnValueGeneration,
-            _nestingLimit,
             _proxyGenerator,
             _valueGenerator
           ), _constrainedFactoryCache);
@@ -44,11 +43,11 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
 
     public IFakeChain<T> GetUnconstrainedInstance<T>()
     {
-      return GetInstanceWithMemoization(() => 
+      return GetInstanceWithMemoization(() =>
       CreateGenericFakeChainFactory<T>()
         .UnconstrainedInstance(
           _cachedReturnValueGeneration,
-          _proxyGenerator, _valueGenerator), 
+          _proxyGenerator, _valueGenerator),
           _unconstrainedFactoryCache);
     }
 
@@ -68,14 +67,14 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
     {
       var key = typeof(T);
 
-      if(!cache.TryGetValue(key, out var outVal))
+      if (!cache.TryGetValue(key, out var outVal))
       {
         var newInstance = func.Invoke();
         cache[key] = newInstance;
         return newInstance;
       }
 
-      return (IFakeChain<T>) outVal;
+      return (IFakeChain<T>)outVal;
     }
 
     private GenericFakeChainFactory<T> CreateGenericFakeChainFactory<T>()

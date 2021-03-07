@@ -7,8 +7,8 @@ namespace TddXt.TypeReflection
   {
     public static bool Is<T>()
     {
-      var type = typeof (T);
-      return type.FullName == typeof (Type).FullName || IsTypeOfTypeWithinBaseHierarchyOf(type);
+      var type = typeof(T);
+      return type.FullName == typeof(Type).FullName || IsTypeOfTypeWithinBaseHierarchyOf(type);
     }
 
     private static bool IsTypeOfTypeWithinBaseHierarchyOf(Type type)
@@ -18,7 +18,7 @@ namespace TddXt.TypeReflection
       {
         return false;
       }
-      else if(baseType.FullName == typeof(Type).FullName)
+      else if (baseType.FullName == typeof(Type).FullName)
       {
         return true;
       }
@@ -26,7 +26,7 @@ namespace TddXt.TypeReflection
       {
         return IsTypeOfTypeWithinBaseHierarchyOf(baseType);
       }
-      
+
     }
   }
 }

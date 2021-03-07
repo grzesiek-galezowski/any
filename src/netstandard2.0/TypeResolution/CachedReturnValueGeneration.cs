@@ -16,7 +16,7 @@ namespace TddXt.TypeResolution
     }
 
     public void SetupReturnValueFor(
-      IInvocation invocation, 
+      IInvocation invocation,
       Func<Type, GenerationRequest, object> instanceSource,
       GenerationRequest request)
     {

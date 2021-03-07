@@ -6,7 +6,7 @@ namespace TddXt.AnyGenerators.Math
 {
   public class IntegerDivisibleByGenerator : InlineGenerator<int>
   {
-    private static readonly CircularList<int> NumbersToMultiply 
+    private static readonly CircularList<int> NumbersToMultiply
       = CircularList.CreateStartingFromRandom(Enumerable.Range(1, 100).ToArray());
 
     private readonly int _quotient;

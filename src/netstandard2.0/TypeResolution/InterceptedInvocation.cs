@@ -22,7 +22,7 @@ namespace TddXt.TypeResolution
 
     public bool HasReturnValue()
     {
-      return _invocation.Method.ReturnType != typeof (void);
+      return _invocation.Method.ReturnType != typeof(void);
     }
 
     public bool IsPropertySetter()

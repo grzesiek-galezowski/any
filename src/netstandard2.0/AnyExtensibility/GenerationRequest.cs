@@ -7,7 +7,7 @@ namespace TddXt.AnyExtensibility
     GenerationTrace Trace { get; }
     NestingLimit NestingLimit { get; } //bug remove?
     T WithNextNestingLevel<T>(
-      Func<T> limitNotReachedFunction, 
+      Func<T> limitNotReachedFunction,
       Func<T> limitReachedFunction);
   }
 }

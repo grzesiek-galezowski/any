@@ -7,7 +7,7 @@ namespace TddXt.TypeResolution.FakeChainElements
     public ChainFailedException(Type type)
       : base("Chain failed while trying to create " + type)
     {
-     
+
     }
   }
 }

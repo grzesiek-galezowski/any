@@ -15,7 +15,7 @@ var root = AbsoluteFilePath.OfThisFile().ParentDirectory(3).Value;
 var srcDir = root.AddDirectoryName("src");
 var srcNetStandardDir = srcDir.AddDirectoryName("netstandard2.0");
 var nugetPath = root.AddDirectoryName("nuget");
-var version="6.1.1";
+var version = "6.1.1";
 
 //////////////////////////////////////////////////////////////////////
 // HELPER FUNCTIONS
@@ -91,11 +91,11 @@ Target("Pack", DependsOn("Test", "NScan"), () =>
 
 Target("Push", DependsOn("Clean", "Pack"), () =>
 {
-    foreach (var nupkgPath in nugetPath.GetFiles("*.nupkg"))
-    {
-        Run("dotnet", $"nuget push {nupkgPath}" +
-                      $" --source https://api.nuget.org/v3/index.json");
-    }
+  foreach (var nupkgPath in nugetPath.GetFiles("*.nupkg"))
+  {
+    Run("dotnet", $"nuget push {nupkgPath}" +
+                  $" --source https://api.nuget.org/v3/index.json");
+  }
 });
 
 Target("default", DependsOn("Pack"));

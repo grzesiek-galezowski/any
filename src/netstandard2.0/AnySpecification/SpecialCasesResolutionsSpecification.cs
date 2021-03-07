@@ -8,12 +8,12 @@ namespace AnySpecification
 {
   public class SpecialCasesResolutionsSpecification
   {
-    [Test]
+    [Test, Parallelizable]
     public void ShouldCreateResolutionCapableOfGeneratingArrays()
     {
       //GIVEN
       var resolution = new SpecialCasesOfResolutions<RecursiveInterface[]>().CreateResolutionOfArray();
-      
+
       //WHEN
 
       //THEN

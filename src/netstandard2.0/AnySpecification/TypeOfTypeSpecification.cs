@@ -6,7 +6,7 @@ namespace AnySpecification
 {
   public class TypeOfTypeSpecification
   {
-    [Test]
+    [Test, Parallelizable]
     public void ShouldCorrectlyDetermineIfObjectIsOfTypeType() //this is not a typo!
     {
       Assert.Multiple(() =>

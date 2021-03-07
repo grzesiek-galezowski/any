@@ -6,11 +6,11 @@ namespace TddXt.AnyGenerators.CommonTypes
   {
     private static readonly Random Random = new(DateTime.UtcNow.Millisecond);
 
-    public static CircularList<T> StartingWithFirstOf<T>(params T[] items) 
+    public static CircularList<T> StartingWithFirstOf<T>(params T[] items)
       => new(0, items);
 
-    public static CircularList<T> CreateStartingFromRandom<T>(params T[] items) 
-      => new(Random.Next(0,items.Length - 1), items);
+    public static CircularList<T> CreateStartingFromRandom<T>(params T[] items)
+      => new(Random.Next(0, items.Length - 1), items);
   }
 
   public class CircularList<T>
@@ -27,17 +27,17 @@ namespace TddXt.AnyGenerators.CommonTypes
 
     public T Next()
     {
-        lock (_syncRoot)
+      lock (_syncRoot)
+      {
+        if (_startingIndex > _items.Length - 1)
         {
-            if (_startingIndex > _items.Length - 1)
-            {
-                _startingIndex = 0;
-            }
-
-            var result = _items[_startingIndex];
-            _startingIndex++;
-            return result;
+          _startingIndex = 0;
         }
+
+        var result = _items[_startingIndex];
+        _startingIndex++;
+        return result;
+      }
     }
   }
 }

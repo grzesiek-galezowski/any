@@ -6,10 +6,10 @@ namespace TddXt.AnyGenerators.Math
 {
   public static class NumericTraits
   {
-    private static readonly NumericTraits<int> IntTraits = new NumericTraits<int>(int.MaxValue, bi => (int) bi);
-    private static readonly NumericTraits<long> LongTraits = new NumericTraits<long>(long.MaxValue, bi => (long) bi);
-    private static readonly NumericTraits<uint> UintTraits = new NumericTraits<uint>(uint.MaxValue, bi => (uint) bi);
-    private static readonly NumericTraits<ulong> UlongTraits = new NumericTraits<ulong>(ulong.MaxValue, bi => (ulong) bi);
+    private static readonly NumericTraits<int> IntTraits = new NumericTraits<int>(int.MaxValue, bi => (int)bi);
+    private static readonly NumericTraits<long> LongTraits = new NumericTraits<long>(long.MaxValue, bi => (long)bi);
+    private static readonly NumericTraits<uint> UintTraits = new NumericTraits<uint>(uint.MaxValue, bi => (uint)bi);
+    private static readonly NumericTraits<ulong> UlongTraits = new NumericTraits<ulong>(ulong.MaxValue, bi => (ulong)bi);
 
     public static NumericTraits<int> Integer()
     {

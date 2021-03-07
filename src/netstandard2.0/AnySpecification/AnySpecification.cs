@@ -41,7 +41,7 @@ namespace AnySpecification
 {
   public class AnySpecification
   {
-    [Test]
+    [Test, Parallelizable]
     public void ShouldGenerateDifferentIntegerEachTime()
     {
       //GIVEN
@@ -82,7 +82,7 @@ namespace AnySpecification
       Assert.AreNotEqual(digit1, digit2);
     }
 
-    [Test]
+    [Test, Parallelizable]
     public void ShouldGenerateDifferentIpAddressEachTime()
     {
       //GIVEN
@@ -94,7 +94,7 @@ namespace AnySpecification
       Assert.AreNotEqual(address1.ToString(), address2.ToString());
     }
 
-    [Test]
+    [Test, Parallelizable]
     public void ShouldGenerateDifferentTypeEachTime()
     {
       //GIVEN
@@ -118,7 +118,7 @@ namespace AnySpecification
       });
     }
 
-    [Test]
+    [Test, Parallelizable]
     public void ShouldBeAbleToProxyConcreteReturnTypesOfMethods()
     {
       var obj = Any.Instance<ISimple>();
@@ -130,7 +130,7 @@ namespace AnySpecification
       Assert.NotNull(obj.GetStringProperty);
     }
 
-    [Test]
+    [Test, Parallelizable]
     public void ShouldBeAbleToProxyMethodsThatReturnInterfaces()
     {
       //GIVEN
@@ -148,7 +148,7 @@ namespace AnySpecification
       Assert.NotNull(obj.GetStringProperty);
     }
 
-    [Test]
+    [Test, Parallelizable]
     public void ShouldAlwaysReturnTheSameValueFromProxiedMethodOnTheSameObject()
     {
       //GIVEN
@@ -162,7 +162,7 @@ namespace AnySpecification
       Assert.AreEqual(valueFirstTime, valueSecondTime);
     }
 
-    [Test]
+    [Test, Parallelizable]
     public void ShouldAlwaysReturnTheDifferentValueFromProxiedTheSameMethodOnDifferentObject()
     {
       //GIVEN
@@ -176,7 +176,7 @@ namespace AnySpecification
       Assert.AreNotEqual(valueFromFirstInstance, valueFromSecondInstance);
     }
 
-    [Test]
+    [Test, Parallelizable]
     public void ShouldThrowExceptionWhenItsMethodInvokedDuringReceivedInOrder()
     {
       //GIVEN
@@ -188,7 +188,7 @@ namespace AnySpecification
         .Throw<AnyInstanceUsedInsteadOfNSubstituteDuringAQueryException>();
     }
 
-    [Test]
+    [Test, Parallelizable]
     public void ShouldNotThrowExceptionWhenItsPropertyGetterInvokedDuringReceivedInOrder()
     {
       //GIVEN
@@ -203,13 +203,13 @@ namespace AnySpecification
         .NotThrow();
     }
 
-    [Test]
+    [Test, Parallelizable]
     public void ShouldCreateNonNullUri()
     {
       Assert.NotNull(Any.Uri());
     }
 
-    [Test]
+    [Test, Parallelizable]
     public void ShouldGenerateFiniteEnumerables()
     {
       //GIVEN
@@ -226,7 +226,7 @@ namespace AnySpecification
       }
     }
 
-    [Test]
+    [Test, Parallelizable]
     public void ShouldGenerateMembersReturningTypeOfType()
     {
       //GIVEN
@@ -244,7 +244,7 @@ namespace AnySpecification
       });
     }
 
-    [Test]
+    [Test, Parallelizable]
     public void ShouldBeAbleToGenerateInstancesOfConcreteClassesWithInterfacesAsTheirConstructorArguments()
     {
       //GIVEN
@@ -255,7 +255,7 @@ namespace AnySpecification
       Assert.NotNull(createdProxy._constructorNestedArgument);
     }
 
-    [Test]
+    [Test, Parallelizable]
     public void ShouldFillPropertiesWhenCreatingDataStructures()
     {
       //WHEN
@@ -267,7 +267,7 @@ namespace AnySpecification
       Assert.NotNull(instance.Data.Text);
     }
 
-    [Test]
+    [Test, Parallelizable]
     public void ShouldBeAbleToGenerateInstancesOfAbstractClasses()
     {
       //GIVEN
@@ -283,7 +283,7 @@ namespace AnySpecification
       });
     }
 
-    [Test]
+    [Test, Parallelizable]
     public void ShouldOverrideVirtualMethodsThatReturnDefaultTypeValuesOnAbstractClassProxy()
     {
       //GIVEN
@@ -294,7 +294,7 @@ namespace AnySpecification
       Assert.AreNotEqual("Something", obj.GetSomething2());
     }
 
-    [Test]
+    [Test, Parallelizable]
     public void ShouldBeAbleToCreateInstanceOfClassWithInConstructorParameter()
     {
       //GIVEN
@@ -305,7 +305,7 @@ namespace AnySpecification
       obj.A.Should().NotBe(default);
     }
 
-    [Test]
+    [Test, Parallelizable]
     public void ShouldOverrideVirtualMethodsThatThrowExceptionsOnAbstractClassProxy()
     {
       //GIVEN
@@ -315,7 +315,7 @@ namespace AnySpecification
       Assert.AreNotEqual(default(string), obj.GetSomethingButThrowExceptionWhileGettingIt());
     }
 
-    [Test]
+    [Test, Parallelizable]
     public void ShouldNotCreateTheSameMethodInfoTwiceInARow()
     {
       //GIVEN
@@ -326,7 +326,7 @@ namespace AnySpecification
       Assert.AreNotEqual(x, y);
     }
 
-    [Test]
+    [Test, Parallelizable]
     public void ShouldCreateDifferentExceptionEachTime()
     {
       //GIVEN
@@ -354,7 +354,7 @@ namespace AnySpecification
       CollectionAssert.DoesNotContain(new[] {dof1, dof2, dof3, dof4, dof5, dof6, dof7}, DayOfWeek.Sunday);
     }
 
-    [Test]
+    [Test, Parallelizable]
     public void ShouldDisallowSkippingTheSameValueTwiceWhenGeneratingAnyValueOtherThan()
     {
       Any.Invoking(a => a.OtherThan(2, 2))
@@ -374,7 +374,7 @@ namespace AnySpecification
         .Should().Throw<Exception>();
     }
 
-    [Test]
+    [Test, Parallelizable]
     public void ShouldGenerateDifferentValueEachTime()
     {
       //WHEN
@@ -390,7 +390,7 @@ namespace AnySpecification
       CollectionAssert.AllItemsAreUnique(new[] {dof1, dof2, dof3, dof4, dof5, dof6, dof7});
     }
 
-    [Test]
+    [Test, Parallelizable]
     public void ShouldGenerateDifferentValueEachTimeAndNotAmongPassedOnesWhenAskedToCreateAnyValueBesidesGiven()
     {
       //WHEN
@@ -403,7 +403,7 @@ namespace AnySpecification
       Assert.That(int2, Is.Not.InRange(1, 10));
     }
 
-    [Test]
+    [Test, Parallelizable]
     [Description("Non-deterministic statement - check it out")]
     public void ShouldGeneratePickNextValueEachTimeFromPassedOnesWhenAskedToCreateAnyValueFromGiven()
     {
@@ -431,7 +431,7 @@ namespace AnySpecification
       });
     }
 
-    [Test]
+    [Test, Parallelizable]
     public void ShouldGenerateStringAccordingtoRegex()
     {
       //GIVEN
@@ -456,7 +456,7 @@ namespace AnySpecification
       Assert.AreEqual(stringLength, str.Length);
     }
 
-    [Test]
+    [Test, Parallelizable]
     public void ShouldCreateSortedSetWithThreeDistinctValues()
     {
       //WHEN
@@ -468,7 +468,7 @@ namespace AnySpecification
       Assert.AreEqual(3, set.Count);
     }
 
-    [Test]
+    [Test, Parallelizable]
     public void ShouldBeAbleToGenerateDistinctLettersEachTime()
     {
       //WHEN
@@ -487,7 +487,7 @@ namespace AnySpecification
       });
     }
 
-    [Test]
+    [Test, Parallelizable]
     public void ShouldBeAbleToGenerateDistinctDigitsEachTime()
     {
       //WHEN
@@ -516,7 +516,7 @@ namespace AnySpecification
     public void ShouldGenerateStringsWithoutASpecificSubstring() =>
       Any.StringNotContaining("0").Should().NotContain("0");
 
-    [Test]
+    [Test, Parallelizable]
     public void ShouldBeAbleToGenerateBothPrimitiveTypeInstanceAndInterfaceUsingNewInstanceMethod()
     {
       var primitive = Any.Instance<int>();
@@ -529,7 +529,7 @@ namespace AnySpecification
       });
     }
 
-    [Test]
+    [Test, Parallelizable]
     public void ShouldSupportRecursiveInterfacesWithLists()
     {
       var factories = Any.Enumerable<RecursiveInterface>().ToList();
@@ -544,13 +544,13 @@ namespace AnySpecification
       Assert.AreNotEqual(default(int), x2);
     }
 
-    [Test]
+    [Test, Parallelizable]
     public void ShouldSupportGeneratingOtherObjectsThanNull()
     {
       Assert.DoesNotThrow(() => Any.OtherThan<string>(null!));
     }
 
-    [Test]
+    [Test, Parallelizable]
     public void ShouldSupportRecursiveInterfacesWithDictionaries()
     {
       var factories = Any.Enumerable<RecursiveInterface>().ToList();
@@ -568,7 +568,7 @@ namespace AnySpecification
       });
     }
 
-    [Test]
+    [Test, Parallelizable]
     public void ShouldSupportGeneratingRangedCollections()
     {
       const int anyCount = 4;
@@ -602,7 +602,7 @@ namespace AnySpecification
       });
     }
 
-    [Test]
+    [Test, Parallelizable]
     public void ShouldSupportGeneratingCollections()
     {
       const int anyCount = 3;
@@ -636,7 +636,7 @@ namespace AnySpecification
       });
     }
 
-    [Test]
+    [Test, Parallelizable]
     public void ShouldSupportGeneratingCollectionsUsingGenericInstanceMethod()
     {
       const int anyCount = 3;
@@ -668,7 +668,7 @@ namespace AnySpecification
       });
     }
 
-    [Test]
+    [Test, Parallelizable]
     public void ShouldAllowCreatingCustomCollectionInstances()
     {
       var customCollection = Any.Instance<MyOwnCollection<RecursiveInterface>>();
@@ -680,7 +680,7 @@ namespace AnySpecification
       }
     }
 
-    [Test]
+    [Test, Parallelizable]
     public void ShouldSupportCreatingArraysWithSpecificLiteralElements()
     {
       var array = Any.ArrayWith(1, 2, 3);
@@ -691,7 +691,7 @@ namespace AnySpecification
       Assert.GreaterOrEqual(array.Length, 3);
     }
 
-    [Test]
+    [Test, Parallelizable]
     public void ShouldSupportCreatingListsWithSpecificLiteralElements()
     {
       var list = Any.ListWith(1, 2, 3);
@@ -702,7 +702,7 @@ namespace AnySpecification
       Assert.GreaterOrEqual(list.Count, 3);
     }
 
-    [Test]
+    [Test, Parallelizable]
     public void ShouldSupportCreatingListsWithSpecificEnumerableOfElements()
     {
       var array = Any.ListWith<int>(new List<int> {1, 2, 3});
@@ -713,7 +713,7 @@ namespace AnySpecification
       Assert.GreaterOrEqual(array.Count, 3);
     }
 
-    [Test]
+    [Test, Parallelizable]
     public void ShouldSupportCreatingArraysWithSpecificEnumerableOfElements()
     {
       var array = Any.ArrayWith<int>(new List<int> {1, 2, 3});
@@ -724,7 +724,7 @@ namespace AnySpecification
       Assert.GreaterOrEqual(array.Length, 3);
     }
 
-    [Test]
+    [Test, Parallelizable]
     public void ShouldSupportCreationOfKeyValuePairs()
     {
       var kvp = Any.Instance<KeyValuePair<string, RecursiveInterface>>();
@@ -735,7 +735,7 @@ namespace AnySpecification
       });
     }
 
-    [Test]
+    [Test, Parallelizable]
     public void ShouldSupportActions()
     {
       //WHEN
@@ -745,7 +745,7 @@ namespace AnySpecification
       Assert.NotNull(action);
     }
 
-    [Test]
+    [Test, Parallelizable]
     public void ShouldAllowCreatingDifferentMaybesOfConcreteClasses()
     {
       var maybeString1 = Any.Instance<Maybe<string>>();
@@ -754,7 +754,7 @@ namespace AnySpecification
       Assert.AreNotEqual(maybeString1, maybeString2);
     }
 
-    [Test]
+    [Test, Parallelizable]
     public void ShouldAllowCreatingDifferentMaybesOfInterfaces()
     {
       var maybeImplementation1 = Any.Instance<Maybe<RecursiveInterface>>();
@@ -763,7 +763,7 @@ namespace AnySpecification
       Assert.AreNotEqual(maybeImplementation1, maybeImplementation2);
     }
 
-    [Test]
+    [Test, Parallelizable]
     public void ShouldAllowCreatingEnumValuesOutsideTheValidRange()
     {
       var invalidEnumMember1 = Any.Invalid<LolEnum>();
@@ -787,7 +787,7 @@ namespace AnySpecification
       Enum.GetValues<LolEnumByte>().Should().NotContain(invalidEnumMember6);
     }
 
-    [Test]
+    [Test, Parallelizable]
     public void ShouldBeAbleToGenerateFiniteInstancesOfGenericEnumerators()
     {
       //GIVEN
@@ -802,7 +802,7 @@ namespace AnySpecification
       Assert.AreNotEqual(element2, element1);
     }
 
-    [Test]
+    [Test, Parallelizable]
     public void ShouldBeAbleToGenerateFiniteInstancesOfNonGenericEnumerators()
     {
       //GIVEN
@@ -818,7 +818,7 @@ namespace AnySpecification
       Assert.AreNotEqual(element2, element1);
     }
 
-    [Test]
+    [Test, Parallelizable]
     public void ShouldBeAbleToGenerateInstancesOfGenericKeyValueEnumerables()
     {
       //GIVEN
@@ -833,7 +833,7 @@ namespace AnySpecification
       Assert.AreNotEqual(element2, element1);
     }
 
-    [Test]
+    [Test, Parallelizable]
     public void ShouldAllowGeneratingIntegersFromSequence()
     {
       var value1 = Any.IntegerFromSequence(startingValue: 12, step: 112);
@@ -843,7 +843,7 @@ namespace AnySpecification
       Assert.Greater(value1, 12);
     }
 
-    [Test]
+    [Test, Parallelizable]
     public void ShouldAllowGeneratingDivisibleIntegers()
     {
       var value1 = Any.IntegerDivisibleBy(5);
@@ -854,7 +854,7 @@ namespace AnySpecification
       Assert.AreEqual(0, value2 % 5);
     }
 
-    [Test]
+    [Test, Parallelizable]
     public void ShouldAllowGeneratingNotDivisibleIntegers()
     {
       var value1 = Any.IntegerNotDivisibleBy(5);
@@ -865,7 +865,7 @@ namespace AnySpecification
       Assert.AreNotEqual(0, value2 % 5);
     }
 
-    [Test]
+    [Test, Parallelizable]
     public void ShouldAllowGeneratingDummyObjectsBypassingConstructors()
     {
       Alike(Enumerable.Empty<string>(), Any.Dummy<IEnumerable<string>>());
@@ -885,7 +885,7 @@ namespace AnySpecification
       });
     }
 
-    [Test]
+    [Test, Parallelizable]
     public void ShouldAllowCustomizingTheFallbackGenerator()
     {
       Assert.DoesNotThrow(() =>
@@ -894,7 +894,7 @@ namespace AnySpecification
             (gen, trace) => gen.Dummy<ThrowingInConstructor>(trace))));
     }
 
-    [Test]
+    [Test, Parallelizable]
     public void ShouldAllowCustomizationsToReachInnerAutoFixture()
     {
 
@@ -923,7 +923,7 @@ namespace AnySpecification
       anyConcrete.Lol.Should().Be(value);
     }
 
-    [Test]
+    [Test, Parallelizable]
     public void ShouldAllowGenericCustomizations()
     {
       var anyConcrete = Any.Instance<ObjectWithGenericCollection<int>>(
@@ -931,7 +931,7 @@ namespace AnySpecification
       anyConcrete.MyList.Should().HaveCount(4);
     }
 
-    [Test]
+    [Test, Parallelizable]
     public void ShouldAllowGenericCustomizationsForOptional()
     {
       var anyConcrete = Any.Instance<ObjectWithGenericOption<string>>();
@@ -949,7 +949,7 @@ namespace AnySpecification
       anyOptional.ValueOrDefault().Should().NotBeNull();
     }
 
-    [Test]
+    [Test, Parallelizable]
     public void ShouldAllowGenericCustomizationsForOptionalWithDeeperNesting()
     {
       var anyConcrete = Any.Instance<ObjectWrappingObjectWithGenericOption<string>>();
@@ -964,14 +964,14 @@ namespace AnySpecification
       value1.Should().NotBe(value2);
     }
 
-    [Test]
+    [Test, Parallelizable]
     public void ShouldGenerateComplexGraphsWithNonNullPublicProperties()
     {
       var entity = Any.Instance<AreaEntity>();
       Assert.NotNull(entity.Feature);
     }
 
-    [Test]
+    [Test, Parallelizable]
     public void ShouldAllowAccessToValuesSetOnPropertiesOnInterfaceInstancesWhenBothGetAndSetArePublic()
     {
       //GIVEN
@@ -986,7 +986,7 @@ namespace AnySpecification
       Assert.AreEqual(someValue, obj.Value);
     }
 
-    [Test]
+    [Test, Parallelizable]
     public void ShouldAllowSettingPropertiesOnInterfaceInstancesWhenOnlySetIsPublic()
     {
       //GIVEN
@@ -997,7 +997,7 @@ namespace AnySpecification
       Assert.DoesNotThrow(() => { obj.Value = someValue; });
     }
 
-    [Test]
+    [Test, Parallelizable]
     public void ShouldAllowAccessToValueSetOnPropertiesOnAbstractClassesWhenBothGetAndSetArePublic()
     {
       //GIVEN
@@ -1013,7 +1013,7 @@ namespace AnySpecification
       Assert.AreEqual(someValue, obj.Value);
     }
 
-    [Test]
+    [Test, Parallelizable]
     public void ShouldAllowSettingPropertiesOnAbstractClassesInstancesWhenOnlySetIsPublic()
     {
       //GIVEN
@@ -1141,7 +1141,7 @@ namespace AnySpecification
       Assert.AreNotEqual(value1, value2);
     }
 
-    [Test]
+    [Test, Parallelizable]
     public void ShouldThrowArgumentOutOfRangeExceptionWhenGeneratingIntegersWithExactNumberOfDigitsOverflows()
     {
       Assert.Throws<GenerationFailedException>(() => Any.IntegerWithExactDigitsCount(MaxLengthOfInt() + 1));
@@ -1169,14 +1169,14 @@ namespace AnySpecification
       AssertStringIsNumeric(value1, 1);
     }
 
-    [Test]
+    [Test, Parallelizable]
     public void ShouldHandleCopyConstructorsSomehow()
     {
       var o = Any.Instance<ObjectWithCopyConstructor>();
       Assert.Null(o._field);
     }
 
-    [Test]
+    [Test, Parallelizable]
     public void ShouldTryToUsePublicStaticNonRecursiveFactoryMethodsOverPublicRecursiveConstructors()
     {
       var o2 = Any.Instance<ComplexObjectWithFactoryMethodAndRecursiveConstructor>();
@@ -1185,7 +1185,7 @@ namespace AnySpecification
       Assert.IsNotEmpty(o2.ToString());
     }
 
-    [Test]
+    [Test, Parallelizable]
     public void ShouldNotUseStaticCreationMethodsWithWordParseInThem()
     {
       var o2 = Any.Instance<ObjectWithStaticParseMethod>();
@@ -1231,7 +1231,7 @@ namespace AnySpecification
       Assert.Null(instance.Other.Other2.Other.Other2.Other.Other2.Other);
     }
 
-    [Test]
+    [Test, Parallelizable]
     public void ShouldUseEmptyCollectionWhenRunning()
     {
       //GIVEN
@@ -1246,7 +1246,7 @@ namespace AnySpecification
       Assert.Null(instance.Other.Other2.Other.Other2.Other.Other2);
     }
 
-    [Test]
+    [Test, Parallelizable]
     public void ShouldGenerateVoidNotStartedTasks()
     {
       //WHEN
@@ -1260,7 +1260,7 @@ namespace AnySpecification
       Assert.DoesNotThrow(() => voidTask2.Start());
     }
 
-    [Test]
+    [Test, Parallelizable]
     public void ShouldGenerateNotStartedTasks()
     {
       //WHEN
@@ -1274,7 +1274,7 @@ namespace AnySpecification
       Assert.DoesNotThrow(() => task2.Start());
     }
 
-    [Test]
+    [Test, Parallelizable]
     public void ShouldGenerateVoidStartedTasks()
     {
       //WHEN
@@ -1327,7 +1327,7 @@ namespace AnySpecification
       }
     }
 
-    [Test]
+    [Test, Parallelizable]
     public void ShouldGenerateStartedTasks()
     {
       //WHEN
@@ -1343,7 +1343,7 @@ namespace AnySpecification
       Assert.NotNull(task2.Result);
     }
 
-    [Test]
+    [Test, Parallelizable]
     public void ShouldAllowGeneratingReadOnlyLists()
     {
       //GIVEN
@@ -1357,7 +1357,7 @@ namespace AnySpecification
       CollectionAssert.AllItemsAreUnique(readOnlyList);
     }
 
-    [Test]
+    [Test, Parallelizable]
     public void ShouldAllowGeneratingReadOnlyListsThroughGenericMethod()
     {
       //GIVEN
@@ -1371,7 +1371,7 @@ namespace AnySpecification
       CollectionAssert.AllItemsAreUnique(readOnlyList);
     }
 
-    [Test]
+    [Test, Parallelizable]
     public void ShouldAllowGeneratingReadOnlyDictionariesThroughGenericMethod()
     {
       //GIVEN
@@ -1385,7 +1385,7 @@ namespace AnySpecification
       CollectionAssert.AllItemsAreUnique(readonlyDictionary);
     }
 
-    [Test]
+    [Test, Parallelizable]
     public void ShouldAllowGeneratingReadOnlyListsOfSpecifiedLength()
     {
       //GIVEN
@@ -1400,7 +1400,7 @@ namespace AnySpecification
       CollectionAssert.AllItemsAreUnique(readOnlyList);
     }
 
-    [Test]
+    [Test, Parallelizable]
     public void ShouldAllowGeneratingFuncs()
     {
       //GIVEN
@@ -1419,7 +1419,7 @@ namespace AnySpecification
       Assert.NotNull(result3);
     }
 
-    [Test]
+    [Test, Parallelizable]
     public void ShouldBeAbleToCreateJsonSerializerSettingsFromNewtonsoftJson()
     {
       //WHEN
@@ -1429,7 +1429,7 @@ namespace AnySpecification
       Assert.NotNull(serializerSettings);
     }
 
-    [Test]
+    [Test, Parallelizable]
     public void ShouldAllowGeneratingActions()
     {
       //GIVEN

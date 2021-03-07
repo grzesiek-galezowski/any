@@ -5,12 +5,12 @@ using static TddXt.AnyRoot.Root;
 
 namespace TestApp
 {
-    class Program
+  class Program
+  {
+    static void Main(string[] args)
     {
-      static void Main(string[] args)
-        {
-            Console.WriteLine(Any.Instance<IEnumerable<int>>());
-            Console.WriteLine(Any.Integer());
-        }
+      Console.WriteLine(Any.Instance<IEnumerable<int>>());
+      Console.WriteLine(Any.Integer());
     }
+  }
 }

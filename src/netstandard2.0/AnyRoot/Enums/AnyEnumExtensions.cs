@@ -17,7 +17,7 @@ namespace TddXt.AnyRoot.Enums
     private static class DynamicGenHolder<T>
     {
       private static readonly Type EnumUnderlyingType = typeof(T).GetEnumUnderlyingType();
-      private static readonly IEnumerable<object> ValidEnumValues = ((IEnumerable<T>) Enum.GetValues(typeof(T)))
+      private static readonly IEnumerable<object> ValidEnumValues = ((IEnumerable<T>)Enum.GetValues(typeof(T)))
         .Select(s => SmartType.Cast(EnumUnderlyingType, s));
       // ReSharper disable once StaticMemberInGenericType
       public static readonly DynamicOtherThanGenerator Instance = new(EnumUnderlyingType, ValidEnumValues);

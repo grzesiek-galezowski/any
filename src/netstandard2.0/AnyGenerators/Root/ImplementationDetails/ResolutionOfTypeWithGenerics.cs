@@ -11,7 +11,7 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
     private readonly Type[] _matchingTypes;
 
     public ResolutionOfTypeWithGenerics(
-      FactoryForInstancesOfGenericTypes factoryForInstancesOfGenericTypes, 
+      FactoryForInstancesOfGenericTypes factoryForInstancesOfGenericTypes,
       params Type[] matchingTypes)
     {
       _factoryForInstancesOfGenericTypes = factoryForInstancesOfGenericTypes;

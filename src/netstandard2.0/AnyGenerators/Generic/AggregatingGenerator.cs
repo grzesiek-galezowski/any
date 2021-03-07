@@ -21,7 +21,7 @@ namespace TddXt.AnyGenerators.Generic
 
     public T GenerateInstance(InstanceGenerator instanceGenerator, GenerationRequest request)
     {
-      return _generators.Aggregate(_identity, 
+      return _generators.Aggregate(_identity,
         (current, generator) => _addOperation(current, generator.GenerateInstance(instanceGenerator, request)));
     }
   }

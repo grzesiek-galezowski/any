@@ -20,7 +20,7 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
       var result = new GenericMethodProxyCalls().ResultOfGenericVersionOfStaticMethod<Task>(
         typeof(T).GenericTypeArguments.First(),
         "FromResult", parameters);
-      return (T) result;
+      return (T)result;
     }
   }
 }

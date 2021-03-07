@@ -38,14 +38,14 @@ namespace TddXt.TypeResolution.CustomCollections
       if (ReferenceEquals(null, obj)) return false;
       if (ReferenceEquals(this, obj)) return true;
       if (obj.GetType() != GetType()) return false;
-      return Equals((PerMethodCacheKey) obj);
+      return Equals((PerMethodCacheKey)obj);
     }
 
     public override int GetHashCode()
     {
       unchecked
       {
-        return ((_method != null ? _method.GetHashCode() : 0)*397) ^ (_proxy != null ? _proxy.GetHashCode() : 0);
+        return ((_method != null ? _method.GetHashCode() : 0) * 397) ^ (_proxy != null ? _proxy.GetHashCode() : 0);
       }
     }
 

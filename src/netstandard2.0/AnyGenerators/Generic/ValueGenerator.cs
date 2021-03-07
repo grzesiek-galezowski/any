@@ -11,6 +11,7 @@ namespace TddXt.AnyGenerators.Generic
   public class ValueGenerator : IValueGenerator
   {
     private readonly FixtureWrapper _generator;
+    private readonly object _syncRoot = new();
 
     public ValueGenerator(FixtureWrapper fixtureWrapper)
     {
@@ -41,9 +42,12 @@ namespace TddXt.AnyGenerators.Generic
 
     public T Value<T>(InstanceGenerator gen, GenerationCustomization[] customizations, GenerationRequest request)
     {
-      using(_generator.CustomizeWith(customizations, gen, request))
+      lock (_syncRoot)
       {
-        return _generator.Create<T>();
+        using (_generator.CustomizeWith(customizations, gen, request))
+        {
+          return _generator.Create<T>();
+        }
       }
     }
   }

@@ -44,7 +44,7 @@ namespace TddXt.AnyGenerators.Generic.ImplementationDetails
     public object Instance(Type type, GenerationRequest request)
     {
       return _customizations.Where(c => c.AppliesTo(type)).FirstMaybe()
-        .SelectOrElse( 
+        .SelectOrElse(
           c => c.Generate(type, this, request),
           () => _inner.Instance(type, request, _customizations));
     }

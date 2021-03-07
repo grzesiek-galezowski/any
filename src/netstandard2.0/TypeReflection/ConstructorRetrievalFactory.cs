@@ -8,7 +8,7 @@ namespace TddXt.TypeReflection
 
     public ConstructorRetrievalFactory()
     {
-      _constructorQuery = 
+      _constructorQuery =
         PublicNonRecursiveConstructors(
           PublicParameterlessConstructors(
             InternalNonRecursiveConstructors(

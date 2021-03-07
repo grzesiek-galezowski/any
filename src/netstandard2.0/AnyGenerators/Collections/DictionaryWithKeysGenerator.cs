@@ -3,7 +3,7 @@ using TddXt.AnyExtensibility;
 
 namespace TddXt.AnyGenerators.Collections
 {
-  public class DictionaryWithKeysGenerator<TKey, TValue> 
+  public class DictionaryWithKeysGenerator<TKey, TValue>
     : InlineGenerator<Dictionary<TKey, TValue>>
   {
     private readonly IEnumerable<TKey> _keys;

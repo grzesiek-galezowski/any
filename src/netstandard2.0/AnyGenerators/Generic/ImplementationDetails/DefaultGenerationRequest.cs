@@ -19,7 +19,7 @@ namespace TddXt.AnyGenerators.Generic.ImplementationDetails
       Trace = new ListBasedGeneratonTrace();
     }
 
-    public T WithNextNestingLevel<T>(Func<T> limitNotReachedFunction, 
+    public T WithNextNestingLevel<T>(Func<T> limitNotReachedFunction,
       Func<T> limitReachedFunction)
     {
       try
@@ -47,7 +47,7 @@ namespace TddXt.AnyGenerators.Generic.ImplementationDetails
     : base(s)
 
     {
-      
+
     }
   }
 }

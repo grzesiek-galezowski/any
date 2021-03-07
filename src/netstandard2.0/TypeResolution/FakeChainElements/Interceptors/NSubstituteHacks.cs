@@ -42,7 +42,7 @@ namespace TddXt.TypeResolution.FakeChainElements.Interceptors
 
     private static bool IsQuerying(this object threadContext)
     {
-      return (bool) threadContext.GetType().GetProperty("IsQuerying").GetValue(threadContext);
+      return (bool)threadContext.GetType().GetProperty("IsQuerying").GetValue(threadContext);
     }
 
     private static object ThreadContext(this object currentSubstitutionContext)

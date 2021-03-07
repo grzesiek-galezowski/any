@@ -25,7 +25,7 @@ namespace TddXt.TypeResolution.HackedSpecialTypes
         .Where(info => info.IsGenericMethod)
         .Single(info => info.GetGenericArguments().Length == 1);
       var someMethod = genericCreationMethod.MakeGenericMethod(genericArgument);
-      var result = someMethod.Invoke(null, new[] {elementInstance});
+      var result = someMethod.Invoke(null, new[] { elementInstance });
       return (T)result;
 
     }

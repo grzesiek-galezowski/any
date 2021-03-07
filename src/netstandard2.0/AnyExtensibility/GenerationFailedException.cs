@@ -7,7 +7,7 @@ namespace TddXt.AnyExtensibility
     public GenerationFailedException(GenerationRequest request, Exception exception)
       : base(Environment.NewLine + request.Trace.ToString(), exception)
     {
-      
+
     }
   }
 }

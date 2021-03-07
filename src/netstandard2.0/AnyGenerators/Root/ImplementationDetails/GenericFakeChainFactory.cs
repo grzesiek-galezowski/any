@@ -1,7 +1,6 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using Castle.DynamicProxy;
-using TddXt.AnyExtensibility;
 using TddXt.AnyGenerators.Generic.ExtensionPoints;
 using TddXt.TypeResolution;
 using TddXt.TypeResolution.FakeChainElements;
@@ -24,7 +23,6 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
 
     public IFakeChain<T> NewInstance(
       CachedReturnValueGeneration eachMethodReturnsTheSameValueOnEveryCall,
-      NestingLimit nestingLimit,
       ProxyGenerator generationIsDoneUsingProxies,
       IValueGenerator valueGenerator)
     {

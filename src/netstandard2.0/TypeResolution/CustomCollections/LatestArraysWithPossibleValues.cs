@@ -22,7 +22,7 @@ namespace TddXt.TypeResolution.CustomCollections
         _arrays.RemoveAt(0);
       }
       _arrays.Add(new ArrayWithIndex<T>(
-        possibleValues.ToArray(), 
+        possibleValues.ToArray(),
         _random.Next(0, possibleValues.Count())));
     }
 

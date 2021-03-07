@@ -56,10 +56,10 @@ namespace TddXt.AnyGenerators.Collections
       return Conversion(enumerableGenerator, enumerable => new ConcurrentBag<T>(enumerable));
     }
 
-    public static EnumerableConversion<KeyValuePair<TKey, TValue>, Dictionary<TKey, TValue>> 
+    public static EnumerableConversion<KeyValuePair<TKey, TValue>, Dictionary<TKey, TValue>>
       AsDictionary<TKey, TValue>(this InlineGenerator<IEnumerable<KeyValuePair<TKey, TValue>>> enumerableGenerator)
     {
-      return Conversion(enumerableGenerator, 
+      return Conversion(enumerableGenerator,
         enumerable => enumerable.ToDictionary(x => x.Key, x => x.Value));
     }
 
@@ -70,18 +70,18 @@ namespace TddXt.AnyGenerators.Collections
         enumerable => (IReadOnlyDictionary<TKey, TValue>)(enumerable.ToDictionary(x => x.Key, x => x.Value)));
     }
 
-    public static EnumerableConversion<KeyValuePair<TKey, TValue>, SortedDictionary<TKey, TValue>> 
+    public static EnumerableConversion<KeyValuePair<TKey, TValue>, SortedDictionary<TKey, TValue>>
       AsSortedDictionary<TKey, TValue>(this InlineGenerator<IEnumerable<KeyValuePair<TKey, TValue>>> enumerableGenerator)
     {
-      return Conversion(enumerableGenerator, 
+      return Conversion(enumerableGenerator,
         enumerable => new SortedDictionary<TKey, TValue>(
           enumerable.ToDictionary(x => x.Key, x => x.Value)));
     }
 
-    public static EnumerableConversion<KeyValuePair<TKey, TValue>, ConcurrentDictionary<TKey, TValue>> 
+    public static EnumerableConversion<KeyValuePair<TKey, TValue>, ConcurrentDictionary<TKey, TValue>>
       AsConcurrentDictionary<TKey, TValue>(this InlineGenerator<IEnumerable<KeyValuePair<TKey, TValue>>> enumerableGenerator)
     {
-      return Conversion(enumerableGenerator, 
+      return Conversion(enumerableGenerator,
         enumerable => new ConcurrentDictionary<TKey, TValue>(enumerable));
     }
 

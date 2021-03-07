@@ -9,5 +9,5 @@ namespace AnySpecification.Fixtures
       set => _value = value;
       private get => _value;
     }
-    }
+  }
 }

@@ -9,7 +9,7 @@ namespace TddXt.TypeReflection
 
     static TypeOf()
     {
-      Type = SmartType.For(typeof (T));
+      Type = SmartType.For(typeof(T));
     }
 
     public static bool HasParameterlessConstructor()
@@ -29,7 +29,7 @@ namespace TddXt.TypeReflection
 
     public static bool Is<T1>()
     {
-      return typeof (T) == typeof (T1);
+      return typeof(T) == typeof(T1);
     }
 
     public static bool IsOpenGeneric(Type type)

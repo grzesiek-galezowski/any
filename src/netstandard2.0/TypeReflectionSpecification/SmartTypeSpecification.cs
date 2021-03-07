@@ -15,7 +15,7 @@ namespace TypeReflectionSpecification
       Assert.True(SmartType.For(exceptionType).IsException());
     }
 
-    [Test]
+    [Test, Parallelizable]
     public void ShouldReportWhenItIsNotDerivedFromException()
     {
       Assert.False(SmartType.For(typeof(string)).IsException());

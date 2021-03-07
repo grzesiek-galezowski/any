@@ -12,8 +12,8 @@ namespace TddXt.TypeResolution.FakeChainElements.Interceptors
     private readonly GenerationRequest _request;
 
     public InterfaceInterceptor(
-      CachedReturnValueGeneration cachedGeneration, 
-      Func<Type, GenerationRequest, object> instanceSource, 
+      CachedReturnValueGeneration cachedGeneration,
+      Func<Type, GenerationRequest, object> instanceSource,
       GenerationRequest request)
     {
       _cachedGeneration = cachedGeneration;

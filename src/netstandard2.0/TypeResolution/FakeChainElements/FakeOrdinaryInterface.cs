@@ -17,7 +17,7 @@ namespace TddXt.TypeResolution.FakeChainElements
 
     public bool Applies()
     {
-      return typeof (T).IsInterface;
+      return typeof(T).IsInterface;
     }
 
     public T Apply(InstanceGenerator instanceGenerator, GenerationRequest request)

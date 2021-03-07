@@ -19,7 +19,7 @@ namespace TddXt.AnyGenerators.Generic
 
     public object GenerateInstance(InstanceGenerator instanceGenerator, GenerationRequest request)
     {
-      return _methodInfo.Invoke(_inlineGenerator, new object[] {instanceGenerator, request});
+      return _methodInfo.Invoke(_inlineGenerator, new object[] { instanceGenerator, request });
     }
 
 

@@ -11,10 +11,10 @@ namespace TddXt.TypeResolution.FakeChainElements
   {
     public bool Applies()
     {
-      var isCollection = TypeOf<T>.IsImplementationOfOpenGeneric(typeof (IProducerConsumerCollection<>))
+      var isCollection = TypeOf<T>.IsImplementationOfOpenGeneric(typeof(IProducerConsumerCollection<>))
                || TypeOf<T>.IsImplementationOfOpenGeneric(typeof(ICollection<>));
       return TypeOf<T>.IsConcrete() &&
-             typeof (T).IsGenericType &&
+             typeof(T).IsGenericType &&
              isCollection &&
              TypeOf<T>.HasParameterlessConstructor();
 
@@ -23,7 +23,7 @@ namespace TddXt.TypeResolution.FakeChainElements
 
     public T Apply(InstanceGenerator instanceGenerator, GenerationRequest request)
     {
-      var collectionType = typeof (T);
+      var collectionType = typeof(T);
       var collectionInstance = Activator.CreateInstance(collectionType);
       var elementTypes = collectionType.GetGenericArguments();
 
@@ -33,16 +33,16 @@ namespace TddXt.TypeResolution.FakeChainElements
         ?? collectionType.GetMethod("Enqueue", elementTypes);
 
       addMethod.Invoke(
-        collectionInstance, 
+        collectionInstance,
         AnyInstancesOf(elementTypes, instanceGenerator, request));
       addMethod.Invoke(
-        collectionInstance, 
+        collectionInstance,
         AnyInstancesOf(elementTypes, instanceGenerator, request));
       addMethod.Invoke(
-        collectionInstance, 
+        collectionInstance,
         AnyInstancesOf(elementTypes, instanceGenerator, request));
 
-      return (T) collectionInstance;
+      return (T)collectionInstance;
     }
 
     private static object[] AnyInstancesOf(IEnumerable<Type> elementTypes, InstanceGenerator instanceGenerator,

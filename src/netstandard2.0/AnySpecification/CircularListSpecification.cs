@@ -7,7 +7,7 @@ namespace AnySpecification
 {
   public class CircularListSpecification
   {
-    [Test]
+    [Test, Parallelizable]
     public void ShouldReturnAllElementsInOrderTheyWereAdded()
     {
       //GIVEN
@@ -27,7 +27,7 @@ namespace AnySpecification
       Assert.AreEqual(returnedElement3, element3);
     }
 
-    [Test]
+    [Test, Parallelizable]
     public void ShouldStartOverReturningElementsWhenItRunsOutOfElements()
     {
       //GIVEN

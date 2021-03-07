@@ -18,8 +18,8 @@ namespace TddXt.AnyGenerators.Strings
     public string GenerateInstance(InstanceGenerator instanceGenerator, GenerationRequest request)
     {
       var preprocessedStrings = from str in _excludedSubstrings
-        where !string.IsNullOrEmpty(str)
-        select str;
+                                where !string.IsNullOrEmpty(str)
+                                select str;
 
       var result = _stringGenerator.GenerateInstance(instanceGenerator, request);
       var found = false;
