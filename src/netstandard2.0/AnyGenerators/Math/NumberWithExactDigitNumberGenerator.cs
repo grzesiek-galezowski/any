@@ -1,11 +1,12 @@
 using System;
+using System.Threading;
 using TddXt.AnyExtensibility;
 
 namespace TddXt.AnyGenerators.Math
 {
   public class NumberWithExactDigitNumberGenerator<T> : InlineGenerator<T>
   {
-    private static readonly Random RandomGenerator = new Random(Guid.NewGuid().GetHashCode());
+    private static readonly ThreadLocal<Random> RandomGenerator = new(() => new Random(Guid.NewGuid().GetHashCode()));
     private readonly int _digitsCount;
     private readonly NumericTraits<T> _intTraits;
 
@@ -17,7 +18,7 @@ namespace TddXt.AnyGenerators.Math
 
     public T GenerateInstance(InstanceGenerator instanceGenerator, GenerationRequest request)
     {
-      return _intTraits.GenerateWithExactNumberOfDigits(_digitsCount, RandomGenerator);
+      return _intTraits.GenerateWithExactNumberOfDigits(_digitsCount, RandomGenerator.Value);
     }
   }
 }

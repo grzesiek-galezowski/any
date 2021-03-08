@@ -1,16 +1,17 @@
 using System;
+using System.Threading;
 
 namespace TddXt.AnyGenerators.CommonTypes
 {
   public static class CircularList
   {
-    private static readonly Random Random = new(Guid.NewGuid().GetHashCode());
+    private static readonly ThreadLocal<Random> Random = new(() => new Random(Guid.NewGuid().GetHashCode()));
 
     public static CircularList<T> StartingWithFirstOf<T>(params T[] items)
       => new(0, items);
 
     public static CircularList<T> CreateStartingFromRandom<T>(params T[] items)
-      => new(Random.Next(0, items.Length - 1), items);
+      => new(Random.Value.Next(0, items.Length - 1), items);
   }
 
   public class CircularList<T>
