@@ -9,6 +9,7 @@ namespace TddXt.AnyGenerators.AutoFixtureWrapper
   public class FixtureWrapper
   {
     private readonly Fixture _autoFixture;
+    private readonly object _syncRoot = new object();
 
     public FixtureWrapper(Fixture autoFixture)
     {
@@ -62,7 +63,7 @@ namespace TddXt.AnyGenerators.AutoFixtureWrapper
     public IDisposable CustomizeWith(GenerationCustomization[] customizations, InstanceGenerator gen,
       GenerationRequest request)
     {
-      return new CustomizationScope(_autoFixture, customizations, gen, request);
+      return new CustomizationScope(_autoFixture, customizations, gen, request, _syncRoot);
     }
   }
 }

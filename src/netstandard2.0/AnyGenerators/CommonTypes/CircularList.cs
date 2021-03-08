@@ -4,7 +4,7 @@ namespace TddXt.AnyGenerators.CommonTypes
 {
   public static class CircularList
   {
-    private static readonly Random Random = new(DateTime.UtcNow.Millisecond);
+    private static readonly Random Random = new(Guid.NewGuid().GetHashCode());
 
     public static CircularList<T> StartingWithFirstOf<T>(params T[] items)
       => new(0, items);

@@ -15,7 +15,7 @@ var root = AbsoluteFilePath.OfThisFile().ParentDirectory(3).Value;
 var srcDir = root.AddDirectoryName("src");
 var srcNetStandardDir = srcDir.AddDirectoryName("netstandard2.0");
 var nugetPath = root.AddDirectoryName("nuget");
-var version = "6.1.2";
+var version = "6.1.4";
 
 //////////////////////////////////////////////////////////////////////
 // HELPER FUNCTIONS

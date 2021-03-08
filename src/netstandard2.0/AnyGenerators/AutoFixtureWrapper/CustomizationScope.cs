@@ -8,14 +8,16 @@ namespace TddXt.AnyGenerators.AutoFixtureWrapper
   public class CustomizationScope : IDisposable
   {
     private readonly Fixture _generator;
-    private readonly object _syncRoot = new();
+    private readonly object _syncRoot;
 
     public CustomizationScope(
       Fixture generator,
       GenerationCustomization[] customizations,
       InstanceGenerator gen,
-      GenerationRequest request)
+      GenerationRequest request, 
+      object syncRoot)
     {
+      _syncRoot = syncRoot;
       Monitor.Enter(_syncRoot);
       try
       {

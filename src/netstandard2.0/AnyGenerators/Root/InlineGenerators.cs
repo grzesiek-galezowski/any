@@ -379,9 +379,9 @@ namespace TddXt.AnyGenerators.Root
       return new StringMatchingRegexGenerator(pattern);
     }
 
-    public static InlineGenerator<string> AlphaString(int maxLength)
+    public static InlineGenerator<string> AlphaString(int length)
     {
-      return new StringFromCharsGenerator(maxLength, AlphaChar());
+      return new StringFromCharsGenerator(length, AlphaChar());
     }
 
     public static InlineGenerator<string> LowercaseAlphaString()
