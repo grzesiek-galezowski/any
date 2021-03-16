@@ -1,4 +1,3 @@
-using System;
 using TddXt.AnyExtensibility;
 
 namespace TddXt.TypeResolution.FakeChainElements

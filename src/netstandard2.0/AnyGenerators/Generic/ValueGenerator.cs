@@ -2,7 +2,6 @@ using System;
 using System.Linq;
 using TddXt.AnyExtensibility;
 using TddXt.AnyGenerators.AutoFixtureWrapper;
-using TddXt.AnyGenerators.Generic.ImplementationDetails;
 using TddXt.TypeResolution.Interfaces;
 
 namespace TddXt.AnyGenerators.Generic
