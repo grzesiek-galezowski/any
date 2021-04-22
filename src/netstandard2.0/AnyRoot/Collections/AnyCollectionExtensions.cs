@@ -263,12 +263,12 @@ namespace TddXt.AnyRoot.Collections
 
     public static ImmutableDictionary<T1, T2> ImmutableDictionary<T1, T2>(this BasicGenerator gen)
     {
-      return gen.InstanceOf(InlineGenerators.ImmutableDictionary<T1, T2>()); //bug register in autofixture!!!
+      return gen.InstanceOf(InlineGenerators.ImmutableDictionary<T1, T2>());
     }
 
     public static ImmutableQueue<T> ImmutableQueue<T>(this BasicGenerator gen)
     {
-      return gen.InstanceOf(InlineGenerators.ImmutableQueue<T>()); //bug register in autofixture!!!
+      return gen.InstanceOf(InlineGenerators.ImmutableQueue<T>());
     }
   }
 }
