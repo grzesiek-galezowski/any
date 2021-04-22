@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -1397,22 +1398,193 @@ namespace AnySpecification
     }
 
     [Test, Parallelizable]
+    public void ShouldAllowGeneratingImmutableLists()
+    {
+        //GIVEN
+        var readOnlyList = Any.ImmutableList<int>();
+        //WHEN
+
+        //THEN
+        Assert.NotNull(readOnlyList);
+        Assert.AreEqual(3, readOnlyList.Count);
+        CollectionAssert.AllItemsAreNotNull(readOnlyList);
+        CollectionAssert.AllItemsAreUnique(readOnlyList);
+    }
+
+    [Test, Parallelizable]
+    //bug if this works, then maybe the custom generators are not needed
+    //bug and all I need is making sure the request reaches autofixture????
+    public void ShouldAllowGeneratingObjectsWithImmutableLists()
+    {
+      //GIVEN
+      var obj = Any.Instance<ObjectWithImmutableList>();
+      //WHEN
+
+      //THEN
+      Assert.NotNull(obj);
+      Assert.AreEqual(3, obj.Elements.Count);
+      CollectionAssert.AllItemsAreNotNull(obj.Elements);
+      CollectionAssert.AllItemsAreUnique(obj.Elements);
+    }
+
+    [Test, Parallelizable]
+    public void ShouldAllowGeneratingImmutableListsThroughGenericMethod()
+    {
+        //GIVEN
+        var readOnlyList = Any.Instance<ImmutableList<int>>();
+        //WHEN
+
+        //THEN
+        Assert.NotNull(readOnlyList);
+        Assert.AreEqual(3, readOnlyList.Count);
+        CollectionAssert.AllItemsAreNotNull(readOnlyList);
+        CollectionAssert.AllItemsAreUnique(readOnlyList);
+    }
+
+    [Test, Parallelizable]
+    public void ShouldAllowGeneratingImmutableArrays()
+    {
+        //GIVEN
+        var collection = Any.ImmutableArray<int>();
+        //WHEN
+
+        //THEN
+        Assert.NotNull(collection);
+        Assert.AreEqual(3, collection.Length);
+        CollectionAssert.AllItemsAreNotNull(collection);
+        CollectionAssert.AllItemsAreUnique(collection);
+    }
+
+    [Test, Parallelizable]
+    public void ShouldAllowGeneratingImmutableArraysThroughGenericMethod()
+    {
+        //GIVEN
+        var readOnlyList = Any.Instance<ImmutableList<int>>();
+        //WHEN
+
+        //THEN
+        Assert.NotNull(readOnlyList);
+        Assert.AreEqual(3, readOnlyList.Count);
+        CollectionAssert.AllItemsAreNotNull(readOnlyList);
+        CollectionAssert.AllItemsAreUnique(readOnlyList);
+    }
+
+    [Test, Parallelizable]
+    public void ShouldAllowGeneratingImmutableDictionaries()
+    {
+        //GIVEN
+        var readOnlyList = Any.ImmutableDictionary<int, int>();
+        //WHEN
+
+        //THEN
+        Assert.NotNull(readOnlyList);
+        Assert.AreEqual(3, readOnlyList.Count);
+        CollectionAssert.AllItemsAreNotNull(readOnlyList);
+        CollectionAssert.AllItemsAreUnique(readOnlyList);
+    }
+
+    [Test, Parallelizable]
+    public void ShouldAllowGeneratingImmutableDictionariesThroughGenericMethod()
+    {
+        //GIVEN
+        var collection = Any.Instance<ImmutableDictionary<int, int>>();
+        //WHEN
+
+        //THEN
+        Assert.NotNull(collection);
+        Assert.AreEqual(3, collection.Count);
+        CollectionAssert.AllItemsAreNotNull(collection);
+        CollectionAssert.AllItemsAreUnique(collection);
+    }
+    
+    [Test, Parallelizable]
+    public void ShouldAllowGeneratingImmutableHashSets()
+    {
+        //GIVEN
+        var collection = Any.ImmutableHashSet<int>();
+        //WHEN
+
+        //THEN
+        Assert.NotNull(collection);
+        Assert.AreEqual(3, collection.Count);
+        CollectionAssert.AllItemsAreNotNull(collection);
+        CollectionAssert.AllItemsAreUnique(collection);
+    }
+
+    [Test, Parallelizable]
+    public void ShouldAllowGeneratingImmutableHashSetsThroughGenericMethod()
+    {
+        //GIVEN
+        var collection = Any.Instance<ImmutableHashSet<int>>();
+        //WHEN
+
+        //THEN
+        Assert.NotNull(collection);
+        Assert.AreEqual(3, collection.Count);
+        CollectionAssert.AllItemsAreNotNull(collection);
+        CollectionAssert.AllItemsAreUnique(collection);
+    }
+    
+    [Test, Parallelizable]
+    public void ShouldAllowGeneratingImmutableQueues()
+    {
+        //GIVEN
+        var collection = Any.ImmutableQueue<int>();
+        //WHEN
+
+        //THEN
+        Assert.NotNull(collection);
+        Assert.AreEqual(3, collection.Count());
+        CollectionAssert.AllItemsAreNotNull(collection);
+        CollectionAssert.AllItemsAreUnique(collection);
+    }
+
+    [Test, Parallelizable]
+    public void ShouldAllowGeneratingImmutableQueuesThroughGenericMethod()
+    {
+        //GIVEN
+        var collection = Any.Instance<ImmutableHashSet<int>>();
+        //WHEN
+
+        //THEN
+        Assert.NotNull(collection);
+        Assert.AreEqual(3, collection.Count);
+        CollectionAssert.AllItemsAreNotNull(collection);
+        CollectionAssert.AllItemsAreUnique(collection);
+    }
+
+    //bug immutable sorted set
+    //bug immutable sorted dictionary
+    //bug immutable stack
+
+    [Test, Parallelizable]
     public void ShouldAllowGeneratingFuncs()
     {
       //GIVEN
-      var func0 = Any.Func<int>();
-      var func1 = Any.Func<int, int>();
-      var func = Any.Func<int, int, string>();
-      var func2 = Any.Instance<Func<CancellationToken, Task<TestTemplateClass>>>();
+      var func1 = Any.Func<int>();
+      var func2 = Any.Func<int, int>();
+      var func3 = Any.Func<int, int, string>();
+      var func4 = Any.Instance<Func<CancellationToken, Task<TestTemplateClass>>>();
 
       //WHEN
-      var result1 = func(1, 2);
-      var result2 = func(1, 3);
-      var result3 = func2.Invoke(CancellationToken.None);
+      var result11 = func1();
+      var result12 = func1();
+      var result21 = func2(1);
+      var result22 = func2(1);
+      var result31 = func3(1, 3);
+      var result32 = func3(1, 3);
+      var result41 = func4.Invoke(CancellationToken.None);
+      var result42 = func4.Invoke(CancellationToken.None);
 
       //THEN
-      Assert.AreEqual(result2, result1);
-      Assert.NotNull(result3);
+      result31.Should().NotBeNullOrEmpty();
+      result32.Should().NotBeNullOrEmpty();
+      result41.Should().NotBeNull();
+      result42.Should().NotBeNull();
+      result11.Should().Be(result12);
+      result21.Should().Be(result22);
+      result31.Should().Be(result32);
+      result41.Should().Be(result42);
     }
 
     [Test, Parallelizable]
@@ -1609,5 +1781,7 @@ namespace AnySpecification
 
     public Option<T> MyOption { get; }
   }
+
+  public record ObjectWithImmutableList(ImmutableList<int> Elements);
 
 }

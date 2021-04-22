@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 using System.Net;
 using System.Reflection;
@@ -677,6 +678,46 @@ namespace TddXt.AnyGenerators.Root
     public static InlineGenerator<T> OtherThan<T>(T[] omittedValues)
     {
       return new SimpleInstanceOtherThanGenerator<T>(omittedValues);
+    }
+
+    // Used by reflection
+    // public API
+    // ReSharper disable once UnusedMember.Global
+    public static InlineGenerator<ImmutableArray<T>> ImmutableArray<T>()
+    {
+      return new EnumerableGenerator<T>(Configuration.Many).AsImmutableArray();
+    }
+
+    // Used by reflection
+    // public API
+    // ReSharper disable once UnusedMember.Global
+    public static InlineGenerator<ImmutableList<T>> ImmutableList<T>()
+    {
+      return new EnumerableGenerator<T>(Configuration.Many).AsImmutableList();
+    }
+
+    // Used by reflection
+    // public API
+    // ReSharper disable once UnusedMember.Global
+    public static InlineGenerator<ImmutableHashSet<T>> ImmutableHashSet<T>()
+    {
+      return new EnumerableGenerator<T>(Configuration.Many).AsImmutableHashSet();
+    }
+
+    // Used by reflection
+    // public API
+    // ReSharper disable once UnusedMember.Global
+    public static InlineGenerator<ImmutableDictionary<T1, T2>> ImmutableDictionary<T1, T2>()
+    {
+      return new EnumerableGenerator<KeyValuePair<T1, T2>>(Configuration.Many).AsImmutableDictionary();
+    }
+
+    // Used by reflection
+    // public API
+    // ReSharper disable once UnusedMember.Global
+    public static InlineGenerator<ImmutableQueue<T>> ImmutableQueue<T>()
+    {
+      return new EnumerableGenerator<T>(Configuration.Many).AsImmutableQueue();
     }
   }
 }

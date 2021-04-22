@@ -1,5 +1,6 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using Castle.DynamicProxy;
 using TddXt.AnyGenerators.Generic.ExtensionPoints;
 using TddXt.TypeResolution;
@@ -38,35 +39,42 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
       return OrderedChainOfGenerationsWithTheFollowingLogic(TryTo(
         ResolveTheMostSpecificCases(valueGenerator),
         ElseTryTo(ResolveAsArray(),
-          ElseTryTo(ResolveAsSimpleEnumerableAndList(),
-            ElseTryTo(ResolveAsSimpleSet(),
-              ElseTryTo(ResolveAsSimpleDictionary(),
-                ElseTryTo(ResolveAsSortedList(),
-                  ElseTryTo(ResolveAsDelegate(),
-                    ElseTryTo(ResolveAsSortedSet(),
-                      ElseTryTo(ResolveAsSortedDictionary(),
-                        ElseTryTo(ResolveAsConcurrentDictionary(),
-                          ElseTryTo(ResolveAsConcurrentBag(),
-                            ElseTryTo(ResolveAsConcurrentQueue(),
-                              ElseTryTo(ResolveAsConcurrentStack(),
-                                ElseTryTo(ResolveAsKeyValuePair(),
-                                  ElseTryTo(ResolveAsOptionalOption(),
-                                    ElseTryTo(ResolveAsGenericEnumerator(),
-                                      ElseTryTo(ResolveAsObjectEnumerator(),
-                                        ElseTryTo(ResolveAsCollectionWithHeuristics(),
-                                          ElseTryTo(
-                                            ResolveAsInterfaceImplementationWhere(
-                                              eachMethodReturnsTheSameValueOnEveryCall, generationIsDoneUsingProxies),
-                                            ElseTryTo(
-                                              ResolveAsAbstractClassImplementationWhere(
-                                                eachMethodReturnsTheSameValueOnEveryCall, generationIsDoneUsingProxies),
-                                              ElseTryTo(
-                                                ResolveAsConcreteTypeWithNonConcreteTypesInConstructorSignature(),
-                                                ElseTryTo(ResolveAsVoidTask(),
-                                                  ElseTryTo(ResolveAsTypedTask(),
-                                                    ElseTryTo(ResolveAsConcreteClass(),
-                                                      ElseReportUnsupportedType()
-                                                    )))))))))))))))))))))))));
+          ElseTryTo(ResolveAsImmutableArray(),
+            ElseTryTo(ResolveAsSimpleEnumerableAndList(),
+              ElseTryTo(ResolveAsImmutableList(),
+                ElseTryTo(ResolveAsSimpleSet(),
+                  ElseTryTo(ResolveAsImmutableHashSet(),
+                    ElseTryTo(ResolveAsSimpleDictionary(),
+                      ElseTryTo(ResolveAsImmutableDictionary(),
+                        ElseTryTo(ResolveAsSortedList(),
+                          ElseTryTo(ResolveAsImmutableQueue(),
+                            ElseTryTo(ResolveAsDelegate(),
+                              ElseTryTo(ResolveAsSortedSet(),
+                                ElseTryTo(ResolveAsSortedDictionary(),
+                                  ElseTryTo(ResolveAsConcurrentDictionary(),
+                                    ElseTryTo(ResolveAsConcurrentBag(),
+                                      ElseTryTo(ResolveAsConcurrentQueue(),
+                                        ElseTryTo(ResolveAsConcurrentStack(),
+                                          ElseTryTo(ResolveAsKeyValuePair(),
+                                            ElseTryTo(ResolveAsOptionalOption(),
+                                              ElseTryTo(ResolveAsGenericEnumerator(),
+                                                ElseTryTo(ResolveAsObjectEnumerator(),
+                                                  ElseTryTo(ResolveAsCollectionWithHeuristics(),
+                                                    ElseTryTo(
+                                                      ResolveAsInterfaceImplementationWhere(
+                                                        eachMethodReturnsTheSameValueOnEveryCall,
+                                                        generationIsDoneUsingProxies),
+                                                      ElseTryTo(
+                                                        ResolveAsAbstractClassImplementationWhere(
+                                                          eachMethodReturnsTheSameValueOnEveryCall,
+                                                          generationIsDoneUsingProxies),
+                                                        ElseTryTo(
+                                                          ResolveAsConcreteTypeWithNonConcreteTypesInConstructorSignature(),
+                                                          ElseTryTo(ResolveAsVoidTask(),
+                                                            ElseTryTo(ResolveAsTypedTask(),
+                                                              ElseTryTo(ResolveAsConcreteClass(),
+                                                                ElseReportUnsupportedType()
+                                                              ))))))))))))))))))))))))))))));
     }
 
     private IResolution<T> ResolveAsOptionalOption()
@@ -221,6 +229,49 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
         typeof(ICollection<>),
         typeof(List<>),
         typeof(IReadOnlyList<>));
+    }
+
+    private IResolution<T> ResolveAsImmutableQueue()
+    {
+      return _specialCasesOfResolutions.CreateResolutionOf1GenericType(
+        nameof(InlineGenerators.ImmutableQueue),
+        typeof(ImmutableQueue<>),
+        typeof(IImmutableQueue<>)
+        );
+    }
+
+    private IResolution<T> ResolveAsImmutableDictionary()
+    {
+      return _specialCasesOfResolutions.CreateResolutionOf2GenericType(
+        nameof(InlineGenerators.ImmutableDictionary),
+        typeof(ImmutableDictionary<,>),
+        typeof(IImmutableDictionary<,>)
+        );
+    }
+
+    private IResolution<T> ResolveAsImmutableHashSet()
+    {
+      return _specialCasesOfResolutions.CreateResolutionOf1GenericType(
+        nameof(InlineGenerators.ImmutableHashSet),
+        typeof(ImmutableHashSet<>),
+        typeof(IImmutableSet<>)
+      );
+    }
+
+    private IResolution<T> ResolveAsImmutableList()
+    {
+      return _specialCasesOfResolutions.CreateResolutionOf1GenericType(
+        nameof(InlineGenerators.ImmutableList),
+        typeof(ImmutableList<>),
+        typeof(IImmutableList<>));
+    }
+
+    private IResolution<T> ResolveAsImmutableArray()
+    {
+      return _specialCasesOfResolutions.CreateResolutionOf1GenericType(
+        nameof(InlineGenerators.ImmutableArray),
+        typeof(ImmutableArray<>));
+
     }
 
     private static FakeSpecialCase<T> ResolveTheMostSpecificCases(IValueGenerator valueGenerator)

@@ -1,8 +1,10 @@
 ﻿using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 using TddXt.AnyExtensibility;
 using TddXt.AnyGenerators.Root;
+using TddXt.AnyGenerators.Root.ImplementationDetails;
 
 namespace TddXt.AnyRoot.Collections
 {
@@ -244,6 +246,29 @@ namespace TddXt.AnyRoot.Collections
     public static IEnumerator<T> Enumerator<T>(this BasicGenerator gen)
     {
       return gen.InstanceOf(InlineGenerators.Enumerator<T>());
+    }
+
+    public static ImmutableArray<T> ImmutableArray<T>(this BasicGenerator gen)
+    {
+      return gen.InstanceOf(InlineGenerators.ImmutableArray<T>());
+    }
+    public static ImmutableList<T> ImmutableList<T>(this BasicGenerator gen)
+    {
+      return gen.InstanceOf(InlineGenerators.ImmutableList<T>());
+    }
+    public static ImmutableHashSet<T> ImmutableHashSet<T>(this BasicGenerator gen)
+    {
+      return gen.InstanceOf(InlineGenerators.ImmutableHashSet<T>());
+    }
+
+    public static ImmutableDictionary<T1, T2> ImmutableDictionary<T1, T2>(this BasicGenerator gen)
+    {
+      return gen.InstanceOf(InlineGenerators.ImmutableDictionary<T1, T2>()); //bug register in autofixture!!!
+    }
+
+    public static ImmutableQueue<T> ImmutableQueue<T>(this BasicGenerator gen)
+    {
+      return gen.InstanceOf(InlineGenerators.ImmutableQueue<T>()); //bug register in autofixture!!!
     }
   }
 }
