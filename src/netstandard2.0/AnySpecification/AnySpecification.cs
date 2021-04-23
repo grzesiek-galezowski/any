@@ -1412,6 +1412,18 @@ namespace AnySpecification
     }
 
     [Test, Parallelizable]
+    public void ShouldAllowGeneratingDummyImmutableLists()
+    {
+        //GIVEN
+        var readOnlyList = Any.Dummy<ImmutableList<int>>();
+        //WHEN
+
+        //THEN
+        Assert.NotNull(readOnlyList);
+        Assert.AreEqual(0, readOnlyList.Count);
+    }
+
+    [Test, Parallelizable]
     public void ShouldAllowGeneratingObjectsWithImmutableLists()
     {
       //GIVEN
@@ -1454,6 +1466,18 @@ namespace AnySpecification
     }
 
     [Test, Parallelizable]
+    public void ShouldAllowGeneratingDummyImmutableArrays()
+    {
+      //GIVEN
+      var readOnlyList = Any.Dummy<ImmutableArray<int>>();
+      //WHEN
+
+      //THEN
+      Assert.NotNull(readOnlyList);
+      Assert.AreEqual(0, readOnlyList.Count());
+    }
+
+    [Test, Parallelizable]
     public void ShouldAllowGeneratingImmutableArraysThroughGenericMethod()
     {
         //GIVEN
@@ -1479,6 +1503,18 @@ namespace AnySpecification
         Assert.AreEqual(3, readOnlyList.Count);
         CollectionAssert.AllItemsAreNotNull(readOnlyList);
         CollectionAssert.AllItemsAreUnique(readOnlyList);
+    }
+
+    [Test, Parallelizable]
+    public void ShouldAllowGeneratingDummyImmutableDictionaries()
+    {
+      //GIVEN
+      var readOnlyList = Any.Dummy<ImmutableDictionary<int, int>>();
+      //WHEN
+
+      //THEN
+      Assert.NotNull(readOnlyList);
+      Assert.AreEqual(0, readOnlyList.Count);
     }
 
     [Test, Parallelizable]
@@ -1510,6 +1546,18 @@ namespace AnySpecification
     }
 
     [Test, Parallelizable]
+    public void ShouldAllowGeneratingDummyImmutableHashSets()
+    {
+      //GIVEN
+      var collection = Any.Dummy<ImmutableHashSet<int>>();
+      //WHEN
+
+      //THEN
+      Assert.NotNull(collection);
+      Assert.AreEqual(0, collection.Count);
+    }
+
+    [Test, Parallelizable]
     public void ShouldAllowGeneratingImmutableHashSetsThroughGenericMethod()
     {
         //GIVEN
@@ -1535,6 +1583,18 @@ namespace AnySpecification
         Assert.AreEqual(3, collection.Count());
         CollectionAssert.AllItemsAreNotNull(collection);
         CollectionAssert.AllItemsAreUnique(collection);
+    }
+
+    [Test, Parallelizable]
+    public void ShouldAllowGeneratingDummyImmutableQueues()
+    {
+      //GIVEN
+      var collection = Any.Dummy<ImmutableQueue<int>>();
+      //WHEN
+
+      //THEN
+      Assert.NotNull(collection);
+      Assert.AreEqual(0, collection.Count());
     }
 
     [Test, Parallelizable]
