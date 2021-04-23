@@ -1412,8 +1412,6 @@ namespace AnySpecification
     }
 
     [Test, Parallelizable]
-    //bug if this works, then maybe the custom generators are not needed
-    //bug and all I need is making sure the request reaches autofixture????
     public void ShouldAllowGeneratingObjectsWithImmutableLists()
     {
       //GIVEN
