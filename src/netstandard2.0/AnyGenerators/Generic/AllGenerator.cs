@@ -132,6 +132,8 @@ namespace TddXt.AnyGenerators.Generic
         return unconstrainedChain.Resolve(SynchronizedThis, request);
       }
 
+      throw new Exception("What is immutable collection is passed?");
+
       var emptyCollectionInstantiation = new EmptyCollectionInstantiation();
       if (TypeOf<T>.IsImplementationOfOpenGeneric(typeof(IEnumerable<>)))
       {
