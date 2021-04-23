@@ -82,19 +82,31 @@ namespace TddXt.AnyGenerators.AutoFixtureWrapper
 
       if (request is Type t)
       {
-        if (t.GetGenericTypeDefinition() == typeof(ImmutableArray<>))
+        if (t.IsGenericType)
         {
-          var elementType = t.GetGenericArguments().Single();
-          var creationMethod = typeof(ImmutableArray).GetMethods(BindingFlags.Public | BindingFlags.Static)
-            .Where(m => m.IsGenericMethodDefinition)
-            .Where(m => m.GetGenericArguments().Length == 1)
-            .Where(m => m.GetParameters().Length == 0)
-            .Where(m => m.ReturnType.GetGenericTypeDefinition() == typeof(ImmutableArray<>))
-            .Where(m => m.Name == nameof(ImmutableArray.Create))
-            .Single();
+          if (new []
+          {
+            typeof(ImmutableArray<>), 
+            typeof(ImmutableList<>),
+            typeof(ImmutableDictionary<,>),
+            typeof(ImmutableHashSet<>),
+            typeof(ImmutableSortedDictionary<,>),
+            typeof(ImmutableSortedSet<>),
+            typeof(ImmutableStack<>),
+          }.Contains(t.GetGenericTypeDefinition()))
+          {
+            var emptyField = t.GetField("Empty", BindingFlags.Public | BindingFlags.Static);
+            return emptyField.GetValue(null);
 
-          creationMethod.MakeGenericMethod(elementType).Invoke(null, new object[]{});
-
+          }
+          else if (new[]
+          {
+            typeof(ImmutableQueue<>)
+          }.Contains(t.GetGenericTypeDefinition()))
+          {
+            var emptyProperty = t.GetProperty("Empty", BindingFlags.Public | BindingFlags.Static);
+            return emptyProperty.GetValue(null);
+          }
         }
       }
 

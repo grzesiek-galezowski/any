@@ -1478,6 +1478,24 @@ namespace AnySpecification
     }
 
     [Test, Parallelizable]
+    public void ShouldAllowGeneratingDummyImmutableArraysInTheAnyLoop()
+    {
+      //GIVEN
+      var collection = Any.Instance<
+        ImmutableArray<
+          ImmutableArray<
+            ImmutableArray<
+              ImmutableArray<
+                ImmutableArray<
+                  ImmutableArray<int>>>>>>>();
+      //WHEN
+
+      //THEN
+      Assert.NotNull(collection);
+      collection.First().First().First().First().First().Length.Should().Be(0);
+    }
+
+    [Test, Parallelizable]
     public void ShouldAllowGeneratingImmutableArraysThroughGenericMethod()
     {
         //GIVEN
