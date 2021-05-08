@@ -703,6 +703,14 @@ namespace TddXt.AnyGenerators.Root
     {
       return new EnumerableGenerator<T>(Configuration.Many).AsImmutableHashSet();
     }
+    
+    // Used by reflection
+    // public API
+    // ReSharper disable once UnusedMember.Global
+    public static InlineGenerator<ImmutableSortedSet<T>> ImmutableSortedSet<T>()
+    {
+      return new EnumerableGenerator<T>(Configuration.Many).AsImmutableSortedSet();
+    }
 
     // Used by reflection
     // public API
@@ -715,9 +723,25 @@ namespace TddXt.AnyGenerators.Root
     // Used by reflection
     // public API
     // ReSharper disable once UnusedMember.Global
+    public static InlineGenerator<ImmutableSortedDictionary<T1, T2>> ImmutableSortedDictionary<T1, T2>()
+    {
+      return new EnumerableGenerator<KeyValuePair<T1, T2>>(Configuration.Many).AsImmutableSortedDictionary();
+    }
+
+    // Used by reflection
+    // public API
+    // ReSharper disable once UnusedMember.Global
     public static InlineGenerator<ImmutableQueue<T>> ImmutableQueue<T>()
     {
       return new EnumerableGenerator<T>(Configuration.Many).AsImmutableQueue();
+    }
+
+    // Used by reflection
+    // public API
+    // ReSharper disable once UnusedMember.Global
+    public static InlineGenerator<ImmutableStack<T>> ImmutableStack<T>()
+    {
+      return new EnumerableGenerator<T>(Configuration.Many).AsImmutableStack();
     }
   }
 }

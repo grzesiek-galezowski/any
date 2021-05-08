@@ -44,37 +44,40 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
               ElseTryTo(ResolveAsImmutableList(),
                 ElseTryTo(ResolveAsSimpleSet(),
                   ElseTryTo(ResolveAsImmutableHashSet(),
-                    ElseTryTo(ResolveAsSimpleDictionary(),
-                      ElseTryTo(ResolveAsImmutableDictionary(),
-                        ElseTryTo(ResolveAsSortedList(),
-                          ElseTryTo(ResolveAsImmutableQueue(),
-                            ElseTryTo(ResolveAsDelegate(),
-                              ElseTryTo(ResolveAsSortedSet(),
-                                ElseTryTo(ResolveAsSortedDictionary(),
-                                  ElseTryTo(ResolveAsConcurrentDictionary(),
-                                    ElseTryTo(ResolveAsConcurrentBag(),
-                                      ElseTryTo(ResolveAsConcurrentQueue(),
-                                        ElseTryTo(ResolveAsConcurrentStack(),
-                                          ElseTryTo(ResolveAsKeyValuePair(),
-                                            ElseTryTo(ResolveAsOptionalOption(),
-                                              ElseTryTo(ResolveAsGenericEnumerator(),
-                                                ElseTryTo(ResolveAsObjectEnumerator(),
-                                                  ElseTryTo(ResolveAsCollectionWithHeuristics(),
-                                                    ElseTryTo(
-                                                      ResolveAsInterfaceImplementationWhere(
-                                                        eachMethodReturnsTheSameValueOnEveryCall,
-                                                        generationIsDoneUsingProxies),
-                                                      ElseTryTo(
-                                                        ResolveAsAbstractClassImplementationWhere(
-                                                          eachMethodReturnsTheSameValueOnEveryCall,
-                                                          generationIsDoneUsingProxies),
-                                                        ElseTryTo(
-                                                          ResolveAsConcreteTypeWithNonConcreteTypesInConstructorSignature(),
-                                                          ElseTryTo(ResolveAsVoidTask(),
-                                                            ElseTryTo(ResolveAsTypedTask(),
-                                                              ElseTryTo(ResolveAsConcreteClass(),
-                                                                ElseReportUnsupportedType()
-                                                              ))))))))))))))))))))))))))))));
+                    ElseTryTo(ResolveAsImmutableSortedSet(),
+                      ElseTryTo(ResolveAsSimpleDictionary(),
+                        ElseTryTo(ResolveAsImmutableDictionary(),
+                          ElseTryTo(ResolveAsImmutableSortedDictionary(),
+                            ElseTryTo(ResolveAsSortedList(),
+                              ElseTryTo(ResolveAsImmutableQueue(),
+                                ElseTryTo(ResolveAsImmutableStack(),
+                                  ElseTryTo(ResolveAsDelegate(),
+                                    ElseTryTo(ResolveAsSortedSet(),
+                                      ElseTryTo(ResolveAsSortedDictionary(),
+                                        ElseTryTo(ResolveAsConcurrentDictionary(),
+                                          ElseTryTo(ResolveAsConcurrentBag(),
+                                            ElseTryTo(ResolveAsConcurrentQueue(),
+                                              ElseTryTo(ResolveAsConcurrentStack(),
+                                                ElseTryTo(ResolveAsKeyValuePair(),
+                                                  ElseTryTo(ResolveAsOptionalOption(),
+                                                    ElseTryTo(ResolveAsGenericEnumerator(),
+                                                      ElseTryTo(ResolveAsObjectEnumerator(),
+                                                        ElseTryTo(ResolveAsCollectionWithHeuristics(),
+                                                          ElseTryTo(
+                                                            ResolveAsInterfaceImplementationWhere(
+                                                              eachMethodReturnsTheSameValueOnEveryCall,
+                                                              generationIsDoneUsingProxies),
+                                                            ElseTryTo(
+                                                              ResolveAsAbstractClassImplementationWhere(
+                                                                eachMethodReturnsTheSameValueOnEveryCall,
+                                                                generationIsDoneUsingProxies),
+                                                              ElseTryTo(
+                                                                ResolveAsConcreteTypeWithNonConcreteTypesInConstructorSignature(),
+                                                                ElseTryTo(ResolveAsVoidTask(),
+                                                                  ElseTryTo(ResolveAsTypedTask(),
+                                                                    ElseTryTo(ResolveAsConcreteClass(),
+                                                                      ElseReportUnsupportedType()
+                                                                    )))))))))))))))))))))))))))))))));
     }
 
     private IResolution<T> ResolveAsOptionalOption()
@@ -240,6 +243,15 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
         );
     }
 
+    private IResolution<T> ResolveAsImmutableStack()
+    {
+      return _specialCasesOfResolutions.CreateResolutionOf1GenericType(
+        nameof(InlineGenerators.ImmutableStack),
+        typeof(ImmutableStack<>),
+        typeof(IImmutableStack<>)
+        );
+    }
+
     private IResolution<T> ResolveAsImmutableDictionary()
     {
       return _specialCasesOfResolutions.CreateResolutionOf2GenericType(
@@ -249,12 +261,27 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
         );
     }
 
+    private IResolution<T> ResolveAsImmutableSortedDictionary()
+    {
+      return _specialCasesOfResolutions.CreateResolutionOf2GenericType(
+        nameof(InlineGenerators.ImmutableSortedDictionary),
+        typeof(ImmutableSortedDictionary<,>));
+    }
+
     private IResolution<T> ResolveAsImmutableHashSet()
     {
       return _specialCasesOfResolutions.CreateResolutionOf1GenericType(
         nameof(InlineGenerators.ImmutableHashSet),
         typeof(ImmutableHashSet<>),
         typeof(IImmutableSet<>)
+      );
+    }
+
+    private IResolution<T> ResolveAsImmutableSortedSet()
+    {
+      return _specialCasesOfResolutions.CreateResolutionOf1GenericType(
+        nameof(InlineGenerators.ImmutableSortedSet),
+        typeof(ImmutableSortedSet<>)
       );
     }
 

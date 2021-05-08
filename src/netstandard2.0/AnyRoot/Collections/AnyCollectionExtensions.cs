@@ -260,15 +260,28 @@ namespace TddXt.AnyRoot.Collections
     {
       return gen.InstanceOf(InlineGenerators.ImmutableHashSet<T>());
     }
+    public static ImmutableSortedSet<T> ImmutableSortedSet<T>(this BasicGenerator gen)
+    {
+      return gen.InstanceOf(InlineGenerators.ImmutableSortedSet<T>());
+    }
 
     public static ImmutableDictionary<T1, T2> ImmutableDictionary<T1, T2>(this BasicGenerator gen)
     {
       return gen.InstanceOf(InlineGenerators.ImmutableDictionary<T1, T2>());
     }
 
+    public static ImmutableSortedDictionary<T1, T2> ImmutableSortedDictionary<T1, T2>(this BasicGenerator gen)
+    {
+      return gen.InstanceOf(InlineGenerators.ImmutableSortedDictionary<T1, T2>());
+    }
+
     public static ImmutableQueue<T> ImmutableQueue<T>(this BasicGenerator gen)
     {
       return gen.InstanceOf(InlineGenerators.ImmutableQueue<T>());
+    }
+    public static ImmutableStack<T> ImmutableStack<T>(this BasicGenerator gen)
+    {
+      return gen.InstanceOf(InlineGenerators.ImmutableStack<T>());
     }
   }
 }

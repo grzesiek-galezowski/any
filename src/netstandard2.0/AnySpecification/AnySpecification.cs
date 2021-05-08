@@ -1629,9 +1629,127 @@ namespace AnySpecification
         CollectionAssert.AllItemsAreUnique(collection);
     }
 
-    //bug immutable sorted set
-    //bug immutable sorted dictionary
+    [Test, Parallelizable]
+    public void ShouldAllowGeneratingImmutableSortedSets()
+    {
+      //GIVEN
+      var collection = Any.ImmutableSortedSet<int>();
+      //WHEN
+
+      //THEN
+      Assert.NotNull(collection);
+      Assert.AreEqual(3, collection.Count());
+      CollectionAssert.AllItemsAreNotNull(collection);
+      CollectionAssert.AllItemsAreUnique(collection);
+    }
+
+    [Test, Parallelizable]
+    public void ShouldAllowGeneratingDummyImmutableSortedSets()
+    {
+      //GIVEN
+      var collection = Any.Dummy<ImmutableSortedSet<int>>();
+      //WHEN
+
+      //THEN
+      Assert.NotNull(collection);
+      Assert.AreEqual(0, collection.Count());
+    }
+
+    [Test, Parallelizable]
+    public void ShouldAllowGeneratingImmutableSortedSetsThroughGenericMethod()
+    {
+      //GIVEN
+      var collection = Any.Instance<ImmutableSortedSet<int>>();
+      //WHEN
+
+      //THEN
+      Assert.NotNull(collection);
+      Assert.AreEqual(3, collection.Count);
+      CollectionAssert.AllItemsAreNotNull(collection);
+      CollectionAssert.AllItemsAreUnique(collection);
+    }
+
+    [Test, Parallelizable]
+    public void ShouldAllowGeneratingImmutableSortedDictionaries()
+    {
+      //GIVEN
+      var collection = Any.ImmutableSortedDictionary<int, int>();
+      //WHEN
+
+      //THEN
+      Assert.NotNull(collection);
+      Assert.AreEqual(3, collection.Count);
+      CollectionAssert.AllItemsAreNotNull(collection);
+      CollectionAssert.AllItemsAreUnique(collection);
+    }
+
+    [Test, Parallelizable]
+    public void ShouldAllowGeneratingDummyImmutableSortedDictionaries()
+    {
+      //GIVEN
+      var collection = Any.Dummy<ImmutableSortedDictionary<int, int>>();
+      //WHEN
+
+      //THEN
+      Assert.NotNull(collection);
+      Assert.AreEqual(0, collection.Count);
+    }
+
+    [Test, Parallelizable]
+    public void ShouldAllowGeneratingImmutableSortedDictionariesThroughGenericMethod()
+    {
+      //GIVEN
+      var collection = Any.Instance<ImmutableSortedDictionary<int, int>>();
+      //WHEN
+
+      //THEN
+      Assert.NotNull(collection);
+      Assert.AreEqual(3, collection.Count);
+      CollectionAssert.AllItemsAreNotNull(collection);
+      CollectionAssert.AllItemsAreUnique(collection);
+    }
+
     //bug immutable stack
+    [Test, Parallelizable]
+    public void ShouldAllowGeneratingImmutableStacks()
+    {
+      //GIVEN
+      var collection = Any.ImmutableStack<int>();
+      //WHEN
+
+      //THEN
+      Assert.NotNull(collection);
+      Assert.AreEqual(3, collection.Count());
+      CollectionAssert.AllItemsAreNotNull(collection);
+      CollectionAssert.AllItemsAreUnique(collection);
+    }
+
+    [Test, Parallelizable]
+    public void ShouldAllowGeneratingDummyImmutableStacks()
+    {
+      //GIVEN
+      var collection = Any.Dummy<ImmutableStack<int>>();
+      //WHEN
+
+      //THEN
+      Assert.NotNull(collection);
+      Assert.AreEqual(0, collection.Count());
+    }
+
+    [Test, Parallelizable]
+    public void ShouldAllowGeneratingImmutableStacksThroughGenericMethod()
+    {
+      //GIVEN
+      var collection = Any.Instance<ImmutableStack<int>>();
+      //WHEN
+
+      //THEN
+      Assert.NotNull(collection);
+      Assert.AreEqual(3, collection.Count());
+      CollectionAssert.AllItemsAreNotNull(collection);
+      CollectionAssert.AllItemsAreUnique(collection);
+    }
+
 
     [Test, Parallelizable]
     public void ShouldAllowGeneratingFuncs()

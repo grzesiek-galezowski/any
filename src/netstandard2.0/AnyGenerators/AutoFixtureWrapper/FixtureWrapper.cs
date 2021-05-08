@@ -1,9 +1,5 @@
 using AutoFixture;
 using System;
-using System.Collections.Immutable;
-using System.Linq;
-using System.Reflection;
-using AutoFixture.Kernel;
 using TddXt.AnyExtensibility;
 using TddXt.TypeResolution.FakeChainElements;
 
@@ -62,7 +58,7 @@ namespace TddXt.AnyGenerators.AutoFixtureWrapper
       {
         RepeatCount = 0
       };
-      autoFixture.Customizations.Add(new EmptyImmutableArrayRelay());
+      autoFixture.Customizations.Add(new EmptyImmutableCollectionRelay());
       var instanceForEmptyCollections = new FixtureWrapper(autoFixture);
       return instanceForEmptyCollections;
     }
@@ -71,46 +67,6 @@ namespace TddXt.AnyGenerators.AutoFixtureWrapper
       GenerationRequest request)
     {
       return new CustomizationScope(_autoFixture, customizations, gen, request, _syncRoot);
-    }
-  }
-
-  public class EmptyImmutableArrayRelay : ISpecimenBuilder
-  {
-    public object Create(object request, ISpecimenContext context)
-    {
-      if (context == null) throw new ArgumentNullException(nameof(context));
-
-      if (request is Type t)
-      {
-        if (t.IsGenericType)
-        {
-          if (new []
-          {
-            typeof(ImmutableArray<>), 
-            typeof(ImmutableList<>),
-            typeof(ImmutableDictionary<,>),
-            typeof(ImmutableHashSet<>),
-            typeof(ImmutableSortedDictionary<,>),
-            typeof(ImmutableSortedSet<>),
-            typeof(ImmutableStack<>),
-          }.Contains(t.GetGenericTypeDefinition()))
-          {
-            var emptyField = t.GetField("Empty", BindingFlags.Public | BindingFlags.Static);
-            return emptyField.GetValue(null);
-
-          }
-          else if (new[]
-          {
-            typeof(ImmutableQueue<>)
-          }.Contains(t.GetGenericTypeDefinition()))
-          {
-            var emptyProperty = t.GetProperty("Empty", BindingFlags.Public | BindingFlags.Static);
-            return emptyProperty.GetValue(null);
-          }
-        }
-      }
-
-      return new NoSpecimen();
     }
   }
 }

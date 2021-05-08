@@ -78,16 +78,32 @@ namespace TddXt.AnyGenerators.Collections
     {
       return Conversion(enumerableGenerator, ImmutableHashSet.ToImmutableHashSet);
     }
+    
+    public static InlineGenerator<ImmutableSortedSet<T>> AsImmutableSortedSet<T>(this InlineGenerator<IEnumerable<T>> enumerableGenerator)
+    {
+      return Conversion(enumerableGenerator, ImmutableSortedSet.ToImmutableSortedSet);
+    }
 
     public static InlineGenerator<ImmutableQueue<T>> AsImmutableQueue<T>(this InlineGenerator<IEnumerable<T>> enumerableGenerator)
     {
       return Conversion(enumerableGenerator, ImmutableQueue.CreateRange);
     }
 
+    public static InlineGenerator<ImmutableStack<T>> AsImmutableStack<T>(this InlineGenerator<IEnumerable<T>> enumerableGenerator)
+    {
+      return Conversion(enumerableGenerator, ImmutableStack.CreateRange);
+    }
+
     public static InlineGenerator<ImmutableDictionary<T1, T2>> AsImmutableDictionary<T1, T2>(
       this InlineGenerator<IEnumerable<KeyValuePair<T1, T2>>> enumerableGenerator)
     {
       return Conversion(enumerableGenerator, ImmutableDictionary.ToImmutableDictionary);
+    }
+    
+    public static InlineGenerator<ImmutableSortedDictionary<T1, T2>> AsImmutableSortedDictionary<T1, T2>(
+      this InlineGenerator<IEnumerable<KeyValuePair<T1, T2>>> enumerableGenerator)
+    {
+      return Conversion(enumerableGenerator, ImmutableSortedDictionary.ToImmutableSortedDictionary);
     }
 
     public static EnumerableConversion<KeyValuePair<TKey, TValue>, IReadOnlyDictionary<TKey, TValue>>
