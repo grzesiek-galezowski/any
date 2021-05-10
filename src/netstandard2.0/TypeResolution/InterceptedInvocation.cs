@@ -74,23 +74,23 @@ namespace TddXt.TypeResolution
     }
 
   }
-}
 
-public static class ReflectionExtensions
-{
-  public static PropertyInfo GetPropertyFromSetterCall(this MethodInfo call)
+  public static class ReflectionExtensions
   {
-    if (!CanBePropertySetterCall(call))
+    public static PropertyInfo GetPropertyFromSetterCall(this MethodInfo call)
     {
-      throw new Exception("property not settable");
+      if (!CanBePropertySetterCall(call))
+      {
+        throw new Exception("property not settable");
+      }
+
+      var properties = call.DeclaringType.GetProperties();
+      return properties.FirstOrDefault(x => x.GetSetMethod() == call);
     }
 
-    var properties = call.DeclaringType.GetProperties();
-    return properties.FirstOrDefault(x => x.GetSetMethod() == call);
-  }
-
-  private static bool CanBePropertySetterCall(MethodInfo call)
-  {
-    return call.IsSpecialName && call.Name.StartsWith("set_", StringComparison.Ordinal);
+    private static bool CanBePropertySetterCall(MethodInfo call)
+    {
+      return call.IsSpecialName && call.Name.StartsWith("set_", StringComparison.Ordinal);
+    }
   }
 }

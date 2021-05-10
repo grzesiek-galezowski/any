@@ -33,51 +33,48 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
         valueGenerator));
     }
 
-    public FakeChain<T> UnconstrainedInstance(CachedReturnValueGeneration eachMethodReturnsTheSameValueOnEveryCall,
+    public IFakeChain<T> UnconstrainedInstance(CachedReturnValueGeneration eachMethodReturnsTheSameValueOnEveryCall,
       ProxyGenerator generationIsDoneUsingProxies, IValueGenerator valueGenerator)
     {
-      return OrderedChainOfGenerationsWithTheFollowingLogic(TryTo(
+      return new TemporaryChainForCollection<T>(new[]
+      {
         ResolveTheMostSpecificCases(valueGenerator),
-        ElseTryTo(ResolveAsArray(),
-          ElseTryTo(ResolveAsImmutableArray(),
-            ElseTryTo(ResolveAsSimpleEnumerableAndList(),
-              ElseTryTo(ResolveAsImmutableList(),
-                ElseTryTo(ResolveAsSimpleSet(),
-                  ElseTryTo(ResolveAsImmutableHashSet(),
-                    ElseTryTo(ResolveAsImmutableSortedSet(),
-                      ElseTryTo(ResolveAsSimpleDictionary(),
-                        ElseTryTo(ResolveAsImmutableDictionary(),
-                          ElseTryTo(ResolveAsImmutableSortedDictionary(),
-                            ElseTryTo(ResolveAsSortedList(),
-                              ElseTryTo(ResolveAsImmutableQueue(),
-                                ElseTryTo(ResolveAsImmutableStack(),
-                                  ElseTryTo(ResolveAsDelegate(),
-                                    ElseTryTo(ResolveAsSortedSet(),
-                                      ElseTryTo(ResolveAsSortedDictionary(),
-                                        ElseTryTo(ResolveAsConcurrentDictionary(),
-                                          ElseTryTo(ResolveAsConcurrentBag(),
-                                            ElseTryTo(ResolveAsConcurrentQueue(),
-                                              ElseTryTo(ResolveAsConcurrentStack(),
-                                                ElseTryTo(ResolveAsKeyValuePair(),
-                                                  ElseTryTo(ResolveAsOptionalOption(),
-                                                    ElseTryTo(ResolveAsGenericEnumerator(),
-                                                      ElseTryTo(ResolveAsObjectEnumerator(),
-                                                        ElseTryTo(ResolveAsCollectionWithHeuristics(),
-                                                          ElseTryTo(
-                                                            ResolveAsInterfaceImplementationWhere(
-                                                              eachMethodReturnsTheSameValueOnEveryCall,
-                                                              generationIsDoneUsingProxies),
-                                                            ElseTryTo(
-                                                              ResolveAsAbstractClassImplementationWhere(
-                                                                eachMethodReturnsTheSameValueOnEveryCall,
-                                                                generationIsDoneUsingProxies),
-                                                              ElseTryTo(
-                                                                ResolveAsConcreteTypeWithNonConcreteTypesInConstructorSignature(),
-                                                                ElseTryTo(ResolveAsVoidTask(),
-                                                                  ElseTryTo(ResolveAsTypedTask(),
-                                                                    ElseTryTo(ResolveAsConcreteClass(),
-                                                                      ElseReportUnsupportedType()
-                                                                    )))))))))))))))))))))))))))))))));
+        ResolveAsArray(),
+        ResolveAsImmutableArray(),
+        ResolveAsSimpleEnumerableAndList(),
+        ResolveAsImmutableList(),
+        ResolveAsSimpleSet(),
+        ResolveAsImmutableHashSet(),
+        ResolveAsImmutableSortedSet(),
+        ResolveAsSimpleDictionary(),
+        ResolveAsImmutableDictionary(),
+        ResolveAsImmutableSortedDictionary(),
+        ResolveAsSortedList(),
+        ResolveAsImmutableQueue(),
+        ResolveAsImmutableStack(),
+        ResolveAsDelegate(),
+        ResolveAsSortedSet(),
+        ResolveAsSortedDictionary(),
+        ResolveAsConcurrentDictionary(),
+        ResolveAsConcurrentBag(),
+        ResolveAsConcurrentQueue(),
+        ResolveAsConcurrentStack(),
+        ResolveAsKeyValuePair(),
+        ResolveAsOptionalOption(),
+        ResolveAsGenericEnumerator(),
+        ResolveAsObjectEnumerator(),
+        ResolveAsCollectionWithHeuristics(),
+        ResolveAsInterfaceImplementationWhere(
+          eachMethodReturnsTheSameValueOnEveryCall,
+          generationIsDoneUsingProxies),
+        ResolveAsAbstractClassImplementationWhere(
+          eachMethodReturnsTheSameValueOnEveryCall,
+          generationIsDoneUsingProxies),
+        ResolveAsConcreteTypeWithNonConcreteTypesInConstructorSignature(),
+        ResolveAsVoidTask(),
+        ResolveAsTypedTask(),
+        ResolveAsConcreteClass()
+      });
     }
 
     private IResolution<T> ResolveAsOptionalOption()
@@ -99,11 +96,6 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
     {
       return new FakeDelegate<T>();
 
-    }
-
-    private static FakeChain<T> OrderedChainOfGenerationsWithTheFollowingLogic(IChainElement<T> first)
-    {
-      return new FakeChain<T>(first);
     }
 
     private static IFakeChain<T> RecursionLimited(IFakeChain<T> fakeChain)
@@ -304,21 +296,6 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
     private static FakeSpecialCase<T> ResolveTheMostSpecificCases(IValueGenerator valueGenerator)
     {
       return new FakeSpecialCase<T>(valueGenerator);
-    }
-
-    private static InvalidChainElement<T> ElseReportUnsupportedType()
-    {
-      return new InvalidChainElement<T>();
-    }
-
-    private static ChainElement<T> ElseTryTo(IResolution<T> handleArraysInSpecialWay, IChainElement<T> chainElement)
-    {
-      return new ChainElement<T>(handleArraysInSpecialWay, chainElement);
-    }
-
-    private static IChainElement<T> TryTo(IResolution<T> fakeSpecialCase, IChainElement<T> chainElement)
-    {
-      return new ChainElement<T>(fakeSpecialCase, chainElement);
     }
 
     private IResolution<T> ResolveAsArray()
