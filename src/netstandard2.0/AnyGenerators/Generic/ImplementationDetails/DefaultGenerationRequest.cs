@@ -7,11 +7,15 @@ namespace TddXt.AnyGenerators.Generic.ImplementationDetails
   public class DefaultGenerationRequest : GenerationRequest
   {
     public NestingLimit NestingLimit { get; }
+    public GenerationCustomization[] GenerationCustomizations { get; }
     public GenerationTrace Trace { get; }
 
-    public DefaultGenerationRequest(NestingLimit nestingLimit)
+    public DefaultGenerationRequest(
+      NestingLimit nestingLimit, 
+      GenerationCustomization[] generationCustomizations)
     {
       NestingLimit = nestingLimit;
+      GenerationCustomizations = generationCustomizations;
       Trace = new ListBasedGeneratonTrace();
     }
 

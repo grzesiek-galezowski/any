@@ -12,7 +12,6 @@ namespace TddXt.AnyGenerators.AutoFixtureWrapper
 
     public CustomizationScope(
       Fixture generator,
-      GenerationCustomization[] customizations,
       InstanceGenerator gen,
       GenerationRequest request, 
       object syncRoot)
@@ -22,7 +21,7 @@ namespace TddXt.AnyGenerators.AutoFixtureWrapper
       try
       {
         _generator = generator;
-        generator.Customizations.Insert(0, new CustomizationRelay(customizations, gen, request));
+        generator.Customizations.Insert(0, new CustomizationRelay(gen, request));
       }
       catch
       {

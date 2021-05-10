@@ -39,11 +39,11 @@ namespace TddXt.AnyGenerators.Generic
       return _generator.Create(seed);
     }
 
-    public T Value<T>(InstanceGenerator gen, GenerationCustomization[] customizations, GenerationRequest request)
+    public T Value<T>(InstanceGenerator gen, GenerationRequest request)
     {
       lock (_syncRoot)
       {
-        using (_generator.CustomizeWith(customizations, gen, request))
+        using (_generator.Customize(request, gen))
         {
           return _generator.Create<T>();
         }

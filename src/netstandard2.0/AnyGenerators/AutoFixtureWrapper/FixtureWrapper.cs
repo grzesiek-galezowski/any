@@ -63,10 +63,9 @@ namespace TddXt.AnyGenerators.AutoFixtureWrapper
       return instanceForEmptyCollections;
     }
 
-    public IDisposable CustomizeWith(GenerationCustomization[] customizations, InstanceGenerator gen,
-      GenerationRequest request)
+    public IDisposable Customize(GenerationRequest request, InstanceGenerator gen)
     {
-      return new CustomizationScope(_autoFixture, customizations, gen, request, _syncRoot);
+      return new CustomizationScope(_autoFixture, gen, request, _syncRoot);
     }
   }
 }

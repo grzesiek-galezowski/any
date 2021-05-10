@@ -7,13 +7,11 @@ namespace TddXt.AnyGenerators.Generic.ImplementationDetails
 {
   public class CustomizedGenerator : InstanceGenerator
   {
-    private readonly GenerationCustomization[] _customizations;
     private readonly CustomizableInstanceGenerator _inner;
 
-    public CustomizedGenerator(CustomizableInstanceGenerator inner, GenerationCustomization[] customizations)
+    public CustomizedGenerator(CustomizableInstanceGenerator inner)
     {
       _inner = inner;
-      _customizations = customizations;
     }
 
     public T ValueOtherThan<T>(params T[] omittedValues)
@@ -23,7 +21,7 @@ namespace TddXt.AnyGenerators.Generic.ImplementationDetails
 
     public T Value<T>(GenerationRequest request)
     {
-      return _inner.Value<T>(request, _customizations);
+      return _inner.Value<T>(request, request.GenerationCustomizations);
     }
 
     public T Value<T>(T seed, GenerationRequest request)
@@ -43,10 +41,10 @@ namespace TddXt.AnyGenerators.Generic.ImplementationDetails
 
     public object Instance(Type type, GenerationRequest request)
     {
-      return _customizations.Where(c => c.AppliesTo(type)).FirstMaybe()
+      return request.GenerationCustomizations.Where(c => c.AppliesTo(type)).FirstMaybe()
         .SelectOrElse(
           c => c.Generate(type, this, request),
-          () => _inner.Instance(type, request, _customizations));
+          () => _inner.Instance(type, request, request.GenerationCustomizations));
     }
 
     public T Dummy<T>(GenerationRequest request)
@@ -56,7 +54,7 @@ namespace TddXt.AnyGenerators.Generic.ImplementationDetails
 
     public T Instance<T>(GenerationRequest request)
     {
-      return _inner.Instance<T>(request, _customizations);
+      return _inner.Instance<T>(request, request.GenerationCustomizations);
     }
   }
 }

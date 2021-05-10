@@ -6,13 +6,11 @@ namespace TddXt.AnyGenerators.AutoFixtureWrapper
 {
   public class CustomizationRelay : ISpecimenBuilder
   {
-    private readonly GenerationCustomization[] _customizations;
     private readonly InstanceGenerator _gen;
     private readonly GenerationRequest _request;
 
-    public CustomizationRelay(GenerationCustomization[] customizations, InstanceGenerator gen, GenerationRequest request)
+    public CustomizationRelay(InstanceGenerator gen, GenerationRequest request)
     {
-      _customizations = customizations;
       _gen = gen;
       _request = request;
     }
@@ -23,7 +21,7 @@ namespace TddXt.AnyGenerators.AutoFixtureWrapper
 
       if (request is Type t)
       {
-        foreach (var customization in _customizations)
+        foreach (var customization in _request.GenerationCustomizations)
         {
           if (customization.AppliesTo(t))
           {

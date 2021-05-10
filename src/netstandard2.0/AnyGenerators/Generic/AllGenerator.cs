@@ -54,11 +54,11 @@ namespace TddXt.AnyGenerators.Generic
 
     public T Instance<T>(params GenerationCustomization[] customizations)
     {
-      var request = CreateRequest();
+      var request = CreateRequest(customizations);
       try
       {
         request.Trace.BeginCreatingInstanceGraphWith(typeof(T));
-        return _fakeChainFactory.GetInstance<T>().Resolve(CreateCustomizedInstanceGenerator<T>(customizations), request);
+        return _fakeChainFactory.GetInstance<T>().Resolve(CreateCustomizedInstanceGenerator(), request);
       }
       catch (Exception e)
       {
@@ -66,9 +66,9 @@ namespace TddXt.AnyGenerators.Generic
       }
     }
 
-    private InstanceGenerator CreateCustomizedInstanceGenerator<T>(GenerationCustomization[] customizations)
+    private InstanceGenerator CreateCustomizedInstanceGenerator()
     {
-      return new CustomizedGenerator(SynchronizedThis, customizations);
+      return new CustomizedGenerator(SynchronizedThis);
     }
 
     public T InstanceOf<T>(InlineGenerator<T> gen)
@@ -97,7 +97,8 @@ namespace TddXt.AnyGenerators.Generic
 
     public T Value<T>(GenerationRequest request, GenerationCustomization[] customizations)
     {
-      return _valueGenerator.Value<T>(CreateCustomizedInstanceGenerator<T>(customizations), customizations, request);
+      return _valueGenerator.Value<T>(
+        CreateCustomizedInstanceGenerator(), request);
     }
 
     public T Value<T>(T seed, GenerationRequest request)
@@ -183,7 +184,7 @@ namespace TddXt.AnyGenerators.Generic
     {
       return _methodProxyCalls
         .ResultOfGenericVersionOfMethod(
-          new CustomizedGenerator(SynchronizedThis, customizations), 
+          new CustomizedGenerator(SynchronizedThis), 
           type, 
           MethodBase.GetCurrentMethod().Name, 
           request);
@@ -191,7 +192,7 @@ namespace TddXt.AnyGenerators.Generic
 
     public T Instance<T>(GenerationRequest request, params GenerationCustomization[] customizations)
     {
-      return _fakeChainFactory.GetInstance<T>().Resolve(new CustomizedGenerator(SynchronizedThis, customizations), request);
+      return _fakeChainFactory.GetInstance<T>().Resolve(new CustomizedGenerator(SynchronizedThis), request);
     }
 
     public T Dummy<T>()
@@ -208,9 +209,9 @@ namespace TddXt.AnyGenerators.Generic
       }
     }
 
-    private static DefaultGenerationRequest CreateRequest()
+    private static DefaultGenerationRequest CreateRequest(params GenerationCustomization[] customizations)
     {
-      return new DefaultGenerationRequest(GlobalNestingLimit.Of(5));
+      return new DefaultGenerationRequest(GlobalNestingLimit.Of(5), customizations);
     }
   }
 }

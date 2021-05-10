@@ -108,6 +108,8 @@ namespace TddXt.AnyGenerators.Generic.ImplementationDetails
       }
     }
 
+    //bug there is a mess still with the customizations. The param should be removed,
+    //bug but then the overload will be ambiguous. Maybe name this method differently for starters?
     public object Instance(Type type, GenerationRequest request, GenerationCustomization[] customizations)
     {
       //lock (_syncRoot)
