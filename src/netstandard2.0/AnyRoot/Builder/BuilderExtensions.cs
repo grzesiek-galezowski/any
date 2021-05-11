@@ -37,7 +37,7 @@ namespace TddXt.AnyRoot.Builder
       }
     }
 
-    private static void SetValue<T, TValue>(T target, TValue value, PropertyInfo property)
+    private static void SetValue<T, TValue>(T target, TValue value, PropertyInfo? property)
     {
       if (property != null)
       {
