@@ -1,4 +1,4 @@
-using Castle.DynamicProxy;
+﻿using Castle.DynamicProxy;
 using TddXt.AnyExtensibility;
 using TddXt.AnyGenerators.AutoFixtureWrapper;
 using TddXt.AnyGenerators.Generic;
@@ -11,8 +11,6 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
 {
   public static class AllGeneratorFactory
   {
-    private static readonly object SyncRoot = new object();
-
     public static BasicGenerator Create()
     {
       var methodProxyCalls = new GenericMethodProxyCalls();
@@ -20,17 +18,13 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
       var proxyGenerator = new ProxyGenerator();
       var fakeChainFactory = CreateFakeChainFactory(proxyGenerator, valueGenerator);
 
-      var allGenerator = new SynchronizedInstanceGenerator(
-        new AllGenerator(
-          valueGenerator, 
-          fakeChainFactory, 
-          methodProxyCalls, 
-          SyncRoot), 
-        SyncRoot);
+      var allGenerator = new AllGenerator(valueGenerator, fakeChainFactory, methodProxyCalls);
       return allGenerator;
     }
 
-    private static IFakeChainFactory CreateFakeChainFactory(ProxyGenerator proxyGenerator, ValueGenerator valueGenerator)
+    private static IFakeChainFactory CreateFakeChainFactory(
+      ProxyGenerator proxyGenerator, 
+      ValueGenerator valueGenerator)
     {
       return new FakeChainFactory(
         new CachedReturnValueGeneration(new PerMethodCache<object>()), 
@@ -49,6 +43,4 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
       return valueGenerator;
     }
   }
-
-
 }

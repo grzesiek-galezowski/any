@@ -19,22 +19,16 @@ namespace TddXt.AnyGenerators.Generic
 
     [NonSerialized] private readonly GenericMethodProxyCalls _methodProxyCalls;
 
-    [NonSerialized] private readonly object _syncRoot;
-
     [NonSerialized] private readonly ValueGenerator _valueGenerator;
-
-    private SynchronizedInstanceGenerator SynchronizedThis => new SynchronizedInstanceGenerator(this, _syncRoot);
 
 
     public AllGenerator(ValueGenerator valueGenerator,
       IFakeChainFactory fakeChainFactory,
-      GenericMethodProxyCalls methodProxyCalls, 
-      object syncRoot)
+      GenericMethodProxyCalls methodProxyCalls)
     {
       _valueGenerator = valueGenerator;
       _fakeChainFactory = fakeChainFactory;
       _methodProxyCalls = methodProxyCalls;
-      _syncRoot = syncRoot;
     }
 
     public T Instance<T>()
@@ -67,7 +61,7 @@ namespace TddXt.AnyGenerators.Generic
 
     private InstanceGenerator CreateCustomizedInstanceGenerator()
     {
-      return new CustomizedGenerator(SynchronizedThis);
+      return new CustomizedGenerator(this);
     }
 
     public T InstanceOf<T>(InlineGenerator<T> gen)
@@ -76,7 +70,7 @@ namespace TddXt.AnyGenerators.Generic
       try
       {
         request.Trace.BeginCreatingInstanceGraphWithInlineGenerator(typeof(T), gen);
-        return gen.GenerateInstance(SynchronizedThis, request);
+        return gen.GenerateInstance(this, request);
       }
       catch (Exception e)
       {
@@ -86,12 +80,12 @@ namespace TddXt.AnyGenerators.Generic
 
     public T ValueOtherThan<T>(GenerationRequest request, params T[] omittedValues)
     {
-      return _valueGenerator.ValueOtherThan(SynchronizedThis, request, omittedValues);
+      return _valueGenerator.ValueOtherThan(this, request, omittedValues);
     }
 
     public T Value<T>(GenerationRequest request)
     {
-      return _valueGenerator.Value<T>(SynchronizedThis, request);
+      return _valueGenerator.Value<T>(this, request);
     }
 
     public T Value<T>(GenerationRequest request, GenerationCustomization[] customizations)
@@ -103,19 +97,19 @@ namespace TddXt.AnyGenerators.Generic
     public T Value<T>(T seed, GenerationRequest request)
     {
       request.Trace.GeneratingSeededValue(typeof(T), seed);
-      return _valueGenerator.Value(SynchronizedThis, request, seed);
+      return _valueGenerator.Value(this, request, seed);
     }
 
     public object Instance(Type type, GenerationRequest request)
     {
       return _methodProxyCalls
         .ResultOfGenericVersionOfMethod(
-          SynchronizedThis, type, MethodBase.GetCurrentMethod().Name, request);
+          this, type, MethodBase.GetCurrentMethod().Name, request);
     }
 
     public T Instance<T>(GenerationRequest request)
     {
-      return _fakeChainFactory.GetInstance<T>().Resolve(SynchronizedThis, request);
+      return _fakeChainFactory.GetInstance<T>().Resolve(this, request);
     }
 
     public T Dummy<T>(GenerationRequest request)
@@ -125,12 +119,12 @@ namespace TddXt.AnyGenerators.Generic
 
       if (typeof(T).IsPrimitive)
       {
-        return unconstrainedChain.Resolve(SynchronizedThis, request);
+        return unconstrainedChain.Resolve(this, request);
       }
 
       if (typeof(T) == typeof(string))
       {
-        return unconstrainedChain.Resolve(SynchronizedThis, request);
+        return unconstrainedChain.Resolve(this, request);
       }
 
       var emptyCollectionInstantiation = new EmptyCollectionInstantiation();
@@ -151,7 +145,7 @@ namespace TddXt.AnyGenerators.Generic
 
       if (fakeInterface.Applies())
       {
-        return fakeInterface.Apply(SynchronizedThis, request);
+        return fakeInterface.Apply(this, request);
       }
 
       return (T)FormatterServices.GetUninitializedObject(typeof(T));
@@ -183,7 +177,7 @@ namespace TddXt.AnyGenerators.Generic
     {
       return _methodProxyCalls
         .ResultOfGenericVersionOfMethod(
-          new CustomizedGenerator(SynchronizedThis), 
+          new CustomizedGenerator(this), 
           type, 
           MethodBase.GetCurrentMethod().Name, 
           request);
@@ -191,7 +185,7 @@ namespace TddXt.AnyGenerators.Generic
 
     public T Instance<T>(GenerationRequest request, params GenerationCustomization[] customizations)
     {
-      return _fakeChainFactory.GetInstance<T>().Resolve(new CustomizedGenerator(SynchronizedThis), request);
+      return _fakeChainFactory.GetInstance<T>().Resolve(new CustomizedGenerator(this), request);
     }
 
     public T Dummy<T>()
