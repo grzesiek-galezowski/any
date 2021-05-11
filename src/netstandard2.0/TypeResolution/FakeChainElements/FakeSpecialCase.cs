@@ -1,4 +1,4 @@
-using System.Reflection;
+﻿using System.Reflection;
 using TddXt.AnyExtensibility;
 using TddXt.TypeReflection;
 using TddXt.TypeResolution.Interfaces;
@@ -23,7 +23,7 @@ namespace TddXt.TypeResolution.FakeChainElements
 
     public T Apply(InstanceGenerator instanceGenerator, GenerationRequest request)
     {
-      return _valueGenerator.Value<T>();
+      return _valueGenerator.Value<T>(instanceGenerator, request);
     }
   }
 }

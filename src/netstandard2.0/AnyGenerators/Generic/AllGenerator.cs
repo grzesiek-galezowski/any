@@ -1,6 +1,5 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Collections.Immutable;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.Serialization;
@@ -85,14 +84,14 @@ namespace TddXt.AnyGenerators.Generic
       }
     }
 
-    public T ValueOtherThan<T>(params T[] omittedValues)
+    public T ValueOtherThan<T>(GenerationRequest request, params T[] omittedValues)
     {
-      return _valueGenerator.ValueOtherThan(omittedValues);
+      return _valueGenerator.ValueOtherThan(SynchronizedThis, request, omittedValues);
     }
 
     public T Value<T>(GenerationRequest request)
     {
-      return _valueGenerator.Value<T>();
+      return _valueGenerator.Value<T>(SynchronizedThis, request);
     }
 
     public T Value<T>(GenerationRequest request, GenerationCustomization[] customizations)
@@ -104,7 +103,7 @@ namespace TddXt.AnyGenerators.Generic
     public T Value<T>(T seed, GenerationRequest request)
     {
       request.Trace.GeneratingSeededValue(typeof(T), seed);
-      return _valueGenerator.Value(seed);
+      return _valueGenerator.Value(SynchronizedThis, request, seed);
     }
 
     public object Instance(Type type, GenerationRequest request)

@@ -4,7 +4,7 @@ namespace TddXt.AnyExtensibility
 {
   public interface InstanceGenerator
   {
-    T ValueOtherThan<T>(params T[] omittedValues);
+    T ValueOtherThan<T>(GenerationRequest request, params T[] omittedValues);
     T Value<T>(GenerationRequest request);
     T Value<T>(T seed, GenerationRequest request);
     T OtherThan<T>(params T[] omittedValues);

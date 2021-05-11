@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Linq;
 using TddXt.AnyExtensibility;
 using TddXt.AnyGenerators.AutoFixtureWrapper;
@@ -10,43 +10,45 @@ namespace TddXt.AnyGenerators.Generic
   public class ValueGenerator : IValueGenerator
   {
     private readonly FixtureWrapper _generator;
-    private readonly object _syncRoot = new();
 
     public ValueGenerator(FixtureWrapper fixtureWrapper)
     {
       _generator = fixtureWrapper;
     }
 
-    public T Value<T>()
+    public T Value<T>(InstanceGenerator gen, GenerationRequest request)
     {
-      return _generator.Create<T>();
+      return WithCustomizations(gen, request, fixture => fixture.Create<T>());
     }
 
-    public T ValueOtherThan<T>(params T[] omittedValues)
+    public T ValueOtherThan<T>(
+      InstanceGenerator gen, 
+      GenerationRequest request,
+      T[]? omittedValues)
     {
       omittedValues ??= new T[] { };
       T currentValue;
       do
       {
-        currentValue = Value<T>();
+        currentValue = Value<T>(gen, request);
       } while (omittedValues.Contains(currentValue));
 
       return currentValue;
     }
 
-    public T Value<T>(T seed)
+    public T Value<T>(InstanceGenerator gen, GenerationRequest request, T seed)
     {
-      return _generator.Create(seed);
+      return WithCustomizations(gen, request, wrapper => wrapper.Create(seed));
     }
 
-    public T Value<T>(InstanceGenerator gen, GenerationRequest request)
+    private T WithCustomizations<T>(
+      InstanceGenerator gen, 
+      GenerationRequest request, 
+      Func<FixtureWrapper, T> creation)
     {
-      lock (_syncRoot)
+      using (_generator.Customize(request, gen))
       {
-        using (_generator.Customize(request, gen))
-        {
-          return _generator.Create<T>();
-        }
+        return creation.Invoke(_generator);
       }
     }
   }

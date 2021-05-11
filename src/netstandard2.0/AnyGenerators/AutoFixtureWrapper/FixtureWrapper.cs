@@ -1,4 +1,4 @@
-using AutoFixture;
+﻿using AutoFixture;
 using System;
 using TddXt.AnyExtensibility;
 using TddXt.TypeResolution.FakeChainElements;
@@ -20,7 +20,7 @@ namespace TddXt.AnyGenerators.AutoFixtureWrapper
     {
       try
       {
-        return _autoFixture.Create<T>();
+          return _autoFixture.Create<T>();
       }
       catch (ObjectCreationException e)
       {

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using TddXt.AnyExtensibility;
 
 namespace TddXt.AnyGenerators.Generic.ImplementationDetails
@@ -39,11 +39,11 @@ namespace TddXt.AnyGenerators.Generic.ImplementationDetails
       }
     }
 
-    public T ValueOtherThan<T>(params T[] omittedValues)
+    public T ValueOtherThan<T>(GenerationRequest request, params T[] omittedValues)
     {
       //lock (_syncRoot)
       {
-        return _allGenerator.ValueOtherThan(omittedValues);
+        return _allGenerator.ValueOtherThan(request, omittedValues);
       }
     }
 

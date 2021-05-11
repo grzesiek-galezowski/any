@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Linq;
 using Functional.Maybe;
 using TddXt.AnyExtensibility;
@@ -14,9 +14,9 @@ namespace TddXt.AnyGenerators.Generic.ImplementationDetails
       _inner = inner;
     }
 
-    public T ValueOtherThan<T>(params T[] omittedValues)
+    public T ValueOtherThan<T>(GenerationRequest request, params T[] omittedValues)
     {
-      return _inner.ValueOtherThan(omittedValues);
+      return _inner.ValueOtherThan(request, omittedValues);
     }
 
     public T Value<T>(GenerationRequest request)

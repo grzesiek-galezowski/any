@@ -4,7 +4,6 @@ using System.Collections.Immutable;
 using System.Linq;
 using TddXt.AnyExtensibility;
 using TddXt.AnyGenerators.Root;
-using TddXt.AnyGenerators.Root.ImplementationDetails;
 
 namespace TddXt.AnyRoot.Collections
 {
