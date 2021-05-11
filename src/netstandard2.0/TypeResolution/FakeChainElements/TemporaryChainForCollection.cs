@@ -2,7 +2,7 @@ using TddXt.AnyExtensibility;
 
 namespace TddXt.TypeResolution.FakeChainElements
 {
-  public class TemporaryChainForCollection<T> : IFakeChain<T>
+  public class TemporaryChainForCollection<T> : IGenerationChain<T>
   {
     private readonly IResolution<T>[] _resolutions;
 

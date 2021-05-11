@@ -22,7 +22,7 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
       _fallbackTypeGenerator = fallbackTypeGenerator;
     }
 
-    public IFakeChain<T> NewInstance(
+    public IGenerationChain<T> NewInstance(
       CachedReturnValueGeneration eachMethodReturnsTheSameValueOnEveryCall,
       ProxyGenerator generationIsDoneUsingProxies,
       IValueGenerator valueGenerator)
@@ -33,7 +33,7 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
         valueGenerator));
     }
 
-    public IFakeChain<T> UnconstrainedInstance(CachedReturnValueGeneration eachMethodReturnsTheSameValueOnEveryCall,
+    public IGenerationChain<T> UnconstrainedInstance(CachedReturnValueGeneration eachMethodReturnsTheSameValueOnEveryCall,
       ProxyGenerator generationIsDoneUsingProxies, IValueGenerator valueGenerator)
     {
       return new TemporaryChainForCollection<T>(new[]
@@ -98,9 +98,9 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
 
     }
 
-    private static IFakeChain<T> RecursionLimited(IFakeChain<T> fakeChain)
+    private static IGenerationChain<T> RecursionLimited(IGenerationChain<T> generationChain)
     {
-      return new LimitedFakeChain<T>(fakeChain);
+      return new LimitedGenerationChain<T>(generationChain);
     }
 
     private FakeConcreteClass<T> ResolveAsConcreteClass()

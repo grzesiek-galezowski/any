@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Concurrent;
 using Castle.DynamicProxy;
 using TddXt.AnyExtensibility;
@@ -31,7 +31,7 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
       _valueGenerator = valueGenerator;
     }
 
-    public IFakeChain<T> GetInstance<T>()
+    public IGenerationChain<T> GetInstance<T>()
     {
       return GetInstanceWithMemoization(() =>
         CreateGenericFakeChainFactory<T>().NewInstance(
@@ -41,7 +41,7 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
           ), _constrainedFactoryCache);
     }
 
-    public IFakeChain<T> GetUnconstrainedInstance<T>()
+    public IGenerationChain<T> GetUnconstrainedInstance<T>()
     {
       return GetInstanceWithMemoization(() =>
       CreateGenericFakeChainFactory<T>()
@@ -63,7 +63,7 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
         _cachedReturnValueGeneration, _proxyGenerator);
     }
 
-    private static IFakeChain<T> GetInstanceWithMemoization<T>(Func<IFakeChain<T>> func, ConcurrentDictionary<Type, object> cache)
+    private static IGenerationChain<T> GetInstanceWithMemoization<T>(Func<IGenerationChain<T>> func, ConcurrentDictionary<Type, object> cache)
     {
       var key = typeof(T);
 
@@ -74,7 +74,7 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
         return newInstance;
       }
 
-      return (IFakeChain<T>)outVal;
+      return (IGenerationChain<T>)outVal;
     }
 
     private GenericFakeChainFactory<T> CreateGenericFakeChainFactory<T>()

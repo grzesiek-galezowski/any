@@ -1,16 +1,16 @@
-using System;
+﻿using System;
 using System.Reflection;
 using TddXt.AnyExtensibility;
 
 namespace TddXt.TypeResolution.FakeChainElements
 {
-  public class LimitedFakeChain<T> : IFakeChain<T>
+  public class LimitedGenerationChain<T> : IGenerationChain<T>
   {
-    private readonly IFakeChain<T> _fakeChain;
+    private readonly IGenerationChain<T> _generationChain;
 
-    public LimitedFakeChain(IFakeChain<T> fakeChain)
+    public LimitedGenerationChain(IGenerationChain<T> generationChain)
     {
-      _fakeChain = fakeChain;
+      _generationChain = generationChain;
     }
 
     public T Resolve(InstanceGenerator instanceGenerator, GenerationRequest request)
@@ -18,7 +18,7 @@ namespace TddXt.TypeResolution.FakeChainElements
       return request.WithNextNestingLevel(
         () =>
         {
-          return _fakeChain.Resolve(instanceGenerator, request);
+          return _generationChain.Resolve(instanceGenerator, request);
         }, 
         () =>
         {

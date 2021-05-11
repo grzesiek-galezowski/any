@@ -1,8 +1,8 @@
-using TddXt.AnyExtensibility;
+﻿using TddXt.AnyExtensibility;
 
 namespace TddXt.TypeResolution.FakeChainElements
 {
-  public interface IFakeChain<out T> //bug rename
+  public interface IGenerationChain<out T>
   {
     T Resolve(InstanceGenerator instanceGenerator, GenerationRequest request);
   }

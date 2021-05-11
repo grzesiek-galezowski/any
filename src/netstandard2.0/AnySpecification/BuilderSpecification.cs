@@ -61,9 +61,6 @@ namespace AnySpecification
     public NestedDataStructure Nested { get; }
     public NestedDataStructure NestedNotInitializedFromConstructor { get; }
     public NestedDataStructure GetNested() => new NestedDataStructure();
-
-    //bug non auto properties
-    //bug methods
   }
 
   public class NestedDataStructure

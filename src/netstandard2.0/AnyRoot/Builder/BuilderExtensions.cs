@@ -7,14 +7,14 @@ namespace TddXt.AnyRoot.Builder
 {
   public static class BuilderExtensions
   {
-    public static T WithProperty<T, TValue>(this T target, Expression<Func<T, TValue>> memberLamda, TValue value)
+    public static T WithProperty<T, TValue>(this T target, Expression<Func<T, TValue>> memberLambda, TValue value)
     where T : notnull
     {
       if (target == null)
       {
         throw new Exception("Cannot set a property on null");
       }
-      if (memberLamda.Body is MemberExpression memberSelectorExpression)
+      if (memberLambda.Body is MemberExpression memberSelectorExpression)
       {
         var property = memberSelectorExpression.Member as PropertyInfo;
         SetValue(Target(target, memberSelectorExpression), value, property);
@@ -33,7 +33,7 @@ namespace TddXt.AnyRoot.Builder
       else
       {
         var propertyInfo = (PropertyInfo)parentExpression.Member;
-        return propertyInfo.GetValue(target) ?? throw new Exception("Trying to set property on null"/* bug */);
+        return propertyInfo.GetValue(target) ?? throw new Exception("Trying to set property on null");
       }
     }
 
