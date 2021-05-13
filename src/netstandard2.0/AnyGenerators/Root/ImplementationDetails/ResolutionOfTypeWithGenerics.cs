@@ -18,17 +18,15 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
       _matchingTypes = matchingTypes;
     }
 
-    public bool AppliesTo(Type type1)
+    public bool AppliesTo(Type type)
     {
-      var type = typeof(T);
       var result = type.IsGenericType;
       result = result && _matchingTypes.Any(matchingType => matchingType == type.GetGenericTypeDefinition());
       return result;
     }
 
-    public T Apply(InstanceGenerator instanceGenerator, GenerationRequest request, Type type1)
+    public T Apply(InstanceGenerator instanceGenerator, GenerationRequest request, Type type)
     {
-      var type = typeof(T);
       return (T)_factoryForInstancesOfGenericTypes.NewInstanceOf(type, instanceGenerator, request);
     }
   }
