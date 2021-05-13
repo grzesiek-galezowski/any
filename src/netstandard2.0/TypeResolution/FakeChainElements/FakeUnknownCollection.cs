@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,26 +11,26 @@ namespace TddXt.TypeResolution.FakeChainElements
   {
     public bool AppliesTo(Type type)
     {
-      var isCollection = TypeOf<T>.IsImplementationOfOpenGeneric(typeof(IProducerConsumerCollection<>))
-               || TypeOf<T>.IsImplementationOfOpenGeneric(typeof(ICollection<>));
-      return TypeOf<T>.IsConcrete() &&
-             typeof(T).IsGenericType &&
+      var smartType = SmartType.For(type);
+      var isCollection = smartType.IsImplementationOfOpenGeneric(typeof(IProducerConsumerCollection<>))
+                         || smartType.IsImplementationOfOpenGeneric(typeof(ICollection<>));
+      return smartType.IsConcrete() &&
+             type.IsGenericType &&
              isCollection &&
-             TypeOf<T>.HasParameterlessConstructor();
+             smartType.HasPublicParameterlessConstructor();
 
     }
 
 
-    public T Apply(InstanceGenerator instanceGenerator, GenerationRequest request, Type type)
+    public T Apply(InstanceGenerator instanceGenerator, GenerationRequest request, Type typeOfCollection)
     {
-      var collectionType = typeof(T);
-      var collectionInstance = Activator.CreateInstance(collectionType);
-      var elementTypes = collectionType.GetGenericArguments();
+      var collectionInstance = Activator.CreateInstance(typeOfCollection);
+      var elementTypes = typeOfCollection.GetGenericArguments();
 
-      var addMethod = collectionType.GetMethod("Add", elementTypes)
-        ?? collectionType.GetMethod("TryAdd", elementTypes)
-        ?? collectionType.GetMethod("Push", elementTypes)
-        ?? collectionType.GetMethod("Enqueue", elementTypes);
+      var addMethod = typeOfCollection.GetMethod("Add", elementTypes)
+        ?? typeOfCollection.GetMethod("TryAdd", elementTypes)
+        ?? typeOfCollection.GetMethod("Push", elementTypes)
+        ?? typeOfCollection.GetMethod("Enqueue", elementTypes);
 
       addMethod.Invoke(
         collectionInstance,

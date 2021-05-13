@@ -11,15 +11,15 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
   {
     public bool AppliesTo(Type type)
     {
-      return typeof(T).IsGenericType && typeof(T).GetGenericTypeDefinition() == typeof(Task<>);
+      return type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Task<>);
     }
 
     public T Apply(InstanceGenerator instanceGenerator, GenerationRequest request, Type type)
     {
-      var resultType = typeof(T).GenericTypeArguments.First();
+      var resultType = type.GenericTypeArguments.First();
       var parameters = instanceGenerator.Instance(resultType, request);
       var result = new GenericMethodProxyCalls().ResultOfGenericVersionOfStaticMethod<Task>(
-        typeof(T).GenericTypeArguments.First(),
+        type.GenericTypeArguments.First(),
         "FromResult", parameters);
       return (T)result;
     }

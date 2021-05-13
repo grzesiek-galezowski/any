@@ -10,23 +10,26 @@ namespace TddXt.TypeResolution.FakeChainElements
   {
     public bool AppliesTo(Type type)
     {
-      return typeof(T).IsSubclassOf(typeof(Delegate));
+      return type.IsSubclassOf(typeof(Delegate));
     }
 
     public T Apply(InstanceGenerator instanceGenerator, GenerationRequest request, Type type)
     {
-      var methodInfo = typeof(T).GetMethods().First(m => m.Name.Equals("Invoke"));
+      var methodInfo = type.GetMethods().First(m => m.Name.Equals("Invoke"));
       var parameters = methodInfo.GetParameters();
+      object? result;
       if (methodInfo.ReturnType != typeof(void))
       {
         var instance = CreateGenericDelegatesForFunction(instanceGenerator, methodInfo, request);
-        return (T)(object)Delegate.CreateDelegate(typeof(T), instance, instance.GetType().GetMethod("Get" + parameters.Length));
+        result = Delegate.CreateDelegate(type, instance, instance.GetType().GetMethod("Get" + parameters.Length));
       }
       else
       {
         var instance = CreateGenericDelegatesForAction(methodInfo);
-        return (T)(object)Delegate.CreateDelegate(typeof(T), instance, instance.GetType().GetMethod("Do" + parameters.Length));
+        result = Delegate.CreateDelegate(type, instance, instance.GetType().GetMethod("Do" + parameters.Length));
       }
+
+      return (T)result;
     }
 
     private static object CreateGenericDelegatesForFunction(InstanceGenerator instanceGenerator, MethodInfo methodInfo,

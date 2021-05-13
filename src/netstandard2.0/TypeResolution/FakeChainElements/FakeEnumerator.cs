@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using TddXt.AnyExtensibility;
 using TddXt.TypeReflection;
@@ -9,7 +9,7 @@ namespace TddXt.TypeResolution.FakeChainElements
   {
     public bool AppliesTo(Type type)
     {
-      return TypeOf<T>.Is<IEnumerator>();
+      return SmartType.For(type).Is(typeof(IEnumerator));
     }
 
     public T Apply(InstanceGenerator instanceGenerator, GenerationRequest request, Type type)

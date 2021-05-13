@@ -113,8 +113,7 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
 
     private FakeConcreteClassWithNonConcreteConstructor<T> ResolveAsConcreteTypeWithNonConcreteTypesInConstructorSignature()
     {
-      return new FakeConcreteClassWithNonConcreteConstructor<T>(
-        _stronglyTypedFallbackTypeGenerator);
+      return new FakeConcreteClassWithNonConcreteConstructor<T>(_fallbackTypeGenerator);
     }
 
     private FakeAbstractClass<T> ResolveAsAbstractClassImplementationWhere(CachedReturnValueGeneration cachedGeneration, ProxyGenerator proxyGenerator)

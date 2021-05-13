@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Linq;
 using System.Reflection;
 using TddXt.AnyExtensibility;
@@ -10,13 +10,12 @@ namespace TddXt.TypeResolution.HackedSpecialTypes
   {
     public bool AppliesTo(Type type)
     {
-      return typeof(T).Namespace == "Optional"
-        && typeof(T).Name == "Option`1";
+      return type.Namespace == "Optional"
+        && type.Name == "Option`1";
     }
 
-    public T Apply(InstanceGenerator gen, GenerationRequest request, Type type1)
+    public T Apply(InstanceGenerator gen, GenerationRequest request, Type type)
     {
-      var type = typeof(T);
       var genericArgument = type.GetGenericArguments()[0];
       var elementInstance = gen.Instance(genericArgument, request);
       var factoryClass = type.Assembly.ExportedTypes.Single(t => t.Namespace == "Optional" && t.Name == "Option");

@@ -1,8 +1,9 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using FluentAssertions;
 using Functional.Maybe;
 using TddXt.TypeReflection.ImplementationDetails;
@@ -14,6 +15,7 @@ namespace TddXt.TypeReflection
   public interface ISmartType : IType, IConstructorQueries
   {
     IEnumerable<IConstructorWrapper> FactoryMethods();
+    bool Is(Type type);
   }
 
   public class SmartType : ISmartType
@@ -35,6 +37,8 @@ namespace TddXt.TypeReflection
              || _typeInfo.IsPrimitive 
              || _typeInfo.IsAbstract;
     }
+
+    public bool Is(Type t) => this._type == t;
 
     public IEnumerable<IConstructorWrapper> FactoryMethods()
     {

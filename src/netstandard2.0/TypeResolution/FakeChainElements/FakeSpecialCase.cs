@@ -18,13 +18,13 @@ namespace TddXt.TypeResolution.FakeChainElements
     public bool AppliesTo(Type type)
     {
       return 
-        TypeOfType.Is<T>() || 
-        typeof(T) == typeof(MethodInfo);
+        TypeOfType.Is(type) || 
+        type == typeof(MethodInfo);
     }
 
     public T Apply(InstanceGenerator instanceGenerator, GenerationRequest request, Type type)
     {
-      return _valueGenerator.Value<T>(instanceGenerator, request);
+      return (T)_valueGenerator.Value(type, instanceGenerator, request);
     }
   }
 }

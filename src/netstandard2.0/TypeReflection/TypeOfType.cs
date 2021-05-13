@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Reflection;
 
 namespace TddXt.TypeReflection
@@ -7,8 +7,12 @@ namespace TddXt.TypeReflection
   {
     public static bool Is<T>()
     {
-      var type = typeof(T);
-      return type.FullName == typeof(Type).FullName || IsTypeOfTypeWithinBaseHierarchyOf(type);
+      return Is(typeof(T));
+    }
+
+    public static bool Is(Type t)
+    {
+      return t.FullName == typeof(Type).FullName || IsTypeOfTypeWithinBaseHierarchyOf(t);
     }
 
     private static bool IsTypeOfTypeWithinBaseHierarchyOf(Type type)
