@@ -18,7 +18,7 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
       _matchingTypes = matchingTypes;
     }
 
-    public bool Applies()
+    public bool AppliesTo(Type type1)
     {
       var type = typeof(T);
       var result = type.IsGenericType;
@@ -26,7 +26,7 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
       return result;
     }
 
-    public T Apply(InstanceGenerator instanceGenerator, GenerationRequest request)
+    public T Apply(InstanceGenerator instanceGenerator, GenerationRequest request, Type type1)
     {
       var type = typeof(T);
       return (T)_factoryForInstancesOfGenericTypes.NewInstanceOf(type, instanceGenerator, request);

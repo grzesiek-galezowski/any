@@ -79,12 +79,16 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
 
     private GenericFakeChainFactory<T> CreateGenericFakeChainFactory<T>()
     {
-      return new GenericFakeChainFactory<T>(CreateSpecialCasesOfResolutions<T>(), new FallbackTypeGenerator<T>(new FallbackTypeGenerator(
+      var fallbackTypeGenerator = new FallbackTypeGenerator(
         new IFallbackGeneratedObjectCustomization[]
         {
           new FillPropertiesCustomization(),
           new FillFieldsCustomization()
-        }, SmartType.For(typeof(T)))));
+        }, SmartType.For(typeof(T)));
+      return new GenericFakeChainFactory<T>(
+        CreateSpecialCasesOfResolutions<T>(), 
+        new FallbackTypeGenerator<T>(fallbackTypeGenerator),
+        fallbackTypeGenerator);
     }
   }
 }

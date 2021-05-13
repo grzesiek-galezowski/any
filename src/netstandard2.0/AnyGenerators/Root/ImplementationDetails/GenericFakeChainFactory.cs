@@ -1,4 +1,4 @@
-using System.Collections.Concurrent;
+﻿using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using Castle.DynamicProxy;
@@ -13,12 +13,15 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
 {
   public class GenericFakeChainFactory<T>
   {
-    private readonly FallbackTypeGenerator<T> _fallbackTypeGenerator;
+    private readonly FallbackTypeGenerator<T> _stronglyTypedFallbackTypeGenerator;
+    private readonly FallbackTypeGenerator _fallbackTypeGenerator;
     private readonly ISpecialCasesOfResolutions<T> _specialCasesOfResolutions;
 
-    public GenericFakeChainFactory(ISpecialCasesOfResolutions<T> specialCasesOfResolutions, FallbackTypeGenerator<T> fallbackTypeGenerator)
+    public GenericFakeChainFactory(ISpecialCasesOfResolutions<T> specialCasesOfResolutions,
+      FallbackTypeGenerator<T> stronglyTypedFallbackTypeGenerator, FallbackTypeGenerator fallbackTypeGenerator)
     {
       _specialCasesOfResolutions = specialCasesOfResolutions;
+      _stronglyTypedFallbackTypeGenerator = stronglyTypedFallbackTypeGenerator;
       _fallbackTypeGenerator = fallbackTypeGenerator;
     }
 
@@ -111,7 +114,7 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
     private FakeConcreteClassWithNonConcreteConstructor<T> ResolveAsConcreteTypeWithNonConcreteTypesInConstructorSignature()
     {
       return new FakeConcreteClassWithNonConcreteConstructor<T>(
-        _fallbackTypeGenerator);
+        _stronglyTypedFallbackTypeGenerator);
     }
 
     private FakeAbstractClass<T> ResolveAsAbstractClassImplementationWhere(CachedReturnValueGeneration cachedGeneration, ProxyGenerator proxyGenerator)

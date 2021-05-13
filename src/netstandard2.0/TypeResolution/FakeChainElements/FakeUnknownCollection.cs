@@ -9,7 +9,7 @@ namespace TddXt.TypeResolution.FakeChainElements
 {
   public class FakeUnknownCollection<T> : IResolution<T>
   {
-    public bool Applies()
+    public bool AppliesTo(Type type)
     {
       var isCollection = TypeOf<T>.IsImplementationOfOpenGeneric(typeof(IProducerConsumerCollection<>))
                || TypeOf<T>.IsImplementationOfOpenGeneric(typeof(ICollection<>));
@@ -21,7 +21,7 @@ namespace TddXt.TypeResolution.FakeChainElements
     }
 
 
-    public T Apply(InstanceGenerator instanceGenerator, GenerationRequest request)
+    public T Apply(InstanceGenerator instanceGenerator, GenerationRequest request, Type type)
     {
       var collectionType = typeof(T);
       var collectionInstance = Activator.CreateInstance(collectionType);

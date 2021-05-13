@@ -1,38 +1,40 @@
+﻿using System;
 using Castle.DynamicProxy;
 using TddXt.AnyExtensibility;
 
 namespace TddXt.TypeResolution.FakeChainElements.Interceptors
 {
-  public class FakeAbstractClass<T> : IResolution<T>
+  public class FakeAbstractClass<T> : IResolution<T> //bug done
   {
-    private readonly FallbackTypeGenerator<T> _fallbackTypeGenerator;
+    private readonly FallbackTypeGenerator _fallbackTypeGenerator;
     private readonly CachedReturnValueGeneration _generation;
     private readonly ProxyGenerator _proxyGenerator;
 
     public FakeAbstractClass(
       CachedReturnValueGeneration generation, 
       ProxyGenerator proxyGenerator, 
-      FallbackTypeGenerator<T> fallbackTypeGenerator)
+      FallbackTypeGenerator fallbackTypeGenerator)
     {
       _generation = generation;
       _proxyGenerator = proxyGenerator;
       _fallbackTypeGenerator = fallbackTypeGenerator;
     }
 
-    public bool Applies()
+    public bool AppliesTo(Type type)
     {
-      return typeof (T).IsAbstract;
+      return type.IsAbstract;
     }
 
-    public T Apply(InstanceGenerator instanceGenerator, GenerationRequest request)
+    public T Apply(InstanceGenerator instanceGenerator, GenerationRequest request, Type type)
     {
-      var result = (T)_proxyGenerator.CreateClassProxy(
-        typeof(T),
-        _fallbackTypeGenerator.GenerateConstructorParameters(instanceGenerator, request).ToArray(), 
+      var result = _proxyGenerator.CreateClassProxy(
+        type,
+        _fallbackTypeGenerator.GenerateConstructorParameters(instanceGenerator.Instance, request).ToArray(), 
         new AbstractClassInterceptor(_generation, 
           instanceGenerator.Instance, request));
-      _fallbackTypeGenerator.FillFieldsAndPropertiesOf(result, instanceGenerator, request);
-      return result;
+      _fallbackTypeGenerator.CustomizeCreatedValue(result, instanceGenerator, request);
+      
+      return (T)result;
     }
   }
 }

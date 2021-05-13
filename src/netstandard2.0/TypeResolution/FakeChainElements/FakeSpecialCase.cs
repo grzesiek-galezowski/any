@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Reflection;
 using TddXt.AnyExtensibility;
 using TddXt.TypeReflection;
 using TddXt.TypeResolution.Interfaces;
@@ -14,14 +15,14 @@ namespace TddXt.TypeResolution.FakeChainElements
       _valueGenerator = valueGenerator;
     }
 
-    public bool Applies()
+    public bool AppliesTo(Type type)
     {
       return 
         TypeOfType.Is<T>() || 
         typeof(T) == typeof(MethodInfo);
     }
 
-    public T Apply(InstanceGenerator instanceGenerator, GenerationRequest request)
+    public T Apply(InstanceGenerator instanceGenerator, GenerationRequest request, Type type)
     {
       return _valueGenerator.Value<T>(instanceGenerator, request);
     }

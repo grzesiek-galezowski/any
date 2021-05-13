@@ -8,12 +8,12 @@ namespace TddXt.TypeResolution.FakeChainElements
 {
   public class FakeDelegate<T> : IResolution<T>
   {
-    public bool Applies()
+    public bool AppliesTo(Type type)
     {
       return typeof(T).IsSubclassOf(typeof(Delegate));
     }
 
-    public T Apply(InstanceGenerator instanceGenerator, GenerationRequest request)
+    public T Apply(InstanceGenerator instanceGenerator, GenerationRequest request, Type type)
     {
       var methodInfo = typeof(T).GetMethods().First(m => m.Name.Equals("Invoke"));
       var parameters = methodInfo.GetParameters();

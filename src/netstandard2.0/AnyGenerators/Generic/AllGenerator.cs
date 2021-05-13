@@ -143,9 +143,9 @@ namespace TddXt.AnyGenerators.Generic
         return default!;
       }
 
-      if (fakeInterface.Applies())
+      if (fakeInterface.AppliesTo(typeof(T)))
       {
-        return fakeInterface.Apply(this, request);
+        return fakeInterface.Apply(this, request, typeof(T));
       }
 
       return (T)FormatterServices.GetUninitializedObject(typeof(T));

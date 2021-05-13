@@ -1,3 +1,4 @@
+﻿using System;
 using TddXt.AnyExtensibility;
 using TddXt.TypeResolution.FakeChainElements;
 
@@ -5,12 +6,12 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
 {
   public class ResolutionOfArrays<T> : IResolution<T>
   {
-    public bool Applies()
+    public bool AppliesTo(Type type)
     {
       return typeof(T).IsArray;
     }
 
-    public T Apply(InstanceGenerator instanceGenerator, GenerationRequest request)
+    public T Apply(InstanceGenerator instanceGenerator, GenerationRequest request, Type type)
     {
       //todo think it through - should it need access to InlineGenerators?
       var elementType = typeof(T).GetElementType();

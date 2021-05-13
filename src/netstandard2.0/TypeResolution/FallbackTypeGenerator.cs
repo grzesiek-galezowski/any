@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using TddXt.AnyExtensibility;
 using TddXt.TypeReflection;
@@ -17,9 +17,7 @@ namespace TddXt.TypeResolution
 
     public T GenerateInstance(InstanceGenerator instanceGenerator, GenerationRequest request)
     {
-      var generateInstance = (T)_fallbackTypeGenerator.GenerateInstance(instanceGenerator, request);
-      _fallbackTypeGenerator.CustomizeCreatedValue(generateInstance, instanceGenerator, request);
-      return generateInstance;
+      return (T)_fallbackTypeGenerator.GenerateCustomizedInstance(instanceGenerator, request);
     }
 
     public List<object> GenerateConstructorParameters(InstanceGenerator instanceGenerator, GenerationRequest request)
@@ -33,7 +31,7 @@ namespace TddXt.TypeResolution
     }
 
 
-    public void FillFieldsAndPropertiesOf(T result, InstanceGenerator instanceGenerator, GenerationRequest request)
+    public void FillFieldsAndPropertiesOf(object result, InstanceGenerator instanceGenerator, GenerationRequest request)
     {
       _fallbackTypeGenerator.CustomizeCreatedValue(result, instanceGenerator, request);
     }
@@ -98,7 +96,6 @@ namespace TddXt.TypeResolution
       }
     }
 
-
     public void CustomizeCreatedValue(object result, InstanceGenerator instanceGenerator, GenerationRequest request)
     {
       foreach (var customization in _customizations)
@@ -108,6 +105,13 @@ namespace TddXt.TypeResolution
           result, 
           instanceGenerator, request);
       }
+    }
+
+    public object GenerateCustomizedInstance(InstanceGenerator instanceGenerator, GenerationRequest request)
+    {
+      var generateInstance = GenerateInstance(instanceGenerator, request);
+      CustomizeCreatedValue(generateInstance, instanceGenerator, request);
+      return generateInstance;
     }
   }
 

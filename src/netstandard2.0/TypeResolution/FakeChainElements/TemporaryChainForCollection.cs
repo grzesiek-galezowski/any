@@ -15,10 +15,10 @@ namespace TddXt.TypeResolution.FakeChainElements
     {
       foreach (var resolution in _resolutions)
       {
-        if (resolution.Applies())
+        if (resolution.AppliesTo(typeof(T)))
         {
           request.Trace.SelectedResolution(typeof(T), resolution);
-          return resolution.Apply(instanceGenerator, request);
+          return resolution.Apply(instanceGenerator, request, typeof(T));
         }
       }
 

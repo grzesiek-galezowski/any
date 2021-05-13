@@ -1,3 +1,4 @@
+using System;
 using Castle.DynamicProxy;
 using TddXt.AnyExtensibility;
 using TddXt.TypeResolution.FakeChainElements.Interceptors;
@@ -15,12 +16,12 @@ namespace TddXt.TypeResolution.FakeChainElements
       _proxyGenerator = proxyGenerator;
     }
 
-    public bool Applies()
+    public bool AppliesTo(Type type)
     {
       return typeof(T).IsInterface;
     }
 
-    public T Apply(InstanceGenerator instanceGenerator, GenerationRequest request)
+    public T Apply(InstanceGenerator instanceGenerator, GenerationRequest request, Type type)
     {
       return (T)_proxyGenerator.CreateInterfaceProxyWithoutTarget(
         typeof(T), new InterfaceInterceptor(_cachedGeneration, instanceGenerator.Instance, request));

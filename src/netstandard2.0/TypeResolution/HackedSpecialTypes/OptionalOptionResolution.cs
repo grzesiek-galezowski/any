@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Reflection;
 using TddXt.AnyExtensibility;
@@ -7,13 +8,13 @@ namespace TddXt.TypeResolution.HackedSpecialTypes
 {
   public class OptionalOptionResolution<T> : IResolution<T>
   {
-    public bool Applies()
+    public bool AppliesTo(Type type)
     {
       return typeof(T).Namespace == "Optional"
         && typeof(T).Name == "Option`1";
     }
 
-    public T Apply(InstanceGenerator gen, GenerationRequest request)
+    public T Apply(InstanceGenerator gen, GenerationRequest request, Type type1)
     {
       var type = typeof(T);
       var genericArgument = type.GetGenericArguments()[0];

@@ -1,3 +1,4 @@
+﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
 using TddXt.AnyExtensibility;
@@ -8,12 +9,12 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
 {
   public class FakeTypedTask<T> : IResolution<T>
   {
-    public bool Applies()
+    public bool AppliesTo(Type type)
     {
       return typeof(T).IsGenericType && typeof(T).GetGenericTypeDefinition() == typeof(Task<>);
     }
 
-    public T Apply(InstanceGenerator instanceGenerator, GenerationRequest request)
+    public T Apply(InstanceGenerator instanceGenerator, GenerationRequest request, Type type)
     {
       var resultType = typeof(T).GenericTypeArguments.First();
       var parameters = instanceGenerator.Instance(resultType, request);
