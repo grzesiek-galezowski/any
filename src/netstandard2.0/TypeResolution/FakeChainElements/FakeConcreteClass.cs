@@ -21,15 +21,16 @@ namespace TddXt.TypeResolution.FakeChainElements
 
     public T Apply(InstanceGenerator instanceGenerator, GenerationRequest request, Type type)
     {
+
+      object? result;
       try
       {
-        //bug make non-generic version
-        return instanceGenerator.Value<T>(request);
+        result = instanceGenerator.Value(type, request);
       }
       catch (ThirdPartyGeneratorFailed e)
       {
         request.Trace.ThirdPartyGeneratorFailedTryingFallback(e);
-        return (T)_fallbackTypeGenerator.GenerateCustomizedInstance(instanceGenerator, request);
+        result = _fallbackTypeGenerator.GenerateCustomizedInstance(instanceGenerator, request);
       }
       catch (TargetInvocationException e)
       {
@@ -37,8 +38,9 @@ namespace TddXt.TypeResolution.FakeChainElements
         {
           Console.WriteLine(e);
         }
-        return (T)_fallbackTypeGenerator.GenerateCustomizedInstance(instanceGenerator, request);
+        result = _fallbackTypeGenerator.GenerateCustomizedInstance(instanceGenerator, request);
       }
+      return (T)result;
     }
   }
 }

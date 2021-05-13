@@ -85,7 +85,12 @@ namespace TddXt.AnyGenerators.Generic
 
     public T Value<T>(GenerationRequest request)
     {
-      return _valueGenerator.Value<T>(this, request);
+      return _valueGenerator.Value<T>(this, request); //bug needed?
+    }
+
+    public object Value(Type type, GenerationRequest request)
+    {
+      return _valueGenerator.Value(type, this, request);
     }
 
     public T Value<T>(GenerationRequest request, GenerationCustomization[] customizations)

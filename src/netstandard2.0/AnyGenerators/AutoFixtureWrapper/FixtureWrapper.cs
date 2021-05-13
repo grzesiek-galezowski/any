@@ -1,5 +1,6 @@
 ﻿using AutoFixture;
 using System;
+using AutoFixture.Kernel;
 using TddXt.AnyExtensibility;
 using TddXt.TypeResolution.FakeChainElements;
 
@@ -21,6 +22,18 @@ namespace TddXt.AnyGenerators.AutoFixtureWrapper
       try
       {
           return _autoFixture.Create<T>();
+      }
+      catch (ObjectCreationException e)
+      {
+        throw new ThirdPartyGeneratorFailed(e);
+      }
+    }
+
+    public object Create(Type type)
+    {
+      try
+      {
+          return new SpecimenContext(_autoFixture).Resolve(type);
       }
       catch (ObjectCreationException e)
       {

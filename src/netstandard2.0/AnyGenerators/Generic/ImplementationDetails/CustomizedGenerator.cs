@@ -24,6 +24,11 @@ namespace TddXt.AnyGenerators.Generic.ImplementationDetails
       return _inner.Value<T>(request, request.GenerationCustomizations);
     }
 
+    public object Value(Type type, GenerationRequest request)
+    {
+      return _inner.Value(type, request);
+    }
+
     public T Value<T>(T seed, GenerationRequest request)
     {
       return _inner.Value(seed, request);

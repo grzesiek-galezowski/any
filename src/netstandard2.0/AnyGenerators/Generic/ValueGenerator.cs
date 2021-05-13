@@ -21,6 +21,11 @@ namespace TddXt.AnyGenerators.Generic
       return WithCustomizations(gen, request, fixture => fixture.Create<T>());
     }
 
+    public object Value(Type type, InstanceGenerator gen, GenerationRequest request)
+    {
+      return WithCustomizations(gen, request, fixture => fixture.Create(type));
+    }
+
     public T ValueOtherThan<T>(
       InstanceGenerator gen, 
       GenerationRequest request,

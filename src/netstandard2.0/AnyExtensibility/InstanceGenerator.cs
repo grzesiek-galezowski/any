@@ -6,6 +6,7 @@ namespace TddXt.AnyExtensibility
   {
     T ValueOtherThan<T>(GenerationRequest request, params T[] omittedValues);
     T Value<T>(GenerationRequest request);
+    object Value(Type type, GenerationRequest request);
     T Value<T>(T seed, GenerationRequest request);
     T OtherThan<T>(params T[] omittedValues);
     object OtherThan(Type type, object[] omittedValues, GenerationRequest request);
