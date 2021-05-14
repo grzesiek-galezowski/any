@@ -1,4 +1,4 @@
-using TddXt.TypeResolution.FakeChainElements;
+﻿using TddXt.TypeResolution.FakeChainElements;
 
 namespace TddXt.AnyGenerators.Generic.ExtensionPoints
 {
@@ -7,6 +7,6 @@ namespace TddXt.AnyGenerators.Generic.ExtensionPoints
     IGenerationChain<T> GetInstance<T>();
     IGenerationChain<T> GetUnconstrainedInstance<T>();
     ISpecialCasesOfResolutions<T> CreateSpecialCasesOfResolutions<T>();
-    IResolution<T> CreateFakeOrdinaryInterfaceGenerator<T>();
+    IResolution CreateFakeOrdinaryInterfaceGenerator<T>();
   }
 }

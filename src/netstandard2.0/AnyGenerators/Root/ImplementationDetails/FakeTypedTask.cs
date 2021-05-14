@@ -7,21 +7,21 @@ using TddXt.TypeResolution.FakeChainElements;
 
 namespace TddXt.AnyGenerators.Root.ImplementationDetails
 {
-  public class FakeTypedTask<T> : IResolution<T>
+  public class FakeTypedTask : IResolution
   {
     public bool AppliesTo(Type type)
     {
       return type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Task<>);
     }
 
-    public T Apply(InstanceGenerator instanceGenerator, GenerationRequest request, Type type)
+    public object Apply(InstanceGenerator instanceGenerator, GenerationRequest request, Type type)
     {
       var resultType = type.GenericTypeArguments.First();
       var parameters = instanceGenerator.Instance(resultType, request);
       var result = new GenericMethodProxyCalls().ResultOfGenericVersionOfStaticMethod<Task>(
         type.GenericTypeArguments.First(),
         "FromResult", parameters);
-      return (T)result;
+      return result;
     }
   }
 }

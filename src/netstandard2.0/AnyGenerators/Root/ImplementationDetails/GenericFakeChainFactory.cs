@@ -80,24 +80,24 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
       });
     }
 
-    private IResolution<T> ResolveAsOptionalOption()
+    private IResolution ResolveAsOptionalOption()
     {
-      return new OptionalOptionResolution<T>();
+      return new OptionalOptionResolution();
     }
 
-    private IResolution<T> ResolveAsTypedTask()
+    private IResolution ResolveAsTypedTask()
     {
-      return new FakeTypedTask<T>();
+      return new FakeTypedTask();
     }
 
-    private IResolution<T> ResolveAsVoidTask()
+    private IResolution ResolveAsVoidTask()
     {
-      return new FakeVoidTask<T>();
+      return new FakeVoidTask();
     }
 
-    private IResolution<T> ResolveAsDelegate()
+    private IResolution ResolveAsDelegate()
     {
-      return new FakeDelegate<T>();
+      return new FakeDelegate();
 
     }
 
@@ -106,37 +106,37 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
       return new LimitedGenerationChain<T>(generationChain);
     }
 
-    private FakeConcreteClass<T> ResolveAsConcreteClass()
+    private FakeConcreteClass ResolveAsConcreteClass()
     {
-      return new FakeConcreteClass<T>(_fallbackTypeGenerator);
+      return new FakeConcreteClass(_fallbackTypeGenerator);
     }
 
-    private FakeConcreteClassWithNonConcreteConstructor<T> ResolveAsConcreteTypeWithNonConcreteTypesInConstructorSignature()
+    private FakeConcreteClassWithNonConcreteConstructor ResolveAsConcreteTypeWithNonConcreteTypesInConstructorSignature()
     {
-      return new FakeConcreteClassWithNonConcreteConstructor<T>(_fallbackTypeGenerator);
+      return new FakeConcreteClassWithNonConcreteConstructor(_fallbackTypeGenerator);
     }
 
-    private FakeAbstractClass<T> ResolveAsAbstractClassImplementationWhere(CachedReturnValueGeneration cachedGeneration, ProxyGenerator proxyGenerator)
+    private FakeAbstractClass ResolveAsAbstractClassImplementationWhere(CachedReturnValueGeneration cachedGeneration, ProxyGenerator proxyGenerator)
     {
-      return new FakeAbstractClass<T>(cachedGeneration, proxyGenerator, _fallbackTypeGenerator);
+      return new FakeAbstractClass(cachedGeneration, proxyGenerator, _fallbackTypeGenerator);
     }
 
-    private static FakeOrdinaryInterface<T> ResolveAsInterfaceImplementationWhere(CachedReturnValueGeneration cachedGeneration, ProxyGenerator proxyGenerator)
+    private static FakeOrdinaryInterface ResolveAsInterfaceImplementationWhere(CachedReturnValueGeneration cachedGeneration, ProxyGenerator proxyGenerator)
     {
-      return new FakeOrdinaryInterface<T>(cachedGeneration, proxyGenerator);
+      return new FakeOrdinaryInterface(cachedGeneration, proxyGenerator);
     }
 
-    private static FakeUnknownCollection<T> ResolveAsCollectionWithHeuristics()
+    private static FakeUnknownCollection ResolveAsCollectionWithHeuristics()
     {
-      return new FakeUnknownCollection<T>();
+      return new FakeUnknownCollection();
     }
 
-    private static FakeEnumerator<T> ResolveAsObjectEnumerator()
+    private static FakeEnumerator ResolveAsObjectEnumerator()
     {
-      return new FakeEnumerator<T>();
+      return new FakeEnumerator();
     }
 
-    private IResolution<T> ResolveAsGenericEnumerator()
+    private IResolution ResolveAsGenericEnumerator()
     {
       return _specialCasesOfResolutions.CreateResolutionOf1GenericType(
         nameof(InlineGenerators.Enumerator),
@@ -144,27 +144,27 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
       );
     }
 
-    private IResolution<T> ResolveAsKeyValuePair()
+    private IResolution ResolveAsKeyValuePair()
     {
       //todo move key value pair to inline generators
       return _specialCasesOfResolutions.CreateResolutionOfKeyValuePair();
     }
 
-    private IResolution<T> ResolveAsSortedDictionary()
+    private IResolution ResolveAsSortedDictionary()
     {
       return _specialCasesOfResolutions.CreateResolutionOf2GenericType(
         nameof(InlineGenerators.SortedDictionary),
         typeof(SortedDictionary<,>));
     }
 
-    private IResolution<T> ResolveAsConcurrentStack()
+    private IResolution ResolveAsConcurrentStack()
     {
       return _specialCasesOfResolutions.CreateResolutionOf1GenericType(
         nameof(InlineGenerators.ConcurrentStack),
         typeof(ConcurrentStack<>));
     }
 
-    private IResolution<T> ResolveAsConcurrentQueue()
+    private IResolution ResolveAsConcurrentQueue()
     {
       return _specialCasesOfResolutions.CreateResolutionOf1GenericType(
         nameof(InlineGenerators.ConcurrentQueue),
@@ -172,35 +172,35 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
         typeof(IProducerConsumerCollection<>));
     }
 
-    private IResolution<T> ResolveAsConcurrentBag()
+    private IResolution ResolveAsConcurrentBag()
     {
       return _specialCasesOfResolutions.CreateResolutionOf1GenericType(
         nameof(InlineGenerators.ConcurrentBag),
         typeof(ConcurrentBag<>));
     }
 
-    private IResolution<T> ResolveAsConcurrentDictionary()
+    private IResolution ResolveAsConcurrentDictionary()
     {
       return _specialCasesOfResolutions.CreateResolutionOf2GenericType(
         nameof(InlineGenerators.ConcurrentDictionary),
         typeof(ConcurrentDictionary<,>));
     }
 
-    private IResolution<T> ResolveAsSortedSet()
+    private IResolution ResolveAsSortedSet()
     {
       return _specialCasesOfResolutions.CreateResolutionOf1GenericType(
         nameof(InlineGenerators.SortedSet),
         typeof(SortedSet<>));
     }
 
-    private IResolution<T> ResolveAsSortedList()
+    private IResolution ResolveAsSortedList()
     {
       return _specialCasesOfResolutions.CreateResolutionOf2GenericType(
         nameof(InlineGenerators.SortedList),
         typeof(SortedList<,>));
     }
 
-    private IResolution<T> ResolveAsSimpleDictionary()
+    private IResolution ResolveAsSimpleDictionary()
     {
       return _specialCasesOfResolutions.CreateResolutionOf2GenericType(
         nameof(InlineGenerators.Dictionary),
@@ -209,7 +209,7 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
         typeof(Dictionary<,>));
     }
 
-    private IResolution<T> ResolveAsSimpleSet()
+    private IResolution ResolveAsSimpleSet()
     {
       return _specialCasesOfResolutions.CreateResolutionOf1GenericType(
         nameof(InlineGenerators.Set),
@@ -217,7 +217,7 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
         typeof(HashSet<>));
     }
 
-    private IResolution<T> ResolveAsSimpleEnumerableAndList()
+    private IResolution ResolveAsSimpleEnumerableAndList()
     {
       return _specialCasesOfResolutions.CreateResolutionOf1GenericType(
         nameof(InlineGenerators.List),
@@ -228,7 +228,7 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
         typeof(IReadOnlyList<>));
     }
 
-    private IResolution<T> ResolveAsImmutableQueue()
+    private IResolution ResolveAsImmutableQueue()
     {
       return _specialCasesOfResolutions.CreateResolutionOf1GenericType(
         nameof(InlineGenerators.ImmutableQueue),
@@ -237,7 +237,7 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
         );
     }
 
-    private IResolution<T> ResolveAsImmutableStack()
+    private IResolution ResolveAsImmutableStack()
     {
       return _specialCasesOfResolutions.CreateResolutionOf1GenericType(
         nameof(InlineGenerators.ImmutableStack),
@@ -246,7 +246,7 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
         );
     }
 
-    private IResolution<T> ResolveAsImmutableDictionary()
+    private IResolution ResolveAsImmutableDictionary()
     {
       return _specialCasesOfResolutions.CreateResolutionOf2GenericType(
         nameof(InlineGenerators.ImmutableDictionary),
@@ -255,14 +255,14 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
         );
     }
 
-    private IResolution<T> ResolveAsImmutableSortedDictionary()
+    private IResolution ResolveAsImmutableSortedDictionary()
     {
       return _specialCasesOfResolutions.CreateResolutionOf2GenericType(
         nameof(InlineGenerators.ImmutableSortedDictionary),
         typeof(ImmutableSortedDictionary<,>));
     }
 
-    private IResolution<T> ResolveAsImmutableHashSet()
+    private IResolution ResolveAsImmutableHashSet()
     {
       return _specialCasesOfResolutions.CreateResolutionOf1GenericType(
         nameof(InlineGenerators.ImmutableHashSet),
@@ -271,7 +271,7 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
       );
     }
 
-    private IResolution<T> ResolveAsImmutableSortedSet()
+    private IResolution ResolveAsImmutableSortedSet()
     {
       return _specialCasesOfResolutions.CreateResolutionOf1GenericType(
         nameof(InlineGenerators.ImmutableSortedSet),
@@ -279,7 +279,7 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
       );
     }
 
-    private IResolution<T> ResolveAsImmutableList()
+    private IResolution ResolveAsImmutableList()
     {
       return _specialCasesOfResolutions.CreateResolutionOf1GenericType(
         nameof(InlineGenerators.ImmutableList),
@@ -287,7 +287,7 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
         typeof(IImmutableList<>));
     }
 
-    private IResolution<T> ResolveAsImmutableArray()
+    private IResolution ResolveAsImmutableArray()
     {
       return _specialCasesOfResolutions.CreateResolutionOf1GenericType(
         nameof(InlineGenerators.ImmutableArray),
@@ -295,12 +295,12 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
 
     }
 
-    private static FakeSpecialCase<T> ResolveTheMostSpecificCases(IValueGenerator valueGenerator)
+    private static FakeSpecialCase ResolveTheMostSpecificCases(IValueGenerator valueGenerator)
     {
-      return new FakeSpecialCase<T>(valueGenerator);
+      return new FakeSpecialCase(valueGenerator);
     }
 
-    private IResolution<T> ResolveAsArray()
+    private IResolution ResolveAsArray()
     {
       return _specialCasesOfResolutions.CreateResolutionOfArray();
     }

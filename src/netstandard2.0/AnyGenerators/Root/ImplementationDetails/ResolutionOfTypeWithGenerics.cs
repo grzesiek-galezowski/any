@@ -5,7 +5,7 @@ using TddXt.TypeResolution.FakeChainElements;
 
 namespace TddXt.AnyGenerators.Root.ImplementationDetails
 {
-  public class ResolutionOfTypeWithGenerics<T> : IResolution<T>
+  public class ResolutionOfTypeWithGenerics : IResolution
   {
     private readonly FactoryForInstancesOfGenericTypes _factoryForInstancesOfGenericTypes;
     private readonly Type[] _matchingTypes;
@@ -25,9 +25,9 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
       return result;
     }
 
-    public T Apply(InstanceGenerator instanceGenerator, GenerationRequest request, Type type)
+    public object Apply(InstanceGenerator instanceGenerator, GenerationRequest request, Type type)
     {
-      return (T)_factoryForInstancesOfGenericTypes.NewInstanceOf(type, instanceGenerator, request);
+      return _factoryForInstancesOfGenericTypes.NewInstanceOf(type, instanceGenerator, request);
     }
   }
 }

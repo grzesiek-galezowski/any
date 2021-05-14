@@ -56,11 +56,10 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
       return new SpecialCasesOfResolutions<T>();
     }
 
-    public IResolution<T> CreateFakeOrdinaryInterfaceGenerator<T>()
+    public IResolution CreateFakeOrdinaryInterfaceGenerator<T>()
     {
       //bug this doesn't fit 100% here.
-      return new FakeOrdinaryInterface<T>(
-        _cachedReturnValueGeneration, _proxyGenerator);
+      return new FakeOrdinaryInterface(_cachedReturnValueGeneration, _proxyGenerator);
     }
 
     private static IGenerationChain<T> GetInstanceWithMemoization<T>(Func<IGenerationChain<T>> func, ConcurrentDictionary<Type, object> cache)

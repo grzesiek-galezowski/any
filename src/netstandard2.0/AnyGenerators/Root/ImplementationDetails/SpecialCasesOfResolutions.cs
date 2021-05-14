@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using TddXt.AnyExtensibility;
 using TddXt.AnyGenerators.Generic.ExtensionPoints;
@@ -8,38 +8,38 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
 {
   public class SpecialCasesOfResolutions<T> : ISpecialCasesOfResolutions<T>
   {
-    public IResolution<T> CreateResolutionOfKeyValuePair()
+    public IResolution CreateResolutionOfKeyValuePair()
     {
       return CreateResolutionOf2GenericType(nameof(InlineGenerators.KeyValuePair),
         typeof(KeyValuePair<,>)
         );
     }
 
-    public IResolution<T> CreateResolutionOf2GenericType(string className, params Type[] matchingTypes)
+    public IResolution CreateResolutionOf2GenericType(string className, params Type[] matchingTypes)
     {
       var factoryMethod = new Func<Type, Type, InstanceGenerator, GenerationRequest, object>((type1, type2, instanceGenerator, trace) =>
         InlineGenerators.GetByNameAndTypes(className, type1, type2)
           .GenerateInstance(instanceGenerator, trace));
 
-      return new ResolutionOfTypeWithGenerics<T>(
+      return new ResolutionOfTypeWithGenerics(
         new FactoryForInstancesOfGenericTypesWith2Generics(
           factoryMethod),
         matchingTypes);
     }
 
 
-    public IResolution<T> CreateResolutionOf1GenericType(string resolvedTypeName, params Type[] genericTypes)
+    public IResolution CreateResolutionOf1GenericType(string resolvedTypeName, params Type[] genericTypes)
     {
-      return new ResolutionOfTypeWithGenerics<T>(
+      return new ResolutionOfTypeWithGenerics(
         new FactoryForInstancesOfGenericTypesWith1Generic(
           (type, generator, trace) => InlineGenerators.GetByNameAndType(resolvedTypeName, type)
             .GenerateInstance(generator, trace)),
         genericTypes);
     }
 
-    public IResolution<T> CreateResolutionOfArray()
+    public IResolution CreateResolutionOfArray()
     {
-      return new ResolutionOfArrays<T>();
+      return new ResolutionOfArrays();
     }
   }
 }

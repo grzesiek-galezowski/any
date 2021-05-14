@@ -5,7 +5,7 @@ using TddXt.TypeResolution.FakeChainElements.Interceptors;
 
 namespace TddXt.TypeResolution.FakeChainElements
 {
-  public class FakeOrdinaryInterface<T> : IResolution<T>
+  public class FakeOrdinaryInterface : IResolution
   {
     private readonly CachedReturnValueGeneration _cachedGeneration;
     private readonly ProxyGenerator _proxyGenerator;
@@ -21,9 +21,9 @@ namespace TddXt.TypeResolution.FakeChainElements
       return type.IsInterface;
     }
 
-    public T Apply(InstanceGenerator instanceGenerator, GenerationRequest request, Type type)
+    public object Apply(InstanceGenerator instanceGenerator, GenerationRequest request, Type type)
     {
-      return (T)_proxyGenerator.CreateInterfaceProxyWithoutTarget(
+      return _proxyGenerator.CreateInterfaceProxyWithoutTarget(
         type, new InterfaceInterceptor(_cachedGeneration, instanceGenerator.Instance, request));
     }
   }

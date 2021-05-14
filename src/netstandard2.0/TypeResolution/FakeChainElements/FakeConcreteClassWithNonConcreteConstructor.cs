@@ -3,7 +3,7 @@ using TddXt.AnyExtensibility;
 
 namespace TddXt.TypeResolution.FakeChainElements
 {
-  public class FakeConcreteClassWithNonConcreteConstructor<T> : IResolution<T>
+  public class FakeConcreteClassWithNonConcreteConstructor : IResolution
   {
     private readonly FallbackTypeGenerator _fallbackTypeGenerator;
 
@@ -17,9 +17,9 @@ namespace TddXt.TypeResolution.FakeChainElements
       return _fallbackTypeGenerator.ConstructorIsInternalOrHasAtLeastOneNonConcreteArgumentType();
     }
 
-    public T Apply(InstanceGenerator instanceGenerator, GenerationRequest request, Type type)
+    public object Apply(InstanceGenerator instanceGenerator, GenerationRequest request, Type type)
     {
-      return (T)_fallbackTypeGenerator.GenerateCustomizedInstance(instanceGenerator, request);
+      return _fallbackTypeGenerator.GenerateCustomizedInstance(instanceGenerator, request);
     }
   }
 }

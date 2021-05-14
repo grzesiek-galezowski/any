@@ -7,7 +7,7 @@ using TddXt.TypeReflection;
 
 namespace TddXt.TypeResolution.FakeChainElements
 {
-  public class FakeUnknownCollection<T> : IResolution<T>
+  public class FakeUnknownCollection : IResolution
   {
     public bool AppliesTo(Type type)
     {
@@ -22,7 +22,7 @@ namespace TddXt.TypeResolution.FakeChainElements
     }
 
 
-    public T Apply(InstanceGenerator instanceGenerator, GenerationRequest request, Type typeOfCollection)
+    public object Apply(InstanceGenerator instanceGenerator, GenerationRequest request, Type typeOfCollection)
     {
       var collectionInstance = Activator.CreateInstance(typeOfCollection);
       var elementTypes = typeOfCollection.GetGenericArguments();
@@ -42,7 +42,7 @@ namespace TddXt.TypeResolution.FakeChainElements
         collectionInstance,
         AnyInstancesOf(elementTypes, instanceGenerator, request));
 
-      return (T)collectionInstance;
+      return collectionInstance;
     }
 
     private static object[] AnyInstancesOf(IEnumerable<Type> elementTypes, InstanceGenerator instanceGenerator,

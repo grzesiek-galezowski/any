@@ -6,7 +6,7 @@ using TddXt.TypeResolution.FakeChainElements;
 
 namespace TddXt.TypeResolution.HackedSpecialTypes
 {
-  public class OptionalOptionResolution<T> : IResolution<T>
+  public class OptionalOptionResolution : IResolution
   {
     public bool AppliesTo(Type type)
     {
@@ -14,7 +14,7 @@ namespace TddXt.TypeResolution.HackedSpecialTypes
         && type.Name == "Option`1";
     }
 
-    public T Apply(InstanceGenerator gen, GenerationRequest request, Type type)
+    public object Apply(InstanceGenerator gen, GenerationRequest request, Type type)
     {
       var genericArgument = type.GetGenericArguments()[0];
       var elementInstance = gen.Instance(genericArgument, request);
@@ -26,7 +26,7 @@ namespace TddXt.TypeResolution.HackedSpecialTypes
         .Single(info => info.GetGenericArguments().Length == 1);
       var someMethod = genericCreationMethod.MakeGenericMethod(genericArgument);
       var result = someMethod.Invoke(null, new[] { elementInstance });
-      return (T)result;
+      return result;
 
     }
   }

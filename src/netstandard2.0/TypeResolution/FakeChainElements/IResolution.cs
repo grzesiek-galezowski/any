@@ -1,11 +1,11 @@
-using System;
+﻿using System;
 using TddXt.AnyExtensibility;
 
 namespace TddXt.TypeResolution.FakeChainElements
 {
-  public interface IResolution<out T>
+  public interface IResolution
   {
     bool AppliesTo(Type type);
-    T Apply(InstanceGenerator instanceGenerator, GenerationRequest request, Type type);
+    object Apply(InstanceGenerator instanceGenerator, GenerationRequest request, Type type);
   }
 }

@@ -150,7 +150,7 @@ namespace TddXt.AnyGenerators.Generic
 
       if (fakeInterface.AppliesTo(typeof(T)))
       {
-        return fakeInterface.Apply(this, request, typeof(T));
+        return (T)fakeInterface.Apply(this, request, typeof(T));
       }
 
       return (T)FormatterServices.GetUninitializedObject(typeof(T));

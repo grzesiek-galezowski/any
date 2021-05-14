@@ -6,14 +6,14 @@ using TddXt.AnyExtensibility;
 
 namespace TddXt.TypeResolution.FakeChainElements
 {
-  public class FakeDelegate<T> : IResolution<T>
+  public class FakeDelegate : IResolution
   {
     public bool AppliesTo(Type type)
     {
       return type.IsSubclassOf(typeof(Delegate));
     }
 
-    public T Apply(InstanceGenerator instanceGenerator, GenerationRequest request, Type type)
+    public object Apply(InstanceGenerator instanceGenerator, GenerationRequest request, Type type)
     {
       var methodInfo = type.GetMethods().First(m => m.Name.Equals("Invoke"));
       var parameters = methodInfo.GetParameters();
@@ -29,7 +29,7 @@ namespace TddXt.TypeResolution.FakeChainElements
         result = Delegate.CreateDelegate(type, instance, instance.GetType().GetMethod("Do" + parameters.Length));
       }
 
-      return (T)result;
+      return result;
     }
 
     private static object CreateGenericDelegatesForFunction(InstanceGenerator instanceGenerator, MethodInfo methodInfo,

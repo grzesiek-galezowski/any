@@ -6,7 +6,7 @@ using TddXt.TypeResolution.Interfaces;
 
 namespace TddXt.TypeResolution.FakeChainElements
 {
-  public class FakeSpecialCase<T> : IResolution<T>
+  public class FakeSpecialCase : IResolution
   {
     private readonly IValueGenerator _valueGenerator;
 
@@ -22,9 +22,9 @@ namespace TddXt.TypeResolution.FakeChainElements
         type == typeof(MethodInfo);
     }
 
-    public T Apply(InstanceGenerator instanceGenerator, GenerationRequest request, Type type)
+    public object Apply(InstanceGenerator instanceGenerator, GenerationRequest request, Type type)
     {
-      return (T)_valueGenerator.Value(type, instanceGenerator, request);
+      return _valueGenerator.Value(type, instanceGenerator, request);
     }
   }
 }
