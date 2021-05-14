@@ -51,7 +51,7 @@ namespace TddXt.AnyGenerators.Generic
       try
       {
         request.Trace.BeginCreatingInstanceGraphWith(typeof(T));
-        return (T)_fakeChainFactory.GetInstance<T>(typeof(T)).Resolve(CreateCustomizedInstanceGenerator(), request, typeof(T));
+        return (T)_fakeChainFactory.GetInstance().Resolve(CreateCustomizedInstanceGenerator(), request, typeof(T));
       }
       catch (Exception e)
       {
@@ -114,13 +114,13 @@ namespace TddXt.AnyGenerators.Generic
 
     public T Instance<T>(GenerationRequest request)
     {
-      return (T)_fakeChainFactory.GetInstance<T>(typeof(T)).Resolve(this, request, typeof(T));
+      return (T)_fakeChainFactory.GetInstance().Resolve(this, request, typeof(T));
     }
 
     public object? Dummy(GenerationRequest request, Type type)
     {
       var fakeInterface = _fakeChainFactory.CreateFakeOrdinaryInterfaceGenerator();
-      var unconstrainedChain = _fakeChainFactory.GetUnconstrainedInstance(type);
+      var unconstrainedChain = _fakeChainFactory.GetUnconstrainedInstance();
       var smartType = SmartType.For(type);
 
       if (type.IsPrimitive)
@@ -202,7 +202,7 @@ namespace TddXt.AnyGenerators.Generic
 
     public T Instance<T>(GenerationRequest request, params GenerationCustomization[] customizations)
     {
-      return (T)_fakeChainFactory.GetInstance<T>(typeof(T)).Resolve(new CustomizedGenerator(this), request, typeof(T));
+      return (T)_fakeChainFactory.GetInstance().Resolve(new CustomizedGenerator(this), request, typeof(T));
     }
 
     public T Dummy<T>()

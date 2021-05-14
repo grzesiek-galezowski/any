@@ -6,6 +6,8 @@ using TddXt.AnyGenerators.Generic.ExtensionPoints;
 using TddXt.AnyGenerators.Generic.ImplementationDetails;
 using TddXt.TypeResolution;
 using TddXt.TypeResolution.CustomCollections;
+using TddXt.TypeResolution.FakeChainElements;
+using TddXt.TypeResolution.Interfaces;
 
 namespace TddXt.AnyGenerators.Root.ImplementationDetails
 {
@@ -24,12 +26,24 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
 
     private static IFakeChainFactory CreateFakeChainFactory(
       ProxyGenerator proxyGenerator, 
-      ValueGenerator valueGenerator)
+      IValueGenerator valueGenerator)
     {
-      return new FakeChainFactory(
-        new CachedReturnValueGeneration(new PerMethodCache<object>()), 
-        proxyGenerator,
-        valueGenerator);
+      var cachedReturnValueGeneration = new CachedReturnValueGeneration(new PerMethodCache<object>());
+      var fakeChainFactory = new GenericFakeChainFactory(
+        new SpecialCasesOfResolutions(),
+        new FallbackTypeGenerator(
+          new IFallbackGeneratedObjectCustomization[]
+          {
+            new FillPropertiesCustomization(),
+            new FillFieldsCustomization()
+          }));
+      return new FakeChainFactory(fakeChainFactory.NewInstance(
+          cachedReturnValueGeneration,
+          proxyGenerator,
+          valueGenerator), fakeChainFactory.UnconstrainedInstance(
+          cachedReturnValueGeneration,
+          proxyGenerator, 
+          valueGenerator), new FakeOrdinaryInterface(cachedReturnValueGeneration, proxyGenerator));
     }
 
     private static ValueGenerator CreateValueGenerator()
