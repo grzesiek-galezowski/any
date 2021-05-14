@@ -5,12 +5,10 @@ namespace TddXt.TypeResolution.FakeChainElements
 {
   public class TemporaryChainForCollection : IGenerationChain
   {
-    private readonly Type _type;
     private readonly IResolution[] _resolutions;
 
-    public TemporaryChainForCollection(Type type, IResolution[] resolutions)
+    public TemporaryChainForCollection(IResolution[] resolutions)
     {
-      _type = type;
       _resolutions = resolutions;
     }
 

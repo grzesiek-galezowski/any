@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Concurrent;
+﻿using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using Castle.DynamicProxy;
@@ -15,16 +14,13 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
   public class GenericFakeChainFactory
   {
     private readonly FallbackTypeGenerator _fallbackTypeGenerator;
-    private readonly Type _type;
     private readonly ISpecialCasesOfResolutions _specialCasesOfResolutions;
 
     public GenericFakeChainFactory(ISpecialCasesOfResolutions specialCasesOfResolutions,
-      FallbackTypeGenerator fallbackTypeGenerator, 
-      Type type)
+      FallbackTypeGenerator fallbackTypeGenerator)
     {
       _specialCasesOfResolutions = specialCasesOfResolutions;
       _fallbackTypeGenerator = fallbackTypeGenerator;
-      _type = type;
     }
 
     public IGenerationChain NewInstance(
@@ -40,10 +36,10 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
 
     public IGenerationChain UnconstrainedInstance(
       CachedReturnValueGeneration eachMethodReturnsTheSameValueOnEveryCall,
-      ProxyGenerator generationIsDoneUsingProxies, 
+      ProxyGenerator generationIsDoneUsingProxies,
       IValueGenerator valueGenerator)
     {
-      return new TemporaryChainForCollection(_type, new[]
+      return new TemporaryChainForCollection(new[]
       {
         ResolveTheMostSpecificCases(valueGenerator),
         ResolveAsArray(),
@@ -107,7 +103,7 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
 
     private IGenerationChain RecursionLimited(IGenerationChain generationChain)
     {
-      return new LimitedGenerationChain(generationChain, _type);
+      return new LimitedGenerationChain(generationChain);
     }
 
     private FakeConcreteClass ResolveAsConcreteClass()

@@ -12,11 +12,11 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
   public class FakeChainFactory : IFakeChainFactory
   {
     private readonly CachedReturnValueGeneration _cachedReturnValueGeneration;
-    private readonly ConcurrentDictionary<Type, object> _constrainedFactoryCache = new ConcurrentDictionary<Type, object>();//new MemoryCache("constrained");
-    private readonly NestingLimit _nestingLimit;
+    private readonly ConcurrentDictionary<Type, object> _constrainedFactoryCache = new();//new MemoryCache("constrained");
     private readonly ProxyGenerator _proxyGenerator;
-    private readonly ConcurrentDictionary<Type, object> _unconstrainedFactoryCache = new ConcurrentDictionary<Type, object>();//new MemoryCache("constrained");
+    private readonly ConcurrentDictionary<Type, object> _unconstrainedFactoryCache = new();//new MemoryCache("constrained");
     private readonly ValueGenerator _valueGenerator;
+    private readonly FallbackTypeGenerator _fallbackTypeGenerator;
 
     public FakeChainFactory(
       CachedReturnValueGeneration cachedReturnValueGeneration,
@@ -25,25 +25,30 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
       ValueGenerator valueGenerator)
     {
       _cachedReturnValueGeneration = cachedReturnValueGeneration;
-      _nestingLimit = nestingLimit;
       _proxyGenerator = proxyGenerator;
       _valueGenerator = valueGenerator;
+      _fallbackTypeGenerator = new FallbackTypeGenerator(
+        new IFallbackGeneratedObjectCustomization[]
+        {
+          new FillPropertiesCustomization(),
+          new FillFieldsCustomization()
+        });
     }
 
     public IGenerationChain GetInstance<T>(Type type)
     {
       return GetInstanceWithMemoization(type, () =>
-        CreateGenericFakeChainFactory(type).NewInstance(
+        CreateGenericFakeChainFactory().NewInstance(
           _cachedReturnValueGeneration,
           _proxyGenerator,
-          _valueGenerator
-        ), _constrainedFactoryCache);
+          _valueGenerator), 
+        _constrainedFactoryCache);
     }
 
     public IGenerationChain GetUnconstrainedInstance(Type type)
     {
       return GetInstanceWithMemoization(type, () =>
-      CreateGenericFakeChainFactory(type)
+      CreateGenericFakeChainFactory()
         .UnconstrainedInstance(
           _cachedReturnValueGeneration,
           _proxyGenerator, 
@@ -77,18 +82,11 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
       return (IGenerationChain)outVal;
     }
 
-    private GenericFakeChainFactory CreateGenericFakeChainFactory(Type type)
+    private GenericFakeChainFactory CreateGenericFakeChainFactory()
     {
-      var fallbackTypeGenerator = new FallbackTypeGenerator(
-        new IFallbackGeneratedObjectCustomization[]
-        {
-          new FillPropertiesCustomization(),
-          new FillFieldsCustomization()
-        });
       return new GenericFakeChainFactory(
         CreateSpecialCasesOfResolutions(),
-        fallbackTypeGenerator,
-        type);
+        _fallbackTypeGenerator);
     }
   }
 }

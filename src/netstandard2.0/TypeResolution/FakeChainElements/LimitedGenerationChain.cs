@@ -8,7 +8,7 @@ namespace TddXt.TypeResolution.FakeChainElements
   {
     private readonly IGenerationChain _generationChain;
 
-    public LimitedGenerationChain(IGenerationChain generationChain, Type type)
+    public LimitedGenerationChain(IGenerationChain generationChain)
     {
       _generationChain = generationChain;
     }
