@@ -18,16 +18,6 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
       var methodProxyCalls = new GenericMethodProxyCalls();
       var valueGenerator = CreateValueGenerator();
       var proxyGenerator = new ProxyGenerator();
-      var fakeChainFactory = CreateFakeChainFactory(proxyGenerator, valueGenerator);
-
-      var allGenerator = new AllGenerator(valueGenerator, fakeChainFactory, methodProxyCalls);
-      return allGenerator;
-    }
-
-    private static IFakeChainFactory CreateFakeChainFactory(
-      ProxyGenerator proxyGenerator, 
-      IValueGenerator valueGenerator)
-    {
       var cachedReturnValueGeneration = new CachedReturnValueGeneration(new PerMethodCache<object>());
       var fakeChainFactory = new GenericFakeChainFactory(
         new SpecialCasesOfResolutions(),
@@ -37,13 +27,24 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
             new FillPropertiesCustomization(),
             new FillFieldsCustomization()
           }));
-      return new FakeChainFactory(fakeChainFactory.NewInstance(
-          cachedReturnValueGeneration,
-          proxyGenerator,
-          valueGenerator), fakeChainFactory.UnconstrainedInstance(
-          cachedReturnValueGeneration,
-          proxyGenerator, 
-          valueGenerator), new FakeOrdinaryInterface(cachedReturnValueGeneration, proxyGenerator));
+      var generationChain = fakeChainFactory.NewInstance(
+        cachedReturnValueGeneration,
+        proxyGenerator,
+        valueGenerator);
+      var unconstrainedChain = fakeChainFactory.UnconstrainedInstance(
+        cachedReturnValueGeneration,
+        proxyGenerator, 
+        valueGenerator);
+      var fakeOrdinaryInterfaceGenerator =
+        new FakeOrdinaryInterface(cachedReturnValueGeneration, proxyGenerator);
+
+      var allGenerator = new AllGenerator(
+        valueGenerator, 
+        methodProxyCalls, 
+        generationChain, 
+        unconstrainedChain,
+        fakeOrdinaryInterfaceGenerator);
+      return allGenerator;
     }
 
     private static ValueGenerator CreateValueGenerator()

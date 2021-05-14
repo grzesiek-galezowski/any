@@ -98,7 +98,6 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
     private IResolution ResolveAsDelegate()
     {
       return new FakeDelegate();
-
     }
 
     private IGenerationChain RecursionLimited(IGenerationChain generationChain)

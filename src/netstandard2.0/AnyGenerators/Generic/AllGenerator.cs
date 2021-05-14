@@ -5,30 +5,36 @@ using System.Reflection;
 using System.Runtime.Serialization;
 using FluentAssertions;
 using TddXt.AnyExtensibility;
-using TddXt.AnyGenerators.Generic.ExtensionPoints;
 using TddXt.AnyGenerators.Generic.ImplementationDetails;
 using TddXt.TypeReflection;
 using TddXt.TypeResolution;
+using TddXt.TypeResolution.FakeChainElements;
 
 namespace TddXt.AnyGenerators.Generic
 {
   [Serializable]
   public class AllGenerator : CustomizableInstanceGenerator, BasicGenerator
   {
-    [NonSerialized] private readonly IFakeChainFactory _fakeChainFactory;
-
     [NonSerialized] private readonly GenericMethodProxyCalls _methodProxyCalls;
+    private readonly IGenerationChain _generationChain;
+    private readonly IGenerationChain _unconstrainedChain;
+    private readonly FakeOrdinaryInterface _fakeOrdinaryInterfaceGenerator;
 
     [NonSerialized] private readonly ValueGenerator _valueGenerator;
 
 
-    public AllGenerator(ValueGenerator valueGenerator,
-      IFakeChainFactory fakeChainFactory,
-      GenericMethodProxyCalls methodProxyCalls)
+    public AllGenerator(
+      ValueGenerator valueGenerator,
+      GenericMethodProxyCalls methodProxyCalls, 
+      IGenerationChain generationChain, 
+      IGenerationChain unconstrainedChain,
+      FakeOrdinaryInterface fakeOrdinaryInterfaceGenerator)
     {
       _valueGenerator = valueGenerator;
-      _fakeChainFactory = fakeChainFactory;
       _methodProxyCalls = methodProxyCalls;
+      _generationChain = generationChain;
+      _unconstrainedChain = unconstrainedChain;
+      _fakeOrdinaryInterfaceGenerator = fakeOrdinaryInterfaceGenerator;
     }
 
     public T Instance<T>()
@@ -51,7 +57,7 @@ namespace TddXt.AnyGenerators.Generic
       try
       {
         request.Trace.BeginCreatingInstanceGraphWith(typeof(T));
-        return (T)_fakeChainFactory.GetInstance().Resolve(CreateCustomizedInstanceGenerator(), request, typeof(T));
+        return (T)_generationChain.Resolve(CreateCustomizedInstanceGenerator(), request, typeof(T));
       }
       catch (Exception e)
       {
@@ -114,23 +120,21 @@ namespace TddXt.AnyGenerators.Generic
 
     public T Instance<T>(GenerationRequest request)
     {
-      return (T)_fakeChainFactory.GetInstance().Resolve(this, request, typeof(T));
+      return (T)_generationChain.Resolve(this, request, typeof(T));
     }
 
     public object? Dummy(GenerationRequest request, Type type)
     {
-      var fakeInterface = _fakeChainFactory.CreateFakeOrdinaryInterfaceGenerator();
-      var unconstrainedChain = _fakeChainFactory.GetUnconstrainedInstance();
       var smartType = SmartType.For(type);
 
       if (type.IsPrimitive)
       {
-        return unconstrainedChain.Resolve(this, request, type);
+        return _unconstrainedChain.Resolve(this, request, type);
       }
 
       if (type == typeof(string))
       {
-        return unconstrainedChain.Resolve(this, request, type);
+        return _unconstrainedChain.Resolve(this, request, type);
       }
 
       var emptyCollectionInstantiation = new EmptyCollectionInstantiation();
@@ -149,9 +153,9 @@ namespace TddXt.AnyGenerators.Generic
         return default;
       }
 
-      if (fakeInterface.AppliesTo(type))
+      if (_fakeOrdinaryInterfaceGenerator.AppliesTo(type))
       {
-        return fakeInterface.Apply(this, request, type);
+        return _fakeOrdinaryInterfaceGenerator.Apply(this, request, type);
       }
 
       return FormatterServices.GetUninitializedObject(type);
@@ -202,7 +206,7 @@ namespace TddXt.AnyGenerators.Generic
 
     public T Instance<T>(GenerationRequest request, params GenerationCustomization[] customizations)
     {
-      return (T)_fakeChainFactory.GetInstance().Resolve(new CustomizedGenerator(this), request, typeof(T));
+      return (T)_generationChain.Resolve(new CustomizedGenerator(this), request, typeof(T));
     }
 
     public T Dummy<T>()
