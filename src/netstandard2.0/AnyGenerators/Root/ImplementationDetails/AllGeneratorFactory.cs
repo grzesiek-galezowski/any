@@ -17,20 +17,17 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
       var cachedReturnValueGeneration = new CachedReturnValueGeneration(new PerMethodCache<object>());
       var fakeChainFactory = new GenericFakeChainFactory(
         new SpecialCasesOfResolutions(),
+        cachedReturnValueGeneration,
+        proxyGenerator,
+        valueGenerator,
         new FallbackTypeGenerator(
           new IFallbackGeneratedObjectCustomization[]
           {
             new FillPropertiesCustomization(),
             new FillFieldsCustomization()
           }));
-      var generationChain = fakeChainFactory.NewInstance(
-        cachedReturnValueGeneration,
-        proxyGenerator,
-        valueGenerator);
-      var unconstrainedChain = fakeChainFactory.UnconstrainedInstance(
-        cachedReturnValueGeneration,
-        proxyGenerator, 
-        valueGenerator);
+      var generationChain = fakeChainFactory.NewInstance();
+      var unconstrainedChain = fakeChainFactory.UnconstrainedInstance();
       var fakeOrdinaryInterfaceGenerator =
         new FakeOrdinaryInterface(cachedReturnValueGeneration, proxyGenerator);
 
