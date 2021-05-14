@@ -47,7 +47,8 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
       CreateGenericFakeChainFactory<T>()
         .UnconstrainedInstance(
           _cachedReturnValueGeneration,
-          _proxyGenerator, _valueGenerator),
+          _proxyGenerator, 
+          _valueGenerator),
           _unconstrainedFactoryCache);
     }
 

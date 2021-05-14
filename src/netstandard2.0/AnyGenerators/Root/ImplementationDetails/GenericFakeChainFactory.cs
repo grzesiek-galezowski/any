@@ -35,8 +35,10 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
         valueGenerator));
     }
 
-    public IGenerationChain<T> UnconstrainedInstance(CachedReturnValueGeneration eachMethodReturnsTheSameValueOnEveryCall,
-      ProxyGenerator generationIsDoneUsingProxies, IValueGenerator valueGenerator)
+    public IGenerationChain<T> UnconstrainedInstance(
+      CachedReturnValueGeneration eachMethodReturnsTheSameValueOnEveryCall,
+      ProxyGenerator generationIsDoneUsingProxies, 
+      IValueGenerator valueGenerator)
     {
       return new TemporaryChainForCollection<T>(new[]
       {
