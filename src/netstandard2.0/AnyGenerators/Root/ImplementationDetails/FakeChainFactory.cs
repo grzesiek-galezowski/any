@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using Castle.DynamicProxy;
-using TddXt.AnyExtensibility;
 using TddXt.AnyGenerators.Generic;
 using TddXt.AnyGenerators.Generic.ExtensionPoints;
 using TddXt.TypeResolution;
@@ -17,10 +16,10 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
     private readonly ConcurrentDictionary<Type, object> _unconstrainedFactoryCache = new();//new MemoryCache("constrained");
     private readonly ValueGenerator _valueGenerator;
     private readonly FallbackTypeGenerator _fallbackTypeGenerator;
+    private readonly GenericFakeChainFactory _genericFakeChainFactory;
 
     public FakeChainFactory(
       CachedReturnValueGeneration cachedReturnValueGeneration,
-      NestingLimit nestingLimit,
       ProxyGenerator proxyGenerator,
       ValueGenerator valueGenerator)
     {
@@ -33,12 +32,13 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
           new FillPropertiesCustomization(),
           new FillFieldsCustomization()
         });
+      _genericFakeChainFactory = CreateGenericFakeChainFactory();
     }
 
     public IGenerationChain GetInstance<T>(Type type)
     {
       return GetInstanceWithMemoization(type, () =>
-        CreateGenericFakeChainFactory().NewInstance(
+        _genericFakeChainFactory.NewInstance(
           _cachedReturnValueGeneration,
           _proxyGenerator,
           _valueGenerator), 
@@ -48,17 +48,12 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
     public IGenerationChain GetUnconstrainedInstance(Type type)
     {
       return GetInstanceWithMemoization(type, () =>
-      CreateGenericFakeChainFactory()
+      _genericFakeChainFactory
         .UnconstrainedInstance(
           _cachedReturnValueGeneration,
           _proxyGenerator, 
           _valueGenerator),
           _unconstrainedFactoryCache);
-    }
-
-    public ISpecialCasesOfResolutions CreateSpecialCasesOfResolutions()
-    {
-      return new SpecialCasesOfResolutions();
     }
 
     public IResolution CreateFakeOrdinaryInterfaceGenerator()
@@ -85,7 +80,7 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
     private GenericFakeChainFactory CreateGenericFakeChainFactory()
     {
       return new GenericFakeChainFactory(
-        CreateSpecialCasesOfResolutions(),
+        new SpecialCasesOfResolutions(),
         _fallbackTypeGenerator);
     }
   }

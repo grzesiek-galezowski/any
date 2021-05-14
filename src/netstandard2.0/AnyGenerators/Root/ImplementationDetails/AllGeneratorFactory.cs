@@ -28,7 +28,6 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
     {
       return new FakeChainFactory(
         new CachedReturnValueGeneration(new PerMethodCache<object>()), 
-        GlobalNestingLimit.Of(5), 
         proxyGenerator,
         valueGenerator);
     }
