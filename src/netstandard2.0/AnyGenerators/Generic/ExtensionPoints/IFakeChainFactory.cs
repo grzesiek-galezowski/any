@@ -6,6 +6,6 @@ namespace TddXt.AnyGenerators.Generic.ExtensionPoints
   {
     IGenerationChain<T> GetInstance<T>();
     IGenerationChain<T> GetUnconstrainedInstance<T>();
-    IResolution CreateFakeOrdinaryInterfaceGenerator<T>();
+    IResolution CreateFakeOrdinaryInterfaceGenerator();
   }
 }

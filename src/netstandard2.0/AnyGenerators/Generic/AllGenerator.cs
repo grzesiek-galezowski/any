@@ -119,7 +119,7 @@ namespace TddXt.AnyGenerators.Generic
 
     public T Dummy<T>(GenerationRequest request)
     {
-      var fakeInterface = _fakeChainFactory.CreateFakeOrdinaryInterfaceGenerator<T>();
+      var fakeInterface = _fakeChainFactory.CreateFakeOrdinaryInterfaceGenerator();
       var unconstrainedChain = _fakeChainFactory.GetUnconstrainedInstance<T>();
 
       if (typeof(T).IsPrimitive)

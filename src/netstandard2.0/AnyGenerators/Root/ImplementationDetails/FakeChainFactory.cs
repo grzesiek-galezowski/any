@@ -56,7 +56,7 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
       return new SpecialCasesOfResolutions();
     }
 
-    public IResolution CreateFakeOrdinaryInterfaceGenerator<T>()
+    public IResolution CreateFakeOrdinaryInterfaceGenerator()
     {
       //bug this doesn't fit 100% here.
       return new FakeOrdinaryInterface(_cachedReturnValueGeneration, _proxyGenerator);
