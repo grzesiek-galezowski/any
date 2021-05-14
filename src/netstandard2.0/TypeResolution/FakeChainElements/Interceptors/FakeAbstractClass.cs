@@ -29,10 +29,10 @@ namespace TddXt.TypeResolution.FakeChainElements.Interceptors
     {
       var result = _proxyGenerator.CreateClassProxy(
         type,
-        _fallbackTypeGenerator.GenerateConstructorParameters(instanceGenerator.Instance, request).ToArray(), 
+        _fallbackTypeGenerator.GenerateConstructorParameters(instanceGenerator.Instance, request, type).ToArray(), 
         new AbstractClassInterceptor(_generation, 
           instanceGenerator.Instance, request));
-      _fallbackTypeGenerator.CustomizeCreatedValue(result, instanceGenerator, request);
+      _fallbackTypeGenerator.CustomizeCreatedValue(result, instanceGenerator, request, type);
       
       return result;
     }

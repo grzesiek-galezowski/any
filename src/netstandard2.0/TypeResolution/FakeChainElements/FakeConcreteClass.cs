@@ -30,7 +30,7 @@ namespace TddXt.TypeResolution.FakeChainElements
       catch (ThirdPartyGeneratorFailed e)
       {
         request.Trace.ThirdPartyGeneratorFailedTryingFallback(e);
-        result = _fallbackTypeGenerator.GenerateCustomizedInstance(instanceGenerator, request);
+        result = _fallbackTypeGenerator.GenerateCustomizedInstance(instanceGenerator, request, type);
       }
       catch (TargetInvocationException e)
       {
@@ -38,7 +38,7 @@ namespace TddXt.TypeResolution.FakeChainElements
         {
           Console.WriteLine(e);
         }
-        result = _fallbackTypeGenerator.GenerateCustomizedInstance(instanceGenerator, request);
+        result = _fallbackTypeGenerator.GenerateCustomizedInstance(instanceGenerator, request, type);
       }
       return result;
     }

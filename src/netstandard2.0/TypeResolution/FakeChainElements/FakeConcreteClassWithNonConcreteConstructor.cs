@@ -14,12 +14,12 @@ namespace TddXt.TypeResolution.FakeChainElements
 
     public bool AppliesTo(Type type)
     {
-      return _fallbackTypeGenerator.ConstructorIsInternalOrHasAtLeastOneNonConcreteArgumentType();
+      return _fallbackTypeGenerator.ConstructorIsInternalOrHasAtLeastOneNonConcreteArgumentType(type);
     }
 
     public object Apply(InstanceGenerator instanceGenerator, GenerationRequest request, Type type)
     {
-      return _fallbackTypeGenerator.GenerateCustomizedInstance(instanceGenerator, request);
+      return _fallbackTypeGenerator.GenerateCustomizedInstance(instanceGenerator, request, type);
     }
   }
 }

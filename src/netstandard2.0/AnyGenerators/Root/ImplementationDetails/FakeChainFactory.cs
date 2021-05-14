@@ -4,7 +4,6 @@ using Castle.DynamicProxy;
 using TddXt.AnyExtensibility;
 using TddXt.AnyGenerators.Generic;
 using TddXt.AnyGenerators.Generic.ExtensionPoints;
-using TddXt.TypeReflection;
 using TddXt.TypeResolution;
 using TddXt.TypeResolution.FakeChainElements;
 
@@ -85,7 +84,7 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
         {
           new FillPropertiesCustomization(),
           new FillFieldsCustomization()
-        }, SmartType.For(type));
+        });
       return new GenericFakeChainFactory(
         CreateSpecialCasesOfResolutions(),
         fallbackTypeGenerator,
