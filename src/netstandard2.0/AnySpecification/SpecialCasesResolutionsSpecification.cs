@@ -12,7 +12,7 @@ namespace AnySpecification
     public void ShouldCreateResolutionCapableOfGeneratingArrays()
     {
       //GIVEN
-      var resolution = new SpecialCasesOfResolutions<RecursiveInterface[]>().CreateResolutionOfArray();
+      var resolution = new SpecialCasesOfResolutions().CreateResolutionOfArray();
 
       //WHEN
 

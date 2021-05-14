@@ -3,7 +3,7 @@ using TddXt.TypeResolution.FakeChainElements;
 
 namespace TddXt.AnyGenerators.Generic.ExtensionPoints
 {
-  public interface ISpecialCasesOfResolutions<T>
+  public interface ISpecialCasesOfResolutions
   {
     IResolution CreateResolutionOfKeyValuePair();
     IResolution CreateResolutionOf2GenericType(string className, params Type[] matchingTypes);

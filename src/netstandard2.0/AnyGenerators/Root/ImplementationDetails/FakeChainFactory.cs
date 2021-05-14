@@ -51,9 +51,9 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
           _unconstrainedFactoryCache);
     }
 
-    public ISpecialCasesOfResolutions<T> CreateSpecialCasesOfResolutions<T>()
+    public ISpecialCasesOfResolutions CreateSpecialCasesOfResolutions<T>()
     {
-      return new SpecialCasesOfResolutions<T>();
+      return new SpecialCasesOfResolutions();
     }
 
     public IResolution CreateFakeOrdinaryInterfaceGenerator<T>()
@@ -85,8 +85,7 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
           new FillFieldsCustomization()
         }, SmartType.For(typeof(T)));
       return new GenericFakeChainFactory<T>(
-        CreateSpecialCasesOfResolutions<T>(), 
-        new FallbackTypeGenerator<T>(fallbackTypeGenerator),
+        CreateSpecialCasesOfResolutions<T>(),
         fallbackTypeGenerator);
     }
   }

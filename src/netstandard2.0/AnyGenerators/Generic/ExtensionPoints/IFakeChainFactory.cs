@@ -6,7 +6,7 @@ namespace TddXt.AnyGenerators.Generic.ExtensionPoints
   {
     IGenerationChain<T> GetInstance<T>();
     IGenerationChain<T> GetUnconstrainedInstance<T>();
-    ISpecialCasesOfResolutions<T> CreateSpecialCasesOfResolutions<T>();
+    ISpecialCasesOfResolutions CreateSpecialCasesOfResolutions<T>();
     IResolution CreateFakeOrdinaryInterfaceGenerator<T>();
   }
 }

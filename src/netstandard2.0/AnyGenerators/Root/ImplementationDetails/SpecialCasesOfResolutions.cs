@@ -6,7 +6,7 @@ using TddXt.TypeResolution.FakeChainElements;
 
 namespace TddXt.AnyGenerators.Root.ImplementationDetails
 {
-  public class SpecialCasesOfResolutions<T> : ISpecialCasesOfResolutions<T>
+  public class SpecialCasesOfResolutions : ISpecialCasesOfResolutions
   {
     public IResolution CreateResolutionOfKeyValuePair()
     {

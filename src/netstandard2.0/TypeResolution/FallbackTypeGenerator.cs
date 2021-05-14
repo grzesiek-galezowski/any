@@ -6,37 +6,6 @@ using TddXt.TypeReflection.Interfaces;
 
 namespace TddXt.TypeResolution
 {
-  public class FallbackTypeGenerator<T>
-  {
-    private readonly FallbackTypeGenerator _fallbackTypeGenerator;
-
-    public FallbackTypeGenerator(FallbackTypeGenerator fallbackTypeGenerator)
-    {
-      _fallbackTypeGenerator = fallbackTypeGenerator;
-    }
-
-    public T GenerateInstance(InstanceGenerator instanceGenerator, GenerationRequest request)
-    {
-      return (T)_fallbackTypeGenerator.GenerateCustomizedInstance(instanceGenerator, request);
-    }
-
-    public List<object> GenerateConstructorParameters(InstanceGenerator instanceGenerator, GenerationRequest request)
-    {
-      return _fallbackTypeGenerator.GenerateConstructorParameters(instanceGenerator.Instance, request);
-    }
-
-    public bool ConstructorIsInternalOrHasAtLeastOneNonConcreteArgumentType()
-    {
-      return _fallbackTypeGenerator.ConstructorIsInternalOrHasAtLeastOneNonConcreteArgumentType();
-    }
-
-
-    public void FillFieldsAndPropertiesOf(object result, InstanceGenerator instanceGenerator, GenerationRequest request)
-    {
-      _fallbackTypeGenerator.CustomizeCreatedValue(result, instanceGenerator, request);
-    }
-  }
-
   public class FallbackTypeGenerator
   {
     private readonly IFallbackGeneratedObjectCustomization[] _customizations;
