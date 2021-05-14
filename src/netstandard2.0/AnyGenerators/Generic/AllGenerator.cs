@@ -51,7 +51,7 @@ namespace TddXt.AnyGenerators.Generic
       try
       {
         request.Trace.BeginCreatingInstanceGraphWith(typeof(T));
-        return (T)_fakeChainFactory.GetInstance<T>().Resolve(CreateCustomizedInstanceGenerator(), request, typeof(T));
+        return (T)_fakeChainFactory.GetInstance<T>(typeof(T)).Resolve(CreateCustomizedInstanceGenerator(), request, typeof(T));
       }
       catch (Exception e)
       {
@@ -114,46 +114,58 @@ namespace TddXt.AnyGenerators.Generic
 
     public T Instance<T>(GenerationRequest request)
     {
-      return (T)_fakeChainFactory.GetInstance<T>().Resolve(this, request, typeof(T));
+      return (T)_fakeChainFactory.GetInstance<T>(typeof(T)).Resolve(this, request, typeof(T));
+    }
+
+    public object? Dummy(GenerationRequest request, Type type)
+    {
+      var fakeInterface = _fakeChainFactory.CreateFakeOrdinaryInterfaceGenerator();
+      var unconstrainedChain = _fakeChainFactory.GetUnconstrainedInstance(type);
+      var smartType = SmartType.For(type);
+
+      if (type.IsPrimitive)
+      {
+        return unconstrainedChain.Resolve(this, request, type);
+      }
+
+      if (type == typeof(string))
+      {
+        return unconstrainedChain.Resolve(this, request, type);
+      }
+
+      var emptyCollectionInstantiation = new EmptyCollectionInstantiation();
+      if (smartType.IsImplementationOfOpenGeneric(typeof(IEnumerable<>)))
+      {
+        return emptyCollectionInstantiation.CreateCollectionPassedAsGenericType(type);
+      }
+
+      if (smartType.IsOpenGeneric(typeof(IEnumerable<>)))
+      {
+        return emptyCollectionInstantiation.EmptyEnumerableOf(type.GetCollectionItemType());
+      }
+
+      if (type.IsAbstract)
+      {
+        return default;
+      }
+
+      if (fakeInterface.AppliesTo(type))
+      {
+        return fakeInterface.Apply(this, request, type);
+      }
+
+      return FormatterServices.GetUninitializedObject(type);
     }
 
     public T Dummy<T>(GenerationRequest request)
     {
-      var fakeInterface = _fakeChainFactory.CreateFakeOrdinaryInterfaceGenerator();
-      var unconstrainedChain = _fakeChainFactory.GetUnconstrainedInstance<T>();
-
-      if (typeof(T).IsPrimitive)
+      var dummy = Dummy(request, typeof(T));
+      if (dummy is T result)
       {
-        return (T)unconstrainedChain.Resolve(this, request, typeof(T));
+        return result;
       }
 
-      if (typeof(T) == typeof(string))
-      {
-        return (T)unconstrainedChain.Resolve(this, request, typeof(T));
-      }
-
-      var emptyCollectionInstantiation = new EmptyCollectionInstantiation();
-      if (TypeOf<T>.IsImplementationOfOpenGeneric(typeof(IEnumerable<>)))
-      {
-        return emptyCollectionInstantiation.CreateCollectionPassedAsGenericType<T>();
-      }
-
-      if (TypeOf<T>.IsOpenGeneric(typeof(IEnumerable<>)))
-      {
-        return (T)emptyCollectionInstantiation.EmptyEnumerableOf(typeof(T).GetCollectionItemType());
-      }
-
-      if (typeof(T).IsAbstract)
-      {
-        return default!;
-      }
-
-      if (fakeInterface.AppliesTo(typeof(T)))
-      {
-        return (T)fakeInterface.Apply(this, request, typeof(T));
-      }
-
-      return (T)FormatterServices.GetUninitializedObject(typeof(T));
+      throw new Exception("Error while generating a dummy instance. Generated dummy is not of type " + typeof(T));
     }
     
     public T OtherThan<T>(params T[]? omittedValues)
@@ -190,7 +202,7 @@ namespace TddXt.AnyGenerators.Generic
 
     public T Instance<T>(GenerationRequest request, params GenerationCustomization[] customizations)
     {
-      return (T)_fakeChainFactory.GetInstance<T>().Resolve(new CustomizedGenerator(this), request, typeof(T));
+      return (T)_fakeChainFactory.GetInstance<T>(typeof(T)).Resolve(new CustomizedGenerator(this), request, typeof(T));
     }
 
     public T Dummy<T>()

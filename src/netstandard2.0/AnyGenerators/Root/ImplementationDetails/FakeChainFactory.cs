@@ -31,20 +31,20 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
       _valueGenerator = valueGenerator;
     }
 
-    public IGenerationChain<T> GetInstance<T>()
+    public IGenerationChain GetInstance<T>(Type type)
     {
-      return GetInstanceWithMemoization(() =>
-        CreateGenericFakeChainFactory<T>().NewInstance(
-            _cachedReturnValueGeneration,
-            _proxyGenerator,
-            _valueGenerator
-          ), _constrainedFactoryCache);
+      return GetInstanceWithMemoization(type, () =>
+        CreateGenericFakeChainFactory(type).NewInstance(
+          _cachedReturnValueGeneration,
+          _proxyGenerator,
+          _valueGenerator
+        ), _constrainedFactoryCache);
     }
 
-    public IGenerationChain<T> GetUnconstrainedInstance<T>()
+    public IGenerationChain GetUnconstrainedInstance(Type type)
     {
-      return GetInstanceWithMemoization(() =>
-      CreateGenericFakeChainFactory<T>()
+      return GetInstanceWithMemoization(type, () =>
+      CreateGenericFakeChainFactory(type)
         .UnconstrainedInstance(
           _cachedReturnValueGeneration,
           _proxyGenerator, 
@@ -63,10 +63,11 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
       return new FakeOrdinaryInterface(_cachedReturnValueGeneration, _proxyGenerator);
     }
 
-    private static IGenerationChain<T> GetInstanceWithMemoization<T>(Func<IGenerationChain<T>> func, ConcurrentDictionary<Type, object> cache)
+    private static IGenerationChain GetInstanceWithMemoization(
+      Type key, 
+      Func<IGenerationChain> func,
+      ConcurrentDictionary<Type, object> cache)
     {
-      var key = typeof(T);
-
       if (!cache.TryGetValue(key, out var outVal))
       {
         var newInstance = func.Invoke();
@@ -74,20 +75,21 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
         return newInstance;
       }
 
-      return (IGenerationChain<T>)outVal;
+      return (IGenerationChain)outVal;
     }
 
-    private GenericFakeChainFactory<T> CreateGenericFakeChainFactory<T>()
+    private GenericFakeChainFactory CreateGenericFakeChainFactory(Type type)
     {
       var fallbackTypeGenerator = new FallbackTypeGenerator(
         new IFallbackGeneratedObjectCustomization[]
         {
           new FillPropertiesCustomization(),
           new FillFieldsCustomization()
-        }, SmartType.For(typeof(T)));
-      return new GenericFakeChainFactory<T>(
+        }, SmartType.For(type));
+      return new GenericFakeChainFactory(
         CreateSpecialCasesOfResolutions(),
-        fallbackTypeGenerator);
+        fallbackTypeGenerator,
+        type);
     }
   }
 }

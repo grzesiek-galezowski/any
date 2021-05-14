@@ -61,5 +61,10 @@ namespace TddXt.AnyGenerators.Generic.ImplementationDetails
     {
       return _inner.Instance<T>(request, request.GenerationCustomizations);
     }
+
+    public object Dummy(GenerationRequest request, Type type)
+    {
+      throw new NotImplementedException();
+    }
   }
 }

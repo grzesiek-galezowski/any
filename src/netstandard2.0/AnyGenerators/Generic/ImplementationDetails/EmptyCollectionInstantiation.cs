@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using TddXt.AnyGenerators.AutoFixtureWrapper;
@@ -21,9 +21,9 @@ namespace TddXt.AnyGenerators.Generic.ImplementationDetails
         nameof(MyEnumerable.Empty));
     }
 
-    public T CreateCollectionPassedAsGenericType<T>()
+    public object CreateCollectionPassedAsGenericType(Type type)
     {
-      return _fixtureWrapper.Create<T>();
+      return _fixtureWrapper.Create(type);
     }
 
     private class MyEnumerable

@@ -1,11 +1,12 @@
-﻿using TddXt.TypeResolution.FakeChainElements;
+﻿using System;
+using TddXt.TypeResolution.FakeChainElements;
 
 namespace TddXt.AnyGenerators.Generic.ExtensionPoints
 {
   public interface IFakeChainFactory
   {
-    IGenerationChain<T> GetInstance<T>();
-    IGenerationChain<T> GetUnconstrainedInstance<T>();
+    IGenerationChain GetInstance<T>(Type type);
+    IGenerationChain GetUnconstrainedInstance(Type type);
     IResolution CreateFakeOrdinaryInterfaceGenerator();
   }
 }

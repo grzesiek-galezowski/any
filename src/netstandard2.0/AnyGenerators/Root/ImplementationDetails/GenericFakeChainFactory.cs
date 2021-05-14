@@ -1,4 +1,5 @@
-﻿using System.Collections.Concurrent;
+﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using Castle.DynamicProxy;
@@ -11,20 +12,22 @@ using TddXt.TypeResolution.Interfaces;
 
 namespace TddXt.AnyGenerators.Root.ImplementationDetails
 {
-  public class GenericFakeChainFactory<T>
+  public class GenericFakeChainFactory
   {
     private readonly FallbackTypeGenerator _fallbackTypeGenerator;
+    private readonly Type _type;
     private readonly ISpecialCasesOfResolutions _specialCasesOfResolutions;
 
-    public GenericFakeChainFactory(
-      ISpecialCasesOfResolutions specialCasesOfResolutions, 
-      FallbackTypeGenerator fallbackTypeGenerator)
+    public GenericFakeChainFactory(ISpecialCasesOfResolutions specialCasesOfResolutions,
+      FallbackTypeGenerator fallbackTypeGenerator, 
+      Type type)
     {
       _specialCasesOfResolutions = specialCasesOfResolutions;
       _fallbackTypeGenerator = fallbackTypeGenerator;
+      _type = type;
     }
 
-    public IGenerationChain<T> NewInstance(
+    public IGenerationChain NewInstance(
       CachedReturnValueGeneration eachMethodReturnsTheSameValueOnEveryCall,
       ProxyGenerator generationIsDoneUsingProxies,
       IValueGenerator valueGenerator)
@@ -35,12 +38,12 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
         valueGenerator));
     }
 
-    public IGenerationChain<T> UnconstrainedInstance(
+    public IGenerationChain UnconstrainedInstance(
       CachedReturnValueGeneration eachMethodReturnsTheSameValueOnEveryCall,
       ProxyGenerator generationIsDoneUsingProxies, 
       IValueGenerator valueGenerator)
     {
-      return new TemporaryChainForCollection<T>(new[]
+      return new TemporaryChainForCollection(_type, new[]
       {
         ResolveTheMostSpecificCases(valueGenerator),
         ResolveAsArray(),
@@ -102,9 +105,9 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
 
     }
 
-    private static IGenerationChain<T> RecursionLimited(IGenerationChain<T> generationChain)
+    private IGenerationChain RecursionLimited(IGenerationChain generationChain)
     {
-      return new LimitedGenerationChain<T>(generationChain);
+      return new LimitedGenerationChain(generationChain, _type);
     }
 
     private FakeConcreteClass ResolveAsConcreteClass()

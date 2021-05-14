@@ -13,6 +13,7 @@ namespace TddXt.AnyExtensibility
     object Instance(Type type, GenerationRequest request);
     T Dummy<T>(GenerationRequest request);
     T Instance<T>(GenerationRequest request);
+    object? Dummy(GenerationRequest request, Type type);
   }
 
   public interface CustomizableInstanceGenerator : InstanceGenerator

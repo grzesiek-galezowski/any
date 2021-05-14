@@ -3,12 +3,14 @@ using TddXt.AnyExtensibility;
 
 namespace TddXt.TypeResolution.FakeChainElements
 {
-  public class TemporaryChainForCollection<T> : IGenerationChain<T>
+  public class TemporaryChainForCollection : IGenerationChain
   {
+    private readonly Type _type;
     private readonly IResolution[] _resolutions;
 
-    public TemporaryChainForCollection(IResolution[] resolutions)
+    public TemporaryChainForCollection(Type type, IResolution[] resolutions)
     {
+      _type = type;
       _resolutions = resolutions;
     }
 

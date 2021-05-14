@@ -4,11 +4,11 @@ using TddXt.AnyExtensibility;
 
 namespace TddXt.TypeResolution.FakeChainElements
 {
-  public class LimitedGenerationChain<T> : IGenerationChain<T>
+  public class LimitedGenerationChain : IGenerationChain
   {
-    private readonly IGenerationChain<T> _generationChain;
+    private readonly IGenerationChain _generationChain;
 
-    public LimitedGenerationChain(IGenerationChain<T> generationChain)
+    public LimitedGenerationChain(IGenerationChain generationChain, Type type)
     {
       _generationChain = generationChain;
     }
@@ -25,7 +25,7 @@ namespace TddXt.TypeResolution.FakeChainElements
           try
           {
             request.Trace.NestingLimitReachedTryingDummy();
-            return instanceGenerator.Dummy<T>(request)!; //TODO
+            return instanceGenerator.Dummy(request, type)!; //TODO
           }
           catch (TargetInvocationException e)
           {
