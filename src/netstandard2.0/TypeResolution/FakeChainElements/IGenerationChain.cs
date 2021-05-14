@@ -1,9 +1,10 @@
-﻿using TddXt.AnyExtensibility;
+﻿using System;
+using TddXt.AnyExtensibility;
 
 namespace TddXt.TypeResolution.FakeChainElements
 {
-  public interface IGenerationChain<out T>
+  public interface IGenerationChain
   {
-    T Resolve(InstanceGenerator instanceGenerator, GenerationRequest request);
+    object Resolve(InstanceGenerator instanceGenerator, GenerationRequest request, Type type);
   }
 }

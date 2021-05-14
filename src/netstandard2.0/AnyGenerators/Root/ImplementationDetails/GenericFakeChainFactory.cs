@@ -24,7 +24,7 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
       _fallbackTypeGenerator = fallbackTypeGenerator;
     }
 
-    public IGenerationChain<T> NewInstance(
+    public IGenerationChain NewInstance(
       CachedReturnValueGeneration eachMethodReturnsTheSameValueOnEveryCall,
       ProxyGenerator generationIsDoneUsingProxies,
       IValueGenerator valueGenerator)
@@ -35,10 +35,10 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
         valueGenerator));
     }
 
-    public IGenerationChain<T> UnconstrainedInstance(CachedReturnValueGeneration eachMethodReturnsTheSameValueOnEveryCall,
+    public IGenerationChain UnconstrainedInstance(CachedReturnValueGeneration eachMethodReturnsTheSameValueOnEveryCall,
       ProxyGenerator generationIsDoneUsingProxies, IValueGenerator valueGenerator)
     {
-      return new TemporaryChainForCollection<T>(new[]
+      return new TemporaryChainForCollection(new[]
       {
         ResolveTheMostSpecificCases(valueGenerator),
         ResolveAsArray(),
@@ -100,7 +100,7 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
 
     }
 
-    private static IGenerationChain<T> RecursionLimited(IGenerationChain<T> generationChain)
+    private static IGenerationChain RecursionLimited(IGenerationChain generationChain)
     {
       return new LimitedGenerationChain<T>(generationChain);
     }

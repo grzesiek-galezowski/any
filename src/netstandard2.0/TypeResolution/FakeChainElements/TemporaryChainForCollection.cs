@@ -1,8 +1,9 @@
-﻿using TddXt.AnyExtensibility;
+﻿using System;
+using TddXt.AnyExtensibility;
 
 namespace TddXt.TypeResolution.FakeChainElements
 {
-  public class TemporaryChainForCollection<T> : IGenerationChain<T>
+  public class TemporaryChainForCollection : IGenerationChain
   {
     private readonly IResolution[] _resolutions;
 
@@ -11,18 +12,18 @@ namespace TddXt.TypeResolution.FakeChainElements
       _resolutions = resolutions;
     }
 
-    public T Resolve(InstanceGenerator instanceGenerator, GenerationRequest request)
+    public object Resolve(InstanceGenerator instanceGenerator, GenerationRequest request, Type type)
     {
       foreach (var resolution in _resolutions)
       {
-        if (resolution.AppliesTo(typeof(T)))
+        if (resolution.AppliesTo(type))
         {
-          request.Trace.SelectedResolution(typeof(T), resolution);
-          return (T)resolution.Apply(instanceGenerator, request, typeof(T));
+          request.Trace.SelectedResolution(type, resolution);
+          return resolution.Apply(instanceGenerator, request, type);
         }
       }
 
-      throw new ChainFailedException(typeof(T));
+      throw new ChainFailedException(type);
     }
   }
 }

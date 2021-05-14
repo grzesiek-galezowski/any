@@ -31,7 +31,7 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
       _valueGenerator = valueGenerator;
     }
 
-    public IGenerationChain<T> GetInstance<T>()
+    public IGenerationChain GetInstance<T>()
     {
       return GetInstanceWithMemoization(() =>
         CreateGenericFakeChainFactory<T>().NewInstance(
@@ -41,7 +41,7 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
           ), _constrainedFactoryCache);
     }
 
-    public IGenerationChain<T> GetUnconstrainedInstance<T>()
+    public IGenerationChain GetUnconstrainedInstance<T>()
     {
       return GetInstanceWithMemoization(() =>
       CreateGenericFakeChainFactory<T>()
@@ -62,7 +62,7 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
       return new FakeOrdinaryInterface(_cachedReturnValueGeneration, _proxyGenerator);
     }
 
-    private static IGenerationChain<T> GetInstanceWithMemoization<T>(Func<IGenerationChain<T>> func, ConcurrentDictionary<Type, object> cache)
+    private static IGenerationChain GetInstanceWithMemoization<T>(Func<IGenerationChain> func, ConcurrentDictionary<Type, object> cache)
     {
       var key = typeof(T);
 
@@ -73,7 +73,7 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
         return newInstance;
       }
 
-      return (IGenerationChain<T>)outVal;
+      return (IGenerationChain)outVal;
     }
 
     private GenericFakeChainFactory<T> CreateGenericFakeChainFactory<T>()

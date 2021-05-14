@@ -51,7 +51,7 @@ namespace TddXt.AnyGenerators.Generic
       try
       {
         request.Trace.BeginCreatingInstanceGraphWith(typeof(T));
-        return _fakeChainFactory.GetInstance<T>().Resolve(CreateCustomizedInstanceGenerator(), request);
+        return (T)_fakeChainFactory.GetInstance<T>().Resolve(CreateCustomizedInstanceGenerator(), request, typeof(T));
       }
       catch (Exception e)
       {
@@ -114,7 +114,7 @@ namespace TddXt.AnyGenerators.Generic
 
     public T Instance<T>(GenerationRequest request)
     {
-      return _fakeChainFactory.GetInstance<T>().Resolve(this, request);
+      return (T)_fakeChainFactory.GetInstance<T>().Resolve(this, request, typeof(T));
     }
 
     public T Dummy<T>(GenerationRequest request)
@@ -124,12 +124,12 @@ namespace TddXt.AnyGenerators.Generic
 
       if (typeof(T).IsPrimitive)
       {
-        return unconstrainedChain.Resolve(this, request);
+        return (T)unconstrainedChain.Resolve(this, request, typeof(T));
       }
 
       if (typeof(T) == typeof(string))
       {
-        return unconstrainedChain.Resolve(this, request);
+        return (T)unconstrainedChain.Resolve(this, request, typeof(T));
       }
 
       var emptyCollectionInstantiation = new EmptyCollectionInstantiation();
@@ -190,7 +190,7 @@ namespace TddXt.AnyGenerators.Generic
 
     public T Instance<T>(GenerationRequest request, params GenerationCustomization[] customizations)
     {
-      return _fakeChainFactory.GetInstance<T>().Resolve(new CustomizedGenerator(this), request);
+      return (T)_fakeChainFactory.GetInstance<T>().Resolve(new CustomizedGenerator(this), request, typeof(T));
     }
 
     public T Dummy<T>()
