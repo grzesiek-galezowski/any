@@ -17,9 +17,9 @@ namespace AnySpecification
       //WHEN
 
       //THEN
-      Assert.True(resolution.AppliesTo(typeof(RecursiveInterface)));
-      Assert.NotNull(resolution.Apply(Any.Instance<InstanceGenerator>(), Any.Instance<GenerationRequest>(), typeof(RecursiveInterface)));
-      Assert.AreEqual(3, resolution.Apply(Any.Instance<InstanceGenerator>(), Any.Instance<GenerationRequest>(), typeof(RecursiveInterface)).Length);
+      Assert.True(resolution.AppliesTo(typeof(RecursiveInterface[])));
+      Assert.NotNull(resolution.Apply(Any.Instance<InstanceGenerator>(), Any.Instance<GenerationRequest>(), typeof(RecursiveInterface[])));
+      Assert.AreEqual(3, resolution.Apply(Any.Instance<InstanceGenerator>(), Any.Instance<GenerationRequest>(), typeof(RecursiveInterface[])).Length);
     }
   }
 }
