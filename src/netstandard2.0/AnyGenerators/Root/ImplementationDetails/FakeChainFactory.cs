@@ -31,7 +31,7 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
       _valueGenerator = valueGenerator;
     }
 
-    public IGenerationChain GetInstance<T>()
+    public IGenerationChain<T> GetInstance<T>()
     {
       return GetInstanceWithMemoization(() =>
         CreateGenericFakeChainFactory<T>().NewInstance(
@@ -41,7 +41,7 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
           ), _constrainedFactoryCache);
     }
 
-    public IGenerationChain GetUnconstrainedInstance<T>()
+    public IGenerationChain<T> GetUnconstrainedInstance<T>()
     {
       return GetInstanceWithMemoization(() =>
       CreateGenericFakeChainFactory<T>()
@@ -51,7 +51,7 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
           _unconstrainedFactoryCache);
     }
 
-    public ISpecialCasesOfResolutions CreateSpecialCasesOfResolutions<T>()
+    public ISpecialCasesOfResolutions CreateSpecialCasesOfResolutions()
     {
       return new SpecialCasesOfResolutions();
     }
@@ -62,7 +62,7 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
       return new FakeOrdinaryInterface(_cachedReturnValueGeneration, _proxyGenerator);
     }
 
-    private static IGenerationChain GetInstanceWithMemoization<T>(Func<IGenerationChain> func, ConcurrentDictionary<Type, object> cache)
+    private static IGenerationChain<T> GetInstanceWithMemoization<T>(Func<IGenerationChain<T>> func, ConcurrentDictionary<Type, object> cache)
     {
       var key = typeof(T);
 
@@ -73,7 +73,7 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
         return newInstance;
       }
 
-      return (IGenerationChain)outVal;
+      return (IGenerationChain<T>)outVal;
     }
 
     private GenericFakeChainFactory<T> CreateGenericFakeChainFactory<T>()
@@ -85,7 +85,7 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
           new FillFieldsCustomization()
         }, SmartType.For(typeof(T)));
       return new GenericFakeChainFactory<T>(
-        CreateSpecialCasesOfResolutions<T>(),
+        CreateSpecialCasesOfResolutions(),
         fallbackTypeGenerator);
     }
   }

@@ -4,9 +4,8 @@ namespace TddXt.AnyGenerators.Generic.ExtensionPoints
 {
   public interface IFakeChainFactory
   {
-    IGenerationChain GetInstance<T>();
-    IGenerationChain GetUnconstrainedInstance<T>();
-    ISpecialCasesOfResolutions CreateSpecialCasesOfResolutions<T>();
+    IGenerationChain<T> GetInstance<T>();
+    IGenerationChain<T> GetUnconstrainedInstance<T>();
     IResolution CreateFakeOrdinaryInterfaceGenerator<T>();
   }
 }

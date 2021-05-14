@@ -155,7 +155,7 @@ namespace TddXt.AnyGenerators.Generic
 
       return (T)FormatterServices.GetUninitializedObject(typeof(T));
     }
-
+    
     public T OtherThan<T>(params T[]? omittedValues)
     {
       return (T)OtherThan(typeof(T), omittedValues?.Cast<object>()?.ToArray(), CreateRequest());
