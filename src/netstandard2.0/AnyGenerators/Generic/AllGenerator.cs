@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using System.Runtime.Serialization;
 using FluentAssertions;
 using TddXt.AnyExtensibility;
@@ -15,7 +14,6 @@ namespace TddXt.AnyGenerators.Generic
   [Serializable]
   public class AllGenerator : CustomizableInstanceGenerator, BasicGenerator
   {
-    [NonSerialized] private readonly GenericMethodProxyCalls _methodProxyCalls;
     private readonly IGenerationChain _generationChain;
     private readonly IGenerationChain _unconstrainedChain;
     private readonly FakeOrdinaryInterface _fakeOrdinaryInterfaceGenerator;
@@ -24,14 +22,12 @@ namespace TddXt.AnyGenerators.Generic
 
 
     public AllGenerator(
-      ValueGenerator valueGenerator,
-      GenericMethodProxyCalls methodProxyCalls, 
+      ValueGenerator valueGenerator, 
       IGenerationChain generationChain, 
       IGenerationChain unconstrainedChain,
       FakeOrdinaryInterface fakeOrdinaryInterfaceGenerator)
     {
       _valueGenerator = valueGenerator;
-      _methodProxyCalls = methodProxyCalls;
       _generationChain = generationChain;
       _unconstrainedChain = unconstrainedChain;
       _fakeOrdinaryInterfaceGenerator = fakeOrdinaryInterfaceGenerator;
@@ -113,14 +109,12 @@ namespace TddXt.AnyGenerators.Generic
 
     public object Instance(Type type, GenerationRequest request)
     {
-      return _methodProxyCalls
-        .ResultOfGenericVersionOfMethod(
-          this, type, MethodBase.GetCurrentMethod().Name, request);
+      return _generationChain.Resolve(this, request, type);
     }
 
     public T Instance<T>(GenerationRequest request)
     {
-      return (T)_generationChain.Resolve(this, request, typeof(T));
+      return (T)Instance(typeof(T), request);
     }
 
     public object? Dummy(GenerationRequest request, Type type)
@@ -196,17 +190,12 @@ namespace TddXt.AnyGenerators.Generic
 
     public object Instance(Type type, GenerationRequest request, params GenerationCustomization[] customizations)
     {
-      return _methodProxyCalls
-        .ResultOfGenericVersionOfMethod(
-          new CustomizedGenerator(this), 
-          type, 
-          MethodBase.GetCurrentMethod().Name, 
-          request);
+      return _generationChain.Resolve(new CustomizedGenerator(this), request, type);
     }
 
     public T Instance<T>(GenerationRequest request, params GenerationCustomization[] customizations)
     {
-      return (T)_generationChain.Resolve(new CustomizedGenerator(this), request, typeof(T));
+      return (T)Instance(typeof(T), request, customizations);
     }
 
     public T Dummy<T>()

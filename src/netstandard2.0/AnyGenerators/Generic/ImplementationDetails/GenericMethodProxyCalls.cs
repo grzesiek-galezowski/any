@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Linq;
 using System.Reflection;
 
@@ -22,11 +22,8 @@ namespace TddXt.AnyGenerators.Generic.ImplementationDetails
     public object ResultOfGenericVersionOfStaticMethod<T>(Type genericArgumentType, string name, params object[] parameters)
     {
       var method = FindEmptyGenericsStaticMethod<T>(name, parameters);
-
       var genericMethod = method.MakeGenericMethod(genericArgumentType);
-
       return genericMethod.Invoke(null, parameters);
-
     }
 
     public object ResultOfGenericVersionOfStaticMethod<T>(
@@ -39,9 +36,7 @@ namespace TddXt.AnyGenerators.Generic.ImplementationDetails
       Type type1, Type type2, string name, params object[] parameters)
     {
       var method = FindEmptyGenericsStaticMethod<T>(name, parameters);
-
       var genericMethod = method.MakeGenericMethod(type1, type2);
-
       return genericMethod.Invoke(null, parameters);
     }
 

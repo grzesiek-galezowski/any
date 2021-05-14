@@ -2,12 +2,9 @@
 using TddXt.AnyExtensibility;
 using TddXt.AnyGenerators.AutoFixtureWrapper;
 using TddXt.AnyGenerators.Generic;
-using TddXt.AnyGenerators.Generic.ExtensionPoints;
-using TddXt.AnyGenerators.Generic.ImplementationDetails;
 using TddXt.TypeResolution;
 using TddXt.TypeResolution.CustomCollections;
 using TddXt.TypeResolution.FakeChainElements;
-using TddXt.TypeResolution.Interfaces;
 
 namespace TddXt.AnyGenerators.Root.ImplementationDetails
 {
@@ -15,7 +12,6 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
   {
     public static BasicGenerator Create()
     {
-      var methodProxyCalls = new GenericMethodProxyCalls();
       var valueGenerator = CreateValueGenerator();
       var proxyGenerator = new ProxyGenerator();
       var cachedReturnValueGeneration = new CachedReturnValueGeneration(new PerMethodCache<object>());
@@ -40,7 +36,6 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
 
       var allGenerator = new AllGenerator(
         valueGenerator, 
-        methodProxyCalls, 
         generationChain, 
         unconstrainedChain,
         fakeOrdinaryInterfaceGenerator);

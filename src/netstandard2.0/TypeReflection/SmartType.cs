@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using System.Runtime.CompilerServices;
 using FluentAssertions;
 using Functional.Maybe;
 using TddXt.TypeReflection.ImplementationDetails;
