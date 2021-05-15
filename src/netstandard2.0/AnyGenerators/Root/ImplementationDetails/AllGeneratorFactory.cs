@@ -15,25 +15,60 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
       var valueGenerator = CreateValueGenerator();
       var proxyGenerator = new ProxyGenerator();
       var cachedReturnValueGeneration = new CachedReturnValueGeneration(new PerMethodCache<object>());
-      var fakeChainFactory = new GenericFakeChainFactory(
-        new SpecialCasesOfResolutions(),
-        cachedReturnValueGeneration,
-        proxyGenerator,
-        valueGenerator,
-        new FallbackTypeGenerator(
-          new IFallbackGeneratedObjectCustomization[]
-          {
-            new FillPropertiesCustomization(),
-            new FillFieldsCustomization()
-          }));
-      var generationChain = fakeChainFactory.NewInstance();
-      var unconstrainedChain = fakeChainFactory.UnconstrainedInstance();
-      var fakeOrdinaryInterfaceGenerator =
-        new FakeOrdinaryInterface(cachedReturnValueGeneration, proxyGenerator);
+      var specialCasesOfResolutions = new SpecialCasesOfResolutions();
+      var fallbackTypeGenerator = new FallbackTypeGenerator(
+        new IFallbackGeneratedObjectCustomization[]
+        {
+          new FillPropertiesCustomization(),
+          new FillFieldsCustomization()
+        });
+      var resolutionsFactory = new ResolutionsFactory(
+        specialCasesOfResolutions, fallbackTypeGenerator);
+      var unconstrainedChain = new TemporaryChainForCollection(new[]
+      {
+        ResolutionsFactory.ResolveTheMostSpecificCases(valueGenerator),
+        resolutionsFactory.ResolveAsArray(),
+        resolutionsFactory.ResolveAsImmutableArray(),
+        resolutionsFactory.ResolveAsSimpleEnumerableAndList(),
+        resolutionsFactory.ResolveAsImmutableList(),
+        resolutionsFactory.ResolveAsSimpleSet(),
+        resolutionsFactory.ResolveAsImmutableHashSet(),
+        resolutionsFactory.ResolveAsImmutableSortedSet(),
+        resolutionsFactory.ResolveAsSimpleDictionary(),
+        resolutionsFactory.ResolveAsImmutableDictionary(),
+        resolutionsFactory.ResolveAsImmutableSortedDictionary(),
+        resolutionsFactory.ResolveAsSortedList(),
+        resolutionsFactory.ResolveAsImmutableQueue(),
+        resolutionsFactory.ResolveAsImmutableStack(),
+        ResolutionsFactory.ResolveAsDelegate(),
+        resolutionsFactory.ResolveAsSortedSet(),
+        resolutionsFactory.ResolveAsSortedDictionary(),
+        resolutionsFactory.ResolveAsConcurrentDictionary(),
+        resolutionsFactory.ResolveAsConcurrentBag(),
+        resolutionsFactory.ResolveAsConcurrentQueue(),
+        resolutionsFactory.ResolveAsConcurrentStack(),
+        resolutionsFactory.ResolveAsKeyValuePair(),
+        ResolutionsFactory.ResolveAsOptionalOption(),
+        resolutionsFactory.ResolveAsGenericEnumerator(),
+        ResolutionsFactory.ResolveAsObjectEnumerator(),
+        ResolutionsFactory.ResolveAsCollectionWithHeuristics(),
+        ResolutionsFactory.ResolveAsInterfaceImplementationWhere(
+          cachedReturnValueGeneration, 
+          proxyGenerator),
+        resolutionsFactory.ResolveAsAbstractClassImplementationWhere(
+          cachedReturnValueGeneration, 
+          proxyGenerator),
+        resolutionsFactory.ResolveAsConcreteTypeWithNonConcreteTypesInConstructorSignature(), 
+        ResolutionsFactory.ResolveAsVoidTask(), 
+        ResolutionsFactory.ResolveAsTypedTask(), 
+        resolutionsFactory.ResolveAsConcreteClass()
+      });
+      var limitedGenerationChain = new LimitedGenerationChain(unconstrainedChain);
+      var fakeOrdinaryInterfaceGenerator = new FakeOrdinaryInterface(cachedReturnValueGeneration, proxyGenerator);
 
       var allGenerator = new AllGenerator(
         valueGenerator, 
-        generationChain, 
+        limitedGenerationChain, 
         unconstrainedChain,
         fakeOrdinaryInterfaceGenerator);
       return allGenerator;

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using AutoFixture.Kernel;
 using TddXt.AnyExtensibility;
 
