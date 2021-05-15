@@ -20,7 +20,6 @@ namespace TddXt.AnyGenerators.Generic
 
     [NonSerialized] private readonly ValueGenerator _valueGenerator;
 
-
     public AllGenerator(
       ValueGenerator valueGenerator, 
       IGenerationChain generationChain, 
@@ -87,7 +86,7 @@ namespace TddXt.AnyGenerators.Generic
 
     public T Value<T>(GenerationRequest request)
     {
-      return _valueGenerator.Value<T>(this, request); //bug needed?
+      return (T)Value(typeof(T), request);
     }
 
     public object Value(Type type, GenerationRequest request)

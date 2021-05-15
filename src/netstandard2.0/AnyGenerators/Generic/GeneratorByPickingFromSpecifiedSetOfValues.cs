@@ -1,14 +1,12 @@
-using TddXt.AnyExtensibility;
+﻿using TddXt.AnyExtensibility;
 using TddXt.TypeResolution.CustomCollections;
 
 namespace TddXt.AnyGenerators.Generic
 {
   public class GeneratorByPickingFromSpecifiedSetOfValues<T> : InlineGenerator<T>
   {
-    //private static readonly ArrayElementPicking _arrayElementPicking = new ArrayElementPicking();
-    private static readonly LatestArraysWithPossibleValues<T> _cachedArraysOfCurrentType = new LatestArraysWithPossibleValues<T>();
+    private static readonly LatestArraysWithPossibleValues<T> _cachedArraysOfCurrentType = new();
     private readonly T[] _possibleValues;
-
 
     public GeneratorByPickingFromSpecifiedSetOfValues(T[] possibleValues)
     {

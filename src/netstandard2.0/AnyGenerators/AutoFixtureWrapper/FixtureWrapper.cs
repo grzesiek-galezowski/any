@@ -19,21 +19,14 @@ namespace TddXt.AnyGenerators.AutoFixtureWrapper
 
     public T Create<T>()
     {
-      try
-      {
-          return _autoFixture.Create<T>();
-      }
-      catch (ObjectCreationException e)
-      {
-        throw new ThirdPartyGeneratorFailed(e);
-      }
+      return (T)Create(typeof(T));
     }
 
     public object Create(Type type)
     {
       try
       {
-          return new SpecimenContext(_autoFixture).Resolve(type);
+        return _autoFixture.Create(type, new SpecimenContext(_autoFixture));
       }
       catch (ObjectCreationException e)
       {
@@ -67,10 +60,7 @@ namespace TddXt.AnyGenerators.AutoFixtureWrapper
 
     public static FixtureWrapper InstanceForEmptyCollections()
     {
-      var autoFixture = new Fixture
-      {
-        RepeatCount = 0
-      };
+      var autoFixture = new Fixture {RepeatCount = 0};
       autoFixture.Customizations.Add(new EmptyImmutableCollectionRelay());
       var instanceForEmptyCollections = new FixtureWrapper(autoFixture);
       return instanceForEmptyCollections;
