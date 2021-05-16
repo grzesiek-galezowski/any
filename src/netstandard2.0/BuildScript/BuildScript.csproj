@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AtmaFileSystem" Version="4.7.0" />
+    <PackageReference Include="AtmaFileSystem" Version="4.8.0" />
     <PackageReference Include="Bullseye" Version="3.7.0" />
     <PackageReference Include="FluentAssertions" Version="5.10.3" />
     <PackageReference Include="NScan" Version="0.71.0" />
