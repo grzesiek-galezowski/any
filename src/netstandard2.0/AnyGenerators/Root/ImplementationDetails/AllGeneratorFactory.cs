@@ -24,7 +24,7 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
         });
       var resolutionsFactory = new ResolutionsFactory(
         specialCasesOfResolutions, fallbackTypeGenerator);
-      var unconstrainedChain = new TemporaryChainForCollection(new[]
+      var resolutions = new[]
       {
         ResolutionsFactory.ResolveTheMostSpecificCases(valueGenerator),
         resolutionsFactory.ResolveAsArray(),
@@ -52,7 +52,7 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
         resolutionsFactory.ResolveAsGenericEnumerator(),
         ResolutionsFactory.ResolveAsObjectEnumerator(),
         ResolutionsFactory.ResolveAsCollectionWithHeuristics(),
-        ResolutionsFactory.ResolveAsInterfaceImplementationWhere(
+        ResolutionsFactory.ResolveAsInterfaceImplementation(
           cachedReturnValueGeneration, 
           proxyGenerator),
         resolutionsFactory.ResolveAsAbstractClassImplementationWhere(
@@ -62,7 +62,9 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
         ResolutionsFactory.ResolveAsVoidTask(), 
         ResolutionsFactory.ResolveAsTypedTask(), 
         resolutionsFactory.ResolveAsConcreteClass()
-      });
+      };
+
+      var unconstrainedChain = new TemporaryChainForCollection(resolutions);
       var limitedGenerationChain = new LimitedGenerationChain(unconstrainedChain);
       var fakeOrdinaryInterfaceGenerator = new FakeOrdinaryInterface(cachedReturnValueGeneration, proxyGenerator);
 

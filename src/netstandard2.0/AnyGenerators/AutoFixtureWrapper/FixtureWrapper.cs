@@ -2,6 +2,7 @@
 using System;
 using AutoFixture.Kernel;
 using TddXt.AnyExtensibility;
+using TddXt.AnyGenerators.Root.ImplementationDetails;
 using TddXt.TypeResolution.FakeChainElements;
 
 namespace TddXt.AnyGenerators.AutoFixtureWrapper
@@ -17,9 +18,33 @@ namespace TddXt.AnyGenerators.AutoFixtureWrapper
       _autoFixture = autoFixture;
     }
 
-    public T Create<T>()
+    public T Create<T>(InstanceGenerator gen, GenerationRequest request)
     {
-      return (T)Create(typeof(T));
+      return (T)Create(typeof(T), gen, request);
+    }
+
+    public string CreateString()
+    {
+      return _autoFixture.Create<string>();
+    }
+
+    public byte CreateByte()
+    {
+      return _autoFixture.Create<byte>();
+    }
+
+    public object Create(Type type, InstanceGenerator instanceGenerator, GenerationRequest generationRequest)
+    {
+      try
+      {
+        return _autoFixture.Create(type, 
+          new RequestSpecificSpecimentContext(
+            new SpecimenContext(_autoFixture), instanceGenerator, generationRequest));
+      }
+      catch (ObjectCreationException e)
+      {
+        throw new ThirdPartyGeneratorFailed(e);
+      }
     }
 
     public object Create(Type type)
@@ -54,6 +79,9 @@ namespace TddXt.AnyGenerators.AutoFixtureWrapper
     public static FixtureWrapper CreateUnconfiguredInstance()
     {
       var fixture = new Fixture(new EngineWithReplacedQuery());
+      //BUG!!!!!!!!!!
+      fixture.Customizations.Insert(0, new ResolutionRelay(new FakeTypedTask()));
+      //BUG!!!!!!!!!!
       var fixtureWrapper = new FixtureWrapper(fixture);
       return fixtureWrapper;
     }

@@ -59,7 +59,7 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
       return new FakeAbstractClass(cachedGeneration, proxyGenerator, _fallbackTypeGenerator);
     }
 
-    public static FakeOrdinaryInterface ResolveAsInterfaceImplementationWhere(CachedReturnValueGeneration cachedGeneration, ProxyGenerator proxyGenerator)
+    public static FakeOrdinaryInterface ResolveAsInterfaceImplementation(CachedReturnValueGeneration cachedGeneration, ProxyGenerator proxyGenerator)
     {
       return new FakeOrdinaryInterface(cachedGeneration, proxyGenerator);
     }

@@ -162,7 +162,7 @@ namespace TddXt.AnyGenerators.Generic
         return result;
       }
 
-      throw new Exception("Error while generating a dummy instance. Generated dummy is not of type " + typeof(T));
+      throw new Exception($"Error while generating a dummy instance. Generated dummy is {dummy}, not " + typeof(T));
     }
     
     public T OtherThan<T>(params T[]? omittedValues)

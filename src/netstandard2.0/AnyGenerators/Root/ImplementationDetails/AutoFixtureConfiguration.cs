@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Reflection;
@@ -32,11 +32,11 @@ namespace TddXt.AnyGenerators.Root.ImplementationDetails
       var wrapper = fixtureWrapper;
       wrapper.Register(() => _types.Next());
       wrapper.Register(() => _methodList.Next());
-      wrapper.Register(() => new Exception(wrapper.Create<string>(), new Exception(wrapper.Create<string>())));
+      wrapper.Register(() => new Exception(wrapper.CreateString(), new Exception(wrapper.CreateString())));
       wrapper.Register(
         () =>
           new IPAddress(new[]
-            {wrapper.Create<byte>(), wrapper.Create<byte>(), wrapper.Create<byte>(), wrapper.Create<byte>()}));
+            {wrapper.CreateByte(), wrapper.CreateByte(), wrapper.CreateByte(), wrapper.CreateByte()}));
     }
   }
 
