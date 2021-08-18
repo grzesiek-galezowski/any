@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using FluentAssertions;
+using System.Threading;
 using TddXt.AnyExtensibility;
 using TddXt.AnyGenerators.Generic;
 using TddXt.AnyGenerators.Root;
@@ -42,23 +42,33 @@ namespace TddXt.AnyRoot
       return gen.InstanceOf(InlineGenerators.Object());
     }
 
-    public static T OtherThan<T>(this BasicGenerator gen, params T[]? omittedValues)
+    public static T OtherThan<T>(this BasicGenerator gen, params T[]? skippedValues)
     {
-      if (omittedValues == null)
+      if (skippedValues == null)
       {
         return gen.Instance<T>();
       }
 
-      omittedValues.Should().OnlyHaveUniqueItems("there is no point in passing a single value twice for skip");
+      if (ThereAreRepeatedItemsIn(skippedValues))
+      {
+        throw new ArgumentException(
+          "there is no point in passing a single value twice for skip", 
+          nameof(skippedValues));
+      }
 
       if (ValueTypes.Contains(typeof(T)))
       {
-        return gen.InstanceOf(InlineGenerators.ValueOtherThan(omittedValues));
+        return gen.InstanceOf(InlineGenerators.ValueOtherThan(skippedValues));
       }
       else
       {
-        return gen.InstanceOf(InlineGenerators.OtherThan(omittedValues));
+        return gen.InstanceOf(InlineGenerators.OtherThan(skippedValues));
       }
+    }
+
+    private static bool ThereAreRepeatedItemsIn<T>(T[] omittedValues)
+    {
+      return !omittedValues.SequenceEqual(omittedValues.Distinct());
     }
 
     public static T Dummy<T>(this BasicGenerator gen)

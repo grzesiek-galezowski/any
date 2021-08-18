@@ -32,14 +32,14 @@ namespace AnySpecification
     [Test, Parallelizable]
     public void ShouldThrowWhenInvokedOnNull()
     {
-      (null as DataStructure).Invoking(d => d.WithProperty(d => d!.NestedNotInitializedFromConstructor.StringValue, "lol"))
+      new Action(() => (null as DataStructure)!.WithProperty(d => d!.NestedNotInitializedFromConstructor.StringValue, "lol"))
           .Should().Throw<Exception>();
     }
 
     [Test, Parallelizable]
     public void ShouldThrowWhenSettingPropertyOfMethodReturnValue()
     {
-      Any.Instance<DataStructure>().Invoking(d => d.WithProperty(d => d.GetNested().StringValue, "lol"))
+      Any.Instance<DataStructure>().Invoking(d => d.WithProperty(d2 => d2.GetNested().StringValue, "lol"))
           .Should().Throw<Exception>();
     }
 

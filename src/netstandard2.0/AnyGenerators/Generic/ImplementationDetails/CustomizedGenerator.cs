@@ -39,9 +39,9 @@ namespace TddXt.AnyGenerators.Generic.ImplementationDetails
       return _inner.OtherThan(omittedValues);
     }
 
-    public object OtherThan(Type type, object[] omittedValues, GenerationRequest request)
+    public object OtherThan(Type type, object[] skippedValues, GenerationRequest request)
     {
-      return _inner.OtherThan(type, omittedValues, request);
+      return _inner.OtherThan(type, skippedValues, request);
     }
 
     public object Instance(Type type, GenerationRequest request)

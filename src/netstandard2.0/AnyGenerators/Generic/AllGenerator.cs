@@ -1,8 +1,8 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
-using FluentAssertions;
 using TddXt.AnyExtensibility;
 using TddXt.AnyGenerators.Generic.ImplementationDetails;
 using TddXt.TypeReflection;
@@ -170,19 +170,21 @@ namespace TddXt.AnyGenerators.Generic
       return (T)OtherThan(typeof(T), omittedValues?.Cast<object>()?.ToArray(), CreateRequest());
     }
 
-    public object OtherThan(Type type, object[] omittedValues, GenerationRequest request)
+    public object OtherThan(Type type, object[] skippedValues, GenerationRequest request)
     {
       if (type.IsEnum)
       {
-        Enum.GetValues(type).Should().NotBeEquivalentTo(omittedValues,
-          "skipped values consist of all the enum members. No value left to generate");
+        if (TryingToSkipAllValuesOf(type, skippedValues))
+        {
+          throw new Exception("skipped values consist of all the enum members. No value left to generate");
+        }
       }
 
       object currentValue;
       do
       {
         currentValue = Instance(type, request);
-      } while (omittedValues.Contains(currentValue));
+      } while (skippedValues.Contains(currentValue));
 
       return currentValue;
     }
@@ -214,6 +216,15 @@ namespace TddXt.AnyGenerators.Generic
     private static DefaultGenerationRequest CreateRequest(params GenerationCustomization[] customizations)
     {
       return new DefaultGenerationRequest(GlobalNestingLimit.Of(5), customizations);
+    }
+
+    private static bool TryingToSkipAllValuesOf(Type type, IEnumerable<object> skippedValues)
+    {
+      return Enum.GetValues(type)
+        .Cast<object>()
+        .ToList()
+        .OrderBy(v => v)
+        .SequenceEqual(skippedValues.OrderBy(v => v));
     }
   }
 }

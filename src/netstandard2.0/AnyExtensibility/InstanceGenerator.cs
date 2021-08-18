@@ -9,7 +9,7 @@ namespace TddXt.AnyExtensibility
     object Value(Type type, GenerationRequest request);
     T Value<T>(T seed, GenerationRequest request);
     T OtherThan<T>(params T[] omittedValues);
-    object OtherThan(Type type, object[] omittedValues, GenerationRequest request);
+    object OtherThan(Type type, object[] skippedValues, GenerationRequest request);
     object Instance(Type type, GenerationRequest request);
     T Dummy<T>(GenerationRequest request);
     T Instance<T>(GenerationRequest request);

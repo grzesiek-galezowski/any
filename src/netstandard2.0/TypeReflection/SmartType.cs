@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using FluentAssertions;
 using Functional.Maybe;
 using TddXt.TypeReflection.ImplementationDetails;
 using TddXt.TypeReflection.ImplementationDetails.ConstructorRetrievals;
@@ -186,7 +185,10 @@ namespace TddXt.TypeReflection
 
     public void AssertMatchesTypeOf(object instance)
     {
-      instance.GetType().Should().Be(_type);
+      if (instance.GetType() != _type)
+      {
+        throw new Exception("Expected type " + _type + " to match type of " + instance + " but its type is " + instance.GetType());
+      }
     }
 
     private static bool IsOpenGeneric(Type checkedType, Type openGenericType)
