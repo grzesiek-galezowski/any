@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using System.Text;
 
 namespace TddXt.AnyRoot.Builder
 {
@@ -16,14 +17,20 @@ namespace TddXt.AnyRoot.Builder
       }
       if (memberLambda.Body is MemberExpression memberSelectorExpression)
       {
-        var property = memberSelectorExpression.Member as PropertyInfo;
-        SetValue(Target(target, memberSelectorExpression), value, property);
+        if (memberSelectorExpression.Member is PropertyInfo propertyInfo)
+        {
+          SetValue(TargetParentObject(target, memberSelectorExpression), value, propertyInfo);
+        }
+        else if (memberSelectorExpression.Member is FieldInfo fieldInfo)
+        {
+          SetValue(TargetParentObject(target, memberSelectorExpression), value, fieldInfo);
+        }
       }
 
       return target;
     }
 
-    private static object Target(object target, MemberExpression memberSelectorExpression)
+    private static object TargetParentObject(object target, MemberExpression memberSelectorExpression)
     {
       var parentExpression = memberSelectorExpression.Expression as MemberExpression;
       if (parentExpression == null)
@@ -32,8 +39,18 @@ namespace TddXt.AnyRoot.Builder
       }
       else
       {
-        var propertyInfo = (PropertyInfo)parentExpression.Member;
-        return propertyInfo.GetValue(target) ?? throw new Exception("Trying to set property on null");
+        if (parentExpression.Member is PropertyInfo propertyInfo)
+        {
+          return propertyInfo.GetValue(target) ?? throw new Exception("Trying to set property on null");
+        }
+        else if (parentExpression.Member is FieldInfo fieldInfo)
+        {
+          return fieldInfo.GetValue(target) ?? throw new Exception("Trying to set field value on null");
+        }
+        else
+        {
+          throw new Exception("unrecognized member type " + parentExpression.Member.MemberType);
+        }
       }
     }
 
@@ -59,6 +76,18 @@ namespace TddXt.AnyRoot.Builder
       else
       {
         throw new Exception("Could not find the property");
+      }
+    }
+
+    private static void SetValue<T, TValue>(T target, TValue value, FieldInfo? fieldInfo)
+    {
+      if (fieldInfo != null)
+      {
+          fieldInfo.SetValue(target, value);
+      }
+      else
+      {
+        throw new Exception("Could not find the field");
       }
     }
 

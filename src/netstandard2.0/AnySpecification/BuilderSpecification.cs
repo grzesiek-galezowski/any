@@ -49,6 +49,38 @@ namespace AnySpecification
       Any.Instance<DataStructure>().Invoking(d => d.WithProperty(d => d.Nested.NonAutoStringValue, "lol"))
           .Should().Throw<Exception>();
     }
+    
+    //fields
+
+    [Test, Parallelizable]
+    public void ShouldAllowSettingPublicFieldThroughProperty()
+    {
+      Any.Instance<DataStructure>().WithProperty(d => d.Nested.StringField, "lol")
+        .Nested.StringField.Should().Be("lol");
+    }
+    
+    [Test, Parallelizable]
+    public void ShouldAllowSettingPublicFieldThroughField()
+    {
+      Any.Instance<DataStructure>().WithProperty(d => d.NestedField.StringField, "lol")
+        .NestedField.StringField.Should().Be("lol");
+    }
+    
+    [Test, Parallelizable]
+    public void ShouldAllowSettingPublicFieldThroughReadOnlyField()
+    {
+      var dataStructure = Any.Instance<DataStructure>();
+      dataStructure.WithProperty(d => d.NestedReadOnlyField.StringField, "lol")
+        .NestedReadOnlyField.StringField.Should().Be("lol");
+    }
+    
+    [Test, Parallelizable]
+    public void ShouldAllowSettingPropertyThroughPublicField()
+    {
+      var dataStructure = Any.Instance<DataStructure>();
+      dataStructure.WithProperty(d => d.NestedReadOnlyField.SettableStringValue, "lol")
+        .NestedReadOnlyField.SettableStringValue.Should().Be("lol");
+    }
   }
 
   public class DataStructure
@@ -59,12 +91,15 @@ namespace AnySpecification
     }
 
     public NestedDataStructure Nested { get; }
+    public NestedDataStructure NestedField;
+    public NestedDataStructure NestedReadOnlyField;
     public NestedDataStructure NestedNotInitializedFromConstructor { get; }
     public NestedDataStructure GetNested() => new NestedDataStructure();
   }
 
   public class NestedDataStructure
   {
+    public string StringField;
     public string StringValue { get; }
     public string SettableStringValue { get; set; }
     public string NonAutoStringValue => "";
