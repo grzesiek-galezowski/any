@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
   </PropertyGroup>
@@ -10,6 +10,7 @@
   <ItemGroup>
     <PackageReference Include="AtmaFileSystem" Version="4.8.0" />
     <PackageReference Include="Bullseye" Version="3.8.0" />
+    <PackageReference Include="DotnetExeCommandLineBuilder" Version="0.3.0" />
     <PackageReference Include="FluentAssertions" Version="6.3.0" />
     <PackageReference Include="NScan" Version="0.74.0" />
     <PackageReference Include="NScan.Adapter.NotifyingSupport" Version="0.70.1" />

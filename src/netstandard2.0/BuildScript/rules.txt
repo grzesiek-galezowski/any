@@ -2,6 +2,6 @@
 * hasNoCircularUsings
 *Specification hasAttributesOn *Specification:Should*
 AnyRoot hasProperty TargetFramework:netstandard2.0
-*Specification hasProperty TargetFramework:net5.0
+*Specification hasProperty TargetFramework:net6.0
 * hasProperty Nullable:enable
 * hasProperty LangVersion:latest

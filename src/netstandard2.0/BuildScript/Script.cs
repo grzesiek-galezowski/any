@@ -1,11 +1,13 @@
 ﻿using System;
 using AtmaFileSystem;
 using AtmaFileSystem.IO;
+using DotnetExeCommandLineBuilder;
 using FluentAssertions;
 using NScan.Adapter.NotifyingSupport;
 using NScan.SharedKernel.WritingProgramOutput.Ports;
 using TddXt.NScan;
 using static Bullseye.Targets;
+using static DotnetExeCommandLineBuilder.DotnetExeCommands;
 using static SimpleExec.Command;
 
 var configuration = "Release";
@@ -15,7 +17,7 @@ var root = AbsoluteFilePath.OfThisFile().ParentDirectory(3).Value;
 var srcDir = root.AddDirectoryName("src");
 var srcNetStandardDir = srcDir.AddDirectoryName("netstandard2.0");
 var nugetPath = root.AddDirectoryName("nuget");
-var version = "6.5.0";
+var version = "6.6.0";
 
 //////////////////////////////////////////////////////////////////////
 // HELPER FUNCTIONS
@@ -23,13 +25,13 @@ var version = "6.5.0";
 void Pack(AbsoluteDirectoryPath outputPath, AbsoluteDirectoryPath rootSourceDir, string projectName)
 {
   Run("dotnet",
-    $"pack" +
-    $" -c {configuration}" +
-    $" --include-symbols" +
-    $" --no-build" +
-    $" -p:SymbolPackageFormat=snupkg" +
-    $" -p:VersionPrefix={version}" +
-    $" -o {outputPath}",
+    DotnetExeCommands.Pack()
+      .Configuration(configuration)
+      .IncludeSymbols()
+      .NoBuild()
+      .WithArg($"-p:SymbolPackageFormat=snupkg")
+      .WithArg($"-p:VersionPrefix={version}")
+      .Output(outputPath),
     workingDirectory: rootSourceDir.AddDirectoryName(projectName).ToString());
 }
 
@@ -39,20 +41,21 @@ void Pack(AbsoluteDirectoryPath outputPath, AbsoluteDirectoryPath rootSourceDir,
 
 Target("Clean", () =>
 {
-  nugetPath.Delete(true);
-  Run($"dotnet",
-    "clean " +
-    $"-c {configuration} ",
+  if (nugetPath.Exists())
+  {
+    nugetPath.Delete(true);
+  }
+
+  Run("dotnet", Clean().Configuration(configuration),
     workingDirectory: srcNetStandardDir.ToString());
 });
 
 Target("Build", () =>
 {
-  Run($"dotnet",
-    "build " +
-    $"-c {configuration} " +
-    //$"-o {buildDir} " +
-    $"-p:VersionPrefix={version}",
+  Run("dotnet",
+    Build()
+      .Configuration(configuration)
+      .WithArg($"-p:VersionPrefix={version}"),
     workingDirectory: srcNetStandardDir.ToString());
 });
 
@@ -71,12 +74,11 @@ Target("NScan", DependsOn("Build"), () =>
 
 Target("Test", DependsOn("Build"), () =>
 {
-  Run($"dotnet",
-    "test" +
-    $" --no-build" +
-    $" -c {configuration}" +
-    //$" -o {buildDir}" +
-    $" -p:VersionPrefix={version}",
+  Run("dotnet",
+    Test()
+      .NoBuild()
+      .Configuration(configuration)
+      .WithArg($"-p:VersionPrefix={version}"),
     workingDirectory: srcNetStandardDir.ToString());
 });
 
@@ -93,8 +95,7 @@ Target("Push", DependsOn("Clean", "Pack"), () =>
 {
   foreach (var nupkgPath in nugetPath.GetFiles("*.nupkg"))
   {
-    Run("dotnet", $"nuget push {nupkgPath}" +
-                  $" --source https://api.nuget.org/v3/index.json");
+    Run("dotnet", NugetPush(nupkgPath).Source("https://api.nuget.org/v3/index.json"));
   }
 });
 
