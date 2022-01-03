@@ -10,14 +10,14 @@ using static Bullseye.Targets;
 using static DotnetExeCommandLineBuilder.DotnetExeCommands;
 using static SimpleExec.Command;
 
-var configuration = "Release";
+const string configuration = "Release";
+const string version = "6.6.0";
 
 // Define directories.
 var root = AbsoluteFilePath.OfThisFile().ParentDirectory(3).Value;
 var srcDir = root.AddDirectoryName("src");
 var srcNetStandardDir = srcDir.AddDirectoryName("netstandard2.0");
 var nugetPath = root.AddDirectoryName("nuget");
-var version = "6.6.0";
 
 //////////////////////////////////////////////////////////////////////
 // HELPER FUNCTIONS
