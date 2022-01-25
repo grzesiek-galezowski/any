@@ -1,13 +1,13 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using Functional.Maybe;
+using Core.Maybe;
 using TddXt.AnyExtensibility;
 
 namespace TddXt.AnyGenerators.Numbers
 {
   public class IntegerFromSequenceGenerator : InlineGenerator<int>
   {
-    private static readonly HashSet<IntegerSequence> Sequences = new HashSet<IntegerSequence>();
+    private static readonly HashSet<IntegerSequence> Sequences = new();
     private readonly InlineGenerator<int> _simpleValueGenerator;
     private readonly int _startingValue;
     private readonly int _step;

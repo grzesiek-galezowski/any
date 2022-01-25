@@ -21,8 +21,8 @@ namespace TddXt.TypeResolution
 
       if (maybeConstructor.HasValue)
       {
-        maybeConstructor.Value.DumpInto(request);
-        var instance = maybeConstructor.Value
+        maybeConstructor.Value().DumpInto(request);
+        var instance = maybeConstructor.Value()
           .InvokeWithParametersCreatedBy(instanceGenerator.Instance, request);
         smartType.AssertMatchesTypeOf(instance);
         return instance;
@@ -40,7 +40,7 @@ namespace TddXt.TypeResolution
       var constructor = smartType.PickConstructorWithLeastNonPointersParameters();
       if (constructor.HasValue)
       {
-        return constructor.Value
+        return constructor.Value()
           .GenerateAnyParameterValues(parameterFactory, request);
       }
       else
@@ -55,9 +55,9 @@ namespace TddXt.TypeResolution
       var constructor = smartType.PickConstructorWithLeastNonPointersParameters();
       if (constructor.HasValue)
       {
-        return constructor.Value
+        return constructor.Value()
                  .HasAbstractOrInterfaceArguments()
-               || constructor.Value.IsInternal();
+               || constructor.Value().IsInternal();
       }
       else
       {

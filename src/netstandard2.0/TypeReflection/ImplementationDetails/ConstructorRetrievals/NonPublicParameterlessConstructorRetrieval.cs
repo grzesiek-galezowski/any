@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using TddXt.TypeReflection.Interfaces;
 
 namespace TddXt.TypeReflection.ImplementationDetails.ConstructorRetrievals
@@ -17,7 +17,7 @@ namespace TddXt.TypeReflection.ImplementationDetails.ConstructorRetrievals
       var constructor = constructors.GetNonPublicParameterlessConstructorInfo();
       if (constructor.HasValue)
       {
-        return new List<IConstructorWrapper> { constructor.Value };
+        return new List<IConstructorWrapper> { constructor.Value() };
       }
       else
       {

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using Functional.Maybe;
+using Core.Maybe;
 using TddXt.AnyExtensibility;
 
 namespace TddXt.AnyGenerators.Generic.ImplementationDetails
