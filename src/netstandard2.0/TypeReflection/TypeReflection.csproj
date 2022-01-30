@@ -20,7 +20,11 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Core.Maybe" Version="2.1.0" />
+    <PackageReference Include="Core.Maybe" Version="2.2.0" />
+    <PackageReference Include="NuGetizer" Version="0.7.5">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AnyExtensibility\AnyExtensibility.csproj" />
