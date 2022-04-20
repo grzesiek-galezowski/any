@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TddXt.AnyExtensibility;
 using TddXt.TypeReflection;
+using TddXt.TypeReflection.Interfaces;
 
 namespace TddXt.TypeResolution.FakeChainElements;
 
@@ -15,7 +16,6 @@ public class FakeUnknownCollection : IResolution
     var isCollection = smartType.IsImplementationOfOpenGeneric(typeof(IProducerConsumerCollection<>))
                        || smartType.IsImplementationOfOpenGeneric(typeof(ICollection<>));
     return smartType.IsConcrete() &&
-           type.IsGenericType &&
            isCollection &&
            smartType.HasPublicParameterlessConstructor();
 
@@ -25,13 +25,48 @@ public class FakeUnknownCollection : IResolution
   public object Apply(InstanceGenerator instanceGenerator, GenerationRequest request, Type typeOfCollection)
   {
     var collectionInstance = Activator.CreateInstance(typeOfCollection);
-    var elementTypes = typeOfCollection.GetGenericArguments();
+    var smartTypeOfCollection = SmartType.For(typeOfCollection);
+    if(smartTypeOfCollection.IsImplementationOfOpenGeneric(typeof(IProducerConsumerCollection<>)))
+    {
+      FillCollectionInstance(
+        instanceGenerator,
+        request,
+        smartTypeOfCollection,
+        collectionInstance,
+        typeof(IProducerConsumerCollection<>),
+        nameof(IProducerConsumerCollection<object>.TryAdd));
+    }
+    else if (smartTypeOfCollection.IsImplementationOfOpenGeneric(typeof(ICollection<>)))
+    {
+      FillCollectionInstance(
+        instanceGenerator,
+        request,
+        smartTypeOfCollection,
+        collectionInstance,
+        typeof(ICollection<>),
+        nameof(ICollection<object>.Add));
+    }
+    else
+    {
+      throw new InvalidOperationException("The type " + typeOfCollection +
+                                          " is not supported by custom collection generator");
+    }
 
-    var addMethod = typeOfCollection.GetMethod("Add", elementTypes)
-                    ?? typeOfCollection.GetMethod("TryAdd", elementTypes)
-                    ?? typeOfCollection.GetMethod("Push", elementTypes)
-                    ?? typeOfCollection.GetMethod("Enqueue", elementTypes);
+    return collectionInstance;
+  }
 
+  private static object FillCollectionInstance(
+    InstanceGenerator instanceGenerator,
+    GenerationRequest request,
+    IType smartTypeOfCollection,
+    object collectionInstance,
+    Type openGenericType,
+    string addMethodName)
+  {
+    var collectionType = smartTypeOfCollection.FindInterfacesForOpenGenericDefinition(openGenericType).Single();
+    var elementTypes = collectionType.GenericTypeArguments;
+    var addMethod = collectionType.GetMethod(addMethodName, elementTypes);
+    
     addMethod.Invoke(
       collectionInstance,
       AnyInstancesOf(elementTypes, instanceGenerator, request));

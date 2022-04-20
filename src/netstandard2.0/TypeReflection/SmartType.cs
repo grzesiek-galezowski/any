@@ -77,7 +77,12 @@ public class SmartType : ISmartType
 
   public bool IsImplementationOfOpenGeneric(Type openGenericType)
   {
-    return _typeInfo.GetInterfaces().Any(
+    return FindInterfacesForOpenGenericDefinition(openGenericType).Any();
+  }
+
+  public IEnumerable<Type> FindInterfacesForOpenGenericDefinition(Type openGenericType)
+  {
+    return _typeInfo.GetInterfaces().Where(
       ifaceType => IsOpenGeneric(ifaceType, openGenericType));
   }
 

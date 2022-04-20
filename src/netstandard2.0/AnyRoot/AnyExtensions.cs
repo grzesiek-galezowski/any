@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using System.Threading;
 using TddXt.AnyExtensibility;
 using TddXt.AnyGenerators.Generic;
 using TddXt.AnyGenerators.Root;

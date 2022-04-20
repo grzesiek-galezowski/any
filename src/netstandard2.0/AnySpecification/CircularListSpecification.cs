@@ -1,5 +1,4 @@
-﻿using NUnit.Framework;
-using TddXt.AnyGenerators.CommonTypes;
+﻿using TddXt.AnyGenerators.CommonTypes;
 using TddXt.AnyRoot.Numbers;
 using static TddXt.AnyRoot.Root;
 

@@ -17,7 +17,6 @@ using FluentAssertions;
 using Functional.Maybe;
 using Newtonsoft.Json;
 using NSubstitute;
-using NUnit.Framework;
 using Optional;
 using Optional.Unsafe;
 using TddXt.AnyExtensibility;
@@ -669,6 +668,18 @@ public class AnySpecification
   public void ShouldAllowCreatingCustomCollectionInstances()
   {
     var customCollection = Any.Instance<MyOwnCollection<RecursiveInterface>>();
+
+    Assert.AreEqual(3, customCollection.Count);
+    foreach (var recursiveInterface in customCollection)
+    {
+      Assert.NotNull(recursiveInterface);
+    }
+  }
+
+  [Test, Parallelizable]
+  public void ShouldAllowCreatingCustomProducedConsumerCollectionInstances()
+  {
+    var customCollection = Any.Instance<MyOwnPcCollection<RecursiveInterface>>();
 
     Assert.AreEqual(3, customCollection.Count);
     foreach (var recursiveInterface in customCollection)
@@ -1798,6 +1809,18 @@ public class AnySpecification
 
     //WHEN-THEN
     Assert.DoesNotThrow(() => func(1, 2, "2"));
+  }
+
+  [Test, Parallelizable]
+  public void ShouldAllowGeneratingComplexCollectionAndInterfaceSubclasses()
+  {
+    //GIVEN
+    var o = Any.Instance<ComplexCollectionAndInterfaceSubclass>();
+
+    //WHEN-THEN
+    o.Should().NotBeNull();
+    o.Keys.Should().NotBeEmpty();
+    o.Values.Should().NotBeEmpty();
   }
 
   private static void CallSomeMethodsOn(AbstractObjectWithInterfaceInConstructor x1,

@@ -1,5 +1,4 @@
 ﻿using AnySpecification.Fixtures;
-using NUnit.Framework;
 using TddXt.AnyExtensibility;
 using TddXt.AnyGenerators.Root.ImplementationDetails;
 using static TddXt.AnyRoot.Root;

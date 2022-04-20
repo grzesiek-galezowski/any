@@ -17,4 +17,5 @@ public interface IType
   bool HasPublicConstructorCountOfAtMost(int i);
   bool IsOpenGeneric(Type type);
   void AssertMatchesTypeOf(object instance);
+  IEnumerable<Type> FindInterfacesForOpenGenericDefinition(Type openGenericType);
 }

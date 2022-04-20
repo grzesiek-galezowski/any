@@ -1,6 +1,5 @@
 ﻿using System;
 using FluentAssertions;
-using NUnit.Framework;
 using TddXt.AnyRoot.Builder;
 using static TddXt.AnyRoot.Root;
 

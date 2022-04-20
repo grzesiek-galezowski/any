@@ -1,7 +1,6 @@
 ﻿using System;
 using AtmaFileSystem;
 using AtmaFileSystem.IO;
-using DotnetExeCommandLineBuilder;
 using FluentAssertions;
 using NScan.Adapter.NotifyingSupport;
 using NScan.SharedKernel.WritingProgramOutput.Ports;

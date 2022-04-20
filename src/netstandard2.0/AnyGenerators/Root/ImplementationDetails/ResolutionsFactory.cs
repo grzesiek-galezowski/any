@@ -44,7 +44,7 @@ public class ResolutionsFactory
     return new FakeDelegate();
   }
 
-  public FakeConcreteClass ResolveAsConcreteClass()
+  public IResolution ResolveAsConcreteClass()
   {
     return new FakeConcreteClass(_fallbackTypeGenerator);
   }
