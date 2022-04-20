@@ -2,7 +2,7 @@
 using AtmaFileSystem;
 using AtmaFileSystem.IO;
 using FluentAssertions;
-using NScan.Adapter.NotifyingSupport;
+using NScan.Adapters.Secondary.NotifyingSupport;
 using NScan.SharedKernel.WritingProgramOutput.Ports;
 using TddXt.NScan;
 using static Bullseye.Targets;
@@ -10,10 +10,10 @@ using static DotnetExeCommandLineBuilder.DotnetExeCommands;
 using static SimpleExec.Command;
 
 const string configuration = "Release";
-const string version = "6.8.0";
+const string version = "6.9.0";
 
 // Define directories.
-var root = AbsoluteFilePath.OfThisFile().ParentDirectory(3).Value;
+var root = AbsoluteFilePath.OfThisFile().ParentDirectory(3).Value();
 var srcDir = root.AddDirectoryName("src");
 var srcNetStandardDir = srcDir.AddDirectoryName("netstandard2.0");
 var nugetPath = root.AddDirectoryName("build").AddDirectoryName(configuration);
@@ -48,7 +48,7 @@ Target("NScan", DependsOn("Build"), () =>
       SolutionPath = srcNetStandardDir.AddFileName("Any.sln").AsAnyFilePath()
     },
     new ConsoleOutput(),
-    new ConsoleSupport()
+    new ConsoleSupport(Console.WriteLine)
   ).Should().Be(0);
 });
 
@@ -72,7 +72,7 @@ Target("Push", DependsOn("Clean", "Test"), () =>
 
 Target("default", DependsOn("Test"));
 
-RunTargetsAndExit(args);
+await RunTargetsAndExitAsync(args);
 
 public class ConsoleOutput : INScanOutput
 {
