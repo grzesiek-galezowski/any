@@ -1,28 +1,27 @@
 ﻿using System.Collections.Generic;
 using TddXt.TypeReflection.Interfaces;
 
-namespace TddXt.TypeReflection.ImplementationDetails.ConstructorRetrievals
+namespace TddXt.TypeReflection.ImplementationDetails.ConstructorRetrievals;
+
+public class NonPublicParameterlessConstructorRetrieval : ConstructorRetrieval
 {
-  public class NonPublicParameterlessConstructorRetrieval : ConstructorRetrieval
+  private readonly ConstructorRetrieval _next;
+
+  public NonPublicParameterlessConstructorRetrieval(ConstructorRetrieval next)
   {
-    private readonly ConstructorRetrieval _next;
+    _next = next;
+  }
 
-    public NonPublicParameterlessConstructorRetrieval(ConstructorRetrieval next)
+  public IEnumerable<IConstructorWrapper> RetrieveFrom(IConstructorQueries constructors)
+  {
+    var constructor = constructors.GetNonPublicParameterlessConstructorInfo();
+    if (constructor.HasValue)
     {
-      _next = next;
+      return new List<IConstructorWrapper> { constructor.Value() };
     }
-
-    public IEnumerable<IConstructorWrapper> RetrieveFrom(IConstructorQueries constructors)
+    else
     {
-      var constructor = constructors.GetNonPublicParameterlessConstructorInfo();
-      if (constructor.HasValue)
-      {
-        return new List<IConstructorWrapper> { constructor.Value() };
-      }
-      else
-      {
-        return _next.RetrieveFrom(constructors);
-      }
+      return _next.RetrieveFrom(constructors);
     }
   }
 }

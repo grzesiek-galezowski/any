@@ -1,26 +1,25 @@
 ﻿using TddXt.AnyExtensibility;
 using TddXt.TypeResolution.CustomCollections;
 
-namespace TddXt.AnyGenerators.Generic
+namespace TddXt.AnyGenerators.Generic;
+
+public class GeneratorByPickingFromSpecifiedSetOfValues<T> : InlineGenerator<T>
 {
-  public class GeneratorByPickingFromSpecifiedSetOfValues<T> : InlineGenerator<T>
+  private static readonly LatestArraysWithPossibleValues<T> _cachedArraysOfCurrentType = new();
+  private readonly T[] _possibleValues;
+
+  public GeneratorByPickingFromSpecifiedSetOfValues(T[] possibleValues)
   {
-    private static readonly LatestArraysWithPossibleValues<T> _cachedArraysOfCurrentType = new();
-    private readonly T[] _possibleValues;
+    _possibleValues = possibleValues;
+  }
 
-    public GeneratorByPickingFromSpecifiedSetOfValues(T[] possibleValues)
+  public T GenerateInstance(InstanceGenerator instanceGenerator, GenerationRequest request)
+  {
+    if (!_cachedArraysOfCurrentType.Contain(_possibleValues))
     {
-      _possibleValues = possibleValues;
+      _cachedArraysOfCurrentType.Add(_possibleValues);
     }
 
-    public T GenerateInstance(InstanceGenerator instanceGenerator, GenerationRequest request)
-    {
-      if (!_cachedArraysOfCurrentType.Contain(_possibleValues))
-      {
-        _cachedArraysOfCurrentType.Add(_possibleValues);
-      }
-
-      return _cachedArraysOfCurrentType.PickNextElementFrom(_possibleValues);
-    }
+    return _cachedArraysOfCurrentType.PickNextElementFrom(_possibleValues);
   }
 }

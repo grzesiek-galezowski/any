@@ -3,44 +3,43 @@ using System.Diagnostics;
 using System.Reflection;
 using TddXt.AnyExtensibility;
 
-namespace TddXt.TypeResolution.FakeChainElements
+namespace TddXt.TypeResolution.FakeChainElements;
+
+public class FakeConcreteClass : IResolution
 {
-  public class FakeConcreteClass : IResolution
+  private readonly FallbackTypeGenerator _fallbackTypeGenerator;
+
+  public FakeConcreteClass(FallbackTypeGenerator fallbackTypeGenerator)
   {
-    private readonly FallbackTypeGenerator _fallbackTypeGenerator;
+    _fallbackTypeGenerator = fallbackTypeGenerator;
+  }
 
-    public FakeConcreteClass(FallbackTypeGenerator fallbackTypeGenerator)
+  public bool AppliesTo(Type type)
+  {
+    return true;
+  }
+
+  public object Apply(InstanceGenerator instanceGenerator, GenerationRequest request, Type type)
+  {
+
+    object? result;
+    try
     {
-      _fallbackTypeGenerator = fallbackTypeGenerator;
+      result = instanceGenerator.Value(type, request);
     }
-
-    public bool AppliesTo(Type type)
+    catch (ThirdPartyGeneratorFailed e)
     {
-      return true;
+      request.Trace.ThirdPartyGeneratorFailedTryingFallback(e);
+      result = _fallbackTypeGenerator.GenerateCustomizedInstance(instanceGenerator, request, type);
     }
-
-    public object Apply(InstanceGenerator instanceGenerator, GenerationRequest request, Type type)
+    catch (TargetInvocationException e)
     {
-
-      object? result;
-      try
+      if (Debugger.IsAttached)
       {
-        result = instanceGenerator.Value(type, request);
+        Console.WriteLine(e);
       }
-      catch (ThirdPartyGeneratorFailed e)
-      {
-        request.Trace.ThirdPartyGeneratorFailedTryingFallback(e);
-        result = _fallbackTypeGenerator.GenerateCustomizedInstance(instanceGenerator, request, type);
-      }
-      catch (TargetInvocationException e)
-      {
-        if (Debugger.IsAttached)
-        {
-          Console.WriteLine(e);
-        }
-        result = _fallbackTypeGenerator.GenerateCustomizedInstance(instanceGenerator, request, type);
-      }
-      return result;
+      result = _fallbackTypeGenerator.GenerateCustomizedInstance(instanceGenerator, request, type);
     }
+    return result;
   }
 }

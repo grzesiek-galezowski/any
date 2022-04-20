@@ -2,28 +2,27 @@ using System.Collections.Generic;
 using System.Linq;
 using TddXt.TypeReflection.Interfaces;
 
-namespace TddXt.TypeReflection.ImplementationDetails.ConstructorRetrievals
+namespace TddXt.TypeReflection.ImplementationDetails.ConstructorRetrievals;
+
+public class PublicStaticFactoryMethodRetrieval : ConstructorRetrieval
 {
-  public class PublicStaticFactoryMethodRetrieval : ConstructorRetrieval
+  private readonly ConstructorRetrieval _next;
+
+  public PublicStaticFactoryMethodRetrieval(ConstructorRetrieval next)
   {
-    private readonly ConstructorRetrieval _next;
+    _next = next;
+  }
 
-    public PublicStaticFactoryMethodRetrieval(ConstructorRetrieval next)
+  public IEnumerable<IConstructorWrapper> RetrieveFrom(IConstructorQueries constructors)
+  {
+    var methods = constructors.TryToObtainPublicStaticFactoryMethodWithoutRecursion();
+    if (methods.Any())
     {
-      _next = next;
+      return methods;
     }
-
-    public IEnumerable<IConstructorWrapper> RetrieveFrom(IConstructorQueries constructors)
+    else
     {
-      var methods = constructors.TryToObtainPublicStaticFactoryMethodWithoutRecursion();
-      if (methods.Any())
-      {
-        return methods;
-      }
-      else
-      {
-        return _next.RetrieveFrom(constructors);
-      }
+      return _next.RetrieveFrom(constructors);
     }
   }
 }

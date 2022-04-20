@@ -1,8 +1,7 @@
 using System;
 
-namespace TddXt.TypeResolution.FakeChainElements.Interceptors
+namespace TddXt.TypeResolution.FakeChainElements.Interceptors;
+
+public class AnyInstanceUsedInsteadOfNSubstituteDuringAQueryException : Exception
 {
-  public class AnyInstanceUsedInsteadOfNSubstituteDuringAQueryException : Exception
-  {
-  }
 }

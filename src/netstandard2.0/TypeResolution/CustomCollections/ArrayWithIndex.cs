@@ -1,40 +1,39 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace TddXt.TypeResolution.CustomCollections
+namespace TddXt.TypeResolution.CustomCollections;
+
+public class ArrayWithIndex<T>
 {
-  public class ArrayWithIndex<T>
+  private readonly T[] _values;
+
+  public ArrayWithIndex(T[] values, int initialIndex)
   {
-    private readonly T[] _values;
+    _values = values;
+    Index = initialIndex;
+  }
 
-    public ArrayWithIndex(T[] values, int initialIndex)
+  private int Index { get; set; }
+
+  private IEnumerable<T> Values
+  {
+    get { return _values; }
+  }
+
+  public bool IsEquivalentTo(IEnumerable<T> array)
+  {
+    return Values.SequenceEqual(array);
+  }
+
+  public T GetNextElement()
+  {
+    if (Index == _values.Length)
     {
-      _values = values;
-      Index = initialIndex;
+      Index = 0;
     }
 
-    private int Index { get; set; }
-
-    private IEnumerable<T> Values
-    {
-      get { return _values; }
-    }
-
-    public bool IsEquivalentTo(IEnumerable<T> array)
-    {
-      return Values.SequenceEqual(array);
-    }
-
-    public T GetNextElement()
-    {
-      if (Index == _values.Length)
-      {
-        Index = 0;
-      }
-
-      var result = _values[Index];
-      Index++;
-      return result;
-    }
+    var result = _values[Index];
+    Index++;
+    return result;
   }
 }

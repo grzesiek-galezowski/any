@@ -1,27 +1,26 @@
 using TddXt.AnyExtensibility;
 
-namespace TddXt.AnyGenerators.Strings
+namespace TddXt.AnyGenerators.Strings;
+
+public class StringOfLengthGenerator : InlineGenerator<string>
 {
-  public class StringOfLengthGenerator : InlineGenerator<string>
+  private readonly int _length;
+  private readonly InlineGenerator<string> _stringGenerator;
+
+  public StringOfLengthGenerator(int length, InlineGenerator<string> stringGenerator)
   {
-    private readonly int _length;
-    private readonly InlineGenerator<string> _stringGenerator;
+    _length = length;
+    _stringGenerator = stringGenerator;
+  }
 
-    public StringOfLengthGenerator(int length, InlineGenerator<string> stringGenerator)
+  public string GenerateInstance(InstanceGenerator instanceGenerator, GenerationRequest request)
+  {
+    var result = string.Empty;
+    while (result.Length < _length)
     {
-      _length = length;
-      _stringGenerator = stringGenerator;
+      result += _stringGenerator.GenerateInstance(instanceGenerator, request);
     }
 
-    public string GenerateInstance(InstanceGenerator instanceGenerator, GenerationRequest request)
-    {
-      var result = string.Empty;
-      while (result.Length < _length)
-      {
-        result += _stringGenerator.GenerateInstance(instanceGenerator, request);
-      }
-
-      return result.Substring(0, _length);
-    }
+    return result.Substring(0, _length);
   }
 }

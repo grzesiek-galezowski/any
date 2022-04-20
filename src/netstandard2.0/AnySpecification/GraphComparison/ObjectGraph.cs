@@ -1,28 +1,27 @@
 ﻿using KellermanSoftware.CompareNetObjects;
 
-namespace AnySpecification.GraphComparison
+namespace AnySpecification.GraphComparison;
+
+public static class ObjectGraph
 {
-  public static class ObjectGraph
+  public static CompareLogic Comparison()
   {
-    public static CompareLogic Comparison()
+    var comparisonMechanism = new CompareLogic
     {
-      var comparisonMechanism = new CompareLogic
+      Config = new ComparisonConfig
       {
-        Config = new ComparisonConfig
-        {
-          CompareChildren = true,
-          CompareFields = true,
-          ComparePrivateFields = true,
-          ComparePrivateProperties = true,
-          CompareProperties = true,
-          CompareReadOnly = true,
-          CompareStaticFields = false,
-          CompareStaticProperties = false,
-          MaxDifferences = 1
-        }
-      };
-      comparisonMechanism.Config.CustomComparers.Add(new ReflectionOrProxyComparer());
-      return comparisonMechanism;
-    }
+        CompareChildren = true,
+        CompareFields = true,
+        ComparePrivateFields = true,
+        ComparePrivateProperties = true,
+        CompareProperties = true,
+        CompareReadOnly = true,
+        CompareStaticFields = false,
+        CompareStaticProperties = false,
+        MaxDifferences = 1
+      }
+    };
+    comparisonMechanism.Config.CustomComparers.Add(new ReflectionOrProxyComparer());
+    return comparisonMechanism;
   }
 }

@@ -1,18 +1,17 @@
-namespace AnySpecification.Fixtures
+namespace AnySpecification.Fixtures;
+
+public class FileName
 {
-  public class FileName
+  private readonly string _path;
+
+  internal FileName(string path)
   {
-    private readonly string _path;
+    _path = path;
+  }
 
-    internal FileName(string path)
-    {
-      _path = path;
-    }
+  public FileName(FileNameWithoutExtension nameWithoutExtension, FileExtension extension)
+    : this(nameWithoutExtension.ToString() + extension.ToString())
+  {
 
-    public FileName(FileNameWithoutExtension nameWithoutExtension, FileExtension extension)
-      : this(nameWithoutExtension.ToString() + extension.ToString())
-    {
-
-    }
   }
 }

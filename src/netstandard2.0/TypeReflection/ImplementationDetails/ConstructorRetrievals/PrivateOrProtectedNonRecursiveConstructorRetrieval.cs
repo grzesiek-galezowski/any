@@ -2,29 +2,28 @@ using System.Collections.Generic;
 using System.Linq;
 using TddXt.TypeReflection.Interfaces;
 
-namespace TddXt.TypeReflection.ImplementationDetails.ConstructorRetrievals
+namespace TddXt.TypeReflection.ImplementationDetails.ConstructorRetrievals;
+
+public class PrivateOrProtectedNonRecursiveConstructorRetrieval : ConstructorRetrieval
 {
-  public class PrivateOrProtectedNonRecursiveConstructorRetrieval : ConstructorRetrieval
+  private readonly ConstructorRetrieval _next;
+
+  public PrivateOrProtectedNonRecursiveConstructorRetrieval(ConstructorRetrieval next)
   {
-    private readonly ConstructorRetrieval _next;
+    _next = next;
+  }
 
-    public PrivateOrProtectedNonRecursiveConstructorRetrieval(ConstructorRetrieval next)
+  public IEnumerable<IConstructorWrapper> RetrieveFrom(IConstructorQueries constructors)
+  {
+    var methods = constructors.TryToObtainPrivateAndProtectedConstructorsWithoutRecursiveArguments();
+    if (methods.Any())
     {
-      _next = next;
+      return methods;
+    }
+    else
+    {
+      return _next.RetrieveFrom(constructors);
     }
 
-    public IEnumerable<IConstructorWrapper> RetrieveFrom(IConstructorQueries constructors)
-    {
-      var methods = constructors.TryToObtainPrivateAndProtectedConstructorsWithoutRecursiveArguments();
-      if (methods.Any())
-      {
-        return methods;
-      }
-      else
-      {
-        return _next.RetrieveFrom(constructors);
-      }
-
-    }
   }
 }

@@ -2,36 +2,35 @@
 using AutoFixture.Kernel;
 using TddXt.AnyExtensibility;
 
-namespace TddXt.AnyGenerators.AutoFixtureWrapper
+namespace TddXt.AnyGenerators.AutoFixtureWrapper;
+
+public class CustomizationRelay : ISpecimenBuilder
 {
-  public class CustomizationRelay : ISpecimenBuilder
+  private readonly InstanceGenerator _gen;
+  private readonly GenerationRequest _request;
+
+  public CustomizationRelay(InstanceGenerator gen, GenerationRequest request)
   {
-    private readonly InstanceGenerator _gen;
-    private readonly GenerationRequest _request;
+    _gen = gen;
+    _request = request;
+  }
 
-    public CustomizationRelay(InstanceGenerator gen, GenerationRequest request)
+  public object Create(object request, ISpecimenContext context)
+  {
+    if (context == null) throw new ArgumentNullException(nameof(context));
+
+    if (request is Type t)
     {
-      _gen = gen;
-      _request = request;
-    }
-
-    public object Create(object request, ISpecimenContext context)
-    {
-      if (context == null) throw new ArgumentNullException(nameof(context));
-
-      if (request is Type t)
+      foreach (var customization in _request.GenerationCustomizations)
       {
-        foreach (var customization in _request.GenerationCustomizations)
+        if (customization.AppliesTo(t))
         {
-          if (customization.AppliesTo(t))
-          {
-            return customization.Generate(t, _gen, _request);
-          }
+          return customization.Generate(t, _gen, _request);
         }
-        return new NoSpecimen();
       }
-
       return new NoSpecimen();
     }
+
+    return new NoSpecimen();
   }
 }

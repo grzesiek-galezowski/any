@@ -1,7 +1,6 @@
-namespace AnySpecification.Fixtures
+namespace AnySpecification.Fixtures;
+
+public interface IGetSettable<T>
 {
-  public interface IGetSettable<T>
-  {
-    T Value { get; set; }
-  }
+  T Value { get; set; }
 }

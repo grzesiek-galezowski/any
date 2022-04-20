@@ -1,7 +1,6 @@
-namespace AnySpecification.Fixtures
+namespace AnySpecification.Fixtures;
+
+public class AreaEntity
 {
-  public class AreaEntity
-  {
-    public Feature Feature { get; set; }
-  }
+  public Feature Feature { get; set; }
 }

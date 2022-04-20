@@ -1,15 +1,11 @@
 using Castle.DynamicProxy;
 
-namespace TddXt.TypeResolution.FakeChainElements.Interceptors
+namespace TddXt.TypeResolution.FakeChainElements.Interceptors;
+
+public class ExplodingInterceptor : IInterceptor
 {
-  public class ExplodingInterceptor : IInterceptor
+  public void Intercept(IInvocation invocation)
   {
-    public void Intercept(IInvocation invocation)
-    {
-      throw new BoooooomException(invocation.Method.Name);
-    }
+    throw new BoooooomException(invocation.Method.Name);
   }
-
-
 }
-

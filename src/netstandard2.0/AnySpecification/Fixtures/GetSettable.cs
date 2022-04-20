@@ -1,7 +1,6 @@
-namespace AnySpecification.Fixtures
+namespace AnySpecification.Fixtures;
+
+public abstract class GetSettable<T>
 {
-  public abstract class GetSettable<T>
-  {
-    public T Value { get; set; }
-  }
+  public T Value { get; set; }
 }

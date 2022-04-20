@@ -1,11 +1,10 @@
 ﻿using System;
 
-namespace TddXt.TypeReflection.Interfaces
+namespace TddXt.TypeReflection.Interfaces;
+
+public interface IPropertyWrapper
 {
-  public interface IPropertyWrapper
-  {
-    Type PropertyType { get; }
-    bool HasAbstractGetter();
-    void SetValue(object result, object value);
-  }
+  Type PropertyType { get; }
+  bool HasAbstractGetter();
+  void SetValue(object result, object value);
 }

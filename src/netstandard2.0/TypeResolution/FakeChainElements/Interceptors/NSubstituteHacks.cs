@@ -4,61 +4,60 @@ using System.Reflection;
 using Castle.DynamicProxy;
 using TddXt.AnyExtensibility;
 
-namespace TddXt.TypeResolution.FakeChainElements.Interceptors
+namespace TddXt.TypeResolution.FakeChainElements.Interceptors;
+
+internal static class NSubstituteHacks
 {
-  internal static class NSubstituteHacks
+  public static void AssertIsNotInvokedDuringNSubstituteQuery(IInvocation invocation,
+    Func<Type, GenerationRequest, object> instanceSource)
   {
-    public static void AssertIsNotInvokedDuringNSubstituteQuery(IInvocation invocation,
-      Func<Type, GenerationRequest, object> instanceSource)
+    var interceptedInvocation = new InterceptedInvocation(invocation, instanceSource);
+
+    if (interceptedInvocation.IsPropertyGetter())
     {
-      var interceptedInvocation = new InterceptedInvocation(invocation, instanceSource);
+      return;
+    }
 
-      if (interceptedInvocation.IsPropertyGetter())
+    try
+    {
+      var assembly = AppDomain.CurrentDomain.GetAssemblies().SingleOrDefault(a =>
+        a.FullName.StartsWith("NSubstitute,") && a.CodeBase.EndsWith("NSubstitute.dll"));
+      if (assembly != null)
       {
-        return;
-      }
-
-      try
-      {
-        var assembly = AppDomain.CurrentDomain.GetAssemblies().SingleOrDefault(a =>
-          a.FullName.StartsWith("NSubstitute,") && a.CodeBase.EndsWith("NSubstitute.dll"));
-        if (assembly != null)
+        if (assembly.SubstitutionContextClass().Current().ThreadContext().IsQuerying())
         {
-          if (assembly.SubstitutionContextClass().Current().ThreadContext().IsQuerying())
-          {
-            throw new AnyInstanceUsedInsteadOfNSubstituteDuringAQueryException();
-          }
+          throw new AnyInstanceUsedInsteadOfNSubstituteDuringAQueryException();
         }
       }
-      catch (AnyInstanceUsedInsteadOfNSubstituteDuringAQueryException)
-      {
-        throw;
-      }
-      catch (Exception e)
-      {
-        Console.WriteLine($"NSubstitute hack could not be processed because {e}");
-      }
     }
-
-    private static bool IsQuerying(this object threadContext)
+    catch (AnyInstanceUsedInsteadOfNSubstituteDuringAQueryException)
     {
-      return (bool)threadContext.GetType().GetProperty("IsQuerying").GetValue(threadContext);
+      throw;
     }
-
-    private static object ThreadContext(this object currentSubstitutionContext)
+    catch (Exception e)
     {
-      return currentSubstitutionContext.GetType().GetProperty("ThreadContext")
-        .GetValue(currentSubstitutionContext);
+      Console.WriteLine($"NSubstitute hack could not be processed because {e}");
     }
+  }
 
-    private static object Current(this Type substitutionContextType)
-    {
-      return substitutionContextType.GetProperty("Current").GetValue(null);
-    }
+  private static bool IsQuerying(this object threadContext)
+  {
+    return (bool)threadContext.GetType().GetProperty("IsQuerying").GetValue(threadContext);
+  }
 
-    private static Type SubstitutionContextClass(this Assembly assembly)
-    {
-      return assembly.GetType("NSubstitute.Core.SubstitutionContext", true);
-    }
+  private static object ThreadContext(this object currentSubstitutionContext)
+  {
+    return currentSubstitutionContext.GetType().GetProperty("ThreadContext")
+      .GetValue(currentSubstitutionContext);
+  }
+
+  private static object Current(this Type substitutionContextType)
+  {
+    return substitutionContextType.GetProperty("Current").GetValue(null);
+  }
+
+  private static Type SubstitutionContextClass(this Assembly assembly)
+  {
+    return assembly.GetType("NSubstitute.Core.SubstitutionContext", true);
   }
 }

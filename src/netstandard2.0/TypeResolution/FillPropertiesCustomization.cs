@@ -2,30 +2,29 @@ using System;
 using TddXt.AnyExtensibility;
 using TddXt.TypeReflection.Interfaces;
 
-namespace TddXt.TypeResolution
+namespace TddXt.TypeResolution;
+
+public class FillPropertiesCustomization : IFallbackGeneratedObjectCustomization
 {
-  public class FillPropertiesCustomization : IFallbackGeneratedObjectCustomization
+  public void ApplyTo(IType smartType, object result, InstanceGenerator instanceGenerator, GenerationRequest request)
   {
-    public void ApplyTo(IType smartType, object result, InstanceGenerator instanceGenerator, GenerationRequest request)
+    var properties = smartType.GetPublicInstanceWritableProperties();
+
+    foreach (var property in properties)
     {
-      var properties = smartType.GetPublicInstanceWritableProperties();
-
-      foreach (var property in properties)
+      try
       {
-        try
-        {
-          var propertyType = property.PropertyType;
+        var propertyType = property.PropertyType;
 
-          if (!property.HasAbstractGetter())
-          {
-            var value = instanceGenerator.Instance(propertyType, request);
-            property.SetValue(result, value);
-          }
-        }
-        catch (Exception e)
+        if (!property.HasAbstractGetter())
         {
-          Console.WriteLine(e.Message);
+          var value = instanceGenerator.Instance(propertyType, request);
+          property.SetValue(result, value);
         }
+      }
+      catch (Exception e)
+      {
+        Console.WriteLine(e.Message);
       }
     }
   }

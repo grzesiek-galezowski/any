@@ -3,22 +3,21 @@ using Castle.DynamicProxy;
 using TddXt.AnyExtensibility;
 using TddXt.TypeResolution.FakeChainElements.Interceptors;
 
-namespace TddXt.AnyGenerators.Generic
-{
-  public class ExplodingInstanceGenerator<T> : InlineGenerator<T> where T : class
-  {
-    private static readonly ProxyGenerator ProxyGenerator = new ProxyGenerator();
+namespace TddXt.AnyGenerators.Generic;
 
-    public T GenerateInstance(InstanceGenerator instanceGenerator, GenerationRequest request)
+public class ExplodingInstanceGenerator<T> : InlineGenerator<T> where T : class
+{
+  private static readonly ProxyGenerator ProxyGenerator = new ProxyGenerator();
+
+  public T GenerateInstance(InstanceGenerator instanceGenerator, GenerationRequest request)
+  {
+    if (typeof(T).IsInterface)
     {
-      if (typeof(T).IsInterface)
-      {
-        return ProxyGenerator.CreateInterfaceProxyWithoutTarget<T>(new ExplodingInterceptor());
-      }
-      else
-      {
-        throw new Exception("Exploding instances can be created out of interfaces only!");
-      }
+      return ProxyGenerator.CreateInterfaceProxyWithoutTarget<T>(new ExplodingInterceptor());
+    }
+    else
+    {
+      throw new Exception("Exploding instances can be created out of interfaces only!");
     }
   }
 }

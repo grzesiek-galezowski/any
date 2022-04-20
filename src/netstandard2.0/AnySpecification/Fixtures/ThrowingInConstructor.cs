@@ -1,12 +1,11 @@
 using System;
 
-namespace AnySpecification.Fixtures
+namespace AnySpecification.Fixtures;
+
+public class ThrowingInConstructor
 {
-  public class ThrowingInConstructor
+  public ThrowingInConstructor()
   {
-    public ThrowingInConstructor()
-    {
-      throw new Exception();
-    }
+    throw new Exception();
   }
 }

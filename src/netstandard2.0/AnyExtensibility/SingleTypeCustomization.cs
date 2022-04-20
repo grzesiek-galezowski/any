@@ -1,30 +1,29 @@
 using System;
 
-namespace TddXt.AnyExtensibility
+namespace TddXt.AnyExtensibility;
+
+public interface GenerationCustomization
 {
-  public interface GenerationCustomization
+  bool AppliesTo(Type type);
+  object Generate(Type type, InstanceGenerator gen, GenerationRequest request);
+}
+
+public class SingleTypeCustomization<T> : GenerationCustomization
+{
+  private readonly Func<InstanceGenerator, GenerationRequest, T> _func;
+
+  public SingleTypeCustomization(Func<InstanceGenerator, GenerationRequest, T> func)
   {
-    bool AppliesTo(Type type);
-    object Generate(Type type, InstanceGenerator gen, GenerationRequest request);
+    _func = func;
   }
 
-  public class SingleTypeCustomization<T> : GenerationCustomization
+  public bool AppliesTo(Type type)
   {
-    private readonly Func<InstanceGenerator, GenerationRequest, T> _func;
+    return type == typeof(T);
+  }
 
-    public SingleTypeCustomization(Func<InstanceGenerator, GenerationRequest, T> func)
-    {
-      _func = func;
-    }
-
-    public bool AppliesTo(Type type)
-    {
-      return type == typeof(T);
-    }
-
-    public object Generate(Type type, InstanceGenerator gen, GenerationRequest request)
-    {
-      return _func(gen, request)!;
-    }
+  public object Generate(Type type, InstanceGenerator gen, GenerationRequest request)
+  {
+    return _func(gen, request)!;
   }
 }

@@ -1,11 +1,10 @@
 ﻿using System;
 
-namespace TddXt.TypeReflection.Interfaces
+namespace TddXt.TypeReflection.Interfaces;
+
+public interface IFieldWrapper
 {
-  public interface IFieldWrapper
-  {
-    Type FieldType { get; }
-    void SetValue(object result, object instance);
-    bool IsNullOrDefault(object result);
-  }
+  Type FieldType { get; }
+  void SetValue(object result, object instance);
+  bool IsNullOrDefault(object result);
 }

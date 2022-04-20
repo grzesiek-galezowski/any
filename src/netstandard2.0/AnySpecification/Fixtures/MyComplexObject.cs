@@ -1,8 +1,7 @@
-namespace AnySpecification.Fixtures
+namespace AnySpecification.Fixtures;
+
+public class MyComplexObject
 {
-  public class MyComplexObject
-  {
-    public string DummyString { get; set; }
-    public MyInnerObject Inner { get; set; }
-  }
+  public string DummyString { get; set; }
+  public MyInnerObject Inner { get; set; }
 }

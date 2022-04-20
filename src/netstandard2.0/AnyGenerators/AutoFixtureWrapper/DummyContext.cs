@@ -1,13 +1,11 @@
 using AutoFixture.Kernel;
 
-namespace TddXt.AnyGenerators.AutoFixtureWrapper
+namespace TddXt.AnyGenerators.AutoFixtureWrapper;
+
+public class DummyContext : ISpecimenContext
 {
-  public class DummyContext : ISpecimenContext
+  public object? Resolve(object request)
   {
-    public object? Resolve(object request)
-    {
-      return null;
-    }
+    return null;
   }
 }
-

@@ -1,14 +1,13 @@
 ﻿using System;
 
-namespace TddXt.AnyExtensibility
-{
-  public interface GenerationRequest
-  {
-    GenerationTrace Trace { get; }
-    GenerationCustomization[] GenerationCustomizations { get; }
+namespace TddXt.AnyExtensibility;
 
-    T WithNextNestingLevel<T>(
-      Func<T> limitNotReachedFunction,
-      Func<T> limitReachedFunction);
-  }
+public interface GenerationRequest
+{
+  GenerationTrace Trace { get; }
+  GenerationCustomization[] GenerationCustomizations { get; }
+
+  T WithNextNestingLevel<T>(
+    Func<T> limitNotReachedFunction,
+    Func<T> limitReachedFunction);
 }

@@ -1,46 +1,45 @@
 using System.Linq;
 using TddXt.AnyExtensibility;
 
-namespace TddXt.AnyGenerators.Strings
+namespace TddXt.AnyGenerators.Strings;
+
+public class StringNotContainingGenerator : InlineGenerator<string>
 {
-  public class StringNotContainingGenerator : InlineGenerator<string>
+  private readonly string[] _excludedSubstrings;
+  private readonly InlineGenerator<string> _stringGenerator;
+
+  public StringNotContainingGenerator(string[] excludedSubstrings, InlineGenerator<string> stringGenerator)
   {
-    private readonly string[] _excludedSubstrings;
-    private readonly InlineGenerator<string> _stringGenerator;
+    _excludedSubstrings = excludedSubstrings;
+    _stringGenerator = stringGenerator;
+  }
 
-    public StringNotContainingGenerator(string[] excludedSubstrings, InlineGenerator<string> stringGenerator)
+  public string GenerateInstance(InstanceGenerator instanceGenerator, GenerationRequest request)
+  {
+    var preprocessedStrings = from str in _excludedSubstrings
+      where !string.IsNullOrEmpty(str)
+      select str;
+
+    var result = _stringGenerator.GenerateInstance(instanceGenerator, request);
+    var found = false;
+    for (int i = 0; i < 100; ++i)
     {
-      _excludedSubstrings = excludedSubstrings;
-      _stringGenerator = stringGenerator;
+      result = _stringGenerator.GenerateInstance(instanceGenerator, request);
+      if (!preprocessedStrings.Any(result.Contains))
+      {
+        found = true;
+        break;
+      }
     }
 
-    public string GenerateInstance(InstanceGenerator instanceGenerator, GenerationRequest request)
+    if (!found)
     {
-      var preprocessedStrings = from str in _excludedSubstrings
-                                where !string.IsNullOrEmpty(str)
-                                select str;
-
-      var result = _stringGenerator.GenerateInstance(instanceGenerator, request);
-      var found = false;
-      for (int i = 0; i < 100; ++i)
+      foreach (var excludedSubstring in _excludedSubstrings.Where(s => s != string.Empty))
       {
-        result = _stringGenerator.GenerateInstance(instanceGenerator, request);
-        if (!preprocessedStrings.Any(result.Contains))
-        {
-          found = true;
-          break;
-        }
+        result = result.Replace(excludedSubstring, "");
       }
-
-      if (!found)
-      {
-        foreach (var excludedSubstring in _excludedSubstrings.Where(s => s != string.Empty))
-        {
-          result = result.Replace(excludedSubstring, "");
-        }
-      }
-
-      return result;
     }
+
+    return result;
   }
 }

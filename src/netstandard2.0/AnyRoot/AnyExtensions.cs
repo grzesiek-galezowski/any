@@ -5,85 +5,84 @@ using TddXt.AnyExtensibility;
 using TddXt.AnyGenerators.Generic;
 using TddXt.AnyGenerators.Root;
 
-namespace TddXt.AnyRoot
+namespace TddXt.AnyRoot;
+
+public static class AnyExtensions
 {
-  public static class AnyExtensions
+  private static readonly Type[] ValueTypes = {
+    typeof(byte),
+    typeof(short),
+    typeof(ushort),
+    typeof(decimal),
+    typeof(int),
+    typeof(uint),
+    typeof(long),
+    typeof(ulong),
+    typeof(float),
+    typeof(double),
+    typeof(bool),
+    typeof(sbyte),
+    typeof(char),
+    typeof(object),
+    typeof(string)
+  };
+
+  public static T From<T>(this BasicGenerator gen, params T[] possibleValues)
   {
-    private static readonly Type[] ValueTypes = {
-      typeof(byte),
-      typeof(short),
-      typeof(ushort),
-      typeof(decimal),
-      typeof(int),
-      typeof(uint),
-      typeof(long),
-      typeof(ulong),
-      typeof(float),
-      typeof(double),
-      typeof(bool),
-      typeof(sbyte),
-      typeof(char),
-      typeof(object),
-      typeof(string)
-    };
+    return gen.InstanceOf(InlineGenerators.From(possibleValues));
+  }
 
-    public static T From<T>(this BasicGenerator gen, params T[] possibleValues)
+  public static bool Boolean(this BasicGenerator gen)
+  {
+    return gen.InstanceOf(InlineGenerators.Boolean());
+  }
+
+  public static object Object(this BasicGenerator gen)
+  {
+    return gen.InstanceOf(InlineGenerators.Object());
+  }
+
+  public static T OtherThan<T>(this BasicGenerator gen, params T[]? skippedValues)
+  {
+    if (skippedValues == null)
     {
-      return gen.InstanceOf(InlineGenerators.From(possibleValues));
+      return gen.Instance<T>();
     }
 
-    public static bool Boolean(this BasicGenerator gen)
+    if (ThereAreRepeatedItemsIn(skippedValues))
     {
-      return gen.InstanceOf(InlineGenerators.Boolean());
+      throw new ArgumentException(
+        "there is no point in passing a single value twice for skip", 
+        nameof(skippedValues));
     }
 
-    public static object Object(this BasicGenerator gen)
+    if (ValueTypes.Contains(typeof(T)))
     {
-      return gen.InstanceOf(InlineGenerators.Object());
+      return gen.InstanceOf(InlineGenerators.ValueOtherThan(skippedValues));
     }
-
-    public static T OtherThan<T>(this BasicGenerator gen, params T[]? skippedValues)
+    else
     {
-      if (skippedValues == null)
-      {
-        return gen.Instance<T>();
-      }
-
-      if (ThereAreRepeatedItemsIn(skippedValues))
-      {
-        throw new ArgumentException(
-          "there is no point in passing a single value twice for skip", 
-          nameof(skippedValues));
-      }
-
-      if (ValueTypes.Contains(typeof(T)))
-      {
-        return gen.InstanceOf(InlineGenerators.ValueOtherThan(skippedValues));
-      }
-      else
-      {
-        return gen.InstanceOf(InlineGenerators.OtherThan(skippedValues));
-      }
+      return gen.InstanceOf(InlineGenerators.OtherThan(skippedValues));
     }
+  }
 
-    private static bool ThereAreRepeatedItemsIn<T>(T[] omittedValues)
-    {
-      return !omittedValues.SequenceEqual(omittedValues.Distinct());
-    }
+  private static bool ThereAreRepeatedItemsIn<T>(T[] omittedValues)
+  {
+    return !omittedValues.SequenceEqual(omittedValues.Distinct());
+  }
 
-    public static T Dummy<T>(this BasicGenerator gen)
-    {
-      return gen.InstanceOf(new DummyGenerator<T>());
-    }
+  public static T Dummy<T>(this BasicGenerator gen)
+  {
+    return gen.InstanceOf(new DummyGenerator<T>());
+  }
 
-    public static Guid Guid(this BasicGenerator gen)
-    {
-      return gen.InstanceOf(InlineGenerators.Guid());
-    }
+  public static Guid Guid(this BasicGenerator gen)
+  {
+    return gen.InstanceOf(InlineGenerators.Guid());
+  }
 
-    public static Exception Exception(this BasicGenerator gen)
-    {
-      return gen.InstanceOf(InlineGenerators.Exception());
-    }
+  public static Exception Exception(this BasicGenerator gen)
+  {
+    return gen.InstanceOf(InlineGenerators.Exception());
   }
 }

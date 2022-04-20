@@ -1,25 +1,24 @@
 using TddXt.AnyExtensibility;
 
-namespace TddXt.AnyGenerators.Numbers
+namespace TddXt.AnyGenerators.Numbers;
+
+public class PositiveDigitGenerator : InlineGenerator<byte>
 {
-  public class PositiveDigitGenerator : InlineGenerator<byte>
+  private readonly InlineGenerator<byte> _digitGenerator;
+
+  public PositiveDigitGenerator(InlineGenerator<byte> digitGenerator)
   {
-    private readonly InlineGenerator<byte> _digitGenerator;
+    _digitGenerator = digitGenerator;
+  }
 
-    public PositiveDigitGenerator(InlineGenerator<byte> digitGenerator)
+  public byte GenerateInstance(InstanceGenerator instanceGenerator, GenerationRequest request)
+  {
+    byte digit = _digitGenerator.GenerateInstance(instanceGenerator, request);
+    while (digit == 0)
     {
-      _digitGenerator = digitGenerator;
+      digit = _digitGenerator.GenerateInstance(instanceGenerator, request);
     }
 
-    public byte GenerateInstance(InstanceGenerator instanceGenerator, GenerationRequest request)
-    {
-      byte digit = _digitGenerator.GenerateInstance(instanceGenerator, request);
-      while (digit == 0)
-      {
-        digit = _digitGenerator.GenerateInstance(instanceGenerator, request);
-      }
-
-      return digit;
-    }
+    return digit;
   }
 }

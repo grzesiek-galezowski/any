@@ -1,12 +1,11 @@
-namespace AnySpecification.Fixtures
-{
-  public class ObjectWithInConstructorParameter
-  {
-    public readonly int A;
+namespace AnySpecification.Fixtures;
 
-    public ObjectWithInConstructorParameter(in int a)
-    {
-      A = a;
-    }
+public class ObjectWithInConstructorParameter
+{
+  public readonly int A;
+
+  public ObjectWithInConstructorParameter(in int a)
+  {
+    A = a;
   }
 }

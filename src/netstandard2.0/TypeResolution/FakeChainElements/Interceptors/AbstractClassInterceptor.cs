@@ -2,50 +2,49 @@ using System;
 using Castle.DynamicProxy;
 using TddXt.AnyExtensibility;
 
-namespace TddXt.TypeResolution.FakeChainElements.Interceptors
+namespace TddXt.TypeResolution.FakeChainElements.Interceptors;
+
+[Serializable]
+internal class AbstractClassInterceptor : IInterceptor
 {
-  [Serializable]
-  internal class AbstractClassInterceptor : IInterceptor
+  private readonly CachedReturnValueGeneration _cachedGeneration;
+  private readonly Func<Type, GenerationRequest, object> _instanceSource;
+  private readonly GenerationRequest _request;
+
+  public AbstractClassInterceptor(
+    CachedReturnValueGeneration cachedGeneration,
+    Func<Type, GenerationRequest, object> instanceSource,
+    GenerationRequest request)
   {
-    private readonly CachedReturnValueGeneration _cachedGeneration;
-    private readonly Func<Type, GenerationRequest, object> _instanceSource;
-    private readonly GenerationRequest _request;
+    _cachedGeneration = cachedGeneration;
+    _instanceSource = instanceSource;
+    _request = request;
+  }
 
-    public AbstractClassInterceptor(
-      CachedReturnValueGeneration cachedGeneration,
-      Func<Type, GenerationRequest, object> instanceSource,
-      GenerationRequest request)
+  public void Intercept(IInvocation invocation)
+  {
+    NSubstituteHacks.AssertIsNotInvokedDuringNSubstituteQuery(invocation, _instanceSource);
+
+    if (invocation.Method.IsAbstract)
     {
-      _cachedGeneration = cachedGeneration;
-      _instanceSource = instanceSource;
-      _request = request;
+      _cachedGeneration.SetupReturnValueFor(invocation, _instanceSource, _request);
     }
-
-    public void Intercept(IInvocation invocation)
+    else if (invocation.Method.IsVirtual)
     {
-      NSubstituteHacks.AssertIsNotInvokedDuringNSubstituteQuery(invocation, _instanceSource);
-
-      if (invocation.Method.IsAbstract)
+      try
       {
-        _cachedGeneration.SetupReturnValueFor(invocation, _instanceSource, _request);
-      }
-      else if (invocation.Method.IsVirtual)
-      {
-        try
-        {
-          var previousReturnValue = invocation.ReturnValue;
+        var previousReturnValue = invocation.ReturnValue;
 
-          invocation.Proceed();
+        invocation.Proceed();
 
-          if (invocation.ReturnValue == previousReturnValue)
-          {
-            _cachedGeneration.SetupReturnValueFor(invocation, _instanceSource, _request);
-          }
-        }
-        catch (Exception)
+        if (invocation.ReturnValue == previousReturnValue)
         {
           _cachedGeneration.SetupReturnValueFor(invocation, _instanceSource, _request);
         }
+      }
+      catch (Exception)
+      {
+        _cachedGeneration.SetupReturnValueFor(invocation, _instanceSource, _request);
       }
     }
   }

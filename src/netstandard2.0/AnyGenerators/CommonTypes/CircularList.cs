@@ -1,45 +1,43 @@
 using System;
 using System.Threading;
 
-namespace TddXt.AnyGenerators.CommonTypes
+namespace TddXt.AnyGenerators.CommonTypes;
+
+public static class CircularList
 {
-  public static class CircularList
+  private static readonly ThreadLocal<Random> Random = new(() => new Random(Guid.NewGuid().GetHashCode()));
+
+  public static CircularList<T> StartingWithFirstOf<T>(params T[] items)
+    => new(0, items);
+
+  public static CircularList<T> CreateStartingFromRandom<T>(params T[] items)
+    => new(Random.Value.Next(0, items.Length - 1), items);
+}
+
+public class CircularList<T>
+{
+  private readonly T[] _items;
+  private int _startingIndex;
+  private readonly object _syncRoot = new();
+
+  public CircularList(int startingIndex, params T[] items)
   {
-    private static readonly ThreadLocal<Random> Random = new(() => new Random(Guid.NewGuid().GetHashCode()));
-
-    public static CircularList<T> StartingWithFirstOf<T>(params T[] items)
-      => new(0, items);
-
-    public static CircularList<T> CreateStartingFromRandom<T>(params T[] items)
-      => new(Random.Value.Next(0, items.Length - 1), items);
+    _items = items;
+    _startingIndex = startingIndex;
   }
 
-  public class CircularList<T>
+  public T Next()
   {
-    private readonly T[] _items;
-    private int _startingIndex;
-    private readonly object _syncRoot = new();
-
-    public CircularList(int startingIndex, params T[] items)
+    lock (_syncRoot)
     {
-      _items = items;
-      _startingIndex = startingIndex;
-    }
-
-    public T Next()
-    {
-      lock (_syncRoot)
+      if (_startingIndex > _items.Length - 1)
       {
-        if (_startingIndex > _items.Length - 1)
-        {
-          _startingIndex = 0;
-        }
-
-        var result = _items[_startingIndex];
-        _startingIndex++;
-        return result;
+        _startingIndex = 0;
       }
+
+      var result = _items[_startingIndex];
+      _startingIndex++;
+      return result;
     }
   }
 }
-

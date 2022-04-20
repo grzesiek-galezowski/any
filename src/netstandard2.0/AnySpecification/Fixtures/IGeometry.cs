@@ -1,5 +1,4 @@
-namespace AnySpecification.Fixtures
-{
-  public interface IGeometry
-  { }
-}
+namespace AnySpecification.Fixtures;
+
+public interface IGeometry
+{ }

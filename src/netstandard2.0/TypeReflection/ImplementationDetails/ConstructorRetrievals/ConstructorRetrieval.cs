@@ -1,10 +1,9 @@
 using System.Collections.Generic;
 using TddXt.TypeReflection.Interfaces;
 
-namespace TddXt.TypeReflection.ImplementationDetails.ConstructorRetrievals
+namespace TddXt.TypeReflection.ImplementationDetails.ConstructorRetrievals;
+
+public interface ConstructorRetrieval
 {
-  public interface ConstructorRetrieval
-  {
-    IEnumerable<IConstructorWrapper> RetrieveFrom(IConstructorQueries constructors);
-  }
+  IEnumerable<IConstructorWrapper> RetrieveFrom(IConstructorQueries constructors);
 }

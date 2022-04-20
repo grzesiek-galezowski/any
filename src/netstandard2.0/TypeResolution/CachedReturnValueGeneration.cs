@@ -3,33 +3,32 @@ using Castle.DynamicProxy;
 using TddXt.AnyExtensibility;
 using TddXt.TypeResolution.CustomCollections;
 
-namespace TddXt.TypeResolution
+namespace TddXt.TypeResolution;
+
+[Serializable]
+public class CachedReturnValueGeneration
 {
-  [Serializable]
-  public class CachedReturnValueGeneration
+  private readonly PerMethodCache<object> _cache;
+
+  public CachedReturnValueGeneration(PerMethodCache<object> cache)
   {
-    private readonly PerMethodCache<object> _cache;
+    _cache = cache;
+  }
 
-    public CachedReturnValueGeneration(PerMethodCache<object> cache)
+  public void SetupReturnValueFor(
+    IInvocation invocation,
+    Func<Type, GenerationRequest, object> instanceSource,
+    GenerationRequest request)
+  {
+    var interceptedInvocation = new InterceptedInvocation(invocation, instanceSource);
+    if (interceptedInvocation.HasReturnValue())
     {
-      _cache = cache;
+      interceptedInvocation.GenerateAndAddMethodReturnValueTo(_cache, request);
+    }
+    else if (interceptedInvocation.IsPropertySetter())
+    {
+      interceptedInvocation.GenerateAndAddPropertyGetterReturnValueTo(_cache);
     }
 
-    public void SetupReturnValueFor(
-      IInvocation invocation,
-      Func<Type, GenerationRequest, object> instanceSource,
-      GenerationRequest request)
-    {
-      var interceptedInvocation = new InterceptedInvocation(invocation, instanceSource);
-      if (interceptedInvocation.HasReturnValue())
-      {
-        interceptedInvocation.GenerateAndAddMethodReturnValueTo(_cache, request);
-      }
-      else if (interceptedInvocation.IsPropertySetter())
-      {
-        interceptedInvocation.GenerateAndAddPropertyGetterReturnValueTo(_cache);
-      }
-
-    }
   }
 }

@@ -1,10 +1,9 @@
 using TddXt.AnyExtensibility;
 using TddXt.TypeReflection.Interfaces;
 
-namespace TddXt.TypeResolution
+namespace TddXt.TypeResolution;
+
+public interface IFallbackGeneratedObjectCustomization
 {
-  public interface IFallbackGeneratedObjectCustomization
-  {
-    void ApplyTo(IType smartType, object result, InstanceGenerator instanceGenerator, GenerationRequest request);
-  }
+  void ApplyTo(IType smartType, object result, InstanceGenerator instanceGenerator, GenerationRequest request);
 }
