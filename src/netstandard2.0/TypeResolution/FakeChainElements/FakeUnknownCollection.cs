@@ -2,6 +2,7 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using TddXt.AnyExtensibility;
 using TddXt.TypeReflection;
 using TddXt.TypeReflection.Interfaces;
@@ -10,11 +11,16 @@ namespace TddXt.TypeResolution.FakeChainElements;
 
 public class FakeUnknownCollection : IResolution
 {
+  private static readonly (Type type, string addMethod)[] SupportedTypes =
+  {
+    (typeof(IProducerConsumerCollection<>), nameof(IProducerConsumerCollection<object>.TryAdd)),
+    (typeof(ICollection<>), nameof(ICollection<object>.Add))
+  };
+
   public bool AppliesTo(Type type)
   {
     var smartType = SmartType.For(type);
-    var isCollection = smartType.IsImplementationOfOpenGeneric(typeof(IProducerConsumerCollection<>))
-                       || smartType.IsImplementationOfOpenGeneric(typeof(ICollection<>));
+    var isCollection = SupportedTypes.Any(tuple => smartType.IsImplementationOfOpenGeneric(tuple.type));
     return smartType.IsConcrete() &&
            isCollection &&
            smartType.HasPublicParameterlessConstructor();
@@ -26,36 +32,27 @@ public class FakeUnknownCollection : IResolution
   {
     var collectionInstance = Activator.CreateInstance(typeOfCollection);
     var smartTypeOfCollection = SmartType.For(typeOfCollection);
-    if(smartTypeOfCollection.IsImplementationOfOpenGeneric(typeof(IProducerConsumerCollection<>)))
+
+    foreach (var (supportedType, addMethodName) in SupportedTypes)
     {
-      FillCollectionInstance(
-        instanceGenerator,
-        request,
-        smartTypeOfCollection,
-        collectionInstance,
-        typeof(IProducerConsumerCollection<>),
-        nameof(IProducerConsumerCollection<object>.TryAdd));
-    }
-    else if (smartTypeOfCollection.IsImplementationOfOpenGeneric(typeof(ICollection<>)))
-    {
-      FillCollectionInstance(
-        instanceGenerator,
-        request,
-        smartTypeOfCollection,
-        collectionInstance,
-        typeof(ICollection<>),
-        nameof(ICollection<object>.Add));
-    }
-    else
-    {
-      throw new InvalidOperationException("The type " + typeOfCollection +
-                                          " is not supported by custom collection generator");
+      if (smartTypeOfCollection.IsImplementationOfOpenGeneric(supportedType))
+      {
+        FillCollectionInstance(
+          instanceGenerator,
+          request,
+          smartTypeOfCollection,
+          collectionInstance,
+          supportedType,
+          addMethodName);
+        return collectionInstance;
+      }
     }
 
-    return collectionInstance;
+    throw new InvalidOperationException("The type " + typeOfCollection +
+                                        " is not supported by custom collection generator");
   }
 
-  private static object FillCollectionInstance(
+  private static void FillCollectionInstance(
     InstanceGenerator instanceGenerator,
     GenerationRequest request,
     IType smartTypeOfCollection,
@@ -76,8 +73,6 @@ public class FakeUnknownCollection : IResolution
     addMethod.Invoke(
       collectionInstance,
       AnyInstancesOf(elementTypes, instanceGenerator, request));
-
-    return collectionInstance;
   }
 
   private static object[] AnyInstancesOf(IEnumerable<Type> elementTypes, InstanceGenerator instanceGenerator,
