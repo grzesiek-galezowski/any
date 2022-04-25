@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netstandard2.1</TargetFramework>
     <AssemblyName>TddXt.Any.TypeReflection</AssemblyName>
     <RootNamespace>TddXt.TypeReflection</RootNamespace>
     <Authors>Grzegorz Gałęzowski</Authors>
@@ -20,7 +20,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Core.Maybe" Version="2.2.0" />
+    <PackageReference Include="Core.Maybe" Version="4.0.0" />
     <PackageReference Include="NuGetizer" Version="0.7.5">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
