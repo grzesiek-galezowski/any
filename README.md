@@ -14,6 +14,12 @@ In the code, static use the `TddXt.AnyRoot.Root` property like this:
 using static TddXt.AnyRoot.Root;
 ```
 
+or preferably, if your C# version allows it, add a global using in your test project:
+
+```csharp
+global using static TddXt.AnyRoot.Root;
+```
+
 This will allow you to use several core methods like `Any.Instance<T>()`:
 
 ```csharp
@@ -37,6 +43,8 @@ using TddXt.AnyRoot.Reflection;
 using TddXt.AnyRoot.Strings;
 using TddXt.AnyRoot.Time;
 ```
+
+(you can add these as global usings if that's more convenient to you)
 
 This will allow you to use methods such as:
 
