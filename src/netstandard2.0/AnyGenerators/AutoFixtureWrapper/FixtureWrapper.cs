@@ -1,5 +1,6 @@
 ﻿using AutoFixture;
 using System;
+using System.Linq;
 using AutoFixture.Kernel;
 using TddXt.AnyExtensibility;
 using TddXt.TypeResolution.FakeChainElements;
@@ -54,6 +55,10 @@ public class FixtureWrapper
   public static FixtureWrapper CreateUnconfiguredInstance()
   {
     var fixture = new Fixture(new EngineWithReplacedQuery());
+    fixture.Behaviors.OfType<ThrowingRecursionBehavior>().ToList()
+        .ForEach(b => fixture.Behaviors.Remove(b));
+    fixture.Behaviors.Add(new OmitOnRecursionBehavior());
+
     var fixtureWrapper = new FixtureWrapper(fixture);
     return fixtureWrapper;
   }
