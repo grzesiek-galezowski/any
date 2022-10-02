@@ -1,6 +1,5 @@
 ﻿using AutoFixture;
 using System;
-using System.Linq;
 using AutoFixture.Kernel;
 using TddXt.AnyExtensibility;
 using TddXt.TypeResolution.FakeChainElements;

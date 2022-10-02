@@ -1,4 +1,9 @@
-﻿using Castle.DynamicProxy;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using AutoFixture;
+using AutoFixture.Kernel;
+using Castle.DynamicProxy;
 using TddXt.AnyExtensibility;
 using TddXt.AnyGenerators.AutoFixtureWrapper;
 using TddXt.AnyGenerators.Generic;
@@ -7,6 +12,19 @@ using TddXt.TypeResolution.CustomCollections;
 using TddXt.TypeResolution.FakeChainElements;
 
 namespace TddXt.AnyGenerators.Root.ImplementationDetails;
+
+//bug DefaultRelays
+//bug DefaultPrimitiveBuilders
+//bug yield return (ISpecimenBuilder) new LazyRelay();
+//bug yield return (ISpecimenBuilder) new MultidimensionalArrayRelay();
+//bug yield return (ISpecimenBuilder) new ArrayRelay();
+//bug yield return (ISpecimenBuilder) new ParameterRequestRelay();
+//bug yield return (ISpecimenBuilder) new PropertyRequestRelay();
+//bug yield return (ISpecimenBuilder) new FieldRequestRelay();
+//bug yield return (ISpecimenBuilder) new RangedSequenceRelay();
+//bug yield return (ISpecimenBuilder) new FiniteSequenceRelay();
+//bug yield return (ISpecimenBuilder) new SeedIgnoringRelay();
+//bug yield return (ISpecimenBuilder) new MethodInvoker((IMethodQuery) new CompositeMethodQuery(new IMethodQuery[2]
 
 public static class AllGeneratorFactory
 {
@@ -24,45 +42,42 @@ public static class AllGeneratorFactory
       });
     var resolutionsFactory = new ResolutionsFactory(
       specialCasesOfResolutions, fallbackTypeGenerator);
-    var unconstrainedChain = new TemporaryChainForCollection(new[]
-    {
-      ResolutionsFactory.ResolveTheMostSpecificCases(valueGenerator),
-      resolutionsFactory.ResolveAsArray(),
-      resolutionsFactory.ResolveAsImmutableArray(),
-      resolutionsFactory.ResolveAsSimpleEnumerableAndList(),
-      resolutionsFactory.ResolveAsImmutableList(),
-      resolutionsFactory.ResolveAsSimpleSet(),
-      resolutionsFactory.ResolveAsImmutableHashSet(),
-      resolutionsFactory.ResolveAsImmutableSortedSet(),
-      resolutionsFactory.ResolveAsSimpleDictionary(),
-      resolutionsFactory.ResolveAsImmutableDictionary(),
-      resolutionsFactory.ResolveAsImmutableSortedDictionary(),
-      resolutionsFactory.ResolveAsSortedList(),
-      resolutionsFactory.ResolveAsImmutableQueue(),
-      resolutionsFactory.ResolveAsImmutableStack(),
-      ResolutionsFactory.ResolveAsDelegate(),
-      resolutionsFactory.ResolveAsSortedSet(),
-      resolutionsFactory.ResolveAsSortedDictionary(),
-      resolutionsFactory.ResolveAsConcurrentDictionary(),
-      resolutionsFactory.ResolveAsConcurrentBag(),
-      resolutionsFactory.ResolveAsConcurrentQueue(),
-      resolutionsFactory.ResolveAsConcurrentStack(),
-      resolutionsFactory.ResolveAsKeyValuePair(),
-      ResolutionsFactory.ResolveAsOptionalOption(),
-      resolutionsFactory.ResolveAsGenericEnumerator(),
-      ResolutionsFactory.ResolveAsObjectEnumerator(),
-      ResolutionsFactory.ResolveAsCollectionWithHeuristics(),
-      ResolutionsFactory.ResolveAsInterfaceImplementationWhere(
-        cachedReturnValueGeneration, 
-        proxyGenerator),
-      resolutionsFactory.ResolveAsAbstractClassImplementationWhere(
-        cachedReturnValueGeneration, 
-        proxyGenerator),
-      resolutionsFactory.ResolveAsConcreteTypeWithNonConcreteTypesInConstructorSignature(), 
-      ResolutionsFactory.ResolveAsVoidTask(), 
-      ResolutionsFactory.ResolveAsTypedTask(), 
-      resolutionsFactory.ResolveAsConcreteClass()
-    });
+    var unconstrainedChain = new AutoFixtureChain(
+      new TemporaryChainForCollection(new[]
+      {
+        ResolutionsFactory.ResolveTheMostSpecificCases(valueGenerator),
+        resolutionsFactory.ResolveAsArray(),
+        resolutionsFactory.ResolveAsImmutableArray(),
+        resolutionsFactory.ResolveAsSimpleEnumerableAndList(),
+        resolutionsFactory.ResolveAsImmutableList(),
+        resolutionsFactory.ResolveAsSimpleSet(),
+        resolutionsFactory.ResolveAsImmutableHashSet(),
+        resolutionsFactory.ResolveAsImmutableSortedSet(),
+        resolutionsFactory.ResolveAsSimpleDictionary(),
+        resolutionsFactory.ResolveAsImmutableDictionary(),
+        resolutionsFactory.ResolveAsImmutableSortedDictionary(),
+        resolutionsFactory.ResolveAsSortedList(),
+        resolutionsFactory.ResolveAsImmutableQueue(),
+        resolutionsFactory.ResolveAsImmutableStack(),
+        ResolutionsFactory.ResolveAsDelegate(),
+        resolutionsFactory.ResolveAsSortedSet(),
+        resolutionsFactory.ResolveAsSortedDictionary(),
+        resolutionsFactory.ResolveAsConcurrentDictionary(),
+        resolutionsFactory.ResolveAsConcurrentBag(),
+        resolutionsFactory.ResolveAsConcurrentQueue(),
+        resolutionsFactory.ResolveAsConcurrentStack(),
+        resolutionsFactory.ResolveAsKeyValuePair(),
+        ResolutionsFactory.ResolveAsOptionalOption(),
+        resolutionsFactory.ResolveAsGenericEnumerator(),
+        ResolutionsFactory.ResolveAsObjectEnumerator(),
+        ResolutionsFactory.ResolveAsCollectionWithHeuristics(),
+        ResolutionsFactory.ResolveAsInterfaceImplementationWhere(cachedReturnValueGeneration, proxyGenerator),
+        resolutionsFactory.ResolveAsAbstractClassImplementationWhere(cachedReturnValueGeneration, proxyGenerator),
+        resolutionsFactory.ResolveAsConcreteTypeWithNonConcreteTypesInConstructorSignature(),
+        ResolutionsFactory.ResolveAsVoidTask(),
+        ResolutionsFactory.ResolveAsTypedTask(),
+        resolutionsFactory.ResolveAsConcreteClass()
+      }));
     var limitedGenerationChain = new LimitedGenerationChain(unconstrainedChain);
     var fakeOrdinaryInterfaceGenerator = new FakeOrdinaryInterface(cachedReturnValueGeneration, proxyGenerator);
 
@@ -82,5 +97,35 @@ public static class AllGeneratorFactory
       
     var valueGenerator = new ValueGenerator(fixtureWrapper);
     return valueGenerator;
+  }
+}
+
+public class AutoFixtureChain : IGenerationChain
+{
+  private readonly IGenerationChain _next;
+  private readonly IEnumerable<ISpecimenBuilder> _defaultPrimitiveBuilders;
+
+  public AutoFixtureChain(IGenerationChain next)
+  {
+    //bug enums
+    _next = next;
+    _defaultPrimitiveBuilders = new DefaultPrimitiveBuilders()
+      .Where(b => b is not (TypeGenerator or DelegateGenerator))
+      .Prepend(new EnumGenerator());
+  }
+
+  public object Resolve(InstanceGenerator instanceGenerator, GenerationRequest request, Type type)
+  {
+
+
+    foreach (var defaultPrimitiveBuilder in _defaultPrimitiveBuilders)
+    {
+      var specimen = defaultPrimitiveBuilder.Create(type, new DummyContext());
+      if (specimen is not NoSpecimen)
+      {
+        return specimen;
+      }
+    }
+    return _next.Resolve(instanceGenerator, request, type);
   }
 }
