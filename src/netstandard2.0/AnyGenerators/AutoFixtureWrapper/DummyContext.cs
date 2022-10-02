@@ -1,4 +1,4 @@
-using AutoFixture.Kernel;
+﻿using AutoFixture.Kernel;
 
 namespace TddXt.AnyGenerators.AutoFixtureWrapper;
 

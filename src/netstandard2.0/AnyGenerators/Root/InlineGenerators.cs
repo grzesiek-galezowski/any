@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -23,39 +23,39 @@ public class InlineGenerators
   private static readonly DigitCharGenerator _digitCharGenerator;
   private static readonly ValueConversion<char, char> _lowerCaseAlphaChar;
   private static readonly ValueConversion<char, char> _upperCaseAlphaChar;
-  private static readonly SimpleValueGenerator<char> _simpleValueGenerator;
-  private static readonly SimpleValueGenerator<string> _stringGenerator;
+  private static readonly SimpleInstanceGenerator<char> _simpleValueGenerator;
+  private static readonly SimpleInstanceGenerator<string> _stringGenerator;
   private static readonly ValueConversion<string, string> _lowercaseString;
   private static readonly ValueConversion<string, string> _uppercaseString;
   private static readonly ValueConversion<string, string> _lowercaseAlphaString;
   private static readonly ValueConversion<string, string> _uppercaseAlphaString;
   private static readonly IdentifierStringGenerator _identifierStringGenerator;
   private static readonly ValueConversion<Uri, string> _uriStringGenerator;
-  private static readonly SimpleValueGenerator<Guid> _guid;
-  private static readonly SimpleValueGenerator<Uri> _uriGenerator;
-  private static readonly SimpleValueGenerator<int> _intGenerator;
-  private static readonly SimpleValueGenerator<double> _doubleGenerator;
-  private static readonly SimpleValueGenerator<long> _longGenerator;
-  private static readonly SimpleValueGenerator<ulong> _unsignedLongGenerator;
-  private static readonly SimpleValueGenerator<byte> _byteGenerator;
-  private static readonly SimpleValueGenerator<decimal> _decimalGenerator;
-  private static readonly SimpleValueGenerator<uint> _uintGenerator;
-  private static readonly SimpleValueGenerator<ushort> _ushortGenerator;
-  private static readonly SimpleValueGenerator<short> _shortGenerator;
+  private static readonly SimpleInstanceGenerator<Guid> _guid;
+  private static readonly SimpleInstanceGenerator<Uri> _uriGenerator;
+  private static readonly SimpleInstanceGenerator<int> _intGenerator;
+  private static readonly SimpleInstanceGenerator<double> _doubleGenerator;
+  private static readonly SimpleInstanceGenerator<long> _longGenerator;
+  private static readonly SimpleInstanceGenerator<ulong> _unsignedLongGenerator;
+  private static readonly SimpleInstanceGenerator<byte> _byteGenerator;
+  private static readonly SimpleInstanceGenerator<decimal> _decimalGenerator;
+  private static readonly SimpleInstanceGenerator<uint> _uintGenerator;
+  private static readonly SimpleInstanceGenerator<ushort> _ushortGenerator;
+  private static readonly SimpleInstanceGenerator<short> _shortGenerator;
   private static readonly DigitGenerator _digitGenerator;
   private static readonly PositiveDigitGenerator _positiveDigitGenerator;
   private static readonly IpStringGenerator _ipStringGenerator;
   private static readonly PortNumberGenerator _portNumberGenerator;
   private static readonly SimpleInstanceGenerator<Action> _actionGenerator;
   private static readonly NotStartedTaskGenerator _notStartedTaskGenerator;
-  private static readonly SimpleValueGenerator<IPAddress> _ipAddressGenerator;
-  private static readonly SimpleValueGenerator<DateTime> _dateTimeGenerator;
-  private static readonly SimpleValueGenerator<TimeSpan> _timeSpanGenerator;
-  private static readonly SimpleValueGenerator<bool> _boolGenerator;
-  private static readonly SimpleValueGenerator<object> _objectGenerator;
-  private static readonly SimpleValueGenerator<MethodInfo> _methodInfoGenerator;
-  private static readonly SimpleValueGenerator<Type> _typeGenerator;
-  private static readonly SimpleValueGenerator<Exception> _exceptionGenerator;
+  private static readonly SimpleInstanceGenerator<IPAddress> _ipAddressGenerator;
+  private static readonly SimpleInstanceGenerator<DateTime> _dateTimeGenerator;
+  private static readonly SimpleInstanceGenerator<TimeSpan> _timeSpanGenerator;
+  private static readonly SimpleInstanceGenerator<bool> _boolGenerator;
+  private static readonly SimpleInstanceGenerator<object> _objectGenerator;
+  private static readonly SimpleInstanceGenerator<MethodInfo> _methodInfoGenerator;
+  private static readonly SimpleInstanceGenerator<Type> _typeGenerator;
+  private static readonly SimpleInstanceGenerator<Exception> _exceptionGenerator;
 
   static InlineGenerators()
   {
@@ -63,8 +63,8 @@ public class InlineGenerators
     _digitCharGenerator = new DigitCharGenerator();
     _lowerCaseAlphaChar = _alphaCharGenerator.AsLowerCase();
     _upperCaseAlphaChar = _alphaCharGenerator.AsUpperCase();
-    _simpleValueGenerator = new SimpleValueGenerator<char>();
-    _stringGenerator = new SimpleValueGenerator<string>();
+    _simpleValueGenerator = new SimpleInstanceGenerator<char>();
+    _stringGenerator = new SimpleInstanceGenerator<string>();
     _lowercaseString = new ValueConversion<string, string>(_stringGenerator, s => s.ToLowerInvariant());
     _uppercaseString = new ValueConversion<string, string>(_stringGenerator, s => s.ToUpperInvariant());
     _lowercaseAlphaString = new ValueConversion<string, string>(
@@ -72,32 +72,32 @@ public class InlineGenerators
     _uppercaseAlphaString = new ValueConversion<string, string>(
       AlphaString(System.Guid.NewGuid().ToString().Length), s => s.ToUpperInvariant());
     _identifierStringGenerator = new IdentifierStringGenerator(_digitCharGenerator, _alphaCharGenerator);
-    _uriGenerator = new SimpleValueGenerator<Uri>();
+    _uriGenerator = new SimpleInstanceGenerator<Uri>();
     _uriStringGenerator = new ValueConversion<Uri, string>(_uriGenerator, u => u.ToString());
-    _guid = new SimpleValueGenerator<Guid>();
-    _intGenerator = new SimpleValueGenerator<int>();
-    _doubleGenerator = new SimpleValueGenerator<double>();
-    _longGenerator = new SimpleValueGenerator<long>();
-    _unsignedLongGenerator = new SimpleValueGenerator<ulong>();
-    _byteGenerator = new SimpleValueGenerator<byte>();
-    _decimalGenerator = new SimpleValueGenerator<decimal>();
-    _uintGenerator = new SimpleValueGenerator<uint>();
-    _ushortGenerator = new SimpleValueGenerator<ushort>();
-    _shortGenerator = new SimpleValueGenerator<short>();
+    _guid = new SimpleInstanceGenerator<Guid>();
+    _intGenerator = new SimpleInstanceGenerator<int>();
+    _doubleGenerator = new SimpleInstanceGenerator<double>();
+    _longGenerator = new SimpleInstanceGenerator<long>();
+    _unsignedLongGenerator = new SimpleInstanceGenerator<ulong>();
+    _byteGenerator = new SimpleInstanceGenerator<byte>();
+    _decimalGenerator = new SimpleInstanceGenerator<decimal>();
+    _uintGenerator = new SimpleInstanceGenerator<uint>();
+    _ushortGenerator = new SimpleInstanceGenerator<ushort>();
+    _shortGenerator = new SimpleInstanceGenerator<short>();
     _digitGenerator = new DigitGenerator();
     _positiveDigitGenerator = new PositiveDigitGenerator(_digitGenerator);
     _ipStringGenerator = new IpStringGenerator();
     _portNumberGenerator = new PortNumberGenerator();
     _actionGenerator = new SimpleInstanceGenerator<Action>();
     _notStartedTaskGenerator = new NotStartedTaskGenerator();
-    _ipAddressGenerator = new SimpleValueGenerator<IPAddress>();
-    _dateTimeGenerator = new SimpleValueGenerator<DateTime>();
-    _timeSpanGenerator = new SimpleValueGenerator<TimeSpan>();
-    _boolGenerator = new SimpleValueGenerator<bool>();
-    _objectGenerator = new SimpleValueGenerator<object>();
-    _methodInfoGenerator = new SimpleValueGenerator<MethodInfo>();
-    _typeGenerator = new SimpleValueGenerator<Type>();
-    _exceptionGenerator = new SimpleValueGenerator<Exception>();
+    _ipAddressGenerator = new SimpleInstanceGenerator<IPAddress>();
+    _dateTimeGenerator = new SimpleInstanceGenerator<DateTime>();
+    _timeSpanGenerator = new SimpleInstanceGenerator<TimeSpan>();
+    _boolGenerator = new SimpleInstanceGenerator<bool>();
+    _objectGenerator = new SimpleInstanceGenerator<object>();
+    _methodInfoGenerator = new SimpleInstanceGenerator<MethodInfo>();
+    _typeGenerator = new SimpleInstanceGenerator<Type>();
+    _exceptionGenerator = new SimpleInstanceGenerator<Exception>();
   }
 
   public static InlineGenerator<IEnumerable<T>> EnumerableWith<T>(IEnumerable<T> included)
@@ -362,7 +362,7 @@ public class InlineGenerators
 
   public static InlineGenerator<string> SeededString(string seed)
   {
-    return new SeededValueGenerator<string>(seed);
+    return new SeededStringGenerator(seed);
   }
 
   public static InlineGenerator<string> LowercaseString()

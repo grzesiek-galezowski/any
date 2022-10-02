@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Reflection;
@@ -33,7 +33,7 @@ public class AutoFixtureConfiguration
     wrapper.Register(() => _types.Next());
     wrapper.Register(() => _methodList.Next());
     wrapper.Register(() => new Exception(wrapper.Create<string>(), new Exception(wrapper.Create<string>())));
-    wrapper.Register(
+    wrapper.Register( //bug don't forget about this!
       () =>
         new IPAddress(new[]
           {wrapper.Create<byte>(), wrapper.Create<byte>(), wrapper.Create<byte>(), wrapper.Create<byte>()}));

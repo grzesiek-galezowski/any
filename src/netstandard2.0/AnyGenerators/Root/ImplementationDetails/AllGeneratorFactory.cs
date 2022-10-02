@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using AutoFixture;
-using AutoFixture.Kernel;
-using Castle.DynamicProxy;
+﻿using Castle.DynamicProxy;
 using TddXt.AnyExtensibility;
 using TddXt.AnyGenerators.AutoFixtureWrapper;
 using TddXt.AnyGenerators.Generic;
@@ -46,6 +41,7 @@ public static class AllGeneratorFactory
       new TemporaryChainForCollection(new[]
       {
         ResolutionsFactory.ResolveTheMostSpecificCases(valueGenerator),
+        resolutionsFactory.ResolveAsUri(),
         resolutionsFactory.ResolveAsArray(),
         resolutionsFactory.ResolveAsImmutableArray(),
         resolutionsFactory.ResolveAsSimpleEnumerableAndList(),
@@ -82,7 +78,6 @@ public static class AllGeneratorFactory
     var fakeOrdinaryInterfaceGenerator = new FakeOrdinaryInterface(cachedReturnValueGeneration, proxyGenerator);
 
     var allGenerator = new AllGenerator(
-      valueGenerator, 
       limitedGenerationChain, 
       unconstrainedChain,
       fakeOrdinaryInterfaceGenerator);
@@ -97,35 +92,5 @@ public static class AllGeneratorFactory
       
     var valueGenerator = new ValueGenerator(fixtureWrapper);
     return valueGenerator;
-  }
-}
-
-public class AutoFixtureChain : IGenerationChain
-{
-  private readonly IGenerationChain _next;
-  private readonly IEnumerable<ISpecimenBuilder> _defaultPrimitiveBuilders;
-
-  public AutoFixtureChain(IGenerationChain next)
-  {
-    //bug enums
-    _next = next;
-    _defaultPrimitiveBuilders = new DefaultPrimitiveBuilders()
-      .Where(b => b is not (TypeGenerator or DelegateGenerator))
-      .Prepend(new EnumGenerator());
-  }
-
-  public object Resolve(InstanceGenerator instanceGenerator, GenerationRequest request, Type type)
-  {
-
-
-    foreach (var defaultPrimitiveBuilder in _defaultPrimitiveBuilders)
-    {
-      var specimen = defaultPrimitiveBuilder.Create(type, new DummyContext());
-      if (specimen is not NoSpecimen)
-      {
-        return specimen;
-      }
-    }
-    return _next.Resolve(instanceGenerator, request, type);
   }
 }

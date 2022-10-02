@@ -1,7 +1,11 @@
-﻿using System.Collections.Concurrent;
+﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.Immutable;
+using AutoFixture;
+using AutoFixture.Kernel;
 using Castle.DynamicProxy;
+using TddXt.AnyExtensibility;
 using TddXt.AnyGenerators.Generic.ExtensionPoints;
 using TddXt.TypeResolution;
 using TddXt.TypeResolution.FakeChainElements;
@@ -241,5 +245,10 @@ public class ResolutionsFactory
   public IResolution ResolveAsArray()
   {
     return _specialCasesOfResolutions.CreateResolutionOfArray();
+  }
+
+  public IResolution ResolveAsUri()
+  {
+    return new UriResolution();
   }
 }

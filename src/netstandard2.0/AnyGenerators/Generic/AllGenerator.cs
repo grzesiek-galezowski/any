@@ -17,15 +17,11 @@ public class AllGenerator : CustomizableInstanceGenerator, BasicGenerator
   private readonly IGenerationChain _unconstrainedChain;
   private readonly FakeOrdinaryInterface _fakeOrdinaryInterfaceGenerator;
 
-  [NonSerialized] private readonly ValueGenerator _valueGenerator;
-
   public AllGenerator(
-    ValueGenerator valueGenerator, 
     IGenerationChain generationChain, 
     IGenerationChain unconstrainedChain,
     FakeOrdinaryInterface fakeOrdinaryInterfaceGenerator)
   {
-    _valueGenerator = valueGenerator;
     _generationChain = generationChain;
     _unconstrainedChain = unconstrainedChain;
     _fakeOrdinaryInterfaceGenerator = fakeOrdinaryInterfaceGenerator;
@@ -76,33 +72,6 @@ public class AllGenerator : CustomizableInstanceGenerator, BasicGenerator
     {
       throw new GenerationFailedException(request, e);
     }
-  }
-
-  public T ValueOtherThan<T>(GenerationRequest request, params T[] omittedValues)
-  {
-    return _valueGenerator.ValueOtherThan(this, request, omittedValues);
-  }
-
-  public T Value<T>(GenerationRequest request)
-  {
-    return (T)Value(typeof(T), request);
-  }
-
-  public object Value(Type type, GenerationRequest request)
-  {
-    return _valueGenerator.Value(type, this, request);
-  }
-
-  public T Value<T>(GenerationRequest request, GenerationCustomization[] customizations)
-  {
-    return _valueGenerator.Value<T>(
-      CreateCustomizedInstanceGenerator(), request);
-  }
-
-  public T Value<T>(T seed, GenerationRequest request)
-  {
-    request.Trace.GeneratingSeededValue(typeof(T), seed);
-    return _valueGenerator.Value(this, request, seed);
   }
 
   public object Instance(Type type, GenerationRequest request)

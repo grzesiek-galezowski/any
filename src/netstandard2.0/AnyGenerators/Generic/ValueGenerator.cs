@@ -15,7 +15,7 @@ public class ValueGenerator : IValueGenerator
   {
     _generator = fixtureWrapper;
   }
-
+  
   public T Value<T>(InstanceGenerator gen, GenerationRequest request)
   {
     return WithCustomizations(gen, request, fixture => fixture.Create<T>());

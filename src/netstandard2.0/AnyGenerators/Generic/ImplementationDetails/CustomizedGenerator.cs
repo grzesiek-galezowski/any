@@ -14,26 +14,6 @@ public class CustomizedGenerator : InstanceGenerator
     _inner = inner;
   }
 
-  public T ValueOtherThan<T>(GenerationRequest request, params T[] omittedValues)
-  {
-    return _inner.ValueOtherThan(request, omittedValues);
-  }
-
-  public T Value<T>(GenerationRequest request)
-  {
-    return _inner.Value<T>(request, request.GenerationCustomizations);
-  }
-
-  public object Value(Type type, GenerationRequest request)
-  {
-    return _inner.Value(type, request);
-  }
-
-  public T Value<T>(T seed, GenerationRequest request)
-  {
-    return _inner.Value(seed, request);
-  }
-
   public T OtherThan<T>(params T[] omittedValues)
   {
     return _inner.OtherThan(omittedValues);
