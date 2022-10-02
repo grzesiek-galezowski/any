@@ -317,9 +317,12 @@ public class AnySpecification
     //GIVEN
     var x = Any.Instance<MethodInfo>();
     var y = Any.Instance<MethodInfo>();
+    var z = Any.Instance<ObjectWithMethodInfo>();
 
     //THEN
     Assert.AreNotEqual(x, y);
+    Assert.NotNull(z.Method);
+    Assert.AreNotEqual(y, z.Method);
   }
 
   [Test, Parallelizable]
@@ -914,7 +917,7 @@ public class AnySpecification
         InnerDummyString = "InnerCustomString"
       }));
 
-    anyConcrete.DummyString.Should().Be("DummyStringCustomString"); //autofixture appends to property name
+    anyConcrete.DummyString.Should().Be("CustomString");
     anyConcrete.Inner.InnerDummyInt.Should().Be(123);
     anyConcrete.Inner.InnerDummyString.Should().Be("InnerCustomString");
   }
