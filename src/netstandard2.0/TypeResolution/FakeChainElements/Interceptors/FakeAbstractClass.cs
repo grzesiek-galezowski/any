@@ -4,20 +4,20 @@ using TddXt.AnyExtensibility;
 
 namespace TddXt.TypeResolution.FakeChainElements.Interceptors;
 
-public class FakeAbstractClass : IResolution //bug done
+public class FakeAbstractClass : IResolution
 {
-  private readonly FallbackTypeGenerator _fallbackTypeGenerator;
+  private readonly ObjectGenerator _objectGenerator;
   private readonly CachedReturnValueGeneration _generation;
   private readonly ProxyGenerator _proxyGenerator;
 
   public FakeAbstractClass(
     CachedReturnValueGeneration generation, 
     ProxyGenerator proxyGenerator, 
-    FallbackTypeGenerator fallbackTypeGenerator)
+    ObjectGenerator objectGenerator)
   {
     _generation = generation;
     _proxyGenerator = proxyGenerator;
-    _fallbackTypeGenerator = fallbackTypeGenerator;
+    _objectGenerator = objectGenerator;
   }
 
   public bool AppliesTo(Type type)
@@ -29,10 +29,10 @@ public class FakeAbstractClass : IResolution //bug done
   {
     var result = _proxyGenerator.CreateClassProxy(
       type,
-      _fallbackTypeGenerator.GenerateConstructorParameters(instanceGenerator.Instance, request, type).ToArray(), 
+      _objectGenerator.GenerateConstructorParameters(instanceGenerator.Instance, request, type).ToArray(), 
       new AbstractClassInterceptor(_generation, 
         instanceGenerator.Instance, request));
-    _fallbackTypeGenerator.CustomizeCreatedValue(result, instanceGenerator, request, type);
+    _objectGenerator.CustomizeCreatedValue(result, instanceGenerator, request, type);
       
     return result;
   }

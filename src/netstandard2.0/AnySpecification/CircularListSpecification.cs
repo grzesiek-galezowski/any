@@ -1,5 +1,5 @@
-﻿using TddXt.AnyGenerators.CommonTypes;
-using TddXt.AnyRoot.Numbers;
+﻿using TddXt.AnyRoot.Numbers;
+using TddXt.TypeResolution.CustomCollections;
 using static TddXt.AnyRoot.Root;
 
 namespace AnySpecification;

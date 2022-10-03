@@ -5,11 +5,11 @@ namespace TddXt.TypeResolution.FakeChainElements;
 
 public class FakeConcreteClass : IResolution
 {
-  private readonly FallbackTypeGenerator _fallbackTypeGenerator;
+  private readonly ObjectGenerator _objectGenerator;
 
-  public FakeConcreteClass(FallbackTypeGenerator fallbackTypeGenerator)
+  public FakeConcreteClass(ObjectGenerator objectGenerator)
   {
-    _fallbackTypeGenerator = fallbackTypeGenerator;
+    _objectGenerator = objectGenerator;
   }
 
   public bool AppliesTo(Type type)
@@ -19,6 +19,6 @@ public class FakeConcreteClass : IResolution
 
   public object Apply(InstanceGenerator instanceGenerator, GenerationRequest request, Type type)
   {
-    return _fallbackTypeGenerator.GenerateCustomizedInstance(instanceGenerator, request, type);
+    return _objectGenerator.GenerateCustomizedInstance(instanceGenerator, request, type);
   }
 }

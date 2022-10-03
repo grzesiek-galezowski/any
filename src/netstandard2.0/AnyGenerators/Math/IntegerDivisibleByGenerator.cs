@@ -1,6 +1,6 @@
-using System.Linq;
+﻿using System.Linq;
 using TddXt.AnyExtensibility;
-using TddXt.AnyGenerators.CommonTypes;
+using TddXt.TypeResolution.CustomCollections;
 
 namespace TddXt.AnyGenerators.Math;
 

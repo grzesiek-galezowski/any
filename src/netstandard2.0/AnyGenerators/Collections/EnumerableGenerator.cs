@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using TddXt.AnyExtensibility;
 
 namespace TddXt.AnyGenerators.Collections;

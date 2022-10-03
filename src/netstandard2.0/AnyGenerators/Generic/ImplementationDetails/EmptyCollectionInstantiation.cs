@@ -7,11 +7,11 @@ namespace TddXt.AnyGenerators.Generic.ImplementationDetails;
 
 public class EmptyCollectionInstantiation
 {
-  private readonly FixtureWrapper _fixtureWrapper;
+  private readonly EmptyCollectionFixtureWrapper _fixtureWrapper;
 
   public EmptyCollectionInstantiation()
   {
-    _fixtureWrapper = FixtureWrapper.InstanceForEmptyCollections();
+    _fixtureWrapper = EmptyCollectionFixtureWrapper.InstanceForEmptyCollections();
   }
 
   public object EmptyEnumerableOf(Type collectionItemType)

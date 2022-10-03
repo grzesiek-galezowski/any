@@ -13,6 +13,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using AnySpecification.Fixtures;
 using AnySpecification.GraphComparison;
+using AutoFixture;
 using FluentAssertions;
 using Functional.Maybe;
 using Newtonsoft.Json;
@@ -20,6 +21,7 @@ using NSubstitute;
 using Optional;
 using Optional.Unsafe;
 using TddXt.AnyExtensibility;
+using TddXt.AnyGenerators.AutoFixtureWrapper;
 using TddXt.AnyRoot;
 using TddXt.AnyRoot.Collections;
 using TddXt.AnyRoot.Enums;
@@ -27,6 +29,7 @@ using TddXt.AnyRoot.Invokable;
 using TddXt.AnyRoot.Math;
 using TddXt.AnyRoot.Network;
 using TddXt.AnyRoot.Numbers;
+using TddXt.AnyRoot.Reflection;
 using TddXt.AnyRoot.Strings;
 using TddXt.TypeResolution.FakeChainElements.Interceptors;
 using static TddXt.AnyRoot.Root;
@@ -40,12 +43,9 @@ public class AnySpecification
   [Test, Parallelizable]
   public void ShouldGenerateDifferentIntegerEachTime()
   {
-    //GIVEN
-    var int1 = Any.Integer();
-    var int2 = Any.Integer();
-
-    //THEN
-    Assert.AreNotEqual(int1, int2);
+    Enumerable.Range(1, 1000)
+      .Select(n => Any.Integer())
+      .Should().OnlyHaveUniqueItems();
   }
 
   [Test, Repeat(10)]
@@ -91,27 +91,10 @@ public class AnySpecification
   }
 
   [Test, Parallelizable]
-  public void ShouldGenerateDifferentTypeEachTime()
+  public void ShouldGenerateDifferentTypeEachTimeUpTo13Times()
   {
-    //GIVEN
-    var type1 = Any.Instance<Type>();
-    var type2 = Any.Instance<Type>();
-    var type3 = Any.Instance<Type>();
-
-    //THEN
-    Assert.Multiple(() =>
-    {
-      Assert.NotNull(type1);
-      Assert.NotNull(type2);
-      Assert.NotNull(type3);
-    });
-
-    Assert.Multiple(() =>
-    {
-      Assert.AreNotEqual(type1, type2);
-      Assert.AreNotEqual(type2, type3);
-      Assert.AreNotEqual(type3, type1);
-    });
+    Enumerable.Range(0, 13).Select(_ => Any.Type()).Should().OnlyHaveUniqueItems();
+    Enumerable.Range(0, 13).Select(_ => Any.Instance<Type>()).Should().OnlyHaveUniqueItems();
   }
 
   [Test, Parallelizable]
@@ -733,6 +716,37 @@ public class AnySpecification
     CollectionAssert.Contains(array, 2);
     CollectionAssert.Contains(array, 3);
     Assert.GreaterOrEqual(array.Length, 3);
+  }
+
+  [Test, Parallelizable]
+  public void ShouldSupportCreatingArrays()
+  {
+    Any.Array<int>().Should().HaveCount(3).And.OnlyHaveUniqueItems();
+    Any.Instance<int[]>().Should().HaveCount(3).And.OnlyHaveUniqueItems();
+  }
+
+  [Test, Parallelizable]
+  public void ShouldSupportCreatingLazies()
+  {
+    Any.Instance<Lazy<string>>().Value.Should().NotBeNull();
+  }
+
+  [Test, Parallelizable]
+  public void ShouldSupportCreatingMultidimensionalArrays()
+  {
+    var instance = Any.Instance<string[][]>();
+    instance.Should().NotBeNull();
+    instance.Should().HaveCount(3);
+    instance.Should().OnlyHaveUniqueItems();
+    instance[0].Should().NotBeNull();
+    instance[0].Should().HaveCount(3);
+    instance[0].Should().OnlyHaveUniqueItems();
+    instance[1].Should().NotBeNull();
+    instance[1].Should().HaveCount(3);
+    instance[1].Should().OnlyHaveUniqueItems();
+    instance[2].Should().NotBeNull();
+    instance[2].Should().HaveCount(3);
+    instance[2].Should().OnlyHaveUniqueItems();
   }
 
   [Test, Parallelizable]

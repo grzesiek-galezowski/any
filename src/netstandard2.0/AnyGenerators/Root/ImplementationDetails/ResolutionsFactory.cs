@@ -3,29 +3,26 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using AutoFixture;
-using AutoFixture.Kernel;
 using Castle.DynamicProxy;
-using TddXt.AnyExtensibility;
 using TddXt.AnyGenerators.Generic.ExtensionPoints;
 using TddXt.TypeResolution;
 using TddXt.TypeResolution.FakeChainElements;
 using TddXt.TypeResolution.FakeChainElements.Interceptors;
 using TddXt.TypeResolution.HackedSpecialTypes;
-using TddXt.TypeResolution.Interfaces;
 
 namespace TddXt.AnyGenerators.Root.ImplementationDetails;
 
 public class ResolutionsFactory
 {
   private readonly ISpecialCasesOfResolutions _specialCasesOfResolutions;
-  private readonly FallbackTypeGenerator _fallbackTypeGenerator;
+  private readonly ObjectGenerator _objectGenerator;
 
   public ResolutionsFactory(
     ISpecialCasesOfResolutions specialCasesOfResolutions, 
-    FallbackTypeGenerator fallbackTypeGenerator)
+    ObjectGenerator objectGenerator)
   {
     _specialCasesOfResolutions = specialCasesOfResolutions;
-    _fallbackTypeGenerator = fallbackTypeGenerator;
+    _objectGenerator = objectGenerator;
   }
 
   public static IResolution ResolveAsOptionalOption()
@@ -50,17 +47,17 @@ public class ResolutionsFactory
 
   public IResolution ResolveAsConcreteClass()
   {
-    return new FakeConcreteClass(_fallbackTypeGenerator);
+    return new FakeConcreteClass(_objectGenerator);
   }
 
   public FakeConcreteClassWithNonConcreteConstructor ResolveAsConcreteTypeWithNonConcreteTypesInConstructorSignature()
   {
-    return new FakeConcreteClassWithNonConcreteConstructor(_fallbackTypeGenerator);
+    return new FakeConcreteClassWithNonConcreteConstructor(_objectGenerator);
   }
 
   public FakeAbstractClass ResolveAsAbstractClassImplementationWhere(CachedReturnValueGeneration cachedGeneration, ProxyGenerator proxyGenerator)
   {
-    return new FakeAbstractClass(cachedGeneration, proxyGenerator, _fallbackTypeGenerator);
+    return new FakeAbstractClass(cachedGeneration, proxyGenerator, _objectGenerator);
   }
 
   public static FakeOrdinaryInterface ResolveAsInterfaceImplementationWhere(CachedReturnValueGeneration cachedGeneration, ProxyGenerator proxyGenerator)
@@ -237,10 +234,16 @@ public class ResolutionsFactory
 
   }
 
-  public static FakeSpecialCase ResolveTheMostSpecificCases(IValueGenerator valueGenerator)
+  public static TypeObjectsGenerator ResolveAsType()
   {
-    return new FakeSpecialCase(valueGenerator);
+    return new TypeObjectsGenerator();
   }
+
+  public static IResolution ResolveAsMethodInfo()
+  {
+    return new MethodInfoGenerator();
+  }
+
 
   public IResolution ResolveAsArray()
   {
@@ -250,5 +253,18 @@ public class ResolutionsFactory
   public IResolution ResolveAsUri()
   {
     return new UriResolution();
+  }
+
+  public static ExceptionGenerator ResolveAsException()
+  {
+    return new ExceptionGenerator();
+  }
+
+  public IResolution ResolveAsLazy()
+  {
+    return _specialCasesOfResolutions.CreateResolutionOf1GenericType(
+      nameof(InlineGenerators.Lazy),
+      typeof(Lazy<>));
+
   }
 }

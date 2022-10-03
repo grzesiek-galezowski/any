@@ -5,20 +5,20 @@ namespace TddXt.TypeResolution.FakeChainElements;
 
 public class FakeConcreteClassWithNonConcreteConstructor : IResolution
 {
-  private readonly FallbackTypeGenerator _fallbackTypeGenerator;
+  private readonly ObjectGenerator _objectGenerator;
 
-  public FakeConcreteClassWithNonConcreteConstructor(FallbackTypeGenerator fallbackTypeGenerator)
+  public FakeConcreteClassWithNonConcreteConstructor(ObjectGenerator objectGenerator)
   {
-    _fallbackTypeGenerator = fallbackTypeGenerator;
+    _objectGenerator = objectGenerator;
   }
 
   public bool AppliesTo(Type type)
   {
-    return _fallbackTypeGenerator.ConstructorIsInternalOrHasAtLeastOneNonConcreteArgumentType(type);
+    return _objectGenerator.ConstructorIsInternalOrHasAtLeastOneNonConcreteArgumentType(type);
   }
 
   public object Apply(InstanceGenerator instanceGenerator, GenerationRequest request, Type type)
   {
-    return _fallbackTypeGenerator.GenerateCustomizedInstance(instanceGenerator, request, type);
+    return _objectGenerator.GenerateCustomizedInstance(instanceGenerator, request, type);
   }
 }

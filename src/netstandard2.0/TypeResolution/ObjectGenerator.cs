@@ -5,11 +5,11 @@ using TddXt.TypeReflection;
 
 namespace TddXt.TypeResolution;
 
-public class FallbackTypeGenerator
+public class ObjectGenerator
 {
   private readonly IFallbackGeneratedObjectCustomization[] _customizations;
 
-  public FallbackTypeGenerator(IFallbackGeneratedObjectCustomization[] customizations)
+  public ObjectGenerator(IFallbackGeneratedObjectCustomization[] customizations)
   {
     _customizations = customizations;
   }

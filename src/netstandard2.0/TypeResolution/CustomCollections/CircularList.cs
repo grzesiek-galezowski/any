@@ -1,7 +1,7 @@
-using System;
+﻿using System;
 using System.Threading;
 
-namespace TddXt.AnyGenerators.CommonTypes;
+namespace TddXt.TypeResolution.CustomCollections;
 
 public static class CircularList
 {

@@ -56,7 +56,7 @@ public class InlineGenerators
   private static readonly SimpleInstanceGenerator<MethodInfo> _methodInfoGenerator;
   private static readonly SimpleInstanceGenerator<Type> _typeGenerator;
   private static readonly SimpleInstanceGenerator<Exception> _exceptionGenerator;
-
+  
   static InlineGenerators()
   {
     _alphaCharGenerator = new AlphaCharGenerator();
@@ -742,5 +742,10 @@ public class InlineGenerators
   public static InlineGenerator<ImmutableStack<T>> ImmutableStack<T>()
   {
     return new EnumerableGenerator<T>(Configuration.Many).AsImmutableStack();
+  }
+
+  public static InlineGenerator<Lazy<T>> Lazy<T>()
+  {
+    return new LazyGenerator<T>();
   }
 }
