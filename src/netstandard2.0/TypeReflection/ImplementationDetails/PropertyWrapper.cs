@@ -15,7 +15,8 @@ public class PropertyWrapper : IPropertyWrapper
 
   public bool HasAbstractGetter()
   {
-    return _propertyInfo.GetGetMethod().IsAbstract;
+    var getter = _propertyInfo.GetGetMethod();
+    return getter is not null && getter.IsAbstract;
   }
 
   public Type PropertyType { get { return _propertyInfo.PropertyType; } }

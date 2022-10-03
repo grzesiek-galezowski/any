@@ -25,6 +25,8 @@ public static class AllGeneratorFactory
     var unconstrainedChain = new AutoFixtureChain(
       new TemporaryChainForCollection(new[]
       {
+        resolutionsFactory.ResolveAsNullable(),
+        resolutionsFactory.ResolveAsCultureInfo(),
         resolutionsFactory.ResolveAsLazy(),
         ResolutionsFactory.ResolveAsException(),
         ResolutionsFactory.ResolveAsMethodInfo(),

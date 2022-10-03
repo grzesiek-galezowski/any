@@ -748,4 +748,9 @@ public class InlineGenerators
   {
     return new LazyGenerator<T>();
   }
+
+  public static InlineGenerator<T?> Nullable<T>() where T : struct
+  {
+    return new NullableGenerator<T>();
+  }
 }

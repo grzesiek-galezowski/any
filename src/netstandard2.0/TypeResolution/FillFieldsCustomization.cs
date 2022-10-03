@@ -1,4 +1,5 @@
-using System;
+﻿using System;
+using System.Diagnostics;
 using TddXt.AnyExtensibility;
 using TddXt.TypeReflection.Interfaces;
 
@@ -21,6 +22,10 @@ public class FillFieldsCustomization : IFallbackGeneratedObjectCustomization
       catch (Exception e)
       {
         Console.WriteLine(e.Message);
+        if (Debugger.IsAttached)
+        {
+          Console.WriteLine(e);
+        }
       }
     }
   }

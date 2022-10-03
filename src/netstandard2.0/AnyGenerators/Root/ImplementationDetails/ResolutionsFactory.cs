@@ -2,7 +2,6 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.Immutable;
-using AutoFixture;
 using Castle.DynamicProxy;
 using TddXt.AnyGenerators.Generic.ExtensionPoints;
 using TddXt.TypeResolution;
@@ -266,5 +265,17 @@ public class ResolutionsFactory
       nameof(InlineGenerators.Lazy),
       typeof(Lazy<>));
 
+  }
+
+  public IResolution ResolveAsNullable()
+  {
+    return _specialCasesOfResolutions.CreateResolutionOf1GenericType(
+      nameof(InlineGenerators.Nullable),
+      typeof(Nullable<>));
+  }
+
+  public IResolution ResolveAsCultureInfo()
+  {
+    return new CultureInfoResolution();
   }
 }

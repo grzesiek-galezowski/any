@@ -16,6 +16,5 @@ public class ExceptionGenerator : IResolution
     return new Exception(
       instanceGenerator.Instance<string>(request), 
       new Exception(instanceGenerator.Instance<string>(request)));
-
   }
 }

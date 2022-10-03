@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.Immutable;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -13,7 +14,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using AnySpecification.Fixtures;
 using AnySpecification.GraphComparison;
-using AutoFixture;
 using FluentAssertions;
 using Functional.Maybe;
 using Newtonsoft.Json;
@@ -21,7 +21,6 @@ using NSubstitute;
 using Optional;
 using Optional.Unsafe;
 using TddXt.AnyExtensibility;
-using TddXt.AnyGenerators.AutoFixtureWrapper;
 using TddXt.AnyRoot;
 using TddXt.AnyRoot.Collections;
 using TddXt.AnyRoot.Enums;
@@ -45,6 +44,22 @@ public class AnySpecification
   {
     Enumerable.Range(1, 1000)
       .Select(n => Any.Integer())
+      .Should().OnlyHaveUniqueItems();
+  }
+
+  [Test, Parallelizable]
+  public void ShouldGenerateDifferentInt64EachTime()
+  {
+    Enumerable.Range(1, 1000)
+      .Select(n => Any.Instance<Int64>())
+      .Should().OnlyHaveUniqueItems();
+  }
+
+  [Test, Parallelizable]
+  public void ShouldGenerateDifferentNullableIntegerEachTime()
+  {
+    Enumerable.Range(1, 1000)
+      .Select(n => Any.Instance<int?>())
       .Should().OnlyHaveUniqueItems();
   }
 
@@ -1217,6 +1232,17 @@ public class AnySpecification
 
     Assert.NotNull(o2);
     Assert.AreNotEqual(0, o2.X);
+  }
+
+  [Test, Parallelizable]
+  public void ShouldCreateCultureInfo()
+  {
+    var c1 = Any.Instance<CultureInfo>();
+    var c2 = Any.Instance<CultureInfo>();
+
+    Assert.NotNull(c1);
+    Assert.NotNull(c2);
+    Assert.AreNotEqual(c1, c2);
   }
 
   [Test, Repeat(10)]
