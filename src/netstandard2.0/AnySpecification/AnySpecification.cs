@@ -513,6 +513,15 @@ public class AnySpecification
   public void ShouldGenerateStringsWithoutASpecificSubstring() =>
     Any.StringNotContaining("0").Should().NotContain("0");
 
+  [Test, Repeat(100)]
+  public void ShouldGenerateSeededString()
+  {
+    Any.String("0").Should().StartWith("0");
+    Any.String("0").Length.Should().BeGreaterThan(1);
+    Any.String("0").Should().NotBe(Any.String("0"));
+  }
+
+
   [Test, Parallelizable]
   public void ShouldBeAbleToGenerateBothPrimitiveTypeInstanceAndInterfaceUsingNewInstanceMethod()
   {
