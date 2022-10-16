@@ -10,4 +10,6 @@ public interface GenerationRequest
   T WithNextNestingLevel<T>(
     Func<T> limitNotReachedFunction,
     Func<T> limitReachedFunction);
+
+  GenerationRequest DisableNestingLimit();
 }

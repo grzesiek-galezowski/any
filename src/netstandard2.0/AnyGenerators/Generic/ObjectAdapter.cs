@@ -1,7 +1,7 @@
-using System;
+﻿using System;
 using System.Reflection;
 using TddXt.AnyExtensibility;
-using TddXt.AnyGenerators.Generic.ImplementationDetails;
+using TddXt.TypeReflection;
 
 namespace TddXt.AnyGenerators.Generic;
 

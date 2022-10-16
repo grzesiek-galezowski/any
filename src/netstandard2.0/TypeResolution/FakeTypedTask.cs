@@ -2,10 +2,10 @@
 using System.Linq;
 using System.Threading.Tasks;
 using TddXt.AnyExtensibility;
-using TddXt.AnyGenerators.Generic.ImplementationDetails;
+using TddXt.TypeReflection;
 using TddXt.TypeResolution.FakeChainElements;
 
-namespace TddXt.AnyGenerators.Root.ImplementationDetails;
+namespace TddXt.TypeResolution;
 
 public class FakeTypedTask : IResolution
 {

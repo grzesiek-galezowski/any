@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using TddXt.AnyGenerators.AutoFixtureWrapper;
+using TddXt.TypeReflection;
+using TddXt.TypeResolution.FakeChainElements.DummyChainElements;
 
 namespace TddXt.AnyGenerators.Generic.ImplementationDetails;
 
-public class EmptyCollectionInstantiation
+public class EmptyCollectionInstantiation : IEmptyCollectionInstantiation
 {
   private readonly EmptyCollectionFixtureWrapper _fixtureWrapper;
 

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using TddXt.AnyExtensibility;
 using TddXt.TypeResolution;
 
@@ -11,13 +11,14 @@ public class DefaultGenerationRequest : GenerationRequest
   public GenerationCustomization[] GenerationCustomizations { get; }
   public GenerationTrace Trace { get; }
 
-  public DefaultGenerationRequest(
+  internal DefaultGenerationRequest(
     NestingLimit nestingLimit, 
-    GenerationCustomization[] generationCustomizations)
+    GenerationCustomization[] generationCustomizations, 
+    GenerationTrace trace)
   {
     NestingLimit = nestingLimit;
     GenerationCustomizations = generationCustomizations;
-    Trace = new ListBasedGeneratonTrace();
+    Trace = trace;
   }
 
   public T WithNextNestingLevel<T>(Func<T> limitNotReachedFunction,
@@ -41,10 +42,19 @@ public class DefaultGenerationRequest : GenerationRequest
     }
   }
 
-  public static DefaultGenerationRequest WithDefaultNestingLimit(params GenerationCustomization[] customizations)
+  public static GenerationRequest WithDefaultNestingLimit(params GenerationCustomization[] customizations)
   {
-    return new DefaultGenerationRequest(GlobalNestingLimit.Of(5), customizations);
+    return new DefaultGenerationRequest(
+      GlobalNestingLimit.Of(5), 
+      customizations, 
+      new ListBasedGeneratonTrace());
   }
+
+  public GenerationRequest DisableNestingLimit() 
+    => new DefaultGenerationRequest(
+      new NoNestingLimit(), 
+      GenerationCustomizations, 
+      Trace);
 }
 
 public class DeveloperError : Exception

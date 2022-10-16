@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Reflection;
 
-namespace TddXt.AnyGenerators.Generic.ImplementationDetails;
+namespace TddXt.TypeReflection;
 
 public class GenericMethodProxyCalls
 {

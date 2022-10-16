@@ -3,7 +3,7 @@ using System.Linq;
 using TddXt.AnyExtensibility;
 using TddXt.TypeResolution.FakeChainElements;
 
-namespace TddXt.AnyGenerators.Root.ImplementationDetails;
+namespace TddXt.TypeResolution;
 
 public class ResolutionOfTypeWithGenerics : IResolution
 {

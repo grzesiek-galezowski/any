@@ -1,7 +1,7 @@
 ﻿using System;
 using TddXt.AnyExtensibility;
 
-namespace TddXt.AnyGenerators.Root.ImplementationDetails;
+namespace TddXt.TypeResolution;
 
 public interface FactoryForInstancesOfGenericTypes
 {

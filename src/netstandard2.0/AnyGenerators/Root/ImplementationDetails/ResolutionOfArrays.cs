@@ -4,6 +4,8 @@ using TddXt.TypeResolution.FakeChainElements;
 
 namespace TddXt.AnyGenerators.Root.ImplementationDetails;
 
+//bug cannot be moved (yet) to where other resolutions are due to dependency on
+//bug InlineGenerators
 public class ResolutionOfArrays : IResolution
 {
   public bool AppliesTo(Type type)

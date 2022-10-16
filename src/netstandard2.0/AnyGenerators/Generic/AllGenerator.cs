@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.Serialization;
 using TddXt.AnyExtensibility;
 using TddXt.AnyGenerators.Generic.ImplementationDetails;
-using TddXt.TypeReflection;
 using TddXt.TypeResolution.FakeChainElements;
 
 namespace TddXt.AnyGenerators.Generic;
@@ -13,17 +11,14 @@ namespace TddXt.AnyGenerators.Generic;
 public class AllGenerator : BasicGenerator, InstanceGenerator
 {
   private readonly IGenerationChain _generationChain;
-  private readonly IGenerationChain _unconstrainedChain;
-  private readonly FakeOrdinaryInterface _fakeOrdinaryInterfaceGenerator;
+  private readonly GenereatorsBasedChain _dummyInstanceChain;
 
   public AllGenerator(
     IGenerationChain generationChain, 
-    IGenerationChain unconstrainedChain,
-    FakeOrdinaryInterface fakeOrdinaryInterfaceGenerator)
+    GenereatorsBasedChain dummyInstanceChain)
   {
     _generationChain = generationChain;
-    _unconstrainedChain = unconstrainedChain;
-    _fakeOrdinaryInterfaceGenerator = fakeOrdinaryInterfaceGenerator;
+    _dummyInstanceChain = dummyInstanceChain;
   }
 
   public T Instance<T>()
@@ -80,51 +75,7 @@ public class AllGenerator : BasicGenerator, InstanceGenerator
 
   public object? Dummy(GenerationRequest request, Type type)
   {
-    var smartType = SmartType.For(type);
-
-    if (AppliesTo(type))
-    {
-      return Apply(this, request, type);
-    }
-
-    if (type == typeof(string))
-    {
-      return _unconstrainedChain.Resolve(this, request, type);
-    }
-
-    var emptyCollectionInstantiation = new EmptyCollectionInstantiation();
-    if (smartType.IsImplementationOfOpenGeneric(typeof(IEnumerable<>)))
-    {
-      return emptyCollectionInstantiation.CreateCollectionPassedAsGenericType(type);
-    }
-
-    if (smartType.IsOpenGeneric(typeof(IEnumerable<>)))
-    {
-      return emptyCollectionInstantiation.EmptyEnumerableOf(type.GetCollectionItemType());
-    }
-
-    if (type.IsAbstract)
-    {
-      return default;
-    }
-
-    if (_fakeOrdinaryInterfaceGenerator.AppliesTo(type))
-    {
-      return _fakeOrdinaryInterfaceGenerator.Apply(this, request, type);
-    }
-
-    return FormatterServices.GetUninitializedObject(type);
-  }
-
-  //bug unfinished refactior
-  private object Apply(AllGenerator allGenerator, GenerationRequest request, Type type)
-  {
-    return _unconstrainedChain.Resolve(this, request, type);
-  }
-
-  private static bool AppliesTo(Type type)
-  {
-    return type.IsPrimitive;
+    return _dummyInstanceChain.Resolve(this, request, type);
   }
 
   public T Dummy<T>(GenerationRequest request)
