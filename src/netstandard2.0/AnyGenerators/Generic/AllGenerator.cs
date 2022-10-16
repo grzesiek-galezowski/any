@@ -11,11 +11,11 @@ namespace TddXt.AnyGenerators.Generic;
 public class AllGenerator : BasicGenerator, InstanceGenerator
 {
   private readonly IGenerationChain _generationChain;
-  private readonly GenereatorsBasedChain _dummyInstanceChain;
+  private readonly IGenerationChain _dummyInstanceChain;
 
   public AllGenerator(
     IGenerationChain generationChain, 
-    GenereatorsBasedChain dummyInstanceChain)
+    IGenerationChain dummyInstanceChain)
   {
     _generationChain = generationChain;
     _dummyInstanceChain = dummyInstanceChain;

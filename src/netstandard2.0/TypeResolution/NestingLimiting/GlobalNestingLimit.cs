@@ -1,7 +1,7 @@
 ﻿using System;
 using TddXt.AnyExtensibility;
 
-namespace TddXt.TypeResolution;
+namespace TddXt.TypeResolution.NestingLimiting;
 
 public class GlobalNestingLimit : NestingLimit
 {

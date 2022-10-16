@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
 using TddXt.AnyExtensibility;
-using TddXt.TypeResolution.FakeChainElements;
+using TddXt.TypeResolution.ResolutionOfGenericTypes;
 
-namespace TddXt.TypeResolution;
+namespace TddXt.TypeResolution.FakeChainElements;
 
 public class ResolutionOfTypeWithGenerics : IResolution
 {

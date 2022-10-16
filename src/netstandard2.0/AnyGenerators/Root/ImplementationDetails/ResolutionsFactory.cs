@@ -3,7 +3,6 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using Castle.DynamicProxy;
-using TddXt.AnyGenerators.Generic.ExtensionPoints;
 using TddXt.TypeResolution;
 using TddXt.TypeResolution.FakeChainElements;
 using TddXt.TypeResolution.FakeChainElements.Interceptors;
@@ -11,6 +10,7 @@ using TddXt.TypeResolution.HackedSpecialTypes;
 
 namespace TddXt.AnyGenerators.Root.ImplementationDetails;
 
+//bug It would be great to move this to TypeResolution, bug it depends on inline generators
 public class ResolutionsFactory
 {
   private readonly ISpecialCasesOfResolutions _specialCasesOfResolutions;
@@ -242,7 +242,6 @@ public class ResolutionsFactory
   {
     return new MethodInfoGenerator();
   }
-
 
   public IResolution ResolveAsArray()
   {

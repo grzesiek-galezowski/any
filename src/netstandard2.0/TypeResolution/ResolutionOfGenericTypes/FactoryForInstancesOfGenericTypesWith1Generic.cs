@@ -2,7 +2,7 @@
 using System.Reflection;
 using TddXt.AnyExtensibility;
 
-namespace TddXt.TypeResolution;
+namespace TddXt.TypeResolution.ResolutionOfGenericTypes;
 
 public class FactoryForInstancesOfGenericTypesWith1Generic : FactoryForInstancesOfGenericTypes
 {

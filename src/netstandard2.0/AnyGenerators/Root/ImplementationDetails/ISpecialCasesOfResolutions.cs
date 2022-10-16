@@ -1,7 +1,7 @@
 ﻿using System;
 using TddXt.TypeResolution.FakeChainElements;
 
-namespace TddXt.AnyGenerators.Generic.ExtensionPoints;
+namespace TddXt.AnyGenerators.Root.ImplementationDetails;
 
 public interface ISpecialCasesOfResolutions
 {

@@ -3,9 +3,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using TddXt.AnyExtensibility;
 using TddXt.TypeReflection;
-using TddXt.TypeResolution.FakeChainElements;
 
-namespace TddXt.TypeResolution;
+namespace TddXt.TypeResolution.FakeChainElements;
 
 public class FakeTypedTask : IResolution
 {

@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
 using TddXt.AnyExtensibility;
-using TddXt.TypeResolution.FakeChainElements;
 
-namespace TddXt.TypeResolution;
+namespace TddXt.TypeResolution.FakeChainElements;
 
 public class FakeVoidTask : IResolution
 {

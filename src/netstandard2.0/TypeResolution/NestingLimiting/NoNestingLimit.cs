@@ -1,6 +1,6 @@
 ﻿using TddXt.AnyExtensibility;
 
-namespace TddXt.TypeResolution;
+namespace TddXt.TypeResolution.NestingLimiting;
 
 public class NoNestingLimit : NestingLimit
 {
@@ -15,6 +15,6 @@ public class NoNestingLimit : NestingLimit
 
   public void RemoveNestingFor<T>(GenerationTrace generationTrace)
   {
-    
+
   }
 }

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Linq;
-using Castle.DynamicProxy;
-using Core.Maybe;
+﻿using Castle.DynamicProxy;
 using TddXt.AnyExtensibility;
 using TddXt.AnyGenerators.Generic;
 using TddXt.AnyGenerators.Generic.ImplementationDetails;
@@ -88,23 +85,5 @@ public static class AllGeneratorFactory
       });
     var allGenerator = new AllGenerator(limitedGenerationChain, generatorsBasedChain);
     return allGenerator;
-  }
-}
-
-public class CustomizationSupportingChain : IGenerationChain
-{
-  private readonly IGenerationChain _next;
-
-  public CustomizationSupportingChain(IGenerationChain next)
-  {
-    _next = next;
-  }
-
-  public object Resolve(InstanceGenerator instanceGenerator, GenerationRequest request, Type type)
-  {
-    return request.GenerationCustomizations.Where(c => c.AppliesTo(type)).FirstMaybe()
-      .SelectOrElse(
-        c => c.Generate(type, instanceGenerator, request),
-        () => _next.Resolve(instanceGenerator, request, type));
   }
 }

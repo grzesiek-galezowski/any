@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using TddXt.AnyExtensibility;
-using TddXt.AnyGenerators.Generic.ExtensionPoints;
 using TddXt.TypeResolution;
 using TddXt.TypeResolution.FakeChainElements;
+using TddXt.TypeResolution.ResolutionOfGenericTypes;
 
 namespace TddXt.AnyGenerators.Root.ImplementationDetails;
 
