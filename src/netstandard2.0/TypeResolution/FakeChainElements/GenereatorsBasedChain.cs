@@ -3,11 +3,11 @@ using TddXt.AnyExtensibility;
 
 namespace TddXt.TypeResolution.FakeChainElements;
 
-public class TemporaryChainForCollection : IGenerationChain
+public class GenereatorsBasedChain : IGenerationChain
 {
   private readonly IResolution[] _resolutions;
 
-  public TemporaryChainForCollection(IResolution[] resolutions)
+  public GenereatorsBasedChain(IResolution[] resolutions)
   {
     _resolutions = resolutions;
   }

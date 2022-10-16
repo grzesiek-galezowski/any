@@ -11,9 +11,3 @@ public interface InstanceGenerator
   T Instance<T>(GenerationRequest request);
   object? Dummy(GenerationRequest request, Type type);
 }
-
-public interface CustomizableInstanceGenerator : InstanceGenerator
-{
-  object Instance(Type type, GenerationRequest request, GenerationCustomization[] customizations);
-  T Instance<T>(GenerationRequest request, GenerationCustomization[] customizations);
-}

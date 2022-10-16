@@ -5,13 +5,12 @@ using System.Runtime.Serialization;
 using TddXt.AnyExtensibility;
 using TddXt.AnyGenerators.Generic.ImplementationDetails;
 using TddXt.TypeReflection;
-using TddXt.TypeResolution;
 using TddXt.TypeResolution.FakeChainElements;
 
 namespace TddXt.AnyGenerators.Generic;
 
 [Serializable]
-public class AllGenerator : CustomizableInstanceGenerator, BasicGenerator
+public class AllGenerator : BasicGenerator, InstanceGenerator
 {
   private readonly IGenerationChain _generationChain;
   private readonly IGenerationChain _unconstrainedChain;
@@ -29,7 +28,7 @@ public class AllGenerator : CustomizableInstanceGenerator, BasicGenerator
 
   public T Instance<T>()
   {
-    var request = CreateRequest();
+    var request = DefaultGenerationRequest.WithDefaultNestingLimit();
     try
     {
       request.Trace.BeginCreatingInstanceGraphWith(typeof(T));
@@ -43,11 +42,11 @@ public class AllGenerator : CustomizableInstanceGenerator, BasicGenerator
 
   public T Instance<T>(params GenerationCustomization[] customizations)
   {
-    var request = CreateRequest(customizations);
+    var request = DefaultGenerationRequest.WithDefaultNestingLimit(customizations);
     try
     {
       request.Trace.BeginCreatingInstanceGraphWith(typeof(T));
-      return (T)_generationChain.Resolve(CreateCustomizedInstanceGenerator(), request, typeof(T));
+      return (T)_generationChain.Resolve(this, request, typeof(T));
     }
     catch (Exception e)
     {
@@ -55,14 +54,9 @@ public class AllGenerator : CustomizableInstanceGenerator, BasicGenerator
     }
   }
 
-  private InstanceGenerator CreateCustomizedInstanceGenerator()
-  {
-    return new CustomizedGenerator(this);
-  }
-
   public T InstanceOf<T>(InlineGenerator<T> gen)
   {
-    var request = CreateRequest();
+    var request = DefaultGenerationRequest.WithDefaultNestingLimit();
     try
     {
       request.Trace.BeginCreatingInstanceGraphWithInlineGenerator(typeof(T), gen);
@@ -88,9 +82,9 @@ public class AllGenerator : CustomizableInstanceGenerator, BasicGenerator
   {
     var smartType = SmartType.For(type);
 
-    if (type.IsPrimitive)
+    if (AppliesTo(type))
     {
-      return _unconstrainedChain.Resolve(this, request, type);
+      return Apply(this, request, type);
     }
 
     if (type == typeof(string))
@@ -122,6 +116,17 @@ public class AllGenerator : CustomizableInstanceGenerator, BasicGenerator
     return FormatterServices.GetUninitializedObject(type);
   }
 
+  //bug unfinished refactior
+  private object Apply(AllGenerator allGenerator, GenerationRequest request, Type type)
+  {
+    return _unconstrainedChain.Resolve(this, request, type);
+  }
+
+  private static bool AppliesTo(Type type)
+  {
+    return type.IsPrimitive;
+  }
+
   public T Dummy<T>(GenerationRequest request)
   {
     var dummy = Dummy(request, typeof(T));
@@ -135,7 +140,7 @@ public class AllGenerator : CustomizableInstanceGenerator, BasicGenerator
     
   public T OtherThan<T>(params T[]? omittedValues)
   {
-    return (T)OtherThan(typeof(T), omittedValues?.Cast<object>()?.ToArray(), CreateRequest());
+    return (T)OtherThan(typeof(T), omittedValues?.Cast<object>()?.ToArray(), DefaultGenerationRequest.WithDefaultNestingLimit());
   }
 
   public object OtherThan(Type type, object[] skippedValues, GenerationRequest request)
@@ -159,7 +164,7 @@ public class AllGenerator : CustomizableInstanceGenerator, BasicGenerator
 
   public object Instance(Type type, GenerationRequest request, params GenerationCustomization[] customizations)
   {
-    return _generationChain.Resolve(new CustomizedGenerator(this), request, type);
+    return _generationChain.Resolve(this, request, type);
   }
 
   public T Instance<T>(GenerationRequest request, params GenerationCustomization[] customizations)
@@ -169,7 +174,7 @@ public class AllGenerator : CustomizableInstanceGenerator, BasicGenerator
 
   public T Dummy<T>()
   {
-    var request = CreateRequest();
+    var request = DefaultGenerationRequest.WithDefaultNestingLimit();
     try
     {
       request.Trace.BeginCreatingDummyInstanceOf(typeof(T));
@@ -179,11 +184,6 @@ public class AllGenerator : CustomizableInstanceGenerator, BasicGenerator
     {
       throw new GenerationFailedException(request, e);
     }
-  }
-
-  private static DefaultGenerationRequest CreateRequest(params GenerationCustomization[] customizations)
-  {
-    return new DefaultGenerationRequest(GlobalNestingLimit.Of(5), customizations);
   }
 
   private static bool TryingToSkipAllValuesOf(Type type, IEnumerable<object> skippedValues)

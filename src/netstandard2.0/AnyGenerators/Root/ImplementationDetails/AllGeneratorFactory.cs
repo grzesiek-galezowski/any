@@ -1,4 +1,7 @@
-﻿using Castle.DynamicProxy;
+﻿using System;
+using System.Linq;
+using Castle.DynamicProxy;
+using Core.Maybe;
 using TddXt.AnyExtensibility;
 using TddXt.AnyGenerators.Generic;
 using TddXt.TypeResolution;
@@ -15,62 +18,77 @@ public static class AllGeneratorFactory
     var cachedReturnValueGeneration = new CachedReturnValueGeneration(new PerMethodCache<object>());
     var specialCasesOfResolutions = new SpecialCasesOfResolutions();
     var fallbackTypeGenerator = new ObjectGenerator(
-      new IFallbackGeneratedObjectCustomization[]
-      {
-        new FillPropertiesCustomization(),
-        new FillFieldsCustomization()
-      });
+      new IFallbackGeneratedObjectCustomization[] { new FillPropertiesCustomization(), new FillFieldsCustomization() });
     var resolutionsFactory = new ResolutionsFactory(
       specialCasesOfResolutions, fallbackTypeGenerator);
-    var unconstrainedChain = new AutoFixtureChain(
-      new TemporaryChainForCollection(new[]
-      {
-        resolutionsFactory.ResolveAsNullable(),
-        resolutionsFactory.ResolveAsCultureInfo(),
-        resolutionsFactory.ResolveAsLazy(),
-        ResolutionsFactory.ResolveAsException(),
-        ResolutionsFactory.ResolveAsMethodInfo(),
-        ResolutionsFactory.ResolveAsType(),
-        resolutionsFactory.ResolveAsUri(),
-        resolutionsFactory.ResolveAsArray(),
-        resolutionsFactory.ResolveAsImmutableArray(),
-        resolutionsFactory.ResolveAsSimpleEnumerableAndList(),
-        resolutionsFactory.ResolveAsImmutableList(),
-        resolutionsFactory.ResolveAsSimpleSet(),
-        resolutionsFactory.ResolveAsImmutableHashSet(),
-        resolutionsFactory.ResolveAsImmutableSortedSet(),
-        resolutionsFactory.ResolveAsSimpleDictionary(),
-        resolutionsFactory.ResolveAsImmutableDictionary(),
-        resolutionsFactory.ResolveAsImmutableSortedDictionary(),
-        resolutionsFactory.ResolveAsSortedList(),
-        resolutionsFactory.ResolveAsImmutableQueue(),
-        resolutionsFactory.ResolveAsImmutableStack(),
-        ResolutionsFactory.ResolveAsDelegate(),
-        resolutionsFactory.ResolveAsSortedSet(),
-        resolutionsFactory.ResolveAsSortedDictionary(),
-        resolutionsFactory.ResolveAsConcurrentDictionary(),
-        resolutionsFactory.ResolveAsConcurrentBag(),
-        resolutionsFactory.ResolveAsConcurrentQueue(),
-        resolutionsFactory.ResolveAsConcurrentStack(),
-        resolutionsFactory.ResolveAsKeyValuePair(),
-        ResolutionsFactory.ResolveAsOptionalOption(),
-        resolutionsFactory.ResolveAsGenericEnumerator(),
-        ResolutionsFactory.ResolveAsObjectEnumerator(),
-        ResolutionsFactory.ResolveAsCollectionWithHeuristics(),
-        ResolutionsFactory.ResolveAsInterfaceImplementationWhere(cachedReturnValueGeneration, proxyGenerator),
-        resolutionsFactory.ResolveAsAbstractClassImplementationWhere(cachedReturnValueGeneration, proxyGenerator),
-        resolutionsFactory.ResolveAsConcreteTypeWithNonConcreteTypesInConstructorSignature(),
-        ResolutionsFactory.ResolveAsVoidTask(),
-        ResolutionsFactory.ResolveAsTypedTask(),
-        resolutionsFactory.ResolveAsConcreteClass()
-      }));
+    var unconstrainedChain = new CustomizationSupportingChain(
+      new AutoFixtureChain(
+        new GenereatorsBasedChain(new[]
+        {
+          resolutionsFactory.ResolveAsNullable(),
+          resolutionsFactory.ResolveAsCultureInfo(),
+          resolutionsFactory.ResolveAsLazy(),
+          ResolutionsFactory.ResolveAsException(),
+          ResolutionsFactory.ResolveAsMethodInfo(),
+          ResolutionsFactory.ResolveAsType(),
+          resolutionsFactory.ResolveAsUri(),
+          resolutionsFactory.ResolveAsArray(),
+          resolutionsFactory.ResolveAsImmutableArray(),
+          resolutionsFactory.ResolveAsSimpleEnumerableAndList(),
+          resolutionsFactory.ResolveAsImmutableList(),
+          resolutionsFactory.ResolveAsSimpleSet(),
+          resolutionsFactory.ResolveAsImmutableHashSet(),
+          resolutionsFactory.ResolveAsImmutableSortedSet(),
+          resolutionsFactory.ResolveAsSimpleDictionary(),
+          resolutionsFactory.ResolveAsImmutableDictionary(),
+          resolutionsFactory.ResolveAsImmutableSortedDictionary(),
+          resolutionsFactory.ResolveAsSortedList(),
+          resolutionsFactory.ResolveAsImmutableQueue(),
+          resolutionsFactory.ResolveAsImmutableStack(),
+          ResolutionsFactory.ResolveAsDelegate(),
+          resolutionsFactory.ResolveAsSortedSet(),
+          resolutionsFactory.ResolveAsSortedDictionary(),
+          resolutionsFactory.ResolveAsConcurrentDictionary(),
+          resolutionsFactory.ResolveAsConcurrentBag(),
+          resolutionsFactory.ResolveAsConcurrentQueue(),
+          resolutionsFactory.ResolveAsConcurrentStack(),
+          resolutionsFactory.ResolveAsKeyValuePair(),
+          ResolutionsFactory.ResolveAsOptionalOption(),
+          resolutionsFactory.ResolveAsGenericEnumerator(),
+          ResolutionsFactory.ResolveAsObjectEnumerator(),
+          ResolutionsFactory.ResolveAsCollectionWithHeuristics(),
+          ResolutionsFactory.ResolveAsInterfaceImplementationWhere(cachedReturnValueGeneration, proxyGenerator),
+          resolutionsFactory.ResolveAsAbstractClassImplementationWhere(cachedReturnValueGeneration, proxyGenerator),
+          resolutionsFactory.ResolveAsConcreteTypeWithNonConcreteTypesInConstructorSignature(),
+          ResolutionsFactory.ResolveAsVoidTask(),
+          ResolutionsFactory.ResolveAsTypedTask(),
+          resolutionsFactory.ResolveAsConcreteClass()
+        })));
     var limitedGenerationChain = new LimitedGenerationChain(unconstrainedChain);
     var fakeOrdinaryInterfaceGenerator = new FakeOrdinaryInterface(cachedReturnValueGeneration, proxyGenerator);
 
     var allGenerator = new AllGenerator(
-      limitedGenerationChain, 
+      limitedGenerationChain,
       unconstrainedChain,
       fakeOrdinaryInterfaceGenerator);
     return allGenerator;
+  }
+}
+
+public class CustomizationSupportingChain : IGenerationChain
+{
+  private readonly IGenerationChain _next;
+
+  public CustomizationSupportingChain(IGenerationChain next)
+  {
+    _next = next;
+  }
+
+  public object Resolve(InstanceGenerator instanceGenerator, GenerationRequest request, Type type)
+  {
+    return request.GenerationCustomizations.Where(c => c.AppliesTo(type)).FirstMaybe()
+      .SelectOrElse(
+        c => c.Generate(type, instanceGenerator, request),
+        () => _next.Resolve(instanceGenerator, request, type));
   }
 }

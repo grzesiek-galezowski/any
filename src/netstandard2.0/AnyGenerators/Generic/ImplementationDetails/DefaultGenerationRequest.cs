@@ -1,5 +1,6 @@
 using System;
 using TddXt.AnyExtensibility;
+using TddXt.TypeResolution;
 
 namespace TddXt.AnyGenerators.Generic.ImplementationDetails;
 
@@ -38,6 +39,11 @@ public class DefaultGenerationRequest : GenerationRequest
     {
       NestingLimit.RemoveNestingFor<T>(Trace);
     }
+  }
+
+  public static DefaultGenerationRequest WithDefaultNestingLimit(params GenerationCustomization[] customizations)
+  {
+    return new DefaultGenerationRequest(GlobalNestingLimit.Of(5), customizations);
   }
 }
 
