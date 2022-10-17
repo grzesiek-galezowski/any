@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Linq;
-using Core.Maybe;
 using TddXt.AnyExtensibility;
 using TddXt.TypeResolution.FakeChainElements;
 
@@ -17,9 +15,14 @@ public class CustomizationSupportingChain : IGenerationChain
 
   public object Resolve(InstanceGenerator instanceGenerator, GenerationRequest request, Type type)
   {
-    return request.GenerationCustomizations.Where(c => c.AppliesTo(type)).FirstMaybe()
-      .SelectOrElse(
-        c => c.Generate(type, instanceGenerator, request),
-        () => _next.Resolve(instanceGenerator, request, type));
+    foreach (var customization in request.GenerationCustomizations)
+    {
+      if (customization.AppliesTo(type))
+      {
+        return customization.Generate(type, instanceGenerator, request);
+      }
+    }
+
+    return _next.Resolve(instanceGenerator, request, type);
   }
 }
