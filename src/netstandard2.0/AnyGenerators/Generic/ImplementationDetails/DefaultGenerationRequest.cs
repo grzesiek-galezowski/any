@@ -1,6 +1,5 @@
 ﻿using System;
 using TddXt.AnyExtensibility;
-using TddXt.TypeResolution;
 using TddXt.TypeResolution.NestingLimiting;
 
 namespace TddXt.AnyGenerators.Generic.ImplementationDetails;

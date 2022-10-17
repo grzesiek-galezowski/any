@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using TddXt.AnyExtensibility;
-using TddXt.TypeResolution;
 using TddXt.TypeResolution.FakeChainElements;
 using TddXt.TypeResolution.ResolutionOfGenericTypes;
 
