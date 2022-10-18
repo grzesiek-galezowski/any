@@ -6,8 +6,8 @@ using System.Net;
 using System.Reflection;
 using System.Threading.Tasks;
 using TddXt.AnyExtensibility;
-using TddXt.AnyGenerators.Root.ImplementationDetails;
-using TddXt.AnyGenerators.Root.ImplementationDetails.Network;
+using TddXt.TypeResolution.FakeChainElements.InlineGeneratorTypes;
+using TddXt.TypeResolution.FakeChainElements.InlineGeneratorTypes.Network;
 
 namespace TddXt.AnyGenerators.Root;
 

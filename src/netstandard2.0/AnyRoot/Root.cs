@@ -1,5 +1,5 @@
 ﻿using TddXt.AnyExtensibility;
-using TddXt.AnyGenerators.Root.ImplementationDetails;
+using TddXt.TypeResolution;
 
 namespace TddXt.AnyRoot;
 

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Linq;
 using System.Reflection;
 using Castle.DynamicProxy;
@@ -7,7 +7,7 @@ using TddXt.TypeResolution.CustomCollections;
 
 namespace TddXt.TypeResolution;
 
-public class InterceptedInvocation
+public class InterceptedInvocation : IInterceptedInvocation
 {
   private readonly Func<Type, GenerationRequest, object> _instanceSource;
   private readonly IInvocation _invocation;
@@ -37,7 +37,6 @@ public class InterceptedInvocation
       .Any(prop => prop.GetGetMethod() == _invocation.Method);
   }
 
-
   private PerMethodCacheKey GetPropertyGetterCacheKey()
   {
     var propertyFromSetterCallOrNull =
@@ -55,6 +54,8 @@ public class InterceptedInvocation
 
   public void GenerateAndAddMethodReturnValueTo(PerMethodCache<object> perMethodCache, GenerationRequest request)
   {
+    //bug non-thread safe. Make the cache thread safe and eliminate query methods
+    //bug more like .IfValueDoesNotExist
     var cacheKey = PerMethodCacheKey.For(_invocation);
     if (!perMethodCache.AlreadyContainsValueFor(cacheKey))
     {

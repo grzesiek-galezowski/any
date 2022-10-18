@@ -108,7 +108,8 @@ public class AnySpecification
   [Test, Parallelizable]
   public void ShouldGenerateDifferentTypeEachTimeUpTo13Times()
   {
-    Enumerable.Range(0, 13).Select(_ => Any.Type()).Should().OnlyHaveUniqueItems();
+    Enumerable.Range(0, 13).Select(_ => Any.Type())
+      .Should().NotBeEmpty().And.OnlyHaveUniqueItems();
     Enumerable.Range(0, 13).Select(_ => Any.Instance<Type>()).Should().OnlyHaveUniqueItems();
   }
 

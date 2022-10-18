@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using Castle.DynamicProxy;
 using TddXt.AnyExtensibility;
 using TddXt.TypeResolution.CustomCollections;

@@ -2,7 +2,7 @@
 using System.Linq;
 using TddXt.AnyExtensibility;
 using TddXt.AnyGenerators.Root;
-using TddXt.AnyGenerators.Root.ImplementationDetails.Generic;
+using TddXt.TypeResolution.FakeChainElements.InlineGeneratorTypes.Generic;
 
 namespace TddXt.AnyRoot;
 

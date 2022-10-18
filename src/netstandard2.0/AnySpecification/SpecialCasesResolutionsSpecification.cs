@@ -1,6 +1,6 @@
 ﻿using AnySpecification.Fixtures;
 using TddXt.AnyExtensibility;
-using TddXt.AnyGenerators.Root.ImplementationDetails;
+using TddXt.TypeResolution.FakeChainElements.InlineGeneratorTypes;
 using static TddXt.AnyRoot.Root;
 
 namespace AnySpecification;
