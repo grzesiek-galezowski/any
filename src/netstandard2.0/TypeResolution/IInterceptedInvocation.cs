@@ -8,6 +8,6 @@ public interface IInterceptedInvocation
   bool HasReturnValue();
   bool IsPropertySetter();
   bool IsPropertyGetter();
-  void GenerateAndAddPropertyGetterReturnValueTo(PerMethodCache<object> perMethodCache);
-  void GenerateAndAddMethodReturnValueTo(PerMethodCache<object> perMethodCache, GenerationRequest request);
+  void GenerateAndAddPropertyGetterReturnValueTo(IPerMethodCache<object> perMethodCache);
+  void GenerateAndAddMethodReturnValueTo(IPerMethodCache<object> perMethodCache, GenerationRequest request);
 }

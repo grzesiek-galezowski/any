@@ -835,6 +835,7 @@ public class AnySpecification
     invalidEnumMember5.Should().NotBe(invalidEnumMember6);
     Enum.GetValues<LolEnumByte>().Should().NotContain(invalidEnumMember5);
     Enum.GetValues<LolEnumByte>().Should().NotContain(invalidEnumMember6);
+    Assert.Fail("This fails sometimes in endless churn mode");
   }
 
   [Test, Parallelizable]

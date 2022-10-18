@@ -8,9 +8,9 @@ namespace TddXt.TypeResolution;
 [Serializable]
 public class CachedReturnValueGeneration
 {
-  private readonly PerMethodCache<object> _cache;
+  private readonly IPerMethodCache<object> _cache;
 
-  public CachedReturnValueGeneration(PerMethodCache<object> cache)
+  public CachedReturnValueGeneration(IPerMethodCache<object> cache)
   {
     _cache = cache;
   }

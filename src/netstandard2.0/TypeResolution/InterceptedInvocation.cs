@@ -46,27 +46,17 @@ public class InterceptedInvocation : IInterceptedInvocation
     return key;
   }
 
-  public void GenerateAndAddPropertyGetterReturnValueTo(PerMethodCache<object> perMethodCache)
+  public void GenerateAndAddPropertyGetterReturnValueTo(IPerMethodCache<object> perMethodCache)
   {
     var key = GetPropertyGetterCacheKey();
     perMethodCache.Overwrite(key, _invocation.Arguments[0]);
   }
 
-  public void GenerateAndAddMethodReturnValueTo(PerMethodCache<object> perMethodCache, GenerationRequest request)
+  public void GenerateAndAddMethodReturnValueTo(IPerMethodCache<object> perMethodCache, GenerationRequest request)
   {
-    //bug non-thread safe. Make the cache thread safe and eliminate query methods
-    //bug more like .IfValueDoesNotExist
     var cacheKey = PerMethodCacheKey.For(_invocation);
-    if (!perMethodCache.AlreadyContainsValueFor(cacheKey))
-    {
-      var returnValue = AnyInstanceOfReturnTypeOf(_invocation, request);
-      perMethodCache.Add(cacheKey, returnValue);
-      _invocation.ReturnValue = returnValue;
-    }
-    else
-    {
-      _invocation.ReturnValue = perMethodCache.ValueFor(cacheKey);
-    }
+    perMethodCache.AddIfNoValueFor(cacheKey, () => AnyInstanceOfReturnTypeOf(_invocation, request));
+    _invocation.ReturnValue = perMethodCache.ValueFor(cacheKey);
   }
 
   private object AnyInstanceOfReturnTypeOf(IInvocation invocation, GenerationRequest request)
