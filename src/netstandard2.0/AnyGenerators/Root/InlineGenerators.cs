@@ -2,127 +2,40 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.Immutable;
-using System.Linq;
 using System.Net;
 using System.Reflection;
 using System.Threading.Tasks;
 using TddXt.AnyExtensibility;
-using TddXt.AnyGenerators.Collections;
-using TddXt.AnyGenerators.Generic;
-using TddXt.AnyGenerators.Invokable;
-using TddXt.AnyGenerators.Math;
-using TddXt.AnyGenerators.Network;
-using TddXt.AnyGenerators.Numbers;
-using TddXt.AnyGenerators.Strings;
+using TddXt.AnyGenerators.Root.ImplementationDetails;
+using TddXt.AnyGenerators.Root.ImplementationDetails.Network;
 
 namespace TddXt.AnyGenerators.Root;
 
 public class InlineGenerators
 {
-  private static readonly AlphaCharGenerator _alphaCharGenerator;
-  private static readonly DigitCharGenerator _digitCharGenerator;
-  private static readonly ValueConversion<char, char> _lowerCaseAlphaChar;
-  private static readonly ValueConversion<char, char> _upperCaseAlphaChar;
-  private static readonly SimpleInstanceGenerator<char> _simpleValueGenerator;
-  private static readonly SimpleInstanceGenerator<string> _stringGenerator;
-  private static readonly ValueConversion<string, string> _lowercaseString;
-  private static readonly ValueConversion<string, string> _uppercaseString;
-  private static readonly ValueConversion<string, string> _lowercaseAlphaString;
-  private static readonly ValueConversion<string, string> _uppercaseAlphaString;
-  private static readonly IdentifierStringGenerator _identifierStringGenerator;
-  private static readonly ValueConversion<Uri, string> _uriStringGenerator;
-  private static readonly SimpleInstanceGenerator<Guid> _guid;
-  private static readonly SimpleInstanceGenerator<Uri> _uriGenerator;
-  private static readonly SimpleInstanceGenerator<int> _intGenerator;
-  private static readonly SimpleInstanceGenerator<double> _doubleGenerator;
-  private static readonly SimpleInstanceGenerator<long> _longGenerator;
-  private static readonly SimpleInstanceGenerator<ulong> _unsignedLongGenerator;
-  private static readonly SimpleInstanceGenerator<byte> _byteGenerator;
-  private static readonly SimpleInstanceGenerator<decimal> _decimalGenerator;
-  private static readonly SimpleInstanceGenerator<uint> _uintGenerator;
-  private static readonly SimpleInstanceGenerator<ushort> _ushortGenerator;
-  private static readonly SimpleInstanceGenerator<short> _shortGenerator;
-  private static readonly DigitGenerator _digitGenerator;
-  private static readonly PositiveDigitGenerator _positiveDigitGenerator;
-  private static readonly IpStringGenerator _ipStringGenerator;
-  private static readonly PortNumberGenerator _portNumberGenerator;
-  private static readonly SimpleInstanceGenerator<Action> _actionGenerator;
-  private static readonly NotStartedTaskGenerator _notStartedTaskGenerator;
-  private static readonly SimpleInstanceGenerator<IPAddress> _ipAddressGenerator;
-  private static readonly SimpleInstanceGenerator<DateTime> _dateTimeGenerator;
-  private static readonly SimpleInstanceGenerator<TimeSpan> _timeSpanGenerator;
-  private static readonly SimpleInstanceGenerator<bool> _boolGenerator;
-  private static readonly SimpleInstanceGenerator<object> _objectGenerator;
-  private static readonly SimpleInstanceGenerator<MethodInfo> _methodInfoGenerator;
-  private static readonly SimpleInstanceGenerator<Type> _typeGenerator;
-  private static readonly SimpleInstanceGenerator<Exception> _exceptionGenerator;
-  
-  static InlineGenerators()
-  {
-    _alphaCharGenerator = new AlphaCharGenerator();
-    _digitCharGenerator = new DigitCharGenerator();
-    _lowerCaseAlphaChar = _alphaCharGenerator.AsLowerCase();
-    _upperCaseAlphaChar = _alphaCharGenerator.AsUpperCase();
-    _simpleValueGenerator = new SimpleInstanceGenerator<char>();
-    _stringGenerator = new SimpleInstanceGenerator<string>();
-    _lowercaseString = new ValueConversion<string, string>(_stringGenerator, s => s.ToLowerInvariant());
-    _uppercaseString = new ValueConversion<string, string>(_stringGenerator, s => s.ToUpperInvariant());
-    _lowercaseAlphaString = new ValueConversion<string, string>(
-      AlphaString(System.Guid.NewGuid().ToString().Length), s => s.ToLowerInvariant());
-    _uppercaseAlphaString = new ValueConversion<string, string>(
-      AlphaString(System.Guid.NewGuid().ToString().Length), s => s.ToUpperInvariant());
-    _identifierStringGenerator = new IdentifierStringGenerator(_digitCharGenerator, _alphaCharGenerator);
-    _uriGenerator = new SimpleInstanceGenerator<Uri>();
-    _uriStringGenerator = new ValueConversion<Uri, string>(_uriGenerator, u => u.ToString());
-    _guid = new SimpleInstanceGenerator<Guid>();
-    _intGenerator = new SimpleInstanceGenerator<int>();
-    _doubleGenerator = new SimpleInstanceGenerator<double>();
-    _longGenerator = new SimpleInstanceGenerator<long>();
-    _unsignedLongGenerator = new SimpleInstanceGenerator<ulong>();
-    _byteGenerator = new SimpleInstanceGenerator<byte>();
-    _decimalGenerator = new SimpleInstanceGenerator<decimal>();
-    _uintGenerator = new SimpleInstanceGenerator<uint>();
-    _ushortGenerator = new SimpleInstanceGenerator<ushort>();
-    _shortGenerator = new SimpleInstanceGenerator<short>();
-    _digitGenerator = new DigitGenerator();
-    _positiveDigitGenerator = new PositiveDigitGenerator(_digitGenerator);
-    _ipStringGenerator = new IpStringGenerator();
-    _portNumberGenerator = new PortNumberGenerator();
-    _actionGenerator = new SimpleInstanceGenerator<Action>();
-    _notStartedTaskGenerator = new NotStartedTaskGenerator();
-    _ipAddressGenerator = new SimpleInstanceGenerator<IPAddress>();
-    _dateTimeGenerator = new SimpleInstanceGenerator<DateTime>();
-    _timeSpanGenerator = new SimpleInstanceGenerator<TimeSpan>();
-    _boolGenerator = new SimpleInstanceGenerator<bool>();
-    _objectGenerator = new SimpleInstanceGenerator<object>();
-    _methodInfoGenerator = new SimpleInstanceGenerator<MethodInfo>();
-    _typeGenerator = new SimpleInstanceGenerator<Type>();
-    _exceptionGenerator = new SimpleInstanceGenerator<Exception>();
-  }
-
   public static InlineGenerator<IEnumerable<T>> EnumerableWith<T>(IEnumerable<T> included)
   {
-    return new InclusiveEnumerableGenerator<T>(included);
+    return InternalInlineGenerators.EnumerableWith(included);
   }
 
   public static InlineGenerator<IEnumerable<T>> Enumerable<T>()
   {
-    return new EnumerableGenerator<T>(Configuration.Many);
+    return InternalInlineGenerators.Enumerable<T>();
   }
 
   public static InlineGenerator<IEnumerable<T>> Enumerable<T>(int length)
   {
-    return new EnumerableGenerator<T>(length);
+    return InternalInlineGenerators.Enumerable<T>(length);
   }
 
   public static InlineGenerator<IEnumerable<T>> EnumerableWithout<T>(T[] excluded)
   {
-    return new ExclusiveEnumerableGenerator<T>(excluded, Configuration.Many);
+    return InternalInlineGenerators.EnumerableWithout(excluded);
   }
 
   public static InlineGenerator<T[]> Array<T>(int length)
   {
-    return new EnumerableGenerator<T>(length).AsArray();
+    return InternalInlineGenerators.Array<T>(length);
   }
 
   // Used by reflection
@@ -130,22 +43,22 @@ public class InlineGenerators
   // ReSharper disable once UnusedMember.Global
   public static InlineGenerator<T[]> Array<T>()
   {
-    return new EnumerableGenerator<T>(Configuration.Many).AsArray();
+    return InternalInlineGenerators.Array<T>();
   }
 
   public static InlineGenerator<T[]> ArrayWithout<T>(T[] excluded)
   {
-    return EnumerableWithout(excluded).AsArray();
+    return InternalInlineGenerators.ArrayWithout(excluded);
   }
 
   public static InlineGenerator<T[]> ArrayWith<T>(T[] included)
   {
-    return new InclusiveEnumerableGenerator<T>(included).AsArray();
+    return InternalInlineGenerators.ArrayWith(included);
   }
 
   public static InlineGenerator<List<T>> List<T>(int length)
   {
-    return new EnumerableGenerator<T>(length).AsList();
+    return InternalInlineGenerators.List<T>(length);
   }
 
   // Used by reflection
@@ -153,32 +66,32 @@ public class InlineGenerators
   // ReSharper disable once UnusedMember.Global
   public static InlineGenerator<List<T>> List<T>()
   {
-    return new EnumerableGenerator<T>(Configuration.Many).AsList();
+    return InternalInlineGenerators.List<T>();
   }
 
   public static InlineGenerator<List<T>> ListWithout<T>(T[] excluded)
   {
-    return EnumerableWithout(excluded).AsList();
+    return InternalInlineGenerators.ListWithout(excluded);
   }
 
   public static InlineGenerator<List<T>> ListWith<T>(T[] included)
   {
-    return new InclusiveEnumerableGenerator<T>(included).AsList();
+    return InternalInlineGenerators.ListWith(included);
   }
 
   public static InlineGenerator<SortedList<TKey, TValue>> SortedList<TKey, TValue>(int length)
   {
-    return new EnumerableGenerator<KeyValuePair<TKey, TValue>>(length).AsSortedList();
+    return InternalInlineGenerators.SortedList<TKey, TValue>(length);
   }
 
   public static InlineGenerator<SortedList<TKey, TValue>> SortedList<TKey, TValue>()
   {
-    return new EnumerableGenerator<KeyValuePair<TKey, TValue>>(Configuration.Many).AsSortedList();
+    return InternalInlineGenerators.SortedList<TKey, TValue>();
   }
 
   public static InlineGenerator<ISet<T>> Set<T>(int length)
   {
-    return new EnumerableGenerator<T>(length).AsSet();
+    return InternalInlineGenerators.Set<T>(length);
   }
 
   // Used by reflection
@@ -186,12 +99,12 @@ public class InlineGenerators
   // ReSharper disable once UnusedMember.Global
   public static InlineGenerator<ISet<T>> Set<T>()
   {
-    return new EnumerableGenerator<T>(Configuration.Many).AsSet();
+    return InternalInlineGenerators.Set<T>();
   }
 
   public static InlineGenerator<SortedSet<T>> SortedSet<T>(int length)
   {
-    return new EnumerableGenerator<T>(length).AsSortedSet();
+    return InternalInlineGenerators.SortedSet<T>(length);
   }
 
   // Used by reflection
@@ -199,12 +112,12 @@ public class InlineGenerators
   // ReSharper disable once UnusedMember.Global
   public static InlineGenerator<SortedSet<T>> SortedSet<T>()
   {
-    return new EnumerableGenerator<T>(Configuration.Many).AsSortedSet();
+    return InternalInlineGenerators.SortedSet<T>();
   }
 
   public static InlineGenerator<Dictionary<TKey, TValue>> Dictionary<TKey, TValue>(int length)
   {
-    return new EnumerableGenerator<KeyValuePair<TKey, TValue>>(length).AsDictionary();
+    return InternalInlineGenerators.Dictionary<TKey, TValue>(length);
   }
 
   // Used by reflection
@@ -212,12 +125,12 @@ public class InlineGenerators
   // ReSharper disable once UnusedMember.Global
   public static InlineGenerator<IReadOnlyDictionary<TKey, TValue>> ReadOnlyDictionary<TKey, TValue>()
   {
-    return new EnumerableGenerator<KeyValuePair<TKey, TValue>>(Configuration.Many).AsReadOnlyDictionary();
+    return InternalInlineGenerators.ReadOnlyDictionary<TKey, TValue>();
   }
 
   public static InlineGenerator<IReadOnlyDictionary<TKey, TValue>> ReadOnlyDictionary<TKey, TValue>(int length)
   {
-    return new EnumerableGenerator<KeyValuePair<TKey, TValue>>(length).AsReadOnlyDictionary();
+    return InternalInlineGenerators.ReadOnlyDictionary<TKey, TValue>(length);
   }
 
   // Used by reflection
@@ -225,14 +138,13 @@ public class InlineGenerators
   // ReSharper disable once UnusedMember.Global
   public static InlineGenerator<Dictionary<TKey, TValue>> Dictionary<TKey, TValue>()
   {
-    return new EnumerableGenerator<KeyValuePair<TKey, TValue>>(Configuration.Many).AsDictionary();
+    return InternalInlineGenerators.Dictionary<TKey, TValue>();
   }
 
 
   public static InlineGenerator<ConcurrentDictionary<TKey, TValue>> ConcurrentDictionary<TKey, TValue>(int length)
   {
-    return new EnumerableGenerator<KeyValuePair<TKey, TValue>>(length)
-      .AsConcurrentDictionary();
+    return InternalInlineGenerators.ConcurrentDictionary<TKey, TValue>(length);
   }
 
   // Used by reflection
@@ -240,13 +152,12 @@ public class InlineGenerators
   // ReSharper disable once UnusedMember.Global
   public static InlineGenerator<ConcurrentDictionary<TKey, TValue>> ConcurrentDictionary<TKey, TValue>()
   {
-    return new EnumerableGenerator<KeyValuePair<TKey, TValue>>(Configuration.Many)
-      .AsConcurrentDictionary();
+    return InternalInlineGenerators.ConcurrentDictionary<TKey, TValue>();
   }
 
   public static InlineGenerator<ConcurrentStack<T>> ConcurrentStack<T>(int length)
   {
-    return new EnumerableGenerator<T>(length).AsConcurrentStack();
+    return InternalInlineGenerators.ConcurrentStack<T>(length);
   }
 
   // Used by reflection
@@ -254,12 +165,12 @@ public class InlineGenerators
   // ReSharper disable once UnusedMember.Global
   public static InlineGenerator<ConcurrentStack<T>> ConcurrentStack<T>()
   {
-    return new EnumerableGenerator<T>(Configuration.Many).AsConcurrentStack();
+    return InternalInlineGenerators.ConcurrentStack<T>();
   }
 
   public static InlineGenerator<ConcurrentQueue<T>> ConcurrentQueue<T>(int length)
   {
-    return new EnumerableGenerator<T>(length).AsConcurrentQueue();
+    return InternalInlineGenerators.ConcurrentQueue<T>(length);
   }
 
   // Used by reflection
@@ -267,13 +178,12 @@ public class InlineGenerators
   // ReSharper disable once UnusedMember.Global
   public static InlineGenerator<ConcurrentQueue<T>> ConcurrentQueue<T>()
   {
-    return new EnumerableGenerator<T>(Configuration.Many).AsConcurrentQueue();
+    return InternalInlineGenerators.ConcurrentQueue<T>();
   }
 
   public static InlineGenerator<SortedDictionary<TKey, TValue>> SortedDictionary<TKey,TValue>(int length)
   {
-    return new EnumerableGenerator<KeyValuePair<TKey, TValue>>(length)
-      .AsSortedDictionary();
+    return InternalInlineGenerators.SortedDictionary<TKey, TValue>(length);
   }
 
   // Used by reflection
@@ -281,403 +191,397 @@ public class InlineGenerators
   // ReSharper disable once UnusedMember.Global
   public static InlineGenerator<SortedDictionary<TKey, TValue>> SortedDictionary<TKey,TValue>()
   {
-    return new EnumerableGenerator<KeyValuePair<TKey, TValue>>(Configuration.Many)
-      .AsSortedDictionary();
+    return InternalInlineGenerators.SortedDictionary<TKey, TValue>();
   }
 
   public static InlineGenerator<ConcurrentBag<T>> ConcurrentBag<T>(int length)
   {
-    return new EnumerableGenerator<T>(length).AsConcurrentBag();
+    return InternalInlineGenerators.ConcurrentBag<T>(length);
   }
 
   public static InlineGenerator<ConcurrentBag<T>> ConcurrentBag<T>()
   {
-    return new EnumerableGenerator<T>(Configuration.Many).AsConcurrentBag();
+    return InternalInlineGenerators.ConcurrentBag<T>();
   }
 
   public static InlineGenerator<IEnumerator<T>> Enumerator<T>()
   {
-    return new EnumeratorGenerator<T>();
+    return InternalInlineGenerators.Enumerator<T>();
   }
 
   public static InlineGenerator<object> GetByNameAndType(string methodName, Type type)
   {
-    return ObjectAdapter.For<InlineGenerators>(methodName, type);
+    return InternalInlineGenerators.GetByNameAndType(methodName, type);
   }
 
   public static InlineGenerator<object> GetByNameAndTypes(string methodName, Type type1, Type type2)
   {
-    return ObjectAdapter.For<InlineGenerators>(methodName, type1, type2);
+    return InternalInlineGenerators.GetByNameAndTypes(methodName, type1, type2);
   }
 
   public static InlineGenerator<T> From<T>(T[] possibleValues)
   {
-    return new GeneratorByPickingFromSpecifiedSetOfValues<T>(possibleValues);
+    return InternalInlineGenerators.From(possibleValues);
   }
 
   public static InlineGenerator<Dictionary<TKey, TValue>> DictionaryWithKeys<TKey, TValue>(IEnumerable<TKey> keys)
   {
-    return new DictionaryWithKeysGenerator<TKey, TValue>(keys);
+    return InternalInlineGenerators.DictionaryWithKeys<TKey, TValue>(keys);
   }
 
   public static InlineGenerator<KeyValuePair<TKey, TValue>> KeyValuePair<TKey, TValue>()
   {
-    return new KeyValuePairGenerator<TKey, TValue>();
+    return InternalInlineGenerators.KeyValuePair<TKey, TValue>();
   }
 
   public static InlineGenerator<char> AlphaChar()
   {
-    return _alphaCharGenerator;
+    return InternalInlineGenerators.AlphaChar();
   }
 
   public static InlineGenerator<char> DigitChar()
   {
-    return _digitCharGenerator;
+    return InternalInlineGenerators.DigitChar();
   }
 
   public static InlineGenerator<char> LowerCaseAlphaChar()
   {
-    return _lowerCaseAlphaChar;
+    return InternalInlineGenerators.LowerCaseAlphaChar();
   }
 
   public static InlineGenerator<char> UpperCaseAlphaChar()
   {
-    return _upperCaseAlphaChar;
+    return InternalInlineGenerators.UpperCaseAlphaChar();
   }
 
   public static InlineGenerator<char> Char()
   {
-    return _simpleValueGenerator;
+    return InternalInlineGenerators.Char();
   }
 
   public static InlineGenerator<string> NumericString(int digitsCount)
   {
-    return new StringMatchingRegexGenerator("[1-9][0-9]{" + (digitsCount - 1) + "}");
+    return InternalInlineGenerators.NumericString(digitsCount);
   }
 
   public static InlineGenerator<string> String()
   {
-    return _stringGenerator;
+    return InternalInlineGenerators.String();
   }
 
   public static InlineGenerator<string> SeededString(string seed)
   {
-    return new SeededStringGenerator(seed);
+    return InternalInlineGenerators.SeededString(seed);
   }
 
   public static InlineGenerator<string> LowercaseString()
   {
-    return _lowercaseString;
+    return InternalInlineGenerators.LowercaseString();
   }
 
   public static InlineGenerator<string> UppercaseString()
   {
-    return _uppercaseString;
+    return InternalInlineGenerators.UppercaseString();
   }
 
   public static InlineGenerator<string> StringMatching(string pattern)
   {
-    return new StringMatchingRegexGenerator(pattern);
+    return InternalInlineGenerators.StringMatching(pattern);
   }
 
   public static InlineGenerator<string> AlphaString(int length)
   {
-    return new StringFromCharsGenerator(length, AlphaChar());
+    return InternalInlineGenerators.AlphaString(length);
   }
 
   public static InlineGenerator<string> LowercaseAlphaString()
   {
-    return _lowercaseAlphaString;
+    return InternalInlineGenerators.LowercaseAlphaString();
   }
 
   public static InlineGenerator<string> UppercaseAlphaString()
   {
-    return _uppercaseAlphaString;
+    return InternalInlineGenerators.UppercaseAlphaString();
   }
 
   public static InlineGenerator<string> String(int length)
   {
-    return new StringOfLengthGenerator(length, String());
+    return InternalInlineGenerators.String(length);
   }
 
   public static InlineGenerator<string> Identifier()
   {
-    return _identifierStringGenerator;
+    return InternalInlineGenerators.Identifier();
   }
 
   public static InlineGenerator<string> UrlString()
   {
-    return _uriStringGenerator;
+    return InternalInlineGenerators.UrlString();
   }
 
   public static InlineGenerator<string> StringNotContaining(string[] excludedSubstrings)
   {
-    return new StringNotContainingGenerator(excludedSubstrings, String());
+    return InternalInlineGenerators.StringNotContaining(excludedSubstrings);
   }
 
   public static InlineGenerator<string> StringNotContaining<T>(T[] excludedObjects)
   {
-    return StringNotContaining((from obj in new[] {new[] {excludedObjects}} select obj.ToString()).ToArray());
+    return InternalInlineGenerators.StringNotContaining(excludedObjects);
   }
 
   public static InlineGenerator<T> ValueOtherThan<T>(T[] excluded)
   {
-    return new SimpleValueOtherThanGenerator<T>(excluded);
+    return InternalInlineGenerators.ValueOtherThan(excluded);
   }
 
   public static InlineGenerator<string> StringContaining(string str)
   {
-    return new AggregatingGenerator<string>(
-      string.Empty, 
-      (current, next) => current + next, 
-      _stringGenerator, 
-      new FixedValueGenerator<string>(str), 
-      _stringGenerator);
+    return InternalInlineGenerators.StringContaining(str);
   }
 
   public static InlineGenerator<Guid> Guid()
   {
-    return _guid;
+    return InternalInlineGenerators.Guid();
   }
 
   public static InlineGenerator<Uri> Uri()
   {
-    return _uriGenerator;
+    return InternalInlineGenerators.Uri();
   }
 
   public static InlineGenerator<int> Integer()
   {
-    return _intGenerator;
+    return InternalInlineGenerators.Integer();
   }
 
   public static InlineGenerator<double> Double()
   {
-    return _doubleGenerator;
+    return InternalInlineGenerators.Double();
   }
 
   public static InlineGenerator<long> Long()
   {
-    return _longGenerator;
+    return InternalInlineGenerators.Long();
   }
 
   public static InlineGenerator<ulong> UnsignedLong()
   {
-    return _unsignedLongGenerator;
+    return InternalInlineGenerators.UnsignedLong();
   }
 
   public static InlineGenerator<byte> Byte()
   {
-    return _byteGenerator;
+    return InternalInlineGenerators.Byte();
   }
 
   public static InlineGenerator<decimal> Decimal()
   {
-    return _decimalGenerator;
+    return InternalInlineGenerators.Decimal();
   }
 
   public static InlineGenerator<uint> UnsignedInt()
   {
-    return _uintGenerator;
+    return InternalInlineGenerators.UnsignedInt();
   }
 
   public static InlineGenerator<ushort> UnsignedShort()
   {
-    return _ushortGenerator;
+    return InternalInlineGenerators.UnsignedShort();
   }
 
   public static InlineGenerator<short> Short()
   {
-    return _shortGenerator;
+    return InternalInlineGenerators.Short();
   }
 
   public static InlineGenerator<int> IntegerFromSequence(int startingValue, int step)
   {
-    return new IntegerFromSequenceGenerator(startingValue, step, Integer());
+    return InternalInlineGenerators.IntegerFromSequence(startingValue, step);
   }
 
   public static InlineGenerator<byte> Digit()
   {
-    return _digitGenerator;
+    return InternalInlineGenerators.Digit();
   }
 
   public static InlineGenerator<byte> PositiveDigit()
   {
-    return _positiveDigitGenerator;
+    return InternalInlineGenerators.PositiveDigit();
   }
 
   public static InlineGenerator<int> IntegerDivisibleBy(int quotient)
   {
-    return new IntegerDivisibleByGenerator(quotient);
+    return InternalInlineGenerators.IntegerDivisibleBy(quotient);
   }
 
   public static InlineGenerator<int> IntegerNotDivisibleBy(int quotient)
   {
-    return new IntegerNotDivisibleByGenerator(quotient);
+    return InternalInlineGenerators.IntegerNotDivisibleBy(quotient);
   }
 
   public static InlineGenerator<int> IntegerWithExactDigitCount(int digitsCount)
   {
-    return new NumberWithExactDigitNumberGenerator<int>(NumericTraits.Integer(), digitsCount);
+    return InternalInlineGenerators.IntegerWithExactDigitCount(digitsCount);
   }
 
   public static InlineGenerator<long> LongWithExactDigitCount(int digitsCount)
   {
-    return new NumberWithExactDigitNumberGenerator<long>(NumericTraits.Long(), digitsCount);
+    return InternalInlineGenerators.LongWithExactDigitCount(digitsCount);
   }
 
   public static InlineGenerator<uint> UnsignedIntWithExactDigitCount(int digitsCount)
   {
-    return new NumberWithExactDigitNumberGenerator<uint>(NumericTraits.UnsignedInteger(), digitsCount);
+    return InternalInlineGenerators.UnsignedIntWithExactDigitCount(digitsCount);
   }
 
   public static InlineGenerator<ulong> UnsignedLongWithExactDigitCount(int digitsCount)
   {
-    return new NumberWithExactDigitNumberGenerator<ulong>(NumericTraits.UnsignedLong(), digitsCount);
+    return InternalInlineGenerators.UnsignedLongWithExactDigitCount(digitsCount);
   }
 
   public static InlineGenerator<string> IpString()
   {
-    return _ipStringGenerator;
+    return InternalInlineGenerators.IpString();
   }
 
   public static PortNumberGenerator Port()
   {
-    return _portNumberGenerator;
+    return InternalInlineGenerators.Port();
   }
 
   public static InlineGenerator<Func<T>> Func<T>()
   {
-    return new SimpleInstanceGenerator<Func<T>>();
+    return InternalInlineGenerators.Func<T>();
   }
 
   public static InlineGenerator<Func<T1, T2>> Func<T1, T2>()
   {
-    return new SimpleInstanceGenerator<Func<T1, T2>>();
+    return InternalInlineGenerators.Func<T1, T2>();
   }
 
   public static InlineGenerator<Func<T1, T2, T3>> Func<T1, T2, T3>()
   {
-    return new SimpleInstanceGenerator<Func<T1, T2, T3>>();
+    return InternalInlineGenerators.Func<T1, T2, T3>();
   }
 
   public static InlineGenerator<Func<T1, T2, T3, T4>> Func<T1, T2, T3, T4>()
   {
-    return new SimpleInstanceGenerator<Func<T1, T2, T3, T4>>();
+    return InternalInlineGenerators.Func<T1, T2, T3, T4>();
   }
 
   public static InlineGenerator<Func<T1, T2, T3, T4, T5>> Func<T1, T2, T3, T4, T5>()
   {
-    return new SimpleInstanceGenerator<Func<T1, T2, T3, T4, T5>>();
+    return InternalInlineGenerators.Func<T1, T2, T3, T4, T5>();
   }
 
   public static InlineGenerator<Func<T1, T2, T3, T4, T5, T6>> Func<T1, T2, T3, T4, T5, T6>()
   {
-    return new SimpleInstanceGenerator<Func<T1, T2, T3, T4, T5, T6>>();
+    return InternalInlineGenerators.Func<T1, T2, T3, T4, T5, T6>();
   }
 
   public static InlineGenerator<Action> Action()
   {
-    return _actionGenerator;
+    return InternalInlineGenerators.Action();
   }
 
   public static InlineGenerator<Action<T>> Action<T>()
   {
-    return new SimpleInstanceGenerator<Action<T>>();
+    return InternalInlineGenerators.Action<T>();
   }
 
   public static InlineGenerator<Action<T1, T2>> Action<T1, T2>()
   {
-    return new SimpleInstanceGenerator<Action<T1, T2>>();
+    return InternalInlineGenerators.Action<T1, T2>();
   }
 
   public static InlineGenerator<Action<T1, T2, T3>> Action<T1, T2, T3>()
   {
-    return new SimpleInstanceGenerator<Action<T1, T2, T3>>();
+    return InternalInlineGenerators.Action<T1, T2, T3>();
   }
 
   public static InlineGenerator<Action<T1, T2, T3, T4>> Action<T1, T2, T3, T4>()
   {
-    return new SimpleInstanceGenerator<Action<T1, T2, T3, T4>>();
+    return InternalInlineGenerators.Action<T1, T2, T3, T4>();
   }
 
   public static InlineGenerator<Action<T1, T2, T3, T4, T5>> Action<T1, T2, T3, T4, T5>()
   {
-    return new SimpleInstanceGenerator<Action<T1, T2, T3, T4, T5>>();
+    return InternalInlineGenerators.Action<T1, T2, T3, T4, T5>();
   }
 
   public static InlineGenerator<Action<T1, T2, T3, T4, T5, T6>> Action<T1, T2, T3, T4, T5, T6>()
   {
-    return new SimpleInstanceGenerator<Action<T1, T2, T3, T4, T5, T6>>();
+    return InternalInlineGenerators.Action<T1, T2, T3, T4, T5, T6>();
   }
 
   public static InlineGenerator<Task> NotStartedTask()
   {
-    return _notStartedTaskGenerator;
+    return InternalInlineGenerators.NotStartedTask();
   }
 
   public static InlineGenerator<Task<T>> NotStartedTask<T>()
   {
-    return new NotStartedTaskGenerator<T>();
+    return InternalInlineGenerators.NotStartedTask<T>();
   }
 
   public static InlineGenerator<Task<T>> StartedTask<T>()
   {
-    return new StartedTaskGenerator<T>();
+    return InternalInlineGenerators.StartedTask<T>();
   }
 
   public static InlineGenerator<Task> StartedTask()
   {
-    return new StartedTaskGenerator();
+    return InternalInlineGenerators.StartedTask();
   }
 
   public static InlineGenerator<T> Exploding<T>() where T : class
   {
-    return new ExplodingInstanceGenerator<T>();
+    return InternalInlineGenerators.Exploding<T>();
   }
 
   public static InlineGenerator<IPAddress> IpAddress()
   {
-    return _ipAddressGenerator;
+    return InternalInlineGenerators.IpAddress();
   }
 
   public static InlineGenerator<DateTime> DateTime()
   {
-    return _dateTimeGenerator;
+    return InternalInlineGenerators.DateTime();
   }
 
   public static InlineGenerator<TimeSpan> TimeSpan()
   {
-    return _timeSpanGenerator;
+    return InternalInlineGenerators.TimeSpan();
   }
 
   public static InlineGenerator<bool> Boolean()
   {
-    return _boolGenerator;
+    return InternalInlineGenerators.Boolean();
   }
 
   public static InlineGenerator<object> Object()
   {
-    return _objectGenerator;
+    return InternalInlineGenerators.Object();
   }
 
   public static InlineGenerator<MethodInfo> MethodInfo()
   {
-    return _methodInfoGenerator;
+    return InternalInlineGenerators.MethodInfo();
   }
 
   public static InlineGenerator<Type> Type()
   {
-    return _typeGenerator;
+    return InternalInlineGenerators.Type();
   }
 
   public static InlineGenerator<Exception> Exception()
   {
-    return _exceptionGenerator;
+    return InternalInlineGenerators.Exception();
   }
 
   public static InlineGenerator<T> OtherThan<T>(T[] omittedValues)
   {
-    return new SimpleInstanceOtherThanGenerator<T>(omittedValues);
+    return InternalInlineGenerators.OtherThan(omittedValues);
   }
 
   // Used by reflection
@@ -685,7 +589,7 @@ public class InlineGenerators
   // ReSharper disable once UnusedMember.Global
   public static InlineGenerator<ImmutableArray<T>> ImmutableArray<T>()
   {
-    return new EnumerableGenerator<T>(Configuration.Many).AsImmutableArray();
+    return InternalInlineGenerators.ImmutableArray<T>();
   }
 
   // Used by reflection
@@ -693,7 +597,7 @@ public class InlineGenerators
   // ReSharper disable once UnusedMember.Global
   public static InlineGenerator<ImmutableList<T>> ImmutableList<T>()
   {
-    return new EnumerableGenerator<T>(Configuration.Many).AsImmutableList();
+    return InternalInlineGenerators.ImmutableList<T>();
   }
 
   // Used by reflection
@@ -701,7 +605,7 @@ public class InlineGenerators
   // ReSharper disable once UnusedMember.Global
   public static InlineGenerator<ImmutableHashSet<T>> ImmutableHashSet<T>()
   {
-    return new EnumerableGenerator<T>(Configuration.Many).AsImmutableHashSet();
+    return InternalInlineGenerators.ImmutableHashSet<T>();
   }
     
   // Used by reflection
@@ -709,7 +613,7 @@ public class InlineGenerators
   // ReSharper disable once UnusedMember.Global
   public static InlineGenerator<ImmutableSortedSet<T>> ImmutableSortedSet<T>()
   {
-    return new EnumerableGenerator<T>(Configuration.Many).AsImmutableSortedSet();
+    return InternalInlineGenerators.ImmutableSortedSet<T>();
   }
 
   // Used by reflection
@@ -717,7 +621,7 @@ public class InlineGenerators
   // ReSharper disable once UnusedMember.Global
   public static InlineGenerator<ImmutableDictionary<T1, T2>> ImmutableDictionary<T1, T2>()
   {
-    return new EnumerableGenerator<KeyValuePair<T1, T2>>(Configuration.Many).AsImmutableDictionary();
+    return InternalInlineGenerators.ImmutableDictionary<T1, T2>();
   }
 
   // Used by reflection
@@ -725,7 +629,7 @@ public class InlineGenerators
   // ReSharper disable once UnusedMember.Global
   public static InlineGenerator<ImmutableSortedDictionary<T1, T2>> ImmutableSortedDictionary<T1, T2>()
   {
-    return new EnumerableGenerator<KeyValuePair<T1, T2>>(Configuration.Many).AsImmutableSortedDictionary();
+    return InternalInlineGenerators.ImmutableSortedDictionary<T1, T2>();
   }
 
   // Used by reflection
@@ -733,7 +637,7 @@ public class InlineGenerators
   // ReSharper disable once UnusedMember.Global
   public static InlineGenerator<ImmutableQueue<T>> ImmutableQueue<T>()
   {
-    return new EnumerableGenerator<T>(Configuration.Many).AsImmutableQueue();
+    return InternalInlineGenerators.ImmutableQueue<T>();
   }
 
   // Used by reflection
@@ -741,16 +645,16 @@ public class InlineGenerators
   // ReSharper disable once UnusedMember.Global
   public static InlineGenerator<ImmutableStack<T>> ImmutableStack<T>()
   {
-    return new EnumerableGenerator<T>(Configuration.Many).AsImmutableStack();
+    return InternalInlineGenerators.ImmutableStack<T>();
   }
 
   public static InlineGenerator<Lazy<T>> Lazy<T>()
   {
-    return new LazyGenerator<T>();
+    return InternalInlineGenerators.Lazy<T>();
   }
 
   public static InlineGenerator<T?> Nullable<T>() where T : struct
   {
-    return new NullableGenerator<T>();
+    return InternalInlineGenerators.Nullable<T>();
   }
 }

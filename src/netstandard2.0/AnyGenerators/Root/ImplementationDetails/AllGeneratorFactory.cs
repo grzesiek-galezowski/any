@@ -1,7 +1,7 @@
 ﻿using Castle.DynamicProxy;
 using TddXt.AnyExtensibility;
-using TddXt.AnyGenerators.Generic;
-using TddXt.AnyGenerators.Generic.ImplementationDetails;
+using TddXt.AnyGenerators.Root.ImplementationDetails.Generic;
+using TddXt.AnyGenerators.Root.ImplementationDetails.Generic.ImplementationDetails;
 using TddXt.TypeResolution;
 using TddXt.TypeResolution.CustomCollections;
 using TddXt.TypeResolution.FakeChainElements;

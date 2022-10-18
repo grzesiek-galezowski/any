@@ -15,9 +15,8 @@ public class ResolutionOfArrays : IResolution
 
   public object Apply(InstanceGenerator instanceGenerator, GenerationRequest request, Type type)
   {
-    //todo think it through - should it need access to InlineGenerators?
     var elementType = type.GetElementType();
-    var array = InlineGenerators.GetByNameAndType(nameof(InlineGenerators.Array), elementType)
+    var array = InternalInlineGenerators.GetByNameAndType(nameof(InternalInlineGenerators.Array), elementType)
       .GenerateInstance(instanceGenerator, request);
     return array;
   }

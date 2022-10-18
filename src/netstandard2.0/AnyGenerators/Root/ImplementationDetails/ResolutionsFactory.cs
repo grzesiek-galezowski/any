@@ -77,7 +77,7 @@ public class ResolutionsFactory
   public IResolution ResolveAsGenericEnumerator()
   {
     return _specialCasesOfResolutions.CreateResolutionOf1GenericType(
-      nameof(InlineGenerators.Enumerator),
+      nameof(InternalInlineGenerators.Enumerator),
       typeof(IEnumerator<>)
     );
   }
@@ -91,21 +91,21 @@ public class ResolutionsFactory
   public IResolution ResolveAsSortedDictionary()
   {
     return _specialCasesOfResolutions.CreateResolutionOf2GenericType(
-      nameof(InlineGenerators.SortedDictionary),
+      nameof(InternalInlineGenerators.SortedDictionary),
       typeof(SortedDictionary<,>));
   }
 
   public IResolution ResolveAsConcurrentStack()
   {
     return _specialCasesOfResolutions.CreateResolutionOf1GenericType(
-      nameof(InlineGenerators.ConcurrentStack),
+      nameof(InternalInlineGenerators.ConcurrentStack),
       typeof(ConcurrentStack<>));
   }
 
   public IResolution ResolveAsConcurrentQueue()
   {
     return _specialCasesOfResolutions.CreateResolutionOf1GenericType(
-      nameof(InlineGenerators.ConcurrentQueue),
+      nameof(InternalInlineGenerators.ConcurrentQueue),
       typeof(ConcurrentQueue<>),
       typeof(IProducerConsumerCollection<>));
   }
@@ -113,35 +113,35 @@ public class ResolutionsFactory
   public IResolution ResolveAsConcurrentBag()
   {
     return _specialCasesOfResolutions.CreateResolutionOf1GenericType(
-      nameof(InlineGenerators.ConcurrentBag),
+      nameof(InternalInlineGenerators.ConcurrentBag),
       typeof(ConcurrentBag<>));
   }
 
   public IResolution ResolveAsConcurrentDictionary()
   {
     return _specialCasesOfResolutions.CreateResolutionOf2GenericType(
-      nameof(InlineGenerators.ConcurrentDictionary),
+      nameof(InternalInlineGenerators.ConcurrentDictionary),
       typeof(ConcurrentDictionary<,>));
   }
 
   public IResolution ResolveAsSortedSet()
   {
     return _specialCasesOfResolutions.CreateResolutionOf1GenericType(
-      nameof(InlineGenerators.SortedSet),
+      nameof(InternalInlineGenerators.SortedSet),
       typeof(SortedSet<>));
   }
 
   public IResolution ResolveAsSortedList()
   {
     return _specialCasesOfResolutions.CreateResolutionOf2GenericType(
-      nameof(InlineGenerators.SortedList),
+      nameof(InternalInlineGenerators.SortedList),
       typeof(SortedList<,>));
   }
 
   public IResolution ResolveAsSimpleDictionary()
   {
     return _specialCasesOfResolutions.CreateResolutionOf2GenericType(
-      nameof(InlineGenerators.Dictionary),
+      nameof(InternalInlineGenerators.Dictionary),
       typeof(IDictionary<,>),
       typeof(IReadOnlyDictionary<,>),
       typeof(Dictionary<,>));
@@ -150,7 +150,7 @@ public class ResolutionsFactory
   public IResolution ResolveAsSimpleSet()
   {
     return _specialCasesOfResolutions.CreateResolutionOf1GenericType(
-      nameof(InlineGenerators.Set),
+      nameof(InternalInlineGenerators.Set),
       typeof(ISet<>),
       typeof(HashSet<>));
   }
@@ -158,7 +158,7 @@ public class ResolutionsFactory
   public IResolution ResolveAsSimpleEnumerableAndList()
   {
     return _specialCasesOfResolutions.CreateResolutionOf1GenericType(
-      nameof(InlineGenerators.List),
+      nameof(InternalInlineGenerators.List),
       typeof(IList<>),
       typeof(IEnumerable<>),
       typeof(ICollection<>),
@@ -169,7 +169,7 @@ public class ResolutionsFactory
   public IResolution ResolveAsImmutableQueue()
   {
     return _specialCasesOfResolutions.CreateResolutionOf1GenericType(
-      nameof(InlineGenerators.ImmutableQueue),
+      nameof(InternalInlineGenerators.ImmutableQueue),
       typeof(ImmutableQueue<>),
       typeof(IImmutableQueue<>)
     );
@@ -178,7 +178,7 @@ public class ResolutionsFactory
   public IResolution ResolveAsImmutableStack()
   {
     return _specialCasesOfResolutions.CreateResolutionOf1GenericType(
-      nameof(InlineGenerators.ImmutableStack),
+      nameof(InternalInlineGenerators.ImmutableStack),
       typeof(ImmutableStack<>),
       typeof(IImmutableStack<>)
     );
@@ -187,7 +187,7 @@ public class ResolutionsFactory
   public IResolution ResolveAsImmutableDictionary()
   {
     return _specialCasesOfResolutions.CreateResolutionOf2GenericType(
-      nameof(InlineGenerators.ImmutableDictionary),
+      nameof(InternalInlineGenerators.ImmutableDictionary),
       typeof(ImmutableDictionary<,>),
       typeof(IImmutableDictionary<,>)
     );
@@ -196,14 +196,14 @@ public class ResolutionsFactory
   public IResolution ResolveAsImmutableSortedDictionary()
   {
     return _specialCasesOfResolutions.CreateResolutionOf2GenericType(
-      nameof(InlineGenerators.ImmutableSortedDictionary),
+      nameof(InternalInlineGenerators.ImmutableSortedDictionary),
       typeof(ImmutableSortedDictionary<,>));
   }
 
   public IResolution ResolveAsImmutableHashSet()
   {
     return _specialCasesOfResolutions.CreateResolutionOf1GenericType(
-      nameof(InlineGenerators.ImmutableHashSet),
+      nameof(InternalInlineGenerators.ImmutableHashSet),
       typeof(ImmutableHashSet<>),
       typeof(IImmutableSet<>)
     );
@@ -212,7 +212,7 @@ public class ResolutionsFactory
   public IResolution ResolveAsImmutableSortedSet()
   {
     return _specialCasesOfResolutions.CreateResolutionOf1GenericType(
-      nameof(InlineGenerators.ImmutableSortedSet),
+      nameof(InternalInlineGenerators.ImmutableSortedSet),
       typeof(ImmutableSortedSet<>)
     );
   }
@@ -220,7 +220,7 @@ public class ResolutionsFactory
   public IResolution ResolveAsImmutableList()
   {
     return _specialCasesOfResolutions.CreateResolutionOf1GenericType(
-      nameof(InlineGenerators.ImmutableList),
+      nameof(InternalInlineGenerators.ImmutableList),
       typeof(ImmutableList<>),
       typeof(IImmutableList<>));
   }
@@ -228,7 +228,7 @@ public class ResolutionsFactory
   public IResolution ResolveAsImmutableArray()
   {
     return _specialCasesOfResolutions.CreateResolutionOf1GenericType(
-      nameof(InlineGenerators.ImmutableArray),
+      nameof(InternalInlineGenerators.ImmutableArray),
       typeof(ImmutableArray<>));
 
   }
@@ -261,7 +261,7 @@ public class ResolutionsFactory
   public IResolution ResolveAsLazy()
   {
     return _specialCasesOfResolutions.CreateResolutionOf1GenericType(
-      nameof(InlineGenerators.Lazy),
+      nameof(InternalInlineGenerators.Lazy),
       typeof(Lazy<>));
 
   }
@@ -269,7 +269,7 @@ public class ResolutionsFactory
   public IResolution ResolveAsNullable()
   {
     return _specialCasesOfResolutions.CreateResolutionOf1GenericType(
-      nameof(InlineGenerators.Nullable),
+      nameof(InternalInlineGenerators.Nullable),
       typeof(Nullable<>));
   }
 

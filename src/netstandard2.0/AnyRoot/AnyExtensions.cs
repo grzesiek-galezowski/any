@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Linq;
 using TddXt.AnyExtensibility;
-using TddXt.AnyGenerators.Generic;
 using TddXt.AnyGenerators.Root;
+using TddXt.AnyGenerators.Root.ImplementationDetails.Generic;
 
 namespace TddXt.AnyRoot;
 

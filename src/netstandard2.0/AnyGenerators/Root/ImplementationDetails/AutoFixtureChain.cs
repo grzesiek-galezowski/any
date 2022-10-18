@@ -4,7 +4,7 @@ using System.Linq;
 using AutoFixture;
 using AutoFixture.Kernel;
 using TddXt.AnyExtensibility;
-using TddXt.AnyGenerators.AutoFixtureWrapper;
+using TddXt.AnyGenerators.Root.ImplementationDetails.AutoFixtureWrapper;
 using TddXt.TypeResolution.FakeChainElements;
 
 namespace TddXt.AnyGenerators.Root.ImplementationDetails;
