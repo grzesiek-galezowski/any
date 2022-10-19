@@ -14,6 +14,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using AnySpecification.Fixtures;
 using AnySpecification.GraphComparison;
+using AutoFixture;
 using FluentAssertions;
 using Functional.Maybe;
 using Newtonsoft.Json;
@@ -44,6 +45,14 @@ public class AnySpecification
   {
     Enumerable.Range(1, 1000)
       .Select(n => Any.Integer())
+      .Should().OnlyHaveUniqueItems();
+  }
+
+  [Test, Parallelizable]
+  public void ShouldGenerateDifferentByteEachTime()
+  {
+    Enumerable.Range(1, byte.MaxValue)
+      .Select(n => Any.Byte())
       .Should().OnlyHaveUniqueItems();
   }
 
@@ -835,7 +844,6 @@ public class AnySpecification
     invalidEnumMember5.Should().NotBe(invalidEnumMember6);
     Enum.GetValues<LolEnumByte>().Should().NotContain(invalidEnumMember5);
     Enum.GetValues<LolEnumByte>().Should().NotContain(invalidEnumMember6);
-    Assert.Fail("This fails sometimes in endless churn mode");
   }
 
   [Test, Parallelizable]

@@ -28,6 +28,8 @@ public class AutoFixtureChain : IGenerationChain
         DomainNameGenerator or
         StringSeedRelay))
       .Prepend(new EnumGenerator())
+      .Prepend(new ByteSequenceGenerator()) // the random number gen can sometimes generate non-distinct values
+      .Prepend(new SByteSequenceGenerator()) // the random number gen can sometimes generate non-distinct values
       .ToList(); //ToList() is necessary to pin down the specific instances of objects
   }
 
@@ -38,6 +40,7 @@ public class AutoFixtureChain : IGenerationChain
       var specimen = builder.Create(type, new InvalidContext(builder));
       if (specimen is not NoSpecimen)
       {
+        Console.WriteLine(builder);
         request.Trace.SelectedResolution(type, builder);
         return specimen;
       }
