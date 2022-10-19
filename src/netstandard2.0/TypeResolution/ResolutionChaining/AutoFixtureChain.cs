@@ -40,7 +40,6 @@ public class AutoFixtureChain : IGenerationChain
       var specimen = builder.Create(type, new InvalidContext(builder));
       if (specimen is not NoSpecimen)
       {
-        Console.WriteLine(builder);
         request.Trace.SelectedResolution(type, builder);
         return specimen;
       }
