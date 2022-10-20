@@ -10,7 +10,7 @@ public class NumberInRangeGenerator<T> : InlineGenerator<T>
   private readonly BigInteger _min;
   private readonly BigInteger _max;
   private static readonly Dictionary<(BigInteger, BigInteger), BigInteger> Values = new();
-  private static readonly object SyncRoot = new object();
+  private static readonly object SyncRoot = new();
   private readonly (BigInteger _min, BigInteger _max) _key;
   private readonly Func<BigInteger, T> _cast;
 
@@ -30,7 +30,6 @@ public class NumberInRangeGenerator<T> : InlineGenerator<T>
       if (!Values.ContainsKey(_key))
       {
         Values[_key] = _min;
-        return _cast(_min);
       }
       else
       {
@@ -39,8 +38,9 @@ public class NumberInRangeGenerator<T> : InlineGenerator<T>
         {
           Values[_key] = _min;
         }
-        return _cast(Values[_key]);
       }
+
+      return _cast(Values[_key]);
     }
   }
 }
