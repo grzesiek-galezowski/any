@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using System.Net;
+using System.Numerics;
 using System.Reflection;
 using System.Threading.Tasks;
 using TddXt.AnyExtensibility;
@@ -533,6 +534,51 @@ public class InternalInlineGenerators
   public static InlineGenerator<ulong> UnsignedLongWithExactDigitCount(int digitsCount)
   {
     return new NumberWithExactDigitNumberGenerator<ulong>(NumericTraits.UnsignedLong(), digitsCount);
+  }
+
+  public static InlineGenerator<int> IntegerInRange(int min, int max)
+  {
+    return new NumberInRangeGenerator<int>(min, max, n => (int)n);
+  }
+
+  public static InlineGenerator<short> ShortInRange(short min, short max)
+  {
+    return new NumberInRangeGenerator<short>(min, max, n => (short)n);
+  }
+
+  public static InlineGenerator<ushort> UnsignedShortInRange(ushort min, ushort max)
+  {
+    return new NumberInRangeGenerator<ushort>(min, max, n => (ushort)n);
+  }
+
+  public static InlineGenerator<long> LongInRange(long min, long max)
+  {
+    return new NumberInRangeGenerator<long>(min, max, n => (long)n);
+  }
+
+  public static InlineGenerator<uint> UnsignedIntInRange(uint min, uint max)
+  {
+    return new NumberInRangeGenerator<uint>(min, max, n => (uint)n);
+  }
+
+  public static InlineGenerator<ulong> UnsignedLongInRange(ulong min, ulong max)
+  {
+    return new NumberInRangeGenerator<ulong>(min, max, n => (ulong)n);
+  }
+
+  public static InlineGenerator<decimal> DecimalInRange(decimal min, decimal max)
+  {
+    return new NumberInRangeGenerator<decimal>(new BigInteger(min), new BigInteger(max), n => (decimal)n);
+  }
+
+  public static InlineGenerator<byte> ByteInRange(byte min, byte max)
+  {
+    return new NumberInRangeGenerator<byte>(min, max, n => (byte)n);
+  }
+
+  public static InlineGenerator<sbyte> SignedByteInRange(sbyte min, sbyte max)
+  {
+    return new NumberInRangeGenerator<sbyte>(min, max, n => (sbyte)n);
   }
 
   public static InlineGenerator<string> IpString()

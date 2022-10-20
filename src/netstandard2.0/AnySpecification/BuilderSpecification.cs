@@ -1,7 +1,6 @@
 ﻿using System;
 using FluentAssertions;
 using TddXt.AnyRoot.Builder;
-using static TddXt.AnyRoot.Root;
 
 namespace AnySpecification;
 

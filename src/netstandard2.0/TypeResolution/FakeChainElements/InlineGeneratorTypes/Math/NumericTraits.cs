@@ -43,7 +43,6 @@ public class NumericTraits<T>
     MaxPossibleDigitsCount = MaxValueString.Length;
   }
 
-
   private BigInteger Max { get; }
   private int MaxPossibleDigitsCount { get; }
   private string MaxValueString { get; }
