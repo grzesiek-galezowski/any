@@ -810,6 +810,22 @@ public class AnySpecification
     var maybeString2 = Any.Instance<Maybe<string>>();
 
     Assert.AreNotEqual(maybeString1, maybeString2);
+    maybeString1.Should().NotBe(Maybe<string>.Nothing);
+    maybeString2.Should().NotBe(Maybe<string>.Nothing);
+  }
+
+  [Test, Parallelizable]
+  public void ShouldAllowCreatingMaybesAsPartOfOtherClasses()
+  {
+    var maybeObject1 = Any.Instance<ObjectWithMaybe>();
+    var maybeObject2 = Any.Instance<ObjectWithMaybe>();
+
+    Assert.AreNotEqual(maybeObject1.Property, maybeObject2.Property);
+    Assert.AreNotEqual(maybeObject1._field, maybeObject2._field);
+    maybeObject1.Property.Should().NotBe(Maybe<ObjectWithMaybe>.Nothing);
+    maybeObject1._field.Should().NotBe(Maybe<ObjectWithMaybe>.Nothing);
+    maybeObject2.Property.Should().NotBe(Maybe<ObjectWithMaybe>.Nothing);
+    maybeObject2._field.Should().NotBe(Maybe<ObjectWithMaybe>.Nothing);
   }
 
   [Test, Parallelizable]
@@ -819,6 +835,8 @@ public class AnySpecification
     var maybeImplementation2 = Any.Instance<Maybe<RecursiveInterface>>();
 
     Assert.AreNotEqual(maybeImplementation1, maybeImplementation2);
+    maybeImplementation1.Should().NotBe(Maybe<string>.Nothing);
+    maybeImplementation2.Should().NotBe(Maybe<string>.Nothing);
   }
 
   [Test, Parallelizable]
