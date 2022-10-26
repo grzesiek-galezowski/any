@@ -2,7 +2,6 @@
 using TddXt.AnyExtensibility;
 using TddXt.TypeResolution.CustomCollections;
 using TddXt.TypeResolution.FakeChainElements.InlineGeneratorTypes;
-using TddXt.TypeResolution.FakeChainElements.InlineGeneratorTypes.Generic;
 using TddXt.TypeResolution.FakeChainElements.InlineGeneratorTypes.Generic.ImplementationDetails;
 using TddXt.TypeResolution.ResolutionChaining;
 
@@ -18,12 +17,7 @@ public static class AllGeneratorFactory
       new ProxyGenerator(),
       new CachedReturnValueGeneration(new PerMethodCache<object>()),
       new SpecialCasesOfResolutions(),
-      new ObjectGenerator(
-        new IFallbackGeneratedObjectCustomization[]
-        {
-          new FillPropertiesCustomization(),
-          new FillFieldsCustomization()
-        }));
+      new ObjectGenerator());
 
     var allGenerator = new AllGenerator(new LimitedGenerationChain(
         new CustomizationSupportingChain(

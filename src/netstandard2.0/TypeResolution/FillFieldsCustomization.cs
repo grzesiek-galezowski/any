@@ -1,22 +1,23 @@
 ﻿using System;
 using System.Diagnostics;
 using TddXt.AnyExtensibility;
-using TddXt.TypeReflection.Interfaces;
+using TddXt.TypeReflection;
 
 namespace TddXt.TypeResolution;
 
-public class FillFieldsCustomization : IFallbackGeneratedObjectCustomization
+public class FillFieldsCustomization : GeneratedObjectCustomization
 {
-  public void ApplyTo(IType smartType, object result, InstanceGenerator instanceGenerator, GenerationRequest request)
+  public void ApplyTo(object generatedObject, InstanceGenerator instanceGenerator, GenerationRequest request)
   {
+    var smartType = SmartType.For(generatedObject.GetType());
     var fields = smartType.GetAllPublicInstanceFields();
     foreach (var field in fields)
     {
       try
       {
-        if (field.IsNullOrDefault(result))
+        if (field.IsNullOrDefault(generatedObject))
         {
-          field.SetValue(result, instanceGenerator.Instance(field.FieldType, request));
+          field.SetValue(generatedObject, instanceGenerator.Instance(field.FieldType, request));
         }
       }
       catch (Exception e)

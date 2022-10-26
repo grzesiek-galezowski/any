@@ -32,7 +32,7 @@ public class FakeAbstractClass : IResolution
       _objectGenerator.GenerateConstructorParameters(instanceGenerator.Instance, request, type).ToArray(), 
       new AbstractClassInterceptor(_generation, 
         instanceGenerator.Instance, request));
-    _objectGenerator.CustomizeCreatedValue(result, instanceGenerator, request, type);
+    request.CustomizeCreatedValue(result, instanceGenerator);
       
     return result;
   }

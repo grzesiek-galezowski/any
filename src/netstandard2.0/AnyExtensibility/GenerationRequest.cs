@@ -12,4 +12,10 @@ public interface GenerationRequest
     Func<T> limitReachedFunction);
 
   GenerationRequest DisableNestingLimit();
+
+  void CustomizeCreatedValue(
+    object result, 
+    InstanceGenerator instanceGenerator);
 }
+
+

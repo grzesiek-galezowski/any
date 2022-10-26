@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Diagnostics;
 using TddXt.AnyExtensibility;
-using TddXt.TypeReflection.Interfaces;
+using TddXt.TypeReflection;
 
 namespace TddXt.TypeResolution;
 
-public class FillPropertiesCustomization : IFallbackGeneratedObjectCustomization
+public class FillPropertiesCustomization : GeneratedObjectCustomization
 {
-  public void ApplyTo(IType smartType, object result, InstanceGenerator instanceGenerator, GenerationRequest request)
+  public void ApplyTo(object generatedObject, InstanceGenerator instanceGenerator, GenerationRequest request)
   {
+    var smartType = SmartType.For(generatedObject.GetType());
     var properties = smartType.GetPublicInstanceWritableProperties();
 
     foreach (var property in properties)
@@ -20,7 +21,7 @@ public class FillPropertiesCustomization : IFallbackGeneratedObjectCustomization
         if (!property.HasAbstractGetter())
         {
           var value = instanceGenerator.Instance(propertyType, request);
-          property.SetValue(result, value);
+          property.SetValue(generatedObject, value);
         }
       }
       catch (Exception e)

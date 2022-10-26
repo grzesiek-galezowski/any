@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 
-namespace AnySpecification;
+namespace AnySpecification.Fixtures;
 
 public class ObjectWithMethodInfo
 {

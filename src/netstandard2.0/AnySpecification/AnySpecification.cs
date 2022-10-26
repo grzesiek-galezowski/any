@@ -14,7 +14,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using AnySpecification.Fixtures;
 using AnySpecification.GraphComparison;
-using AutoFixture;
 using FluentAssertions;
 using Functional.Maybe;
 using Newtonsoft.Json;
@@ -826,6 +825,15 @@ public class AnySpecification
     maybeObject1._field.Should().NotBe(Maybe<ObjectWithMaybe>.Nothing);
     maybeObject2.Property.Should().NotBe(Maybe<ObjectWithMaybe>.Nothing);
     maybeObject2._field.Should().NotBe(Maybe<ObjectWithMaybe>.Nothing);
+  }
+
+  [Test, Parallelizable]
+  public void ShouldNotFillFieldsAndPropertiesThatOnlyHavePublicGetters()
+  {
+    var maybeObject1 = Any.Instance<ObjectWithGettableMaybe>();
+
+    maybeObject1.Property.Should().Be(Core.Maybe.Maybe<string>.Nothing);
+    maybeObject1.GetFieldValue().Should().Be(Core.Maybe.Maybe<string>.Nothing);
   }
 
   [Test, Parallelizable]
@@ -1967,114 +1975,3 @@ public class AnySpecification
     result.ExceededDifferences.Should().BeTrue(result.DifferencesString);
   }
 }
-
-public class GenericListCustomization : GenerationCustomization
-{
-  public bool AppliesTo(Type type)
-  {
-    return type.IsGenericType && type.GetGenericTypeDefinition() == typeof(List<>);
-  }
-
-  public object Generate(Type type, InstanceGenerator gen, GenerationRequest request)
-  {
-    var list = Activator.CreateInstance(type);
-    var addMethod = type.GetMethod("Add", BindingFlags.Instance | BindingFlags.Public);
-    var elementInstance = gen.Instance(type.GetGenericArguments()[0], request);
-    addMethod!.Invoke(list, new[] {elementInstance});
-    addMethod!.Invoke(list, new[] {elementInstance});
-    addMethod!.Invoke(list, new[] {elementInstance});
-    addMethod!.Invoke(list, new[] {elementInstance});
-    return list!;
-  }
-}
-
-public class ObjectWithStaticParseMethod
-{
-  private ObjectWithStaticParseMethod(int x)
-  {
-    X = x;
-  }
-
-  public int X { get; set; }
-
-  public static ObjectWithStaticParseMethod ParseInt(int x)
-  {
-    throw new Exception("Thou shalt not pass!");
-  }
-}
-
-public enum LolEnum
-{
-  Value1,
-  Value2,
-  Value3,
-  Value4,
-  Value5,
-  Value6
-}
-
-public enum LolEnumShort : short
-{
-  Value1,
-  Value2,
-  Value3,
-  Value4,
-  Value5,
-  Value6
-}
-
-public enum LolEnumByte : byte
-{
-  Value1,
-  Value2,
-  Value3,
-  Value4,
-  Value5,
-  Value6
-}
-
-public class ObjectWithLolEnum
-{
-  public ObjectWithLolEnum(LolEnum lol)
-  {
-    Lol = lol;
-  }
-
-  public LolEnum Lol { get; }
-}
-
-public class TestTemplateClass
-{
-}
-
-public class ObjectWithGenericCollection<T>
-{
-  public ObjectWithGenericCollection(List<T> myList)
-  {
-    MyList = myList;
-  }
-
-  public List<T> MyList { get; }
-}
-
-public class ObjectWrappingObjectWithGenericOption<T>
-{
-  public ObjectWrappingObjectWithGenericOption(ObjectWithGenericOption<T> obj)
-  {
-    Obj = obj;
-  }
-
-  public ObjectWithGenericOption<T> Obj { get; }
-}
-
-public class ObjectWithGenericOption<T>
-{
-  public ObjectWithGenericOption(Option<T> myOption)
-  {
-    MyOption = myOption;
-  }
-
-  public Option<T> MyOption { get; }
-}
-
-public record ObjectWithImmutableList(ImmutableList<int> Elements);

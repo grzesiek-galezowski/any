@@ -7,14 +7,7 @@ namespace TddXt.TypeResolution;
 
 public class ObjectGenerator
 {
-  private readonly IFallbackGeneratedObjectCustomization[] _customizations;
-
-  public ObjectGenerator(IFallbackGeneratedObjectCustomization[] customizations)
-  {
-    _customizations = customizations;
-  }
-
-  public object GenerateInstance(InstanceGenerator instanceGenerator, GenerationRequest request, Type type)
+  private object GenerateInstance(InstanceGenerator instanceGenerator, GenerationRequest request, Type type)
   {
     var smartType = SmartType.For(type);
     var maybeConstructor = smartType.PickConstructorWithLeastNonPointersParameters();
@@ -65,26 +58,10 @@ public class ObjectGenerator
     }
   }
 
-  public void CustomizeCreatedValue(
-    object result, 
-    InstanceGenerator instanceGenerator, 
-    GenerationRequest request,
-    Type type)
-  {
-    var smartType = SmartType.For(type);
-    foreach (var customization in _customizations)
-    {
-      customization.ApplyTo(
-        smartType, 
-        result, 
-        instanceGenerator, request);
-    }
-  }
-
   public object GenerateCustomizedInstance(InstanceGenerator instanceGenerator, GenerationRequest request, Type type)
   {
     var generateInstance = GenerateInstance(instanceGenerator, request, type);
-    CustomizeCreatedValue(generateInstance, instanceGenerator, request, type);
+    request.CustomizeCreatedValue(generateInstance, instanceGenerator);
     return generateInstance;
   }
 }
