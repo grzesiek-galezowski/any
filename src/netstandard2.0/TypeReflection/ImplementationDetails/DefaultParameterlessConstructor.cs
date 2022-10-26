@@ -74,7 +74,7 @@ public class DefaultParameterlessConstructor : IConstructorWrapper
 
   public IEnumerable<ParameterInfo> Parameters { get; } = new List<ParameterInfo>();
 
-  public void DumpInto(GenerationRequest request)
+  public void LogInScopeOf(GenerationRequest request)
   {
     request.Trace.ChosenParameterlessConstructor();
   }

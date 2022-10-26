@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -128,7 +128,7 @@ public class ConstructorWrapper : IConstructorWrapper
 
   public IEnumerable<ParameterInfo> Parameters => _parameters;
 
-  public void DumpInto(GenerationRequest request)
+  public void LogInScopeOf(GenerationRequest request)
   {
     request.Trace.ChosenConstructor(_constructor.Name, _parameterTypes);
   }

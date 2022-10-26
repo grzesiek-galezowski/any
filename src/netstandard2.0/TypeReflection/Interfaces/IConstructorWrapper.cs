@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
 using TddXt.AnyExtensibility;
@@ -24,5 +24,5 @@ public interface IConstructorWrapper
 
   object Invoke(IEnumerable<object> parameters);
 
-  void DumpInto(GenerationRequest request);
+  void LogInScopeOf(GenerationRequest request);
 }

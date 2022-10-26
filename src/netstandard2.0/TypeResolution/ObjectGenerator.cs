@@ -21,7 +21,7 @@ public class ObjectGenerator
 
     if (maybeConstructor.HasValue)
     {
-      maybeConstructor.Value().DumpInto(request);
+      maybeConstructor.Value().LogInScopeOf(request);
       var instance = maybeConstructor.Value()
         .InvokeWithParametersCreatedBy(instanceGenerator.Instance, request);
       smartType.AssertMatchesTypeOf(instance);
