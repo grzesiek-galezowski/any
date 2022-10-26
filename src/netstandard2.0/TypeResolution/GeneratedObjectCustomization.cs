@@ -1,4 +1,6 @@
-﻿namespace TddXt.AnyExtensibility;
+﻿using TddXt.AnyExtensibility;
+
+namespace TddXt.TypeResolution;
 
 public interface GeneratedObjectCustomization
 {
