@@ -18,7 +18,7 @@ public class FillPropertiesCustomization : GeneratedObjectCustomization
       {
         var propertyType = property.PropertyType;
 
-        if (!property.HasAbstractGetter())
+        if (!property.HasAbstractGetter() && property.HasPublicSetter())
         {
           var value = instanceGenerator.Instance(propertyType, request);
           property.SetValue(generatedObject, value);

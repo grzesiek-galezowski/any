@@ -25,4 +25,9 @@ public class PropertyWrapper : IPropertyWrapper
   {
     _propertyInfo.SetValue(result, value, null);
   }
+
+  public bool HasPublicSetter()
+  {
+    return _propertyInfo.SetMethod.IsPublic;
+  }
 }
