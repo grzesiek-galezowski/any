@@ -8,12 +8,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AtmaFileSystem" Version="6.0.0" />
-    <PackageReference Include="Bullseye" Version="4.0.0" />
-    <PackageReference Include="DotnetExeCommandLineBuilder" Version="0.3.0" />
-    <PackageReference Include="FluentAssertions" Version="6.7.0" />
-    <PackageReference Include="NScan" Version="0.101.0" />
-    <PackageReference Include="SimpleExec" Version="11.0.0" />
+    <PackageReference Include="AtmaFileSystem" />
+    <PackageReference Include="Bullseye" />
+    <PackageReference Include="DotnetExeCommandLineBuilder" />
+    <PackageReference Include="FluentAssertions" />
+    <PackageReference Include="NScan" />
+    <PackageReference Include="SimpleExec" />
   </ItemGroup>
 
 </Project>
