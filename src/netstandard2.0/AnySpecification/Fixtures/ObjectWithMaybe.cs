@@ -14,7 +14,7 @@ public class ObjectWithMaybe
 public class ObjectWithGettableMaybe
 {
   private Maybe<string> _field = Maybe<string>.Nothing;
-  public Maybe<string> Property { get; } = Maybe<string>.Nothing;
+  public Maybe<string> Property { get; private set; } = Maybe<string>.Nothing;
 
   public Maybe<string> GetFieldValue() => _field;
 }
