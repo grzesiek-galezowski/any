@@ -658,49 +658,48 @@ public class InlineGenerators
     return InternalInlineGenerators.Nullable<T>();
   }
 
-  public static InlineGenerator<int> IntegerInRange(int min, int max)
+  public static InlineGenerator<int> IntegerInRange_NotForTestingBoundaries(int min, int max)
   {
     return InternalInlineGenerators.IntegerInRange(min, max);
   }
 
-  public static InlineGenerator<short> ShortInRange(short min, short max)
+  public static InlineGenerator<short> ShortInRange_NotForTestingBoundaries(short min, short max)
   {
     return InternalInlineGenerators.ShortInRange(min, max);
   }
 
-  public static InlineGenerator<ushort> UnsignedShortInRange(ushort min, ushort max)
+  public static InlineGenerator<ushort> UnsignedShortInRange_NotForTestingBoundaries(ushort min, ushort max)
   {
     return InternalInlineGenerators.UnsignedShortInRange(min, max);
   }
 
-  public static InlineGenerator<long> LongInRange(long min, long max)
+  public static InlineGenerator<long> LongInRange_NotForTestingBoundaries(long min, long max)
   {
     return InternalInlineGenerators.LongInRange(min, max);
   }
 
-  public static InlineGenerator<uint> UnsignedIntInRange(uint min, uint max)
+  public static InlineGenerator<uint> UnsignedIntInRange_NotForTestingBoundaries(uint min, uint max)
   {
     return InternalInlineGenerators.UnsignedIntInRange(min, max);
   }
 
-  public static InlineGenerator<ulong> UnsignedLongInRange(ulong min, ulong max)
+  public static InlineGenerator<ulong> UnsignedLongInRange_NotForTestingBoundaries(ulong min, ulong max)
   {
     return InternalInlineGenerators.UnsignedLongInRange(min, max);
   }
 
-  public static InlineGenerator<decimal> DecimalInRange(decimal min, decimal max)
+  public static InlineGenerator<decimal> DecimalInRange_NotForTestingBoundaries(decimal min, decimal max)
   {
     return InternalInlineGenerators.DecimalInRange(min, max);
   }
 
-  public static InlineGenerator<byte> ByteInRange(byte min, byte max)
+  public static InlineGenerator<byte> ByteInRange_NotForTestingBoundaries(byte min, byte max)
   {
     return InternalInlineGenerators.ByteInRange(min, max);
   }
 
-  public static InlineGenerator<sbyte> SignedByteInRange(sbyte min, sbyte max)
+  public static InlineGenerator<sbyte> SignedByteInRange_NotForTestingBoundaries(sbyte min, sbyte max)
   {
     return InternalInlineGenerators.SignedByteInRange(min, max);
   }
-
 }

@@ -3,6 +3,7 @@ using System.Linq;
 using FluentAssertions;
 using static TddXt.AnyGenerators.Root.InlineGenerators;
 using Enumerable = System.Linq.Enumerable;
+#pragma warning disable CS0612
 
 namespace AnySpecification;
 
@@ -17,13 +18,13 @@ public class RangeGeneratorSpecification
     var min = int.MinValue;
     var max = min + count - 1;
     Console.WriteLine("begin");
-    Enumerable.Range(0, count).Select(_ => Any.InstanceOf(IntegerInRange(min, max))).ToList()
+    Enumerable.Range(0, count).Select(_ => Any.InstanceOf(IntegerInRange_NotForTestingBoundaries(min, max))).ToList()
       .Should().HaveCount(count).And.OnlyHaveUniqueItems()
       .And.AllSatisfy(n => n.Should().BeGreaterThanOrEqualTo(min))
       .And.AllSatisfy(n => n.Should().BeLessThanOrEqualTo(max));
     
     Enumerable.Range(0, count * 2)
-      .Select(_ => Any.InstanceOf(IntegerInRange(min,max)))
+      .Select(_ => Any.InstanceOf(IntegerInRange_NotForTestingBoundaries(min,max)))
       .GroupBy(n => n)
       .ToList()
       .Should().AllSatisfy(g => g.Should().HaveCount(2));
@@ -35,13 +36,13 @@ public class RangeGeneratorSpecification
     var min = uint.MinValue;
     var max = min + Count - 1;
 
-    Enumerable.Range(0, Count).Select(_ => Any.InstanceOf(UnsignedIntInRange(min,max)))
+    Enumerable.Range(0, Count).Select(_ => Any.InstanceOf(UnsignedIntInRange_NotForTestingBoundaries(min,max)))
       .Should().OnlyHaveUniqueItems()
       .And.AllSatisfy(n => n.Should().BeGreaterThanOrEqualTo(min))
       .And.AllSatisfy(n => n.Should().BeLessThanOrEqualTo(max));
 
     Enumerable.Range(0, Count * 2)
-      .Select(_ => Any.InstanceOf(UnsignedIntInRange(min,max)))
+      .Select(_ => Any.InstanceOf(UnsignedIntInRange_NotForTestingBoundaries(min,max)))
       .GroupBy(n => n)
       .ToList()
       .Should().AllSatisfy(g => g.Should().HaveCount(2));
@@ -53,13 +54,13 @@ public class RangeGeneratorSpecification
     var min = short.MinValue;
     var max = (short)(min + Count - 1);
 
-    Enumerable.Range(0, Count).Select(_ => Any.InstanceOf(ShortInRange(min,max)))
+    Enumerable.Range(0, Count).Select(_ => Any.InstanceOf(ShortInRange_NotForTestingBoundaries(min,max)))
       .Should().OnlyHaveUniqueItems()
       .And.AllSatisfy(n => n.Should().BeGreaterThanOrEqualTo(min))
       .And.AllSatisfy(n => n.Should().BeLessThanOrEqualTo(max));
 
     Enumerable.Range(0, Count * 2)
-      .Select(_ => Any.InstanceOf(ShortInRange(min,max)))
+      .Select(_ => Any.InstanceOf(ShortInRange_NotForTestingBoundaries(min,max)))
       .GroupBy(n => n)
       .ToList()
       .Should().AllSatisfy(g => g.Should().HaveCount(2));
@@ -72,13 +73,13 @@ public class RangeGeneratorSpecification
     var min = ushort.MinValue;
     var max = (ushort)(min + Count - 1);
 
-    Enumerable.Range(0, Count).Select(_ => Any.InstanceOf(UnsignedShortInRange(min,max)))
+    Enumerable.Range(0, Count).Select(_ => Any.InstanceOf(UnsignedShortInRange_NotForTestingBoundaries(min,max)))
       .Should().OnlyHaveUniqueItems()
       .And.AllSatisfy(n => n.Should().BeGreaterThanOrEqualTo(min))
       .And.AllSatisfy(n => n.Should().BeLessThanOrEqualTo(max));
 
     Enumerable.Range(0, Count * 2)
-      .Select(_ => Any.InstanceOf(UnsignedShortInRange(min,max)))
+      .Select(_ => Any.InstanceOf(UnsignedShortInRange_NotForTestingBoundaries(min,max)))
       .GroupBy(n => n)
       .ToList()
       .Should().AllSatisfy(g => g.Should().HaveCount(2));
@@ -91,13 +92,13 @@ public class RangeGeneratorSpecification
     var min = long.MinValue;
     var max = min + Count - 1;
 
-    Enumerable.Range(0, Count).Select(_ => Any.InstanceOf(LongInRange(min,max)))
+    Enumerable.Range(0, Count).Select(_ => Any.InstanceOf(LongInRange_NotForTestingBoundaries(min,max)))
       .Should().OnlyHaveUniqueItems()
       .And.AllSatisfy(n => n.Should().BeGreaterThanOrEqualTo(min))
       .And.AllSatisfy(n => n.Should().BeLessThanOrEqualTo(max));
 
     Enumerable.Range(0, Count * 2)
-      .Select(_ => Any.InstanceOf(LongInRange(min,max)))
+      .Select(_ => Any.InstanceOf(LongInRange_NotForTestingBoundaries(min,max)))
       .GroupBy(n => n)
       .ToList()
       .Should().AllSatisfy(g => g.Should().HaveCount(2));
@@ -109,13 +110,13 @@ public class RangeGeneratorSpecification
     var min = ulong.MinValue;
     var max = min + Count - 1;
 
-    Enumerable.Range(0, Count).Select(_ => Any.InstanceOf(UnsignedLongInRange(min,max)))
+    Enumerable.Range(0, Count).Select(_ => Any.InstanceOf(UnsignedLongInRange_NotForTestingBoundaries(min,max)))
       .Should().OnlyHaveUniqueItems()
       .And.AllSatisfy(n => n.Should().BeGreaterThanOrEqualTo(min))
       .And.AllSatisfy(n => n.Should().BeLessThanOrEqualTo(max));
 
     Enumerable.Range(0, Count * 2)
-      .Select(_ => Any.InstanceOf(UnsignedLongInRange(min,max)))
+      .Select(_ => Any.InstanceOf(UnsignedLongInRange_NotForTestingBoundaries(min,max)))
       .GroupBy(n => n)
       .ToList()
       .Should().AllSatisfy(g => g.Should().HaveCount(2));
@@ -127,13 +128,13 @@ public class RangeGeneratorSpecification
     var min = byte.MinValue;
     var max = (byte)(min + Count - 1);
 
-    Enumerable.Range(0, Count).Select(_ => Any.InstanceOf(ByteInRange(min,max)))
+    Enumerable.Range(0, Count).Select(_ => Any.InstanceOf(ByteInRange_NotForTestingBoundaries(min,max)))
       .Should().OnlyHaveUniqueItems()
       .And.AllSatisfy(n => n.Should().BeGreaterThanOrEqualTo(min))
       .And.AllSatisfy(n => n.Should().BeLessThanOrEqualTo(max));
 
     Enumerable.Range(0, Count * 2)
-      .Select(_ => Any.InstanceOf(ByteInRange(min,max)))
+      .Select(_ => Any.InstanceOf(ByteInRange_NotForTestingBoundaries(min,max)))
       .GroupBy(n => n)
       .ToList()
       .Should().AllSatisfy(g => g.Should().HaveCount(2));
@@ -146,13 +147,13 @@ public class RangeGeneratorSpecification
     var min = sbyte.MinValue;
     var max = (sbyte)(min + Count - 1);
 
-    Enumerable.Range(0, Count).Select(_ => Any.InstanceOf(SignedByteInRange(min, max)))
+    Enumerable.Range(0, Count).Select(_ => Any.InstanceOf(SignedByteInRange_NotForTestingBoundaries(min, max)))
       .Should().OnlyHaveUniqueItems()
       .And.AllSatisfy(n => n.Should().BeGreaterThanOrEqualTo(min))
       .And.AllSatisfy(n => n.Should().BeLessThanOrEqualTo(max));
 
     Enumerable.Range(0, Count * 2)
-      .Select(_ => Any.InstanceOf(SignedByteInRange(min,max)))
+      .Select(_ => Any.InstanceOf(SignedByteInRange_NotForTestingBoundaries(min,max)))
       .GroupBy(n => n)
       .ToList()
       .Should().AllSatisfy(g => g.Should().HaveCount(2));
@@ -164,13 +165,13 @@ public class RangeGeneratorSpecification
   {
     var min = decimal.MinValue;
     var max = min + Count - 1;
-    Enumerable.Range(0, Count).Select(_ => Any.InstanceOf(DecimalInRange(min, max)))
+    Enumerable.Range(0, Count).Select(_ => Any.InstanceOf(DecimalInRange_NotForTestingBoundaries(min, max)))
       .Should().OnlyHaveUniqueItems()
       .And.AllSatisfy(n => n.Should().BeGreaterThanOrEqualTo(min))
       .And.AllSatisfy(n => n.Should().BeLessThanOrEqualTo(max));
 
     Enumerable.Range(0, Count * 2)
-      .Select(_ => Any.InstanceOf(DecimalInRange(min,max)))
+      .Select(_ => Any.InstanceOf(DecimalInRange_NotForTestingBoundaries(min,max)))
       .GroupBy(n => n)
       .ToList()
       .Should().AllSatisfy(g => g.Should().HaveCount(2));
