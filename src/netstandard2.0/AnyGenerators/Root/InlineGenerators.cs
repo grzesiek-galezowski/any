@@ -702,4 +702,77 @@ public class InlineGenerators
   {
     return InternalInlineGenerators.SignedByteInRange(min, max);
   }
+
+  [Obsolete("Use the same method but with _NotForTestingBoundaries suffix. " +
+            "I added the suffix so that the users are 100% sure that when they " +
+            "Cover this is an extension method and use it for testing boundaries," +
+            "they are hurting their teams.", true)]
+  public static InlineGenerator<int> IntegerInRange(int min, int max)
+  {
+    return InternalInlineGenerators.IntegerInRange(min, max);
+  }
+
+  [Obsolete("Use the same method but with _NotForTestingBoundaries suffix. " +
+            "I added the suffix so that the users are 100% sure that when they " +
+            "Cover this is an extension method and use it for testing boundaries," +
+            "they are hurting their teams.", true)]
+  public static InlineGenerator<short> ShortInRange(short min, short max)
+  {
+    return InternalInlineGenerators.ShortInRange(min, max);
+  }
+
+  [Obsolete("Use the same method but with _NotForTestingBoundaries suffix. " +
+            "I added the suffix so that the users are 100% sure that when they " +
+            "Cover this is an extension method and use it for testing boundaries," +
+            "they are hurting their teams.", true)]
+  public static InlineGenerator<ushort> UnsignedShortInRange(ushort min, ushort max)
+  {
+    return InternalInlineGenerators.UnsignedShortInRange(min, max);
+  }
+
+  [Obsolete("Use the same method but with _NotForTestingBoundaries suffix. " +
+            "I added the suffix so that the users are 100% sure that when they " +
+            "Cover this is an extension method and use it for testing boundaries," +
+            "they are hurting their teams.", true)]
+  public static InlineGenerator<long> LongInRange(long min, long max)
+  {
+    return InternalInlineGenerators.LongInRange(min, max);
+  }
+
+  [Obsolete("Use the same method but with _NotForTestingBoundaries suffix. " +
+            "I added the suffix so that the users are 100% sure that when they " +
+            "Cover this is an extension method and use it for testing boundaries," +
+            "they are hurting their teams.", true)]
+  public static InlineGenerator<uint> UnsignedIntInRange(uint min, uint max)
+  {
+    return InternalInlineGenerators.UnsignedIntInRange(min, max);
+  }
+
+  [Obsolete("Use the same method but with _NotForTestingBoundaries suffix. " +
+            "I added the suffix so that the users are 100% sure that when they " +
+            "Cover this is an extension method and use it for testing boundaries," +
+            "they are hurting their teams.", true)]
+  public static InlineGenerator<ulong> UnsignedLongInRange(ulong min, ulong max)
+  {
+    return InternalInlineGenerators.UnsignedLongInRange(min, max);
+  }
+
+  [Obsolete("Use the same method but with _NotForTestingBoundaries suffix. " +
+            "I added the suffix so that the users are 100% sure that when they " +
+            "Cover this is an extension method and use it for testing boundaries," +
+            "they are hurting their teams.", true)]
+  public static InlineGenerator<decimal> DecimalInRange(decimal min, decimal max)
+  {
+    return InternalInlineGenerators.DecimalInRange(min, max);
+  }
+
+  public static InlineGenerator<byte> ByteInRange(byte min, byte max)
+  {
+    return InternalInlineGenerators.ByteInRange(min, max);
+  }
+
+  public static InlineGenerator<sbyte> SignedByteInRange(sbyte min, sbyte max)
+  {
+    return InternalInlineGenerators.SignedByteInRange(min, max);
+  }
 }

@@ -8,6 +8,10 @@ namespace TddXt.AnyRoot.Invokable;
 
 public static class AnyInvokableExtensions
 {
+  /// <summary>
+  /// Produces always canceled token. If you need a non-canceled token,
+  /// better create one with `new CancellationToken()` and use it.
+  /// </summary>
   public static CancellationToken CancellationToken(this BasicGenerator gen)
   {
     return gen.Instance<CancellationToken>();
