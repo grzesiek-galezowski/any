@@ -22,10 +22,9 @@
     <PackageVersion Include="Optional" Version="4.0.0" />
     <PackageVersion Include="Functional.Maybe" Version="2.0.20" />
   </ItemGroup>
-
   <ItemGroup>
     <PackageVersion Include="AtmaFileSystem" Version="6.0.0" />
-    <PackageVersion Include="Bullseye" Version="4.1.1" />
+    <PackageVersion Include="Bullseye" Version="4.2.0" />
     <PackageVersion Include="DotnetExeCommandLineBuilder" Version="0.3.0" />
     <PackageVersion Include="NScan" Version="0.101.0" />
     <PackageVersion Include="SimpleExec" Version="11.0.0" />
