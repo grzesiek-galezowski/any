@@ -279,4 +279,9 @@ public class ResolutionsFactory
   {
     return new CultureInfoResolution();
   }
+
+  public IResolution ResolveAsDateOnly()
+  {
+    return new DateOnlyResolution();
+  }
 }

@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using Core.NullableReferenceTypesExtensions;
 
 namespace TddXt.AnyRoot.Builder;
 
@@ -63,8 +64,8 @@ public static class BuilderExtensions
       }
       else if (IsAutoProperty(property))
       {
-        var field = property.DeclaringType.GetField($"<{property.Name}>k__BackingField",
-          BindingFlags.Instance | BindingFlags.NonPublic);
+        var field = property.DeclaringType.OrThrow().GetField($"<{property.Name}>k__BackingField",
+          BindingFlags.Instance | BindingFlags.NonPublic).OrThrow();
         field.SetValue(target, value);
       }
       else
@@ -92,7 +93,10 @@ public static class BuilderExtensions
 
   private static bool IsAutoProperty(this PropertyInfo prop)
   {
-    return prop.DeclaringType.GetFields(BindingFlags.NonPublic | BindingFlags.Instance)
+    return prop.DeclaringType
+      .OrThrow()
+      .GetFields(BindingFlags.NonPublic | BindingFlags.Instance)
+      .OrThrow()
       .Any(f => f.Name.Contains("<" + prop.Name + ">"));
   }
 }

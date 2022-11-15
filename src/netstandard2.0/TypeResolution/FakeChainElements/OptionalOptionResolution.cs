@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Reflection;
+using Core.NullableReferenceTypesExtensions;
 using TddXt.AnyExtensibility;
 
 namespace TddXt.TypeResolution.FakeChainElements;
@@ -25,7 +26,7 @@ public class OptionalOptionResolution : IResolution
       .Single(info => info.GetGenericArguments().Length == 1);
     var someMethod = genericCreationMethod.MakeGenericMethod(genericArgument);
     var result = someMethod.Invoke(null, new[] { elementInstance });
-    return result;
+    return result.OrThrow();
 
   }
 }

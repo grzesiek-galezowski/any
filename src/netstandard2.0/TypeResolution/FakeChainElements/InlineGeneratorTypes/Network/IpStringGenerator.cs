@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading;
+using Core.NullableReferenceTypesExtensions;
 using TddXt.AnyExtensibility;
 
 namespace TddXt.TypeResolution.FakeChainElements.InlineGeneratorTypes.Network;
@@ -10,9 +11,14 @@ public class IpStringGenerator : InlineGenerator<string>
 
   public string GenerateInstance(InstanceGenerator instanceGenerator, GenerationRequest request)
   {
-    return RandomGenerator.Value.Next(256) + "."
-                                           + RandomGenerator.Value.Next(256) + "."
-                                           + RandomGenerator.Value.Next(256) + "."
-                                           + RandomGenerator.Value.Next(256);
+    var randomGen = RandomGenerator.Value.OrThrow();
+    return randomGen
+        .Next(256) 
+           + "." 
+           + randomGen.Next(256) 
+           + "."
+           + randomGen.Next(256) 
+           + "."
+           + randomGen.Next(256);
   }
 }

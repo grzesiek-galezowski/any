@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Reflection;
 using Castle.DynamicProxy;
+using Core.NullableReferenceTypesExtensions;
 using TddXt.AnyExtensibility;
 using TddXt.TypeResolution.CustomCollections;
 
@@ -27,13 +28,17 @@ public class InterceptedInvocation : IInterceptedInvocation
 
   public bool IsPropertySetter()
   {
-    return _invocation.Method.DeclaringType.GetProperties()
-      .Any(prop => prop.GetSetMethod() == _invocation.Method);
+    var methodDeclaringType = _invocation.Method.DeclaringType;
+
+    return methodDeclaringType != null && 
+           methodDeclaringType.GetProperties()
+             .Any(prop => prop.GetSetMethod() == _invocation.Method);
   }
 
   public bool IsPropertyGetter()
   {
-    return _invocation.Method.DeclaringType.GetProperties()
+    var methodDeclaringType = _invocation.Method.DeclaringType;
+    return methodDeclaringType != null && methodDeclaringType.GetProperties()
       .Any(prop => prop.GetGetMethod() == _invocation.Method);
   }
 
@@ -75,8 +80,8 @@ public static class ReflectionExtensions
       throw new Exception("property not settable");
     }
 
-    var properties = call.DeclaringType.GetProperties();
-    return properties.FirstOrDefault(x => x.GetSetMethod() == call);
+    var properties = call.DeclaringType.OrThrow().GetProperties();
+    return properties.FirstOrDefault(x => x.GetSetMethod() == call).OrThrow();
   }
 
   private static bool CanBePropertySetterCall(MethodInfo call)

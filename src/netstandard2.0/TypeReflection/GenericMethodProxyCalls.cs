@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Reflection;
+using Core.NullableReferenceTypesExtensions;
 
 namespace TddXt.TypeReflection;
 
@@ -11,7 +12,7 @@ public class GenericMethodProxyCalls
     var method = FindEmptyGenericsInstanceMethod<T>(name, parameters);
 
     var genericMethod = method.MakeGenericMethod(genericArgumentType);
-    return genericMethod.Invoke(instance, parameters);
+    return genericMethod.Invoke(instance, parameters).OrThrow();
   }
 
   public object ResultOfGenericVersionOfStaticMethod<T>(Type genericArgumentType, string name)
@@ -23,7 +24,7 @@ public class GenericMethodProxyCalls
   {
     var method = FindEmptyGenericsStaticMethod<T>(name, parameters);
     var genericMethod = method.MakeGenericMethod(genericArgumentType);
-    return genericMethod.Invoke(null, parameters);
+    return genericMethod.Invoke(null, parameters).OrThrow();
   }
 
   public object ResultOfGenericVersionOfStaticMethod<T>(
@@ -37,7 +38,7 @@ public class GenericMethodProxyCalls
   {
     var method = FindEmptyGenericsStaticMethod<T>(name, parameters);
     var genericMethod = method.MakeGenericMethod(type1, type2);
-    return genericMethod.Invoke(null, parameters);
+    return genericMethod.Invoke(null, parameters).OrThrow();
   }
 
 

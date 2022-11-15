@@ -10,9 +10,28 @@ public static class AnyTimeExtensions
   {
     return gen.InstanceOf(InlineGenerators.DateTime());
   }
+  
+  public static DateTimeOffset DateTimeOffset(this BasicGenerator gen)
+  {
+    return gen.Instance<DateTimeOffset>();
+  }
 
   public static TimeSpan TimeSpan(this BasicGenerator gen)
   {
     return gen.InstanceOf(InlineGenerators.TimeSpan());
   }
+
+
+  #if NET6_0_OR_GREATER
+  public static DateOnly DateOnly(this BasicGenerator gen)
+  {
+    return gen.Instance<DateOnly>();
+  }
+
+  public static TimeOnly TimeOnly(this BasicGenerator gen)
+  {
+      return gen.Instance<TimeOnly>();
+  }
+  #endif
+
 }

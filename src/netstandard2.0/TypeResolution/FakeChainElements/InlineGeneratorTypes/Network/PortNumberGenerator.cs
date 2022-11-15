@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading;
+using Core.NullableReferenceTypesExtensions;
 using TddXt.AnyExtensibility;
 
 namespace TddXt.TypeResolution.FakeChainElements.InlineGeneratorTypes.Network;
@@ -10,6 +11,6 @@ public class PortNumberGenerator : InlineGenerator<int>
 
   public int GenerateInstance(InstanceGenerator instanceGenerator, GenerationRequest request)
   {
-    return RandomGenerator.Value.Next(0, 65535);
+    return RandomGenerator.Value.OrThrow().Next(0, 65535);
   }
 }

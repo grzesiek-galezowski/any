@@ -4,11 +4,11 @@ using TddXt.TypeResolution.FakeChainElements;
 
 namespace TddXt.TypeResolution.ResolutionChaining;
 
-public class GenereatorsBasedChain : IGenerationChain
+public class GeneratorsBasedChain : IGenerationChain
 {
   private readonly IResolution[] _resolutions;
 
-  public GenereatorsBasedChain(IResolution[] resolutions)
+  public GeneratorsBasedChain(IResolution[] resolutions)
   {
     _resolutions = resolutions;
   }

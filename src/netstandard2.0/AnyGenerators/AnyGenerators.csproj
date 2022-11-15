@@ -5,7 +5,7 @@
     <WarningsAsErrors>CS8600;CS8602;CS8603</WarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
+    <TargetFrameworks>net6.0;netstandard2.1</TargetFrameworks>
     <AssemblyName>TddXt.Any.Generators</AssemblyName>
     <RootNamespace>TddXt.AnyGenerators</RootNamespace>
     <Authors>Grzegorz Gałęzowski</Authors>
@@ -13,13 +13,13 @@
     <RepositoryUrl>https://github.com/grzesiek-galezowski/any</RepositoryUrl>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="AutoFixture.SeedExtensions"/>
-    <PackageReference Include="Castle.Core"/>
+    <PackageReference Include="AutoFixture.SeedExtensions" />
+    <PackageReference Include="Castle.Core" />
     <PackageReference Include="NuGetizer">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="System.Collections.Immutable"/>
+    <PackageReference Include="System.Collections.Immutable" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TypeReflection\TypeReflection.csproj" />

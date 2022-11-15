@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Reflection;
+using Core.NullableReferenceTypesExtensions;
 using TddXt.AnyExtensibility;
 using TddXt.TypeReflection;
 
@@ -7,7 +8,7 @@ namespace TddXt.TypeResolution.FakeChainElements.InlineGeneratorTypes.Generic;
 
 public class ObjectAdapter : InlineGenerator<object>
 {
-  private static readonly GenericMethodProxyCalls GenericMethodProxyCalls = new GenericMethodProxyCalls();
+  private static readonly GenericMethodProxyCalls GenericMethodProxyCalls = new();
   private readonly object _inlineGenerator;
   private readonly MethodInfo _methodInfo;
 
@@ -19,7 +20,10 @@ public class ObjectAdapter : InlineGenerator<object>
 
   public object GenerateInstance(InstanceGenerator instanceGenerator, GenerationRequest request)
   {
-    return _methodInfo.Invoke(_inlineGenerator, new object[] { instanceGenerator, request });
+    return _methodInfo.Invoke(
+        _inlineGenerator,
+        new object[] { instanceGenerator, request })
+      .OrThrow();
   }
 
 
@@ -41,6 +45,9 @@ public class ObjectAdapter : InlineGenerator<object>
 
   private static MethodInfo GenerateInstanceMethodInfo(object inlineGenerator)
   {
-    return inlineGenerator.GetType().GetMethod(nameof(InlineGenerator<object>.GenerateInstance));
+    return inlineGenerator
+      .GetType()
+      .GetMethod(nameof(InlineGenerator<object>.GenerateInstance))
+      .OrThrow();
   }
 }

@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
+    <TargetFrameworks>net6.0;netstandard2.1</TargetFrameworks>
     <AssemblyName>TddXt.Any.TypeResolution</AssemblyName>
     <RootNamespace>TddXt.TypeResolution</RootNamespace>
     <Authors>Grzegorz Gałęzowski</Authors>
@@ -15,14 +15,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AutoFixture"/>
-    <PackageReference Include="Castle.Core"/>
-    <PackageReference Include="Core.Maybe"/>
+    <PackageReference Include="AutoFixture" />
+    <PackageReference Include="Castle.Core" />
+    <PackageReference Include="Core.Maybe" />
     <PackageReference Include="NuGetizer">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="System.Collections.Immutable"/>
+    <PackageReference Include="System.Collections.Immutable" />
   </ItemGroup>
 
   <ItemGroup>

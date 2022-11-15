@@ -2,6 +2,7 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
+using Core.NullableReferenceTypesExtensions;
 using TddXt.AnyExtensibility;
 using TddXt.TypeReflection;
 using TddXt.TypeReflection.Interfaces;
@@ -61,7 +62,7 @@ public class FakeUnknownCollection : IResolution
   {
     var collectionType = smartTypeOfCollection.FindInterfacesForOpenGenericDefinition(openGenericType).Single();
     var elementTypes = collectionType.GenericTypeArguments;
-    var addMethod = collectionType.GetMethod(addMethodName, elementTypes);
+    var addMethod = collectionType.GetMethod(addMethodName, elementTypes).OrThrow();
     
     addMethod.Invoke(
       collectionInstance,

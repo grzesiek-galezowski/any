@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Core.NullableReferenceTypesExtensions;
 using TddXt.AnyExtensibility;
 using TddXt.TypeReflection.Interfaces;
 
@@ -86,7 +87,9 @@ public class ConstructorWrapper : IConstructorWrapper
 
   private static Type GetNonRefFromRefType(TypeInfo constructorParam)
   {
-    return Type.GetType(constructorParam.FullName.Replace("&", ""));
+    var constructorParamFullName = constructorParam.FullName.OrThrow();
+    var typeName = constructorParamFullName.Replace("&", "");
+    return Type.GetType(typeName).OrThrow();
   }
 
   //e.g. an "in" struct
@@ -140,7 +143,7 @@ public class ConstructorWrapper : IConstructorWrapper
 
   public static ConstructorWrapper FromStaticMethodInfo(MethodInfo m)
   {
-    return new ConstructorWrapper(m, args => m.Invoke(null, args), m.GetParameters(), m.ReturnType);
+    return new ConstructorWrapper(m, args => m.Invoke(null, args).OrThrow(), m.GetParameters(), m.ReturnType);
   }
 
   public object InvokeWith(IEnumerable<object> constructorParameters)
@@ -150,7 +153,7 @@ public class ConstructorWrapper : IConstructorWrapper
 
   public override string ToString()
   {
-    var description = _constructor.DeclaringType.Name + "(";
+    var description = _constructor.DeclaringType.OrThrow().Name + "(";
 
     int parametersCount = GetParametersCount();
     for (int i = 0; i < parametersCount; ++i)

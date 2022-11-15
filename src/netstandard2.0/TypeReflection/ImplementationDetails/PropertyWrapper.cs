@@ -28,6 +28,6 @@ public class PropertyWrapper : IPropertyWrapper
 
   public bool HasPublicSetter()
   {
-    return _propertyInfo.SetMethod.IsPublic;
+    return _propertyInfo.SetMethod != null && _propertyInfo.SetMethod.IsPublic;
   }
 }

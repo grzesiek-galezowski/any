@@ -1,6 +1,7 @@
-using System;
+﻿using System;
 using System.Linq;
 using System.Reflection;
+using Core.NullableReferenceTypesExtensions;
 using TddXt.TypeReflection.Interfaces;
 
 namespace TddXt.TypeReflection;
@@ -17,7 +18,7 @@ public class SmartMethod : IMethod
   public object InvokeWithAnyArgsOn(object instance, Func<Type, object> valueFactory)
   {
     var parameters = GenerateAnyValuesFor(valueFactory);
-    return _methodInfo.Invoke(instance, parameters);
+    return _methodInfo.Invoke(instance, parameters).OrThrow();
   }
 
   public object GenerateAnyReturnValue(Func<Type, object> valueFactory)

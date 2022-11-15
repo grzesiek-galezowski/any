@@ -7,7 +7,7 @@ namespace TddXt.TypeResolution.FakeChainElements;
 
 public class CultureInfoResolution : IResolution
 {
-  private CircularList<CultureInfo> _cultures = CircularList.CreateStartingFromRandom(CultureInfo.GetCultures(CultureTypes.AllCultures));
+  private readonly CircularList<CultureInfo> _cultures = CircularList.CreateStartingFromRandom(CultureInfo.GetCultures(CultureTypes.AllCultures));
 
   public bool AppliesTo(Type type)
   {

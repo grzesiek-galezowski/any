@@ -4,6 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using Core.Maybe;
+using Core.NullableReferenceTypesExtensions;
 using TddXt.TypeReflection.ImplementationDetails;
 using TddXt.TypeReflection.ImplementationDetails.ConstructorRetrievals;
 using TddXt.TypeReflection.Interfaces;
@@ -245,6 +246,6 @@ public class SmartType : ISmartType
 
     var run = Expression.Lambda(body, dataParam).Compile();
     var ret = run.DynamicInvoke(data);
-    return ret;
+    return ret.OrThrow();
   }
 }

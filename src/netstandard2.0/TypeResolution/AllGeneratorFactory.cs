@@ -22,8 +22,9 @@ public static class AllGeneratorFactory
     var allGenerator = new AllGenerator(new LimitedGenerationChain(
         new CustomizationSupportingChain(
           new AutoFixtureChain(
-            new GenereatorsBasedChain(new[]
+            new GeneratorsBasedChain(new[]
             {
+              resolutionsFactory.ResolveAsDateOnly(),
               resolutionsFactory.ResolveAsNullable(),
               resolutionsFactory.ResolveAsCultureInfo(),
               resolutionsFactory.ResolveAsLazy(),
@@ -63,7 +64,7 @@ public static class AllGeneratorFactory
               ResolutionsFactory.ResolveAsTypedTask(),
               resolutionsFactory.ResolveAsConcreteClass()
             })))),
-      new GenereatorsBasedChain(
+      new GeneratorsBasedChain(
         new[]
         {
           dummyResolutionsFactory.ResolveDummyPrimitiveTypeInstance(),

@@ -1,7 +1,8 @@
-using System;
+﻿using System;
 using System.Linq;
 using System.Reflection;
 using Castle.DynamicProxy;
+using Core.NullableReferenceTypesExtensions;
 using TddXt.AnyExtensibility;
 
 namespace TddXt.TypeResolution.FakeChainElements.Interceptors;
@@ -21,7 +22,7 @@ internal static class NSubstituteHacks
     try
     {
       var assembly = AppDomain.CurrentDomain.GetAssemblies().SingleOrDefault(a =>
-        a.FullName.StartsWith("NSubstitute,") && a.CodeBase.EndsWith("NSubstitute.dll"));
+        HasNSubstituteFullName(a) && IsNSubstituteDll(a));
       if (assembly != null)
       {
         if (assembly.SubstitutionContextClass().Current().ThreadContext().IsQuerying())
@@ -40,24 +41,42 @@ internal static class NSubstituteHacks
     }
   }
 
+  private static bool IsNSubstituteDll(Assembly a)
+  {
+    return a.Location?.EndsWith("NSubstitute.dll") ?? false;
+  }
+
+  private static bool HasNSubstituteFullName(Assembly a)
+  {
+    return a.FullName?.StartsWith("NSubstitute,") ?? false;
+  }
+
   private static bool IsQuerying(this object threadContext)
   {
-    return (bool)threadContext.GetType().GetProperty("IsQuerying").GetValue(threadContext);
+    var queryingProperty = threadContext.GetType().GetProperty("IsQuerying").OrThrow();
+    return (bool)(queryingProperty.GetValue(threadContext).OrThrow());
   }
 
   private static object ThreadContext(this object currentSubstitutionContext)
   {
-    return currentSubstitutionContext.GetType().GetProperty("ThreadContext")
-      .GetValue(currentSubstitutionContext);
+    var ThreadContextProperty = currentSubstitutionContext
+      .GetType()
+      .GetProperty("ThreadContext")
+      .OrThrow();
+    return ThreadContextProperty
+      .GetValue(currentSubstitutionContext).OrThrow();
   }
 
   private static object Current(this Type substitutionContextType)
   {
-    return substitutionContextType.GetProperty("Current").GetValue(null);
+    var currentProperty = substitutionContextType.GetProperty("Current").OrThrow();
+    return currentProperty.GetValue(null).OrThrow();
   }
 
   private static Type SubstitutionContextClass(this Assembly assembly)
   {
-    return assembly.GetType("NSubstitute.Core.SubstitutionContext", true);
+    return assembly
+      .GetType("NSubstitute.Core.SubstitutionContext", true)
+      .OrThrow();
   }
 }

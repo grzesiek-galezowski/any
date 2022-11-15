@@ -1,6 +1,7 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
+using Core.NullableReferenceTypesExtensions;
 using TddXt.AnyExtensibility;
 using TddXt.TypeReflection.Interfaces;
 
@@ -86,6 +87,6 @@ public class DefaultParameterlessConstructor : IConstructorWrapper
 
   public static IEnumerable<IConstructorWrapper> ForValue(Type type)
   {
-    return new [] { new DefaultParameterlessConstructor(() => Activator.CreateInstance(type))};
+    return new [] { new DefaultParameterlessConstructor(() => Activator.CreateInstance(type).OrThrow())};
   }
 }

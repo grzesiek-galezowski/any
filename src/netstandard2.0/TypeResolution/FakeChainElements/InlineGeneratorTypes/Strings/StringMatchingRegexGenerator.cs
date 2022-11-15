@@ -1,4 +1,5 @@
-﻿using TddXt.AnyExtensibility;
+﻿using Core.NullableReferenceTypesExtensions;
+using TddXt.AnyExtensibility;
 using TddXt.TypeResolution.FakeChainElements.InlineGeneratorTypes.AutoFixtureWrapper;
 
 namespace TddXt.TypeResolution.FakeChainElements.InlineGeneratorTypes.Strings;
@@ -15,8 +16,7 @@ public class StringMatchingRegexGenerator : InlineGenerator<string>
 
   public string GenerateInstance(InstanceGenerator gen, GenerationRequest request)
   {
-
     var result = RegexGenerator.Create(_pattern);
-    return result.ToString();
+    return result.ToString().OrThrow();
   }
 }

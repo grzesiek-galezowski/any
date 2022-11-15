@@ -1927,7 +1927,9 @@ public class AnySpecification
   {
     using var stream = new MemoryStream();
     var formatter = new BinaryFormatter();
+#pragma warning disable SYSLIB0011
     formatter.Serialize(stream, instance);
+#pragma warning restore SYSLIB0011
   }
 
   private static void AssertStringIsNumeric(string theString, int expectedLength)
