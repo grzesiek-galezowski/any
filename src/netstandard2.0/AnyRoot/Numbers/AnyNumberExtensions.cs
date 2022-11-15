@@ -1,4 +1,5 @@
-﻿using TddXt.AnyExtensibility;
+﻿using System;
+using TddXt.AnyExtensibility;
 using TddXt.AnyGenerators.Root;
 
 namespace TddXt.AnyRoot.Numbers;
@@ -7,47 +8,47 @@ public static class AnyNumberExtensions
 {
   public static int Integer(this BasicGenerator gen)
   {
-    return gen.InstanceOf(InlineGenerators.Integer());
+    return gen.Instance<int>();
   }
 
   public static double Double(this BasicGenerator gen)
   {
-    return gen.InstanceOf(InlineGenerators.Double());
+    return gen.Instance<double>();
   }
 
   public static long Long(this BasicGenerator gen)
   {
-    return gen.InstanceOf(InlineGenerators.Long());
+    return gen.Instance<long>();
   }
 
   public static ulong UnsignedLong(this BasicGenerator gen)
   {
-    return gen.InstanceOf(InlineGenerators.UnsignedLong());
+    return gen.Instance<ulong>();
   }
 
   public static byte Byte(this BasicGenerator gen)
   {
-    return gen.InstanceOf(InlineGenerators.Byte());
+    return gen.Instance<byte>();
   }
 
   public static decimal Decimal(this BasicGenerator gen)
   {
-    return gen.InstanceOf(InlineGenerators.Decimal());
+    return gen.Instance<decimal>();
   }
 
   public static uint UnsignedInt(this BasicGenerator gen)
   {
-    return gen.InstanceOf(InlineGenerators.UnsignedInt());
+    return gen.Instance<uint>();
   }
 
   public static ushort UnsignedShort(this BasicGenerator gen)
   {
-    return gen.InstanceOf(InlineGenerators.UnsignedShort());
+    return gen.Instance<ushort>();
   }
 
   public static short Short(this BasicGenerator gen)
   {
-    return gen.InstanceOf(InlineGenerators.Short());
+    return gen.Instance<short>();
   }
 
   public static byte Digit(this BasicGenerator gen)
@@ -64,4 +65,8 @@ public static class AnyNumberExtensions
   {
     return gen.InstanceOf(InlineGenerators.PositiveDigit());
   }
+
+#if NET5_0_OR_GREATER
+  public static Half Half(this BasicGenerator gen) => gen.Instance<Half>();
+#endif
 }

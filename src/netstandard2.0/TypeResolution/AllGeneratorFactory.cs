@@ -24,6 +24,7 @@ public static class AllGeneratorFactory
           new AutoFixtureChain(
             new GeneratorsBasedChain(new[]
             {
+              resolutionsFactory.ResolveAsHalf(),
               resolutionsFactory.ResolveAsDateOnly(),
               resolutionsFactory.ResolveAsNullable(),
               resolutionsFactory.ResolveAsCultureInfo(),

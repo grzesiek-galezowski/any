@@ -2,28 +2,27 @@
 using TddXt.AnyExtensibility;
 
 namespace TddXt.TypeResolution.FakeChainElements;
-
-#if NET6_0_OR_GREATER
-public class DateOnlyResolution : IResolution
+#if NET5_0_OR_GREATER
+public class HalfResolution : IResolution
 {
-  private static DateOnly _current = DateOnly.FromDateTime(DateTime.UtcNow);
   private static readonly object SyncRoot = new();
+  private static Half _current;
   public bool AppliesTo(Type type)
   {
-    return type == typeof(DateOnly);
+    return type == typeof(Half);
   }
 
   public object Apply(InstanceGenerator instanceGenerator, GenerationRequest request, Type type)
   {
-    lock(SyncRoot)
+    lock (SyncRoot)
     {
-      _current = _current.AddDays(1);
+      _current = (Half)((float)_current + (float)Half.Epsilon);
       return _current;
     }
   }
 }
 #else
-public class DateOnlyResolution : IResolution
+public class HalfResolution : IResolution
 {
   public bool AppliesTo(Type type)
   {
@@ -36,3 +35,4 @@ public class DateOnlyResolution : IResolution
   }
 }
 #endif
+

@@ -34,6 +34,6 @@ public static class AnyNetworkExtensions
 
   public static byte Octet(this BasicGenerator gen)
   {
-    return gen.InstanceOf(InlineGenerators.Byte());
+    return gen.Instance<byte>();
   }
 }

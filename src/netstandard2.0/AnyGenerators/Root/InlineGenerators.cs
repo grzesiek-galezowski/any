@@ -349,51 +349,6 @@ public class InlineGenerators
     return InternalInlineGenerators.Uri();
   }
 
-  public static InlineGenerator<int> Integer()
-  {
-    return InternalInlineGenerators.Integer();
-  }
-
-  public static InlineGenerator<double> Double()
-  {
-    return InternalInlineGenerators.Double();
-  }
-
-  public static InlineGenerator<long> Long()
-  {
-    return InternalInlineGenerators.Long();
-  }
-
-  public static InlineGenerator<ulong> UnsignedLong()
-  {
-    return InternalInlineGenerators.UnsignedLong();
-  }
-
-  public static InlineGenerator<byte> Byte()
-  {
-    return InternalInlineGenerators.Byte();
-  }
-
-  public static InlineGenerator<decimal> Decimal()
-  {
-    return InternalInlineGenerators.Decimal();
-  }
-
-  public static InlineGenerator<uint> UnsignedInt()
-  {
-    return InternalInlineGenerators.UnsignedInt();
-  }
-
-  public static InlineGenerator<ushort> UnsignedShort()
-  {
-    return InternalInlineGenerators.UnsignedShort();
-  }
-
-  public static InlineGenerator<short> Short()
-  {
-    return InternalInlineGenerators.Short();
-  }
-
   public static InlineGenerator<int> IntegerFromSequence(int startingValue, int step)
   {
     return InternalInlineGenerators.IntegerFromSequence(startingValue, step);

@@ -35,14 +35,6 @@ public class InternalInlineGenerators
   private static readonly SimpleInstanceGenerator<Guid> _guid;
   private static readonly SimpleInstanceGenerator<Uri> _uriGenerator;
   private static readonly SimpleInstanceGenerator<int> _intGenerator;
-  private static readonly SimpleInstanceGenerator<double> _doubleGenerator;
-  private static readonly SimpleInstanceGenerator<long> _longGenerator;
-  private static readonly SimpleInstanceGenerator<ulong> _unsignedLongGenerator;
-  private static readonly SimpleInstanceGenerator<byte> _byteGenerator;
-  private static readonly SimpleInstanceGenerator<decimal> _decimalGenerator;
-  private static readonly SimpleInstanceGenerator<uint> _uintGenerator;
-  private static readonly SimpleInstanceGenerator<ushort> _ushortGenerator;
-  private static readonly SimpleInstanceGenerator<short> _shortGenerator;
   private static readonly DigitGenerator _digitGenerator;
   private static readonly PositiveDigitGenerator _positiveDigitGenerator;
   private static readonly IpStringGenerator _ipStringGenerator;
@@ -77,14 +69,6 @@ public class InternalInlineGenerators
     _uriStringGenerator = new ValueConversion<Uri, string>(_uriGenerator, u => u.ToString());
     _guid = new SimpleInstanceGenerator<Guid>();
     _intGenerator = new SimpleInstanceGenerator<int>();
-    _doubleGenerator = new SimpleInstanceGenerator<double>();
-    _longGenerator = new SimpleInstanceGenerator<long>();
-    _unsignedLongGenerator = new SimpleInstanceGenerator<ulong>();
-    _byteGenerator = new SimpleInstanceGenerator<byte>();
-    _decimalGenerator = new SimpleInstanceGenerator<decimal>();
-    _uintGenerator = new SimpleInstanceGenerator<uint>();
-    _ushortGenerator = new SimpleInstanceGenerator<ushort>();
-    _shortGenerator = new SimpleInstanceGenerator<short>();
     _digitGenerator = new DigitGenerator();
     _positiveDigitGenerator = new PositiveDigitGenerator(_digitGenerator);
     _ipStringGenerator = new IpStringGenerator();
@@ -446,54 +430,9 @@ public class InternalInlineGenerators
     return _uriGenerator;
   }
 
-  public static InlineGenerator<int> Integer()
-  {
-    return _intGenerator;
-  }
-
-  public static InlineGenerator<double> Double()
-  {
-    return _doubleGenerator;
-  }
-
-  public static InlineGenerator<long> Long()
-  {
-    return _longGenerator;
-  }
-
-  public static InlineGenerator<ulong> UnsignedLong()
-  {
-    return _unsignedLongGenerator;
-  }
-
-  public static InlineGenerator<byte> Byte()
-  {
-    return _byteGenerator;
-  }
-
-  public static InlineGenerator<decimal> Decimal()
-  {
-    return _decimalGenerator;
-  }
-
-  public static InlineGenerator<uint> UnsignedInt()
-  {
-    return _uintGenerator;
-  }
-
-  public static InlineGenerator<ushort> UnsignedShort()
-  {
-    return _ushortGenerator;
-  }
-
-  public static InlineGenerator<short> Short()
-  {
-    return _shortGenerator;
-  }
-
   public static InlineGenerator<int> IntegerFromSequence(int startingValue, int step)
   {
-    return new IntegerFromSequenceGenerator(startingValue, step, Integer());
+    return new IntegerFromSequenceGenerator(startingValue, step, _intGenerator);
   }
 
   public static InlineGenerator<byte> Digit()

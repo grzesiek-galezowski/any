@@ -63,6 +63,30 @@ public class AnySpecification
   }
 
   [Test, Parallelizable]
+  public void ShouldGenerateDifferentInt128EachTime()
+  {
+    Enumerable.Range(1, 1000)
+      .Select(n => Any.Instance<Int128>())
+      .Should().OnlyHaveUniqueItems();
+  }
+  
+  [Test, Parallelizable]
+  public void ShouldGenerateDifferentUInt128EachTime()
+  {
+    Enumerable.Range(1, 1000)
+      .Select(n => Any.Instance<UInt128>())
+      .Should().OnlyHaveUniqueItems();
+  }
+
+  [Test, Parallelizable]
+  public void ShouldGenerateDifferentHalfEachTime()
+  {
+    Enumerable.Range(1, 1000)
+      .Select(n => Any.Instance<Half>())
+      .Should().OnlyHaveUniqueItems();
+  }
+
+  [Test, Parallelizable]
   public void ShouldGenerateDifferentNullableIntegerEachTime()
   {
     Enumerable.Range(1, 1000)

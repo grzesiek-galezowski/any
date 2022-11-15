@@ -41,7 +41,6 @@ public class GenericMethodProxyCalls
     return genericMethod.Invoke(null, parameters).OrThrow();
   }
 
-
   private MethodInfo FindEmptyGenericsInstanceMethod<T>(
     string name, object[] parameters)
   {

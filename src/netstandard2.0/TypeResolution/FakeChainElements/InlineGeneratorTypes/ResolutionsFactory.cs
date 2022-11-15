@@ -284,4 +284,9 @@ public class ResolutionsFactory
   {
     return new DateOnlyResolution();
   }
+
+  public IResolution ResolveAsHalf()
+  {
+    return new HalfResolution();
+  }
 }
