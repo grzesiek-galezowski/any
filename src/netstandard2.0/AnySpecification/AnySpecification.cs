@@ -136,12 +136,13 @@ public class AnySpecification
     Assert.AreNotEqual(address1.ToString(), address2.ToString());
   }
 
-  [Test, Parallelizable]
+  [Test, Parallelizable, Repeat(100)]
   public void ShouldGenerateDifferentTypeEachTimeUpTo13Times()
   {
     Enumerable.Range(0, 13).Select(_ => Any.Type())
-      .Should().NotBeEmpty().And.OnlyHaveUniqueItems();
-    Enumerable.Range(0, 13).Select(_ => Any.Instance<Type>()).Should().OnlyHaveUniqueItems();
+      .ToList().Should().NotBeEmpty().And.OnlyHaveUniqueItems();
+    Enumerable.Range(0, 13).Select(_ => Any.Instance<Type>())
+      .ToList().Should().NotBeEmpty().And.OnlyHaveUniqueItems();
   }
 
   [Test, Parallelizable]
