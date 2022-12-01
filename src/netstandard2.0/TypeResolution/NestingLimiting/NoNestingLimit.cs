@@ -1,19 +1,20 @@
-﻿using TddXt.AnyExtensibility;
+﻿using System;
+using TddXt.AnyExtensibility;
 
 namespace TddXt.TypeResolution.NestingLimiting;
 
 public class NoNestingLimit : NestingLimit
 {
-  public void AddNestingFor<T>(GenerationTrace generationTrace)
+  public void AddNestingFor(Type type, GenerationTrace generationTrace)
   {
   }
 
-  public bool IsReachedFor<T>()
+  public bool IsReachedFor(Type type)
   {
     return false;
   }
 
-  public void RemoveNestingFor<T>(GenerationTrace generationTrace)
+  public void RemoveNestingFor(Type type, GenerationTrace generationTrace)
   {
 
   }

@@ -13,13 +13,13 @@ public class GlobalNestingLimit : NestingLimit
     _limit = limit;
   }
 
-  public void AddNestingFor<T>(GenerationTrace generationTrace)
+  public void AddNestingFor(Type type, GenerationTrace generationTrace)
   {
     _nesting++;
-    generationTrace.AddNestingAndCheckWith(_nesting, typeof(T));
+    generationTrace.AddNestingAndCheckWith(_nesting, type);
   }
 
-  public bool IsReachedFor<T>()
+  public bool IsReachedFor(Type type)
   {
     if (_nesting == _limit + 1)
     {
@@ -33,10 +33,10 @@ public class GlobalNestingLimit : NestingLimit
 
   }
 
-  public void RemoveNestingFor<T>(GenerationTrace generationTrace)
+  public void RemoveNestingFor(Type type, GenerationTrace generationTrace)
   {
     _nesting--;
-    generationTrace.RemoveNestingAndCheckWith(_nesting, typeof(T));
+    generationTrace.RemoveNestingAndCheckWith(_nesting, type);
   }
 
   public static GlobalNestingLimit Of(int limit)

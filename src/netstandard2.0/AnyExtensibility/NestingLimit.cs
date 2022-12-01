@@ -1,8 +1,10 @@
-﻿namespace TddXt.AnyExtensibility;
+﻿using System;
+
+namespace TddXt.AnyExtensibility;
 
 public interface NestingLimit
 {
-  void AddNestingFor<T>(GenerationTrace generationTrace);
-  bool IsReachedFor<T>();
-  void RemoveNestingFor<T>(GenerationTrace generationTrace);
+  void AddNestingFor(Type type, GenerationTrace generationTrace);
+  bool IsReachedFor(Type type);
+  void RemoveNestingFor(Type type, GenerationTrace generationTrace);
 }

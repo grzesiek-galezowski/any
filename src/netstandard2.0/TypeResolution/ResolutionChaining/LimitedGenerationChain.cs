@@ -16,6 +16,7 @@ public class LimitedGenerationChain : IGenerationChain
   public object Resolve(InstanceGenerator instanceGenerator, GenerationRequest request, Type type)
   {
     return request.WithNextNestingLevel(
+      type,
       () => _generationChain.Resolve(instanceGenerator, request, type),
       () =>
       {

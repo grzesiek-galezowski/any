@@ -25,13 +25,15 @@ public class DefaultGenerationRequest : GenerationRequest
     Trace = trace;
   }
 
-  public T WithNextNestingLevel<T>(Func<T> limitNotReachedFunction,
-    Func<T> limitReachedFunction)
+  public object WithNextNestingLevel(
+    Type generatedType, 
+    Func<object> limitNotReachedFunction,
+    Func<object> limitReachedFunction)
   {
     try
     {
-      NestingLimit.AddNestingFor<T>(Trace);
-      if (!NestingLimit.IsReachedFor<T>())
+      NestingLimit.AddNestingFor(generatedType, Trace);
+      if (!NestingLimit.IsReachedFor(generatedType))
       {
         return limitNotReachedFunction.Invoke();
       }
@@ -42,7 +44,7 @@ public class DefaultGenerationRequest : GenerationRequest
     }
     finally
     {
-      NestingLimit.RemoveNestingFor<T>(Trace);
+      NestingLimit.RemoveNestingFor(generatedType, Trace);
     }
   }
 
