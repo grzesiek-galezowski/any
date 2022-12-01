@@ -136,7 +136,8 @@ public class AnySpecification
     Assert.AreNotEqual(address1.ToString(), address2.ToString());
   }
 
-  [Test, Parallelizable, Repeat(100)]
+  [Test] 
+  //this test cannot be parallelizable because it can have conflict with other tests that generate type objects
   public void ShouldGenerateDifferentTypeEachTimeUpTo13Times()
   {
     Enumerable.Range(0, 13).Select(_ => Any.Type())
