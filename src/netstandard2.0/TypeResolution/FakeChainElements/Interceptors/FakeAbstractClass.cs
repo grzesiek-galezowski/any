@@ -27,9 +27,10 @@ public class FakeAbstractClass : IResolution
 
   public object Apply(InstanceGenerator instanceGenerator, GenerationRequest request, Type type)
   {
+    var constructorArguments = _objectGenerator.GenerateConstructorParameters(instanceGenerator.Instance, request, type).ToArray();
     var result = _proxyGenerator.CreateClassProxy(
       type,
-      _objectGenerator.GenerateConstructorParameters(instanceGenerator.Instance, request, type).ToArray(), 
+      constructorArguments, 
       new AbstractClassInterceptor(_generation, 
         instanceGenerator.Instance, request));
     request.CustomizeCreatedValue(result, instanceGenerator);

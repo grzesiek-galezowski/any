@@ -26,7 +26,7 @@ public class ResolutionsFactory
     _objectGenerator = objectGenerator;
   }
 
-  public static IResolution ResolveAsOptionalOption()
+  public static IResolution ResolveAsExternalOptionalOption()
   {
     return new OptionalOptionResolution();
   }
@@ -288,5 +288,20 @@ public class ResolutionsFactory
   public IResolution ResolveAsHalf()
   {
     return new HalfResolution();
+  }
+
+  public static IResolution ResolveAsExternalJToken()
+  {
+    return new JTokenResolution();
+  }
+
+  public static IResolution ResolveAsExternalJContainer()
+  {
+    return new JContainerResolution();
+  }
+
+  public static IResolution ResolveAsExternalJProperty()
+  {
+    return new JPropertyResolution();
   }
 }

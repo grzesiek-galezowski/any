@@ -17,6 +17,7 @@ using AnySpecification.GraphComparison;
 using FluentAssertions;
 using Functional.Maybe;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using NSubstitute;
 using Optional;
 using Optional.Unsafe;
@@ -1934,6 +1935,24 @@ public class AnySpecification
     o.Should().NotBeNull();
     o.Keys.Should().NotBeEmpty();
     o.Values.Should().NotBeEmpty();
+  }
+
+  [Test, Parallelizable]
+  public void ShouldAllowGeneratingJObjects()
+  {
+    var constructor = Any.Instance<JConstructor>();
+    var array = Any.Instance<JArray>();
+    var jObject = Any.Instance<JObject>();
+    var token = Any.Instance<JToken>();
+    var container = Any.Instance<JContainer>();
+    var property = Any.Instance<JProperty>();
+
+    constructor.Should().NotBeNull();
+    array.Should().NotBeNull();
+    jObject.Should().NotBeNull();
+    token.Should().NotBeNull();
+    container.Should().NotBeNull();
+    property.Should().NotBeNull();
   }
 
   private static void CallSomeMethodsOn(AbstractObjectWithInterfaceInConstructor x1,

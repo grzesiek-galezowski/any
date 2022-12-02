@@ -23,10 +23,10 @@ public class FakeUnknownCollection : IResolution
     var isCollection = SupportedTypes.Any(tuple => smartType.IsImplementationOfOpenGeneric(tuple.type));
     return smartType.IsConcrete() &&
            isCollection &&
-           smartType.HasPublicParameterlessConstructor();
+           smartType.HasPublicParameterlessConstructor() &&
+           IsNotExplicitlyExcluded(smartType);
 
   }
-
 
   public object Apply(InstanceGenerator instanceGenerator, GenerationRequest request, Type typeOfCollection)
   {
@@ -80,4 +80,10 @@ public class FakeUnknownCollection : IResolution
   {
     return elementTypes.Select(type => instanceGenerator.Instance(type, request)).ToArray();
   }
+
+  private bool IsNotExplicitlyExcluded(ISmartType smartType)
+  {
+    return !smartType.IsFromNamespace("Newtonsoft.Json.Linq");
+  }
+
 }

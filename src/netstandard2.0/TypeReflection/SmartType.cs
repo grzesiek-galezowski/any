@@ -15,6 +15,7 @@ public interface ISmartType : IType, IConstructorQueries
 {
   IEnumerable<IConstructorWrapper> FactoryMethods();
   bool Is(Type type);
+  bool IsFromNamespace(string @namespace);
 }
 
 public class SmartType : ISmartType
@@ -38,6 +39,11 @@ public class SmartType : ISmartType
   }
 
   public bool Is(Type t) => this._type == t;
+  
+  public bool IsFromNamespace(string @namespace)
+  {
+    return _type.Namespace == @namespace;
+  }
 
   public IEnumerable<IConstructorWrapper> FactoryMethods()
   {
