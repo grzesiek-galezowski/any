@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 using Core.Maybe;
 using Core.NullableReferenceTypesExtensions;
+using TddXt.AnyExtensibility;
 using TddXt.TypeReflection.ImplementationDetails;
 using TddXt.TypeReflection.ImplementationDetails.ConstructorRetrievals;
 using TddXt.TypeReflection.Interfaces;
@@ -16,6 +17,8 @@ public interface ISmartType : IType, IConstructorQueries
   IEnumerable<IConstructorWrapper> FactoryMethods();
   bool Is(Type type);
   bool IsFromNamespace(string @namespace);
+  object CreateInstance(Type[] types, object[] arguments);
+  object GenerateInstanceWith(InstanceGenerator gen, GenerationRequest request);
 }
 
 public class SmartType : ISmartType
@@ -253,5 +256,22 @@ public class SmartType : ISmartType
     var run = Expression.Lambda(body, dataParam).Compile();
     var ret = run.DynamicInvoke(data);
     return ret.OrThrow();
+  }
+
+  public static ISmartType QueryExportedTypes(Assembly typeAssembly, Func<Type, bool> predicate)
+  {
+    return For(typeAssembly.ExportedTypes.Single(predicate));
+  }
+
+  public object CreateInstance(Type[] types, object[] arguments)
+  {
+    var constructor = _type
+      .GetConstructor(BindingFlags.Public | BindingFlags.Instance, null, types, null).OrThrow();
+    return constructor.Invoke(arguments);
+  }
+
+  public object GenerateInstanceWith(InstanceGenerator gen, GenerationRequest request)
+  {
+    return gen.Instance(((SmartType)this)._type, request);
   }
 }

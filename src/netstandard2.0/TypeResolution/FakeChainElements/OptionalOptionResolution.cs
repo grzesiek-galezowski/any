@@ -10,12 +10,12 @@ public class OptionalOptionResolution : IResolution
 {
   public bool AppliesTo(Type type)
   {
-    return type.Namespace == "Optional"
-           && type.Name == "Option`1";
+    return type is { Namespace: "Optional", Name: "Option`1" };
   }
 
   public object Apply(InstanceGenerator gen, GenerationRequest request, Type type)
   {
+    //bug use SmartType here similarly to Newtonsoft ones
     var genericArgument = type.GetGenericArguments()[0];
     var elementInstance = gen.Instance(genericArgument, request);
     var factoryClass = type.Assembly.ExportedTypes.Single(t => t.Namespace == "Optional" && t.Name == "Option");

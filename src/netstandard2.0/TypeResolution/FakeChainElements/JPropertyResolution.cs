@@ -2,6 +2,7 @@
 using System.Linq;
 using Core.NullableReferenceTypesExtensions;
 using TddXt.AnyExtensibility;
+using TddXt.TypeReflection;
 using BindingFlags = System.Reflection.BindingFlags;
 
 namespace TddXt.TypeResolution.FakeChainElements;
@@ -10,15 +11,16 @@ public class JPropertyResolution : IResolution
 {
   public bool AppliesTo(Type type)
   {
-    return type is { Namespace: "Newtonsoft.Json.Linq", Name: "JProperty" };
+    return NewtonsoftJsonTypePredicates.IsJProperty(type);
   }
 
   public object Apply(InstanceGenerator gen, GenerationRequest request, Type type)
   {
-    var objectType = type.Assembly.ExportedTypes.Single(t => t is { Namespace: "Newtonsoft.Json.Linq", Name: "JProperty" });
+    var objectType = SmartType.QueryExportedTypes(type.Assembly, NewtonsoftJsonTypePredicates.IsJProperty);
     var key = gen.Instance(typeof(string), request);
     var value = gen.Instance(typeof(string), request);
-    var constructorInfo = objectType.GetConstructor(BindingFlags.Public | BindingFlags.Instance, null, new Type[] { typeof(string), typeof(object)}, null).OrThrow();
-    return constructorInfo.Invoke(new[] { key, value });
+    return objectType.CreateInstance(
+      new[] { typeof(string), typeof(object) },
+      new[] { key, value });
   }
 }
