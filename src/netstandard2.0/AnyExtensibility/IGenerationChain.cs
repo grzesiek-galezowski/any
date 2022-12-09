@@ -1,7 +1,6 @@
 ﻿using System;
-using TddXt.AnyExtensibility;
 
-namespace TddXt.TypeResolution.ResolutionChaining;
+namespace TddXt.AnyExtensibility;
 
 public interface IGenerationChain
 {

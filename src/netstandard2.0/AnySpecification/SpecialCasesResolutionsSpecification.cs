@@ -11,12 +11,13 @@ public class SpecialCasesResolutionsSpecification
   {
     //GIVEN
     var resolution = new SpecialCasesOfResolutions().CreateResolutionOfArray();
+    var generationRequest = Any.Instance<GenerationRequest>();
 
     //WHEN
 
     //THEN
     Assert.True(resolution.AppliesTo(typeof(RecursiveInterface[])));
     Assert.NotNull(resolution.Apply(Any.Instance<InstanceGenerator>(), Any.Instance<GenerationRequest>(), typeof(RecursiveInterface[])));
-    Assert.AreEqual(3, ((RecursiveInterface[])resolution.Apply(Any.Instance<InstanceGenerator>(), Any.Instance<GenerationRequest>(), typeof(RecursiveInterface[]))).Length);
+    Assert.AreEqual(generationRequest.Many, ((RecursiveInterface[])resolution.Apply(Any.Instance<InstanceGenerator>(), generationRequest, typeof(RecursiveInterface[]))).Length);
   }
 }

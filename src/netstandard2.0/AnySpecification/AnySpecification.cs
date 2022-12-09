@@ -573,14 +573,9 @@ public class AnySpecification
   [Test, Parallelizable]
   public void ShouldSupportRecursiveInterfacesWithLists()
   {
-    var factories = Any.Enumerable<RecursiveInterface>().ToList();
+    var recursiveObjects = Any.Enumerable<RecursiveInterface>().ToList();
 
-    var x = factories[0];
-    var y = x.GetNested();
-    var y2 = y[0];
-    var z = y2.Nested;
-    var x1 = z.GetNested()[1];
-    var x2 = x1.Nested.Number;
+    var x2 = recursiveObjects[0].GetNested()[0].Nested.Number;
 
     Assert.AreNotEqual(default(int), x2);
   }
@@ -1336,36 +1331,6 @@ public class AnySpecification
     //Serialize(x3);
     Serialize(x4);
     Serialize(x5);
-  }
-
-  [Test, Ignore("Currently per type nesting guard is disabled - it proved very slow in practical applications")]
-  public void ShouldHaveRecursionLimitSetPerType()
-  {
-    //GIVEN
-    var instance = Any.Instance<RecursiveClass>();
-
-    Assert.NotNull(instance.Same.Same.Same);
-    Assert.Null(instance.Same.Same.Same.Same);
-    Assert.Null(instance.Same.Same.Same.Same);
-    Assert.NotNull(instance.Same.Same.Whatever);
-
-    Assert.NotNull(instance.Other.Other2.Other.Other2.Other.Other2);
-    Assert.Null(instance.Other.Other2.Other.Other2.Other.Other2.Other);
-  }
-
-  [Test, Parallelizable]
-  public void ShouldUseEmptyCollectionWhenRunning()
-  {
-    //GIVEN
-    var instance = Any.Instance<RecursiveClass>();
-
-    Assert.NotNull(instance.Same.Same.Same);
-    Assert.Null(instance.Same.Same.Same.Same.Same.Same);
-    Assert.AreEqual(0, instance.Same.Same.Same.Same.Others.Length);
-    Assert.NotNull(instance.Same.Same.Whatever);
-
-    Assert.NotNull(instance.Other.Other2.Other.Other2.Other);
-    Assert.Null(instance.Other.Other2.Other.Other2.Other.Other2);
   }
 
   [Test, Parallelizable]

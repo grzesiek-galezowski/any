@@ -10,7 +10,7 @@ public class ResolveDummyPrimitiveTypeInstance : IResolution
     GenerationRequest request, 
     Type type)
   {
-    return allGenerator.Instance(type, request.DisableNestingLimit());
+    return allGenerator.Instance(type, request.DisableLimits());
   }
 
   public bool AppliesTo(Type type)

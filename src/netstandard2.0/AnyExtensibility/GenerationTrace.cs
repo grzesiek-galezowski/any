@@ -10,7 +10,7 @@ public interface GenerationTrace
   void RemoveNestingAndCheckWith(int nesting, Type type);
   void GeneratingSeededValue<T>(Type type, T seed);
   void SelectedResolution(Type type, object resolution);
-  void NestingLimitReachedTryingDummy();
+  void RecursionLimitReachedTryingDummy();
   void ThirdPartyGeneratorFailedTryingFallback(Exception exception);
   void ChosenParameterlessConstructor();
   void ChosenConstructor(string constructorName, IEnumerable<TypeInfo> parameterTypes);

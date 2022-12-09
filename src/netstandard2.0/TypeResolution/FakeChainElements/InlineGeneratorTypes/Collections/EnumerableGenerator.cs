@@ -5,16 +5,17 @@ namespace TddXt.TypeResolution.FakeChainElements.InlineGeneratorTypes.Collection
 
 public class EnumerableGenerator<T> : InlineGenerator<IEnumerable<T>>
 {
-  private readonly int _length;
+  private readonly ManyStrategy _manyStrategy;
 
-  public EnumerableGenerator(int length)
+  public EnumerableGenerator(ManyStrategy manyStrategy)
   {
-    _length = length;
+    _manyStrategy = manyStrategy;
   }
 
   public IEnumerable<T> GenerateInstance(InstanceGenerator instanceGenerator, GenerationRequest request)
   {
     //todo create empty collection factory to be able to use object here
-    return GeneratedCollectionItems.AddTo(new List<T>(), _length, instanceGenerator, request);
+    return GeneratedCollectionItems.AddTo(new List<T>(), _manyStrategy.GetMany(request), instanceGenerator, request);
   }
 }
+

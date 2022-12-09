@@ -92,12 +92,12 @@ public class InternalInlineGenerators
 
   public static InlineGenerator<IEnumerable<T>> Enumerable<T>()
   {
-    return new EnumerableGenerator<T>(Configuration.Many);
+    return new EnumerableGenerator<T>(ManyStrategies.FromRequest());
   }
 
   public static InlineGenerator<IEnumerable<T>> Enumerable<T>(int length)
   {
-    return new EnumerableGenerator<T>(length);
+    return new EnumerableGenerator<T>(ManyStrategies.FromConstant(length));
   }
 
   public static InlineGenerator<IEnumerable<T>> EnumerableWithout<T>(T[] excluded)
@@ -107,7 +107,7 @@ public class InternalInlineGenerators
 
   public static InlineGenerator<T[]> Array<T>(int length)
   {
-    return new EnumerableGenerator<T>(length).AsArray();
+    return new EnumerableGenerator<T>(ManyStrategies.FromConstant(length)).AsArray();
   }
 
   // Used by reflection
@@ -115,7 +115,7 @@ public class InternalInlineGenerators
   // ReSharper disable once UnusedMember.Global
   public static InlineGenerator<T[]> Array<T>()
   {
-    return new EnumerableGenerator<T>(Configuration.Many).AsArray();
+    return new EnumerableGenerator<T>(ManyStrategies.FromRequest()).AsArray();
   }
 
   public static InlineGenerator<T[]> ArrayWithout<T>(T[] excluded)
@@ -130,7 +130,7 @@ public class InternalInlineGenerators
 
   public static InlineGenerator<List<T>> List<T>(int length)
   {
-    return new EnumerableGenerator<T>(length).AsList();
+    return new EnumerableGenerator<T>(ManyStrategies.FromConstant(length)).AsList();
   }
 
   // Used by reflection
@@ -138,7 +138,7 @@ public class InternalInlineGenerators
   // ReSharper disable once UnusedMember.Global
   public static InlineGenerator<List<T>> List<T>()
   {
-    return new EnumerableGenerator<T>(Configuration.Many).AsList();
+    return new EnumerableGenerator<T>(ManyStrategies.FromRequest()).AsList();
   }
 
   public static InlineGenerator<List<T>> ListWithout<T>(T[] excluded)
@@ -153,17 +153,18 @@ public class InternalInlineGenerators
 
   public static InlineGenerator<SortedList<TKey, TValue>> SortedList<TKey, TValue>(int length)
   {
-    return new EnumerableGenerator<KeyValuePair<TKey, TValue>>(length).AsSortedList();
+    return new EnumerableGenerator<KeyValuePair<TKey, TValue>>(ManyStrategies.FromConstant(length)).AsSortedList();
   }
 
   public static InlineGenerator<SortedList<TKey, TValue>> SortedList<TKey, TValue>()
   {
-    return new EnumerableGenerator<KeyValuePair<TKey, TValue>>(Configuration.Many).AsSortedList();
+    return new EnumerableGenerator<KeyValuePair<TKey, TValue>>(
+      ManyStrategies.FromRequest()).AsSortedList();
   }
 
   public static InlineGenerator<ISet<T>> Set<T>(int length)
   {
-    return new EnumerableGenerator<T>(length).AsSet();
+    return new EnumerableGenerator<T>(ManyStrategies.FromConstant(length)).AsSet();
   }
 
   // Used by reflection
@@ -171,12 +172,12 @@ public class InternalInlineGenerators
   // ReSharper disable once UnusedMember.Global
   public static InlineGenerator<ISet<T>> Set<T>()
   {
-    return new EnumerableGenerator<T>(Configuration.Many).AsSet();
+    return new EnumerableGenerator<T>(ManyStrategies.FromConstant(Configuration.Many)).AsSet();
   }
 
   public static InlineGenerator<SortedSet<T>> SortedSet<T>(int length)
   {
-    return new EnumerableGenerator<T>(length).AsSortedSet();
+    return new EnumerableGenerator<T>(ManyStrategies.FromConstant(length)).AsSortedSet();
   }
 
   // Used by reflection
@@ -184,12 +185,12 @@ public class InternalInlineGenerators
   // ReSharper disable once UnusedMember.Global
   public static InlineGenerator<SortedSet<T>> SortedSet<T>()
   {
-    return new EnumerableGenerator<T>(Configuration.Many).AsSortedSet();
+    return new EnumerableGenerator<T>(ManyStrategies.FromRequest()).AsSortedSet();
   }
 
   public static InlineGenerator<Dictionary<TKey, TValue>> Dictionary<TKey, TValue>(int length)
   {
-    return new EnumerableGenerator<KeyValuePair<TKey, TValue>>(length).AsDictionary();
+    return new EnumerableGenerator<KeyValuePair<TKey, TValue>>(ManyStrategies.FromConstant(length)).AsDictionary();
   }
 
   // Used by reflection
@@ -197,12 +198,12 @@ public class InternalInlineGenerators
   // ReSharper disable once UnusedMember.Global
   public static InlineGenerator<IReadOnlyDictionary<TKey, TValue>> ReadOnlyDictionary<TKey, TValue>()
   {
-    return new EnumerableGenerator<KeyValuePair<TKey, TValue>>(Configuration.Many).AsReadOnlyDictionary();
+    return new EnumerableGenerator<KeyValuePair<TKey, TValue>>(ManyStrategies.FromRequest()).AsReadOnlyDictionary();
   }
 
   public static InlineGenerator<IReadOnlyDictionary<TKey, TValue>> ReadOnlyDictionary<TKey, TValue>(int length)
   {
-    return new EnumerableGenerator<KeyValuePair<TKey, TValue>>(length).AsReadOnlyDictionary();
+    return new EnumerableGenerator<KeyValuePair<TKey, TValue>>(ManyStrategies.FromConstant(length)).AsReadOnlyDictionary();
   }
 
   // Used by reflection
@@ -210,13 +211,12 @@ public class InternalInlineGenerators
   // ReSharper disable once UnusedMember.Global
   public static InlineGenerator<Dictionary<TKey, TValue>> Dictionary<TKey, TValue>()
   {
-    return new EnumerableGenerator<KeyValuePair<TKey, TValue>>(Configuration.Many).AsDictionary();
+    return new EnumerableGenerator<KeyValuePair<TKey, TValue>>(ManyStrategies.FromRequest()).AsDictionary();
   }
-
 
   public static InlineGenerator<ConcurrentDictionary<TKey, TValue>> ConcurrentDictionary<TKey, TValue>(int length)
   {
-    return new EnumerableGenerator<KeyValuePair<TKey, TValue>>(length)
+    return new EnumerableGenerator<KeyValuePair<TKey, TValue>>(ManyStrategies.FromConstant(length))
       .AsConcurrentDictionary();
   }
 
@@ -225,13 +225,13 @@ public class InternalInlineGenerators
   // ReSharper disable once UnusedMember.Global
   public static InlineGenerator<ConcurrentDictionary<TKey, TValue>> ConcurrentDictionary<TKey, TValue>()
   {
-    return new EnumerableGenerator<KeyValuePair<TKey, TValue>>(Configuration.Many)
+    return new EnumerableGenerator<KeyValuePair<TKey, TValue>>(ManyStrategies.FromRequest())
       .AsConcurrentDictionary();
   }
 
   public static InlineGenerator<ConcurrentStack<T>> ConcurrentStack<T>(int length)
   {
-    return new EnumerableGenerator<T>(length).AsConcurrentStack();
+    return new EnumerableGenerator<T>(ManyStrategies.FromConstant(length)).AsConcurrentStack();
   }
 
   // Used by reflection
@@ -239,12 +239,12 @@ public class InternalInlineGenerators
   // ReSharper disable once UnusedMember.Global
   public static InlineGenerator<ConcurrentStack<T>> ConcurrentStack<T>()
   {
-    return new EnumerableGenerator<T>(Configuration.Many).AsConcurrentStack();
+    return new EnumerableGenerator<T>(ManyStrategies.FromRequest()).AsConcurrentStack();
   }
 
   public static InlineGenerator<ConcurrentQueue<T>> ConcurrentQueue<T>(int length)
   {
-    return new EnumerableGenerator<T>(length).AsConcurrentQueue();
+    return new EnumerableGenerator<T>(ManyStrategies.FromConstant(length)).AsConcurrentQueue();
   }
 
   // Used by reflection
@@ -252,12 +252,12 @@ public class InternalInlineGenerators
   // ReSharper disable once UnusedMember.Global
   public static InlineGenerator<ConcurrentQueue<T>> ConcurrentQueue<T>()
   {
-    return new EnumerableGenerator<T>(Configuration.Many).AsConcurrentQueue();
+    return new EnumerableGenerator<T>(ManyStrategies.FromRequest()).AsConcurrentQueue();
   }
 
   public static InlineGenerator<SortedDictionary<TKey, TValue>> SortedDictionary<TKey, TValue>(int length)
   {
-    return new EnumerableGenerator<KeyValuePair<TKey, TValue>>(length)
+    return new EnumerableGenerator<KeyValuePair<TKey, TValue>>(ManyStrategies.FromConstant(length))
       .AsSortedDictionary();
   }
 
@@ -266,23 +266,23 @@ public class InternalInlineGenerators
   // ReSharper disable once UnusedMember.Global
   public static InlineGenerator<SortedDictionary<TKey, TValue>> SortedDictionary<TKey, TValue>()
   {
-    return new EnumerableGenerator<KeyValuePair<TKey, TValue>>(Configuration.Many)
+    return new EnumerableGenerator<KeyValuePair<TKey, TValue>>(ManyStrategies.FromRequest())
       .AsSortedDictionary();
   }
 
   public static InlineGenerator<ConcurrentBag<T>> ConcurrentBag<T>(int length)
   {
-    return new EnumerableGenerator<T>(length).AsConcurrentBag();
+    return new EnumerableGenerator<T>(ManyStrategies.FromConstant(length)).AsConcurrentBag();
   }
 
   public static InlineGenerator<ConcurrentBag<T>> ConcurrentBag<T>()
   {
-    return new EnumerableGenerator<T>(Configuration.Many).AsConcurrentBag();
+    return new EnumerableGenerator<T>(ManyStrategies.FromRequest()).AsConcurrentBag();
   }
 
   public static InlineGenerator<IEnumerator<T>> Enumerator<T>()
   {
-    return new EnumeratorGenerator<T>();
+    return new EnumeratorGenerator<T>(ManyStrategies.FromRequest());
   }
 
   public static InlineGenerator<object> GetByNameAndType(string methodName, Type type)
@@ -670,7 +670,7 @@ public class InternalInlineGenerators
   // ReSharper disable once UnusedMember.Global
   public static InlineGenerator<ImmutableArray<T>> ImmutableArray<T>()
   {
-    return new EnumerableGenerator<T>(Configuration.Many).AsImmutableArray();
+    return new EnumerableGenerator<T>(ManyStrategies.FromRequest()).AsImmutableArray();
   }
 
   // Used by reflection
@@ -678,7 +678,7 @@ public class InternalInlineGenerators
   // ReSharper disable once UnusedMember.Global
   public static InlineGenerator<ImmutableList<T>> ImmutableList<T>()
   {
-    return new EnumerableGenerator<T>(Configuration.Many).AsImmutableList();
+    return new EnumerableGenerator<T>(ManyStrategies.FromRequest()).AsImmutableList();
   }
 
   // Used by reflection
@@ -686,7 +686,7 @@ public class InternalInlineGenerators
   // ReSharper disable once UnusedMember.Global
   public static InlineGenerator<ImmutableHashSet<T>> ImmutableHashSet<T>()
   {
-    return new EnumerableGenerator<T>(Configuration.Many).AsImmutableHashSet();
+    return new EnumerableGenerator<T>(ManyStrategies.FromRequest()).AsImmutableHashSet();
   }
 
   // Used by reflection
@@ -694,7 +694,7 @@ public class InternalInlineGenerators
   // ReSharper disable once UnusedMember.Global
   public static InlineGenerator<ImmutableSortedSet<T>> ImmutableSortedSet<T>()
   {
-    return new EnumerableGenerator<T>(Configuration.Many).AsImmutableSortedSet();
+    return new EnumerableGenerator<T>(ManyStrategies.FromRequest()).AsImmutableSortedSet();
   }
 
   // Used by reflection
@@ -702,7 +702,7 @@ public class InternalInlineGenerators
   // ReSharper disable once UnusedMember.Global
   public static InlineGenerator<ImmutableDictionary<T1, T2>> ImmutableDictionary<T1, T2>()
   {
-    return new EnumerableGenerator<KeyValuePair<T1, T2>>(Configuration.Many).AsImmutableDictionary();
+    return new EnumerableGenerator<KeyValuePair<T1, T2>>(ManyStrategies.FromRequest()).AsImmutableDictionary();
   }
 
   // Used by reflection
@@ -710,7 +710,7 @@ public class InternalInlineGenerators
   // ReSharper disable once UnusedMember.Global
   public static InlineGenerator<ImmutableSortedDictionary<T1, T2>> ImmutableSortedDictionary<T1, T2>()
   {
-    return new EnumerableGenerator<KeyValuePair<T1, T2>>(Configuration.Many).AsImmutableSortedDictionary();
+    return new EnumerableGenerator<KeyValuePair<T1, T2>>(ManyStrategies.FromRequest()).AsImmutableSortedDictionary();
   }
 
   // Used by reflection
@@ -718,7 +718,7 @@ public class InternalInlineGenerators
   // ReSharper disable once UnusedMember.Global
   public static InlineGenerator<ImmutableQueue<T>> ImmutableQueue<T>()
   {
-    return new EnumerableGenerator<T>(Configuration.Many).AsImmutableQueue();
+    return new EnumerableGenerator<T>(ManyStrategies.FromRequest()).AsImmutableQueue();
   }
 
   // Used by reflection
@@ -726,7 +726,7 @@ public class InternalInlineGenerators
   // ReSharper disable once UnusedMember.Global
   public static InlineGenerator<ImmutableStack<T>> ImmutableStack<T>()
   {
-    return new EnumerableGenerator<T>(Configuration.Many).AsImmutableStack();
+    return new EnumerableGenerator<T>(ManyStrategies.FromRequest()).AsImmutableStack();
   }
 
   public static InlineGenerator<Lazy<T>> Lazy<T>()

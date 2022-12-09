@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using TddXt.AnyExtensibility;
 using TddXt.TypeResolution.FakeChainElements.InlineGeneratorTypes.Generic.ImplementationDetails;
-using TddXt.TypeResolution.ResolutionChaining;
 
 namespace TddXt.TypeResolution;
 
@@ -23,7 +22,7 @@ public class AllGenerator : BasicGenerator, InstanceGenerator
 
   public T Instance<T>()
   {
-    var request = DefaultGenerationRequest.WithDefaultNestingLimit();
+    var request = DefaultGenerationRequest.WithDefaultLimits();
     try
     {
       request.Trace.BeginCreatingInstanceGraphWith(typeof(T));
@@ -37,7 +36,7 @@ public class AllGenerator : BasicGenerator, InstanceGenerator
 
   public T Instance<T>(params GenerationCustomization[] customizations)
   {
-    var request = DefaultGenerationRequest.WithDefaultNestingLimit(customizations);
+    var request = DefaultGenerationRequest.WithDefaultLimits(customizations);
     try
     {
       request.Trace.BeginCreatingInstanceGraphWith(typeof(T));
@@ -51,7 +50,7 @@ public class AllGenerator : BasicGenerator, InstanceGenerator
 
   public T InstanceOf<T>(InlineGenerator<T> gen)
   {
-    var request = DefaultGenerationRequest.WithDefaultNestingLimit();
+    var request = DefaultGenerationRequest.WithDefaultLimits();
     try
     {
       request.Trace.BeginCreatingInstanceGraphWithInlineGenerator(typeof(T), gen);
@@ -91,7 +90,7 @@ public class AllGenerator : BasicGenerator, InstanceGenerator
 
   public T OtherThan<T>(params T[]? omittedValues)
   {
-    return (T)OtherThan(typeof(T), omittedValues?.Cast<object>()?.ToArray(), DefaultGenerationRequest.WithDefaultNestingLimit());
+    return (T)OtherThan(typeof(T), omittedValues?.Cast<object>()?.ToArray(), DefaultGenerationRequest.WithDefaultLimits());
   }
 
   public object OtherThan(Type type, object[] skippedValues, GenerationRequest request)
@@ -125,7 +124,7 @@ public class AllGenerator : BasicGenerator, InstanceGenerator
 
   public T Dummy<T>()
   {
-    var request = DefaultGenerationRequest.WithDefaultNestingLimit();
+    var request = DefaultGenerationRequest.WithDefaultLimits();
     try
     {
       request.Trace.BeginCreatingDummyInstanceOf(typeof(T));

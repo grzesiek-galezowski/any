@@ -26,14 +26,12 @@ public class ListBasedGeneratonTrace : GenerationTrace
   {
     _nesting++;
     _messages.Add($"{Spaces()}START: {type}");
-    AssertNestingCoherentWith(nesting);
   }
 
   public void RemoveNestingAndCheckWith(int nesting, Type type)
   {
     _messages.Add($"{Spaces()}END: {type}");
     _nesting--;
-    AssertNestingCoherentWith(nesting);
   }
 
   public void GeneratingSeededValue<T>(Type type, T seed)
@@ -46,7 +44,7 @@ public class ListBasedGeneratonTrace : GenerationTrace
     _messages.Add($"{Spaces()}Resolution: " + resolution.GetType());
   }
 
-  public void NestingLimitReachedTryingDummy()
+  public void RecursionLimitReachedTryingDummy()
   {
     _messages.Add($"{Spaces()}Nesting limit reached, trying dummy implementation.");
   }

@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Linq;
-using System.Reflection;
-using Core.NullableReferenceTypesExtensions;
 using TddXt.AnyExtensibility;
 using TddXt.TypeReflection;
 

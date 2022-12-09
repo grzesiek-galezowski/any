@@ -7,7 +7,7 @@ public class ResolveDummyString : IResolution
 {
   public object Apply(InstanceGenerator allGenerator, GenerationRequest request, Type type)
   {
-    return allGenerator.Instance(type, request.DisableNestingLimit());
+    return allGenerator.Instance(type, request.DisableLimits());
   }
 
   public bool AppliesTo(Type type)

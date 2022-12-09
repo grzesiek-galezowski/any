@@ -1,4 +1,4 @@
-namespace TddXt.AnyExtensibility;
+﻿namespace TddXt.AnyExtensibility;
 
 public static class Configuration
 {

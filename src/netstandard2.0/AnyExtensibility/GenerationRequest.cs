@@ -6,15 +6,15 @@ public interface GenerationRequest
 {
   GenerationTrace Trace { get; }
   GenerationCustomization[] GenerationCustomizations { get; }
+  int Many { get; }
 
-  object WithNextNestingLevel(Type generatedType, Func<object> limitNotReachedFunction,
-    Func<object> limitReachedFunction);
-
-  GenerationRequest DisableNestingLimit();
+  GenerationRequest DisableLimits();
 
   void CustomizeCreatedValue(
     object result, 
     InstanceGenerator instanceGenerator);
+
+  object ResolveNextNestingLevel(IGenerationChain generationChain, InstanceGenerator instanceGenerator, Type type);
 }
 
 

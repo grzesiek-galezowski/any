@@ -4,7 +4,6 @@ using Castle.Components.DictionaryAdapter.Xml;
 using TddXt.AnyExtensibility;
 using TddXt.TypeReflection;
 
-//bug
 namespace TddXt.TypeResolution.FakeChainElements.DummyChainElements;
 
 public class ResolveDummyOpenGenericIEnumerable : IResolution
