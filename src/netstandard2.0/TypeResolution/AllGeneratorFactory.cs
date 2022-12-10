@@ -15,7 +15,7 @@ public static class AllGeneratorFactory
       new EmptyCollectionInstantiation());
     var resolutionsFactory = new ResolutionsFactory(
       new ProxyGenerator(),
-      new CachedReturnValueGeneration(new PerMethodCache<object>()),
+      new CachedReturnValueGeneration(new SynchronizedPerMethodCache<object>(new PerMethodCache<object>())),
       new SpecialCasesOfResolutions(),
       new ObjectGenerator());
 
