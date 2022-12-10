@@ -17,3 +17,18 @@ public class ObjectWithIndirectRecursion2
 {
   public ObjectWithIndirectRecursion Other { get; set; }
 }
+
+public class RecursiveClassWithOnlyReferenceToItself
+{
+  public RecursiveClassWithOnlyReferenceToItself Same { get; set; }
+}
+
+public class RecursiveClassWithOnlyReferenceToItselfInConstructor
+{
+  public RecursiveClassWithOnlyReferenceToItselfInConstructor(RecursiveClassWithOnlyReferenceToItselfInConstructor same)
+  {
+    Same = same;
+  }
+
+  public RecursiveClassWithOnlyReferenceToItselfInConstructor Same { get; }
+}

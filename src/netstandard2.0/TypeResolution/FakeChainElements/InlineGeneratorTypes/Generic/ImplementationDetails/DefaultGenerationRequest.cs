@@ -55,9 +55,9 @@ public class DefaultGenerationRequest : GenerationRequest
       },
       new ListBasedGeneratonTrace(), 
       Configuration.Many, 
-      1, 
+      0, 
       5, 
-      5, 
+      3, 
       ImmutableList<Type>.Empty);
   }
 
@@ -92,12 +92,13 @@ public class DefaultGenerationRequest : GenerationRequest
     Trace.AddNestingAndCheckWith(_currentNesting, type);
     try
     {
-      if (_resolutionPath.Count(t => t == type) >= _maxRecursion) //>= because number of elements == path + current type
+      var nestedRequest = this.WithIncreasedNesting(type);
+      if (nestedRequest.ReachedRecursionLimit(type))
       {
         try
         {
           Trace.RecursionLimitReachedTryingDummy();
-          return instanceGenerator.Dummy(this.WithIncreasedNesting(type), type)!; //TODO
+          return instanceGenerator.Dummy(nestedRequest, type)!;
         }
         catch (TargetInvocationException e)
         {
@@ -116,7 +117,7 @@ public class DefaultGenerationRequest : GenerationRequest
       {
         return generationChain.Resolve(
           instanceGenerator,
-          this.WithIncreasedNesting(type),
+          nestedRequest,
           type);
       }
     }
@@ -126,18 +127,23 @@ public class DefaultGenerationRequest : GenerationRequest
     }
   }
 
+  public bool ReachedRecursionLimit(Type type)
+  {
+    var currentCountInPath = CurrentCountInPath(type);
+    var reachedRecursionLimit = currentCountInPath > _maxRecursion;
+    return reachedRecursionLimit;  //>= because number of elements == path + current type
+  }
+
+  private int CurrentCountInPath(Type type)
+  {
+    return _resolutionPath.Count(t => t == type);
+  }
+
   private GenerationRequest WithIncreasedNesting(Type type)
   {
     var nextNesting = _currentNesting+1;
     int many;
-    if (_currentNesting > _maxNesting)
-    {
-      many = 0;
-    }
-    else
-    {
-      many = _many;
-    }
+    many = nextNesting > _maxNesting ? 1 : _many;
 
     return new DefaultGenerationRequest(
       GenerationCustomizations, 

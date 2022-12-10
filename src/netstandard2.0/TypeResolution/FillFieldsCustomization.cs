@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Linq;
 using TddXt.AnyExtensibility;
 using TddXt.TypeReflection;
 
@@ -11,7 +12,7 @@ public class FillFieldsCustomization : GeneratedObjectCustomization
   {
     var smartType = SmartType.For(generatedObject.GetType());
     var fields = smartType.GetAllPublicInstanceFields();
-    foreach (var field in fields)
+    foreach (var field in fields.Where(f => !request.ReachedRecursionLimit(f.FieldType)))
     {
       try
       {

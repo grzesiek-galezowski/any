@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Linq;
 using TddXt.AnyExtensibility;
 using TddXt.TypeReflection;
 
@@ -12,7 +13,7 @@ public class FillPropertiesCustomization : GeneratedObjectCustomization
     var smartType = SmartType.For(generatedObject.GetType());
     var properties = smartType.GetPublicInstanceWritableProperties();
 
-    foreach (var property in properties)
+    foreach (var property in properties.Where(f => !request.ReachedRecursionLimit(f.PropertyType)))
     {
       try
       {

@@ -1582,7 +1582,7 @@ public class AnySpecification
 
     //THEN
     Assert.NotNull(collection);
-    collection.First().First().First().First().First().Length.Should().Be(0);
+    collection.First().First().First().First().First().Length.Should().Be(1);
   }
 
   [Test, Parallelizable]
