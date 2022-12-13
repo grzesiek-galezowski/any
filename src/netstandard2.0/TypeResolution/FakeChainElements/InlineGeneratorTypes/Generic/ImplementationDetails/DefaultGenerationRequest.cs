@@ -142,14 +142,14 @@ public class DefaultGenerationRequest : GenerationRequest
   private GenerationRequest WithIncreasedNesting(Type type)
   {
     var nextNesting = _currentNesting+1;
-    int many;
-    many = nextNesting > _maxNesting ? 1 : _many;
+    //bug disable for now int many;
+    //bug disable for now many = nextNesting > _maxNesting ? 1 : _many;
 
     return new DefaultGenerationRequest(
       GenerationCustomizations, 
       GeneratedObjectCustomizations, 
       Trace, 
-      many, //bug
+      _many, //bug disable diminishing for now
       nextNesting, 
       _maxNesting, 
       _maxRecursion,

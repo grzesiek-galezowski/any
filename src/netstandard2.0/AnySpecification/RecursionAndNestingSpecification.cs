@@ -45,7 +45,7 @@ public class RecursionAndNestingSpecification
     Assert.Null(instance.Other2.Other.Other2.Other.Other2.Other.Other2.Other);
   }
 
-  [Test, Parallelizable]
+  [Test, Parallelizable, Ignore("diminishing disabled for now for backwards compatibility reasons")]
   public void ShouldRespectNestingLimit()
   {
     //GIVEN

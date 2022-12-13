@@ -1567,7 +1567,7 @@ public class AnySpecification
     Assert.AreEqual(0, readOnlyList.Count());
   }
 
-  [Test, Parallelizable]
+  [Test, Parallelizable, Ignore("diminishing disabled for now for backwards compatibility reasons")]
   public void ShouldAllowGeneratingDummyImmutableArraysInTheAnyLoop()
   {
     //GIVEN
