@@ -14,9 +14,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="CompareNETObjects"/>
+    <PackageReference Include="CompareNETObjects" />
     <PackageReference Include="FluentAssertions" />
     <PackageReference Include="Functional.Maybe" />
+    <PackageReference Include="Google.Protobuf" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" />
     <PackageReference Include="Newtonsoft.Json" />
     <PackageReference Include="NSubstitute" />
