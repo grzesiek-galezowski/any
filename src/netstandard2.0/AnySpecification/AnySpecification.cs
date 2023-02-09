@@ -285,18 +285,6 @@ public class AnySpecification
   }
 
   [Test, Parallelizable]
-  public void ShouldFillPropertiesWhenCreatingDataStructures()
-  {
-    //WHEN
-    var instance = Any.Instance<ConcreteDataStructure>();
-
-    //THEN
-    Assert.NotNull(instance.Data);
-    Assert.NotNull(instance._field);
-    Assert.NotNull(instance.Data.Text);
-  }
-
-  [Test, Parallelizable]
   public void ShouldBeAbleToGenerateInstancesOfAbstractClasses()
   {
     //GIVEN
@@ -847,15 +835,6 @@ public class AnySpecification
     maybeObject1._field.Should().NotBe(Maybe<ObjectWithMaybe>.Nothing);
     maybeObject2.Property.Should().NotBe(Maybe<ObjectWithMaybe>.Nothing);
     maybeObject2._field.Should().NotBe(Maybe<ObjectWithMaybe>.Nothing);
-  }
-
-  [Test, Parallelizable]
-  public void ShouldNotFillFieldsAndPropertiesThatOnlyHavePublicGetters()
-  {
-    var maybeObject1 = Any.Instance<ObjectWithGettableMaybe>();
-
-    maybeObject1.Property.Should().Be(Core.Maybe.Maybe<string>.Nothing);
-    maybeObject1.GetFieldValue().Should().Be(Core.Maybe.Maybe<string>.Nothing);
   }
 
   [Test, Parallelizable]

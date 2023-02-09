@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -16,24 +15,13 @@ public class FillPropertiesCustomization : GeneratedObjectCustomization
   public void ApplyTo(object generatedObject, InstanceGenerator instanceGenerator, GenerationRequest request)
   {
     var smartType = SmartType.For(generatedObject.GetType());
-    foreach (var property in SettablePropertiesWhereRecursionLimitIsNotYetReached(request, smartType))
-    {
-      try
-      {
-        var propertyType = property.PropertyType;
+    FillPublicSettableProperties(generatedObject, instanceGenerator, request, smartType);
+    FillPublicEmptyMutableGettableOnlyCollections(generatedObject, instanceGenerator, request, smartType);
+  }
 
-        if (!property.HasAbstractGetter() && property.HasPublicSetter())
-        {
-          var value = instanceGenerator.Instance(propertyType, request);
-          property.SetValue(generatedObject, value);
-        }
-      }
-      catch (Exception e)
-      {
-        HandleExceptionSilently(e);
-      }
-    }
-
+  private void FillPublicEmptyMutableGettableOnlyCollections(object generatedObject, InstanceGenerator instanceGenerator,
+    GenerationRequest request, ISmartType smartType)
+  {
     foreach (var property in AddablePropertiesWhereRecursionLimitIsNotYetReached(request, smartType))
     {
       try
@@ -44,9 +32,31 @@ public class FillPropertiesCustomization : GeneratedObjectCustomization
           {
             if (MutableCollectionFiller.IsEmpty(collectionInstance))
             {
-              MutableCollectionFiller.Fill(instanceGenerator, request, collectionInstance);
+              MutableCollectionFiller.Fill(collectionInstance, instanceGenerator, request);
             }
           });
+        }
+      }
+      catch (Exception e)
+      {
+        HandleExceptionSilently(e);
+      }
+    }
+  }
+
+  private static void FillPublicSettableProperties(object generatedObject, InstanceGenerator instanceGenerator,
+    GenerationRequest request, ISmartType smartType)
+  {
+    foreach (var property in SettablePropertiesWhereRecursionLimitIsNotYetReached(request, smartType))
+    {
+      try
+      {
+        var propertyType = property.PropertyType;
+
+        if (!property.HasAbstractGetter() && property.HasPublicSetter())
+        {
+          var value = instanceGenerator.Instance(propertyType, request);
+          property.SetValue(generatedObject, value);
         }
       }
       catch (Exception e)

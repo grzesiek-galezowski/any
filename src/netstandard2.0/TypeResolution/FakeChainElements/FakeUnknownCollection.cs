@@ -19,7 +19,7 @@ public class FakeUnknownCollection : IResolution
   public object Apply(InstanceGenerator instanceGenerator, GenerationRequest request, Type typeOfCollection)
   {
     var collectionInstance = Activator.CreateInstance(typeOfCollection).OrThrow();
-    MutableCollectionFiller.Fill(instanceGenerator, request, collectionInstance);
+    MutableCollectionFiller.Fill(collectionInstance, instanceGenerator, request);
     return collectionInstance;
   }
 }

@@ -19,10 +19,8 @@ public static class MutableCollectionFiller
     (typeof(ICollection<>), nameof(ICollection<object>.Add))
   };
 
-  public static void Fill(
-    InstanceGenerator instanceGenerator,
-    GenerationRequest request,
-    object collectionInstance)
+  public static void Fill(object collectionInstance, InstanceGenerator instanceGenerator,
+    GenerationRequest request)
   {
     var smartTypeOfCollection = SmartType.For(collectionInstance.GetType());
 
@@ -85,9 +83,15 @@ public static class MutableCollectionFiller
   private static bool IsNotExplicitlyExcluded(ISmartType smartType)
   {
     return !(
+      //some Newtonsoft.Json classes implement collection interfaces but behave in a very specific way,
+      //making filling them with using any kind of common heuristics next to impossible 
       smartType.IsFromNamespace("Newtonsoft.Json.Linq") || 
-      smartType.IsFromNamespace("System.Collections.Immutable") || //bug immutable collections are not (yet?) supported. It makes sense to support them when the property is writable
-      smartType.IsArray() //bug arrays fall into the same category as immutable collections
+      
+      //immutable collections cannot be added to without replacing the object
+      smartType.IsFromNamespace("System.Collections.Immutable") || 
+      
+      //arrays cannot be added to without replacing the object
+      smartType.IsArray()
       );
   }
 
