@@ -4,7 +4,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageVersion Include="Google.Protobuf" Version="3.21.12" />
-    <PackageVersion Include="NuGetizer" Version="0.9.1" />
+    <PackageVersion Include="NuGetizer" Version="0.9.2" />
     <PackageVersion Include="Core.Maybe" Version="4.0.0" />
     <PackageVersion Include="Castle.Core" Version="5.1.1" />
     <PackageVersion Include="AutoFixture" Version="4.17.0" />
@@ -13,10 +13,10 @@
   </ItemGroup>
   <ItemGroup>
     <PackageVersion Include="CompareNETObjects" Version="4.79.0" />
-    <PackageVersion Include="FluentAssertions" Version="6.9.0" />
+    <PackageVersion Include="FluentAssertions" Version="6.10.0" />
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.4.1" />
     <PackageVersion Include="Newtonsoft.Json" Version="13.0.2" />
-    <PackageVersion Include="NSubstitute" Version="4.4.0" />
+    <PackageVersion Include="NSubstitute" Version="5.0.0" />
     <PackageVersion Include="NUnit" Version="3.13.3" />
     <PackageVersion Include="NUnit3TestAdapter" Version="4.3.1" />
     <PackageVersion Include="Optional" Version="4.0.0" />
@@ -26,7 +26,7 @@
     <PackageVersion Include="AtmaFileSystem" Version="6.0.0" />
     <PackageVersion Include="Bullseye" Version="4.2.1" />
     <PackageVersion Include="DotnetExeCommandLineBuilder" Version="0.3.0" />
-    <PackageVersion Include="NScan" Version="0.101.0" />
+    <PackageVersion Include="NScan" Version="0.110.0" />
     <PackageVersion Include="SimpleExec" Version="11.0.0" />
   </ItemGroup>
 </Project>
