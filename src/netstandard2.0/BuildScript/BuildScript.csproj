@@ -9,11 +9,11 @@
 
   <ItemGroup>
     <PackageReference Include="AtmaFileSystem" Version="5.0.0" />
-    <PackageReference Include="Bullseye" Version="4.0.0" />
+    <PackageReference Include="Bullseye" Version="4.2.1" />
     <PackageReference Include="DotnetExeCommandLineBuilder" Version="0.3.0" />
-    <PackageReference Include="FluentAssertions" Version="6.6.0" />
+    <PackageReference Include="FluentAssertions" Version="6.10.0" />
     <PackageReference Include="NScan" Version="0.100.1" />
-    <PackageReference Include="SimpleExec" Version="10.0.0" />
+    <PackageReference Include="SimpleExec" Version="11.0.0" />
   </ItemGroup>
 
 </Project>
