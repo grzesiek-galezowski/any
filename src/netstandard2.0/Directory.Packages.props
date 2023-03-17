@@ -3,6 +3,7 @@
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
   </PropertyGroup>
   <ItemGroup>
+    <PackageVersion Include="Google.Protobuf" Version="3.21.12" />
     <PackageVersion Include="NuGetizer" Version="0.9.5" />
     <PackageVersion Include="Core.Maybe" Version="4.0.0" />
     <PackageVersion Include="Castle.Core" Version="5.1.1" />

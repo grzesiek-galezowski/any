@@ -16,6 +16,11 @@ public static class AnyNumberExtensions
     return gen.Instance<double>();
   }
 
+  public static float Float(this BasicGenerator gen)
+  {
+    return gen.Instance<float>();
+  }
+
   public static long Long(this BasicGenerator gen)
   {
     return gen.Instance<long>();

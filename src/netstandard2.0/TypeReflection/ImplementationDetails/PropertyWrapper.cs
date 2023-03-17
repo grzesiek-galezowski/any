@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Reflection;
+using Core.Maybe;
 using TddXt.TypeReflection.Interfaces;
 
 namespace TddXt.TypeReflection.ImplementationDetails;
@@ -29,5 +30,10 @@ public class PropertyWrapper : IPropertyWrapper
   public bool HasPublicSetter()
   {
     return _propertyInfo.SetMethod != null && _propertyInfo.SetMethod.IsPublic;
+  }
+
+  public Maybe<object> GetValue(object generatedObject)
+  {
+    return _propertyInfo.GetValue(generatedObject, null).ToMaybe();
   }
 }

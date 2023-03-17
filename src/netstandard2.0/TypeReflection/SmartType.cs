@@ -186,6 +186,13 @@ public class SmartType : ISmartType
       .Select(p => new PropertyWrapper(p));
   }
 
+  public IEnumerable<IPropertyWrapper> GetPublicInstanceReadableProperties()
+  {
+    return _typeInfo.GetProperties(BindingFlags.Public | BindingFlags.Instance)
+      .Where(p => p.CanRead)
+      .Select(p => new PropertyWrapper(p));
+  }
+
   public bool IsException()
   {
     return _type == typeof(Exception) ||
@@ -273,5 +280,15 @@ public class SmartType : ISmartType
   public object GenerateInstanceWith(InstanceGenerator gen, GenerationRequest request)
   {
     return gen.Instance(((SmartType)this)._type, request);
+  }
+
+  public bool IsArray()
+  {
+    return _type.IsArray;
+  }
+
+  public override string ToString()
+  {
+    return _type.ToString();
   }
 }
