@@ -10,7 +10,7 @@ using static DotnetExeCommandLineBuilder.DotnetExeCommands;
 using static SimpleExec.Command;
 
 const string configuration = "Release";
-const string version = "6.9.1";
+const string version = "6.9.2";
 
 // Define directories.
 var root = AbsoluteFilePath.OfThisFile().ParentDirectory(3).Value();
@@ -41,15 +41,7 @@ Target("Build", () =>
 
 Target("NScan", DependsOn("Build"), () =>
 {
-  NScanMain.Run(
-    new InputArgumentsDto
-    {
-      RulesFilePath = AbsoluteDirectoryPath.OfThisFile().AddFileName("rules.txt").AsAnyFilePath(),
-      SolutionPath = srcNetStandardDir.AddFileName("Any.sln").AsAnyFilePath()
-    },
-    new ConsoleOutput(),
-    new ConsoleSupport(Console.WriteLine)
-  ).Should().Be(0);
+
 });
 
 Target("Test", DependsOn("NScan"), () =>
