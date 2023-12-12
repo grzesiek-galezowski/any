@@ -12,6 +12,6 @@ public class StringOfLengthGenerator(int length, InlineGenerator<string> stringG
       result += stringGenerator.GenerateInstance(instanceGenerator, request);
     }
 
-    return result.Substring(0, length);
+    return result[..length];
   }
 }
