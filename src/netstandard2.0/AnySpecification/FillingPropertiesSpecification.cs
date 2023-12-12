@@ -1,5 +1,6 @@
 ﻿using AnySpecification.Fixtures;
 using FluentAssertions;
+using NUnit.Framework.Legacy;
 
 namespace AnySpecification;
 
@@ -12,10 +13,10 @@ public class FillingPropertiesSpecification
     var instance = Any.Instance<ConcreteDataStructure>();
 
     //THEN
-    Assert.NotNull(instance.Data);
-    Assert.NotNull(instance._field);
-    Assert.NotNull(instance.Data.Text);
-    Assert.IsNotEmpty(instance.AnImmutableList);
+    ClassicAssert.NotNull(instance.Data);
+    ClassicAssert.NotNull(instance._field);
+    ClassicAssert.NotNull(instance.Data.Text);
+    ClassicAssert.IsNotEmpty(instance.AnImmutableList);
   }
 
   [Test, Parallelizable]

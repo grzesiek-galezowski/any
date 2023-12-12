@@ -1,4 +1,5 @@
-﻿using TddXt.AnyRoot.Numbers;
+﻿using NUnit.Framework.Legacy;
+using TddXt.AnyRoot.Numbers;
 using TddXt.TypeResolution.CustomCollections;
 
 namespace AnySpecification;
@@ -20,9 +21,9 @@ public class CircularListSpecification
     var returnedElement3 = list.Next();
 
     //THEN
-    Assert.AreEqual(returnedElement1, element1);
-    Assert.AreEqual(returnedElement2, element2);
-    Assert.AreEqual(returnedElement3, element3);
+    ClassicAssert.AreEqual(returnedElement1, element1);
+    ClassicAssert.AreEqual(returnedElement2, element2);
+    ClassicAssert.AreEqual(returnedElement3, element3);
   }
 
   [Test, Parallelizable]
@@ -41,9 +42,9 @@ public class CircularListSpecification
     var returnedElement4 = list.Next();
 
     //THEN
-    Assert.AreEqual(returnedElement1, element1);
-    Assert.AreEqual(returnedElement2, element2);
-    Assert.AreEqual(returnedElement3, element1);
-    Assert.AreEqual(returnedElement4, element2);
+    ClassicAssert.AreEqual(returnedElement1, element1);
+    ClassicAssert.AreEqual(returnedElement2, element2);
+    ClassicAssert.AreEqual(returnedElement3, element1);
+    ClassicAssert.AreEqual(returnedElement4, element2);
   }
 }

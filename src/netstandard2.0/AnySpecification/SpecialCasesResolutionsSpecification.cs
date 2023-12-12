@@ -1,4 +1,5 @@
 ﻿using AnySpecification.Fixtures;
+using NUnit.Framework.Legacy;
 using TddXt.AnyExtensibility;
 using TddXt.TypeResolution.FakeChainElements.InlineGeneratorTypes;
 
@@ -16,8 +17,8 @@ public class SpecialCasesResolutionsSpecification
     //WHEN
 
     //THEN
-    Assert.True(resolution.AppliesTo(typeof(RecursiveInterface[])));
-    Assert.NotNull(resolution.Apply(Any.Instance<InstanceGenerator>(), Any.Instance<GenerationRequest>(), typeof(RecursiveInterface[])));
-    Assert.AreEqual(generationRequest.Many, ((RecursiveInterface[])resolution.Apply(Any.Instance<InstanceGenerator>(), generationRequest, typeof(RecursiveInterface[]))).Length);
+    ClassicAssert.True(resolution.AppliesTo(typeof(RecursiveInterface[])));
+    ClassicAssert.NotNull(resolution.Apply(Any.Instance<InstanceGenerator>(), Any.Instance<GenerationRequest>(), typeof(RecursiveInterface[])));
+    ClassicAssert.AreEqual(generationRequest.Many, ((RecursiveInterface[])resolution.Apply(Any.Instance<InstanceGenerator>(), generationRequest, typeof(RecursiveInterface[]))).Length);
   }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using TddXt.TypeReflection;
 
 namespace TypeReflectionSpecification;
@@ -12,13 +13,13 @@ public class SmartTypeSpecification
   [TestCase(typeof(SystemException))]
   public void ShouldReportWhenItIsDerivedFromException(Type exceptionType)
   {
-    Assert.True(SmartType.For(exceptionType).IsException());
+    ClassicAssert.True(SmartType.For(exceptionType).IsException());
   }
 
   [Test, Parallelizable]
   public void ShouldReportWhenItIsNotDerivedFromException()
   {
-    Assert.False(SmartType.For(typeof(string)).IsException());
+    ClassicAssert.False(SmartType.For(typeof(string)).IsException());
   }
 
   [TestCase(9, true)]
@@ -27,6 +28,6 @@ public class SmartTypeSpecification
     int maxCount, bool expectedResult)
   {
     var type = SmartType.For(typeof(string));
-    Assert.AreEqual(expectedResult, type.HasPublicConstructorCountOfAtMost(maxCount));
+    ClassicAssert.AreEqual(expectedResult, type.HasPublicConstructorCountOfAtMost(maxCount));
   }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using NUnit.Framework.Legacy;
 using TddXt.TypeReflection;
 
 namespace AnySpecification;
@@ -10,9 +11,9 @@ public class TypeOfTypeSpecification
   {
     Assert.Multiple(() =>
     {
-      Assert.False(TypeOfType.Is<object>());
-      Assert.False(TypeOfType.Is<int>());
-      Assert.True(TypeOfType.Is<Type>());
+      ClassicAssert.False(TypeOfType.Is<object>());
+      ClassicAssert.False(TypeOfType.Is<int>());
+      ClassicAssert.True(TypeOfType.Is<Type>());
     });
   }
 }

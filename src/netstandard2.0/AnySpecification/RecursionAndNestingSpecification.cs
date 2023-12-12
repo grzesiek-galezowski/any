@@ -1,4 +1,5 @@
 ﻿using AnySpecification.Fixtures;
+using NUnit.Framework.Legacy;
 
 namespace AnySpecification;
 
@@ -10,9 +11,9 @@ public class RecursionAndNestingSpecification
     //GIVEN
     var instance = Any.Instance<RecursiveClass>();
 
-    Assert.NotNull(instance.Same.Same.Same, "Last recursive element should be generated as uninitialized dummy");
-    Assert.Null(instance.Same.Same.Same.Same, "Semi-last is dummy");
-    Assert.NotNull(instance.Same.Same.Same.Whatever, "Whatever doesn't increase recursion count");
+    ClassicAssert.NotNull(instance.Same.Same.Same, "Last recursive element should be generated as uninitialized dummy");
+    ClassicAssert.Null(instance.Same.Same.Same.Same, "Semi-last is dummy");
+    ClassicAssert.NotNull(instance.Same.Same.Same.Whatever, "Whatever doesn't increase recursion count");
   }
   
   [Test, Parallelizable]
@@ -21,8 +22,8 @@ public class RecursionAndNestingSpecification
     //GIVEN
     var instance = Any.Instance<RecursiveClassWithOnlyReferenceToItself>();
 
-    Assert.NotNull(instance.Same.Same.Same, "Fourth recursive element should be generated as uninitialized dummy");
-    Assert.Null(instance.Same.Same.Same.Same, "Semi-last is dummy");
+    ClassicAssert.NotNull(instance.Same.Same.Same, "Fourth recursive element should be generated as uninitialized dummy");
+    ClassicAssert.Null(instance.Same.Same.Same.Same, "Semi-last is dummy");
   }
   
   [Test, Parallelizable]
@@ -31,8 +32,8 @@ public class RecursionAndNestingSpecification
     //GIVEN
     var instance = Any.Instance<RecursiveClassWithOnlyReferenceToItselfInConstructor>();
 
-    Assert.NotNull(instance.Same.Same.Same, "Fourth recursive element should be generated as uninitialized dummy");
-    Assert.Null(instance.Same.Same.Same.Same, "Semi-last is dummy");
+    ClassicAssert.NotNull(instance.Same.Same.Same, "Fourth recursive element should be generated as uninitialized dummy");
+    ClassicAssert.Null(instance.Same.Same.Same.Same, "Semi-last is dummy");
   }
 
   [Test, Parallelizable]
@@ -41,8 +42,8 @@ public class RecursionAndNestingSpecification
     //GIVEN
     var instance = Any.Instance<ObjectWithIndirectRecursion>();
 
-    Assert.NotNull(instance.Other2.Other.Other2.Other.Other2.Other.Other2, "Dummy algorithm generates one last dummy");
-    Assert.Null(instance.Other2.Other.Other2.Other.Other2.Other.Other2.Other);
+    ClassicAssert.NotNull(instance.Other2.Other.Other2.Other.Other2.Other.Other2, "Dummy algorithm generates one last dummy");
+    ClassicAssert.Null(instance.Other2.Other.Other2.Other.Other2.Other.Other2.Other);
   }
 
   [Test, Parallelizable, Ignore("diminishing disabled for now for backwards compatibility reasons")]
@@ -52,7 +53,7 @@ public class RecursionAndNestingSpecification
     var instance = Any.Instance<RecursiveClass>();
 
     //THEN
-    Assert.AreEqual(1, instance.Others[0].Other.Others[0].Other.Others.Length, "Dummy algorithm generates an empty collection");
+    ClassicAssert.AreEqual(1, instance.Others[0].Other.Others[0].Other.Others.Length, "Dummy algorithm generates an empty collection");
   }
 
 }

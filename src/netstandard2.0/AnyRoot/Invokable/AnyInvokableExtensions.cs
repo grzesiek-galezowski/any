@@ -17,16 +17,6 @@ public static class AnyInvokableExtensions
     return gen.Instance<CancellationToken>();
   }
 
-  public static Task NotStartedTask(this BasicGenerator gen)
-  {
-    return gen.InstanceOf(InlineGenerators.NotStartedTask());
-  }
-
-  public static Task<T> NotStartedTask<T>(this BasicGenerator gen)
-  {
-    return gen.InstanceOf(InlineGenerators.NotStartedTask<T>());
-  }
-
   public static Task<T> StartedTask<T>(this BasicGenerator gen)
   {
     return gen.InstanceOf(InlineGenerators.StartedTask<T>());

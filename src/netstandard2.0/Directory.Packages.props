@@ -3,21 +3,21 @@
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
   </PropertyGroup>
   <ItemGroup>
-    <PackageVersion Include="Google.Protobuf" Version="3.24.2" />
-    <PackageVersion Include="NuGetizer" Version="1.1.1" />
+    <PackageVersion Include="Google.Protobuf" Version="3.25.1" />
+    <PackageVersion Include="NuGetizer" Version="1.2.1" />
     <PackageVersion Include="Core.Maybe" Version="6.0.0" />
     <PackageVersion Include="Castle.Core" Version="5.1.1" />
-    <PackageVersion Include="AutoFixture" Version="4.18.0" />
-    <PackageVersion Include="System.Collections.Immutable" Version="7.0.0" />
-    <PackageVersion Include="AutoFixture.SeedExtensions" Version="4.18.0" />
+    <PackageVersion Include="AutoFixture" Version="4.18.1" />
+    <PackageVersion Include="System.Collections.Immutable" Version="8.0.0" />
+    <PackageVersion Include="AutoFixture.SeedExtensions" Version="4.18.1" />
   </ItemGroup>
   <ItemGroup>
-    <PackageVersion Include="CompareNETObjects" Version="4.80.0" />
+    <PackageVersion Include="CompareNETObjects" Version="4.82.0" />
     <PackageVersion Include="FluentAssertions" Version="6.12.0" />
-    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.7.2" />
+    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
     <PackageVersion Include="Newtonsoft.Json" Version="13.0.3" />
-    <PackageVersion Include="NSubstitute" Version="5.0.0" />
-    <PackageVersion Include="NUnit" Version="3.13.3" />
+    <PackageVersion Include="NSubstitute" Version="5.1.0" />
+    <PackageVersion Include="NUnit" Version="4.0.1" />
     <PackageVersion Include="NUnit3TestAdapter" Version="4.5.0" />
     <PackageVersion Include="Optional" Version="4.0.0" />
     <PackageVersion Include="Functional.Maybe" Version="2.0.20" />

@@ -469,16 +469,6 @@ public class InlineGenerators
     return InternalInlineGenerators.Action<T1, T2, T3, T4, T5, T6>();
   }
 
-  public static InlineGenerator<Task> NotStartedTask()
-  {
-    return InternalInlineGenerators.NotStartedTask();
-  }
-
-  public static InlineGenerator<Task<T>> NotStartedTask<T>()
-  {
-    return InternalInlineGenerators.NotStartedTask<T>();
-  }
-
   public static InlineGenerator<Task<T>> StartedTask<T>()
   {
     return InternalInlineGenerators.StartedTask<T>();

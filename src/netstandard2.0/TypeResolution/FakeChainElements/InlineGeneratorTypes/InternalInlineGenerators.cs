@@ -40,7 +40,6 @@ public class InternalInlineGenerators
   private static readonly IpStringGenerator _ipStringGenerator;
   private static readonly PortNumberGenerator _portNumberGenerator;
   private static readonly SimpleInstanceGenerator<Action> _actionGenerator;
-  private static readonly NotStartedTaskGenerator _notStartedTaskGenerator;
   private static readonly SimpleInstanceGenerator<IPAddress> _ipAddressGenerator;
   private static readonly SimpleInstanceGenerator<DateTime> _dateTimeGenerator;
   private static readonly SimpleInstanceGenerator<TimeSpan> _timeSpanGenerator;
@@ -74,7 +73,6 @@ public class InternalInlineGenerators
     _ipStringGenerator = new IpStringGenerator();
     _portNumberGenerator = new PortNumberGenerator();
     _actionGenerator = new SimpleInstanceGenerator<Action>();
-    _notStartedTaskGenerator = new NotStartedTaskGenerator();
     _ipAddressGenerator = new SimpleInstanceGenerator<IPAddress>();
     _dateTimeGenerator = new SimpleInstanceGenerator<DateTime>();
     _timeSpanGenerator = new SimpleInstanceGenerator<TimeSpan>();
@@ -593,16 +591,6 @@ public class InternalInlineGenerators
   public static InlineGenerator<Action<T1, T2, T3, T4, T5, T6>> Action<T1, T2, T3, T4, T5, T6>()
   {
     return new SimpleInstanceGenerator<Action<T1, T2, T3, T4, T5, T6>>();
-  }
-
-  public static InlineGenerator<Task> NotStartedTask()
-  {
-    return _notStartedTaskGenerator;
-  }
-
-  public static InlineGenerator<Task<T>> NotStartedTask<T>()
-  {
-    return new NotStartedTaskGenerator<T>();
   }
 
   public static InlineGenerator<Task<T>> StartedTask<T>()
