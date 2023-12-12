@@ -15,29 +15,21 @@ public static class CircularList
     => new(Random.Value.OrThrow().Next(0, items.Length - 1), items);
 }
 
-public class CircularList<T>
+public class CircularList<T>(int startingIndex, params T[] items)
 {
-  private readonly T[] _items;
-  private int _startingIndex;
   private readonly object _syncRoot = new();
-
-  public CircularList(int startingIndex, params T[] items)
-  {
-    _items = items;
-    _startingIndex = startingIndex;
-  }
 
   public T Next()
   {
     lock (_syncRoot)
     {
-      if (_startingIndex > _items.Length - 1)
+      if (startingIndex > items.Length - 1)
       {
-        _startingIndex = 0;
+        startingIndex = 0;
       }
 
-      var result = _items[_startingIndex];
-      _startingIndex++;
+      var result = items[startingIndex];
+      startingIndex++;
       return result;
     }
   }

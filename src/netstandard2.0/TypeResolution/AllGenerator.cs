@@ -7,18 +7,13 @@ using TddXt.TypeResolution.FakeChainElements.InlineGeneratorTypes.Generic.Implem
 namespace TddXt.TypeResolution;
 
 [Serializable]
-public class AllGenerator : BasicGenerator, InstanceGenerator
+public class AllGenerator(
+  IGenerationChain generationChain,
+  IGenerationChain dummyInstanceChain)
+  : BasicGenerator, InstanceGenerator
 {
-  private readonly IGenerationChain _generationChain;
-  private readonly IGenerationChain _dummyInstanceChain;
-
-  public AllGenerator(
-    IGenerationChain generationChain,
-    IGenerationChain dummyInstanceChain)
-  {
-    _generationChain = generationChain;
-    _dummyInstanceChain = dummyInstanceChain;
-  }
+  private readonly IGenerationChain _generationChain = generationChain;
+  private readonly IGenerationChain _dummyInstanceChain = dummyInstanceChain;
 
   public T Instance<T>()
   {

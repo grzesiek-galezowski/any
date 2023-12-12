@@ -157,12 +157,4 @@ public class DefaultGenerationRequest : GenerationRequest
   }
 }
 
-public class DeveloperError : Exception
-{
-  public DeveloperError(string s)
-    : base(s)
-
-  {
-
-  }
-}
+public class DeveloperError(string s) : Exception(s);

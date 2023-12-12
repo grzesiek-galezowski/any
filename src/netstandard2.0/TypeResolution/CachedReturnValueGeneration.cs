@@ -6,14 +6,9 @@ using TddXt.TypeResolution.CustomCollections;
 namespace TddXt.TypeResolution;
 
 [Serializable]
-public class CachedReturnValueGeneration
+public class CachedReturnValueGeneration(IPerMethodCache<object> cache)
 {
-  private readonly IPerMethodCache<object> _cache;
-
-  public CachedReturnValueGeneration(IPerMethodCache<object> cache)
-  {
-    _cache = cache;
-  }
+  private readonly IPerMethodCache<object> _cache = cache;
 
   public void SetupReturnValueFor(
     IInvocation invocation,

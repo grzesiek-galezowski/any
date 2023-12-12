@@ -3,26 +3,20 @@ using TddXt.TypeResolution.CustomCollections;
 
 namespace TddXt.TypeResolution.FakeChainElements.InlineGeneratorTypes.Generic;
 
-public class GeneratorByPickingFromSpecifiedSetOfValues<T> : InlineGenerator<T>
+public class GeneratorByPickingFromSpecifiedSetOfValues<T>(T[] possibleValues) : InlineGenerator<T>
 {
   private static readonly LatestArraysWithPossibleValues<T> CachedArraysOfCurrentType = new();
-  private readonly T[] _possibleValues;
-
-  public GeneratorByPickingFromSpecifiedSetOfValues(T[] possibleValues)
-  {
-    _possibleValues = possibleValues;
-  }
 
   public T GenerateInstance(InstanceGenerator instanceGenerator, GenerationRequest request)
   {
     lock (CachedArraysOfCurrentType)
     {
-      if (!CachedArraysOfCurrentType.Contain(_possibleValues))
+      if (!CachedArraysOfCurrentType.Contain(possibleValues))
       {
-        CachedArraysOfCurrentType.Add(_possibleValues);
+        CachedArraysOfCurrentType.Add(possibleValues);
       }
 
-      return CachedArraysOfCurrentType.PickNextElementFrom(_possibleValues);
+      return CachedArraysOfCurrentType.PickNextElementFrom(possibleValues);
     }
   }
 }

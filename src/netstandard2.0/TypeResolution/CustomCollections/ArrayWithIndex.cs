@@ -1,23 +1,15 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace TddXt.TypeResolution.CustomCollections;
 
-public class ArrayWithIndex<T>
+public class ArrayWithIndex<T>(T[] values, int initialIndex)
 {
-  private readonly T[] _values;
-
-  public ArrayWithIndex(T[] values, int initialIndex)
-  {
-    _values = values;
-    Index = initialIndex;
-  }
-
-  private int Index { get; set; }
+  private int Index { get; set; } = initialIndex;
 
   private IEnumerable<T> Values
   {
-    get { return _values; }
+    get { return values; }
   }
 
   public bool IsEquivalentTo(IEnumerable<T> array)
@@ -27,12 +19,12 @@ public class ArrayWithIndex<T>
 
   public T GetNextElement()
   {
-    if (Index == _values.Length)
+    if (Index == values.Length)
     {
       Index = 0;
     }
 
-    var result = _values[Index];
+    var result = values[Index];
     Index++;
     return result;
   }

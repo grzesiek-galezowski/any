@@ -1,18 +1,11 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using TddXt.TypeReflection.Interfaces;
 
 namespace TddXt.TypeReflection.ImplementationDetails.ConstructorRetrievals;
 
-public class InternalRecursiveConstructorRetrieval : ConstructorRetrieval
+public class InternalRecursiveConstructorRetrieval(ConstructorRetrieval next) : ConstructorRetrieval
 {
-  private readonly ConstructorRetrieval _next;
-
-  public InternalRecursiveConstructorRetrieval(ConstructorRetrieval next)
-  {
-    _next = next;
-  }
-
   public IEnumerable<IConstructorWrapper> RetrieveFrom(IConstructorQueries constructors)
   {
     var foundConstructors = constructors.TryToObtainInternalConstructorsWithRecursiveArguments();
@@ -22,7 +15,7 @@ public class InternalRecursiveConstructorRetrieval : ConstructorRetrieval
     }
     else
     {
-      return _next.RetrieveFrom(constructors);
+      return next.RetrieveFrom(constructors);
     }
   }
 }

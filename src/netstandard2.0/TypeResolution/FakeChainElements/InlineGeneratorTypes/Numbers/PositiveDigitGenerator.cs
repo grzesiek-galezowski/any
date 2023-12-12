@@ -2,21 +2,14 @@
 
 namespace TddXt.TypeResolution.FakeChainElements.InlineGeneratorTypes.Numbers;
 
-public class PositiveDigitGenerator : InlineGenerator<byte>
+public class PositiveDigitGenerator(InlineGenerator<byte> digitGenerator) : InlineGenerator<byte>
 {
-  private readonly InlineGenerator<byte> _digitGenerator;
-
-  public PositiveDigitGenerator(InlineGenerator<byte> digitGenerator)
-  {
-    _digitGenerator = digitGenerator;
-  }
-
   public byte GenerateInstance(InstanceGenerator instanceGenerator, GenerationRequest request)
   {
-    byte digit = _digitGenerator.GenerateInstance(instanceGenerator, request);
+    byte digit = digitGenerator.GenerateInstance(instanceGenerator, request);
     while (digit == 0)
     {
-      digit = _digitGenerator.GenerateInstance(instanceGenerator, request);
+      digit = digitGenerator.GenerateInstance(instanceGenerator, request);
     }
 
     return digit;

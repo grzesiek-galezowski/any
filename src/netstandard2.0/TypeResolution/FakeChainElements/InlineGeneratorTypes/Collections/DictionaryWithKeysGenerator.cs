@@ -3,21 +3,14 @@ using TddXt.AnyExtensibility;
 
 namespace TddXt.TypeResolution.FakeChainElements.InlineGeneratorTypes.Collections;
 
-public class DictionaryWithKeysGenerator<TKey, TValue>
+public class DictionaryWithKeysGenerator<TKey, TValue>(IEnumerable<TKey> keys)
   : InlineGenerator<Dictionary<TKey, TValue>>
 {
-  private readonly IEnumerable<TKey> _keys;
-
-  public DictionaryWithKeysGenerator(IEnumerable<TKey> keys)
-  {
-    _keys = keys;
-  }
-
   public Dictionary<TKey, TValue> GenerateInstance(InstanceGenerator instanceGenerator, GenerationRequest request)
   {
     var dict = new Dictionary<TKey, TValue>();
 
-    foreach (var key in _keys)
+    foreach (var key in keys)
     {
       dict.Add(key, instanceGenerator.Instance<TValue>(request));
     }

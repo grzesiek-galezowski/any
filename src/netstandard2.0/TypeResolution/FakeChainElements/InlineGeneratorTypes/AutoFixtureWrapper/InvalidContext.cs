@@ -5,17 +5,10 @@ namespace TddXt.TypeResolution.FakeChainElements.InlineGeneratorTypes.AutoFixtur
 
 //because we don't want AutoFixture delegating to itself as it loses all request context
 //like recursion limit etc.
-public class InvalidContext : ISpecimenContext
+public class InvalidContext(ISpecimenBuilder specimenBuilder) : ISpecimenContext
 {
-  private readonly ISpecimenBuilder _specimenBuilder;
-
-  public InvalidContext(ISpecimenBuilder specimenBuilder)
-  {
-    _specimenBuilder = specimenBuilder;
-  }
-
   public object? Resolve(object request)
   {
-    throw new InvalidOperationException("NOOOOO! " + request + " " + _specimenBuilder);
+    throw new InvalidOperationException("NOOOOO! " + request + " " + specimenBuilder);
   }
 }

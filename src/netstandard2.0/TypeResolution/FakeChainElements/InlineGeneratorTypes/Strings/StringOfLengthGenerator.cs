@@ -2,25 +2,16 @@
 
 namespace TddXt.TypeResolution.FakeChainElements.InlineGeneratorTypes.Strings;
 
-public class StringOfLengthGenerator : InlineGenerator<string>
+public class StringOfLengthGenerator(int length, InlineGenerator<string> stringGenerator) : InlineGenerator<string>
 {
-  private readonly int _length;
-  private readonly InlineGenerator<string> _stringGenerator;
-
-  public StringOfLengthGenerator(int length, InlineGenerator<string> stringGenerator)
-  {
-    _length = length;
-    _stringGenerator = stringGenerator;
-  }
-
   public string GenerateInstance(InstanceGenerator instanceGenerator, GenerationRequest request)
   {
     var result = string.Empty;
-    while (result.Length < _length)
+    while (result.Length < length)
     {
-      result += _stringGenerator.GenerateInstance(instanceGenerator, request);
+      result += stringGenerator.GenerateInstance(instanceGenerator, request);
     }
 
-    return result.Substring(0, _length);
+    return result.Substring(0, length);
   }
 }

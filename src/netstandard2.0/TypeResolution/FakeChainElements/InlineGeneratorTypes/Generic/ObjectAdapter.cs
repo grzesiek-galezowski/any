@@ -6,22 +6,14 @@ using TddXt.TypeReflection;
 
 namespace TddXt.TypeResolution.FakeChainElements.InlineGeneratorTypes.Generic;
 
-public class ObjectAdapter : InlineGenerator<object>
+public class ObjectAdapter(object inlineGenerator, MethodInfo methodInfo) : InlineGenerator<object>
 {
   private static readonly GenericMethodProxyCalls GenericMethodProxyCalls = new();
-  private readonly object _inlineGenerator;
-  private readonly MethodInfo _methodInfo;
-
-  public ObjectAdapter(object inlineGenerator, MethodInfo methodInfo)
-  {
-    _inlineGenerator = inlineGenerator;
-    _methodInfo = methodInfo;
-  }
 
   public object GenerateInstance(InstanceGenerator instanceGenerator, GenerationRequest request)
   {
-    return _methodInfo.Invoke(
-        _inlineGenerator,
+    return methodInfo.Invoke(
+        inlineGenerator,
         new object[] { instanceGenerator, request })
       .OrThrow();
   }

@@ -4,18 +4,11 @@ using TddXt.TypeResolution.FakeChainElements;
 
 namespace TddXt.TypeResolution.ResolutionChaining;
 
-public class GeneratorsBasedChain : IGenerationChain
+public class GeneratorsBasedChain(IResolution[] resolutions) : IGenerationChain
 {
-  private readonly IResolution[] _resolutions;
-
-  public GeneratorsBasedChain(IResolution[] resolutions)
-  {
-    _resolutions = resolutions;
-  }
-
   public object Resolve(InstanceGenerator instanceGenerator, GenerationRequest request, Type type)
   {
-    foreach (var resolution in _resolutions)
+    foreach (var resolution in resolutions)
     {
       if (resolution.AppliesTo(type))
       {

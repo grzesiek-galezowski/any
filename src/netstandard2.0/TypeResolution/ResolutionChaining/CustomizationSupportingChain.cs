@@ -3,15 +3,8 @@ using TddXt.AnyExtensibility;
 
 namespace TddXt.TypeResolution.ResolutionChaining;
 
-public class CustomizationSupportingChain : IGenerationChain
+public class CustomizationSupportingChain(IGenerationChain next) : IGenerationChain
 {
-  private readonly IGenerationChain _next;
-
-  public CustomizationSupportingChain(IGenerationChain next)
-  {
-    _next = next;
-  }
-
   public object Resolve(InstanceGenerator instanceGenerator, GenerationRequest request, Type type)
   {
     foreach (var customization in request.GenerationCustomizations)
@@ -22,6 +15,6 @@ public class CustomizationSupportingChain : IGenerationChain
       }
     }
 
-    return _next.Resolve(instanceGenerator, request, type);
+    return next.Resolve(instanceGenerator, request, type);
   }
 }

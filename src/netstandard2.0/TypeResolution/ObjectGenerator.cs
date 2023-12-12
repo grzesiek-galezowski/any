@@ -66,11 +66,4 @@ public class ObjectGenerator
   }
 }
 
-public class ConstructorNotFoundException : Exception
-{
-  public ConstructorNotFoundException(string typeDescription)
-    : base(typeDescription)
-  {
-      
-  }
-}
+public class ConstructorNotFoundException(string typeDescription) : Exception(typeDescription);

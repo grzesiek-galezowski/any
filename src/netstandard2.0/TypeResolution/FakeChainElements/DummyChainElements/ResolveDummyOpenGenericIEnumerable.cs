@@ -6,19 +6,12 @@ using TddXt.TypeReflection;
 
 namespace TddXt.TypeResolution.FakeChainElements.DummyChainElements;
 
-public class ResolveDummyOpenGenericIEnumerable : IResolution
+public class ResolveDummyOpenGenericIEnumerable(IEmptyCollectionInstantiation emptyCollectionInstantiation)
+  : IResolution
 {
-  private readonly IEmptyCollectionInstantiation _emptyCollectionInstantiation;
-
-  public ResolveDummyOpenGenericIEnumerable(
-    IEmptyCollectionInstantiation emptyCollectionInstantiation)
-  {
-    _emptyCollectionInstantiation = emptyCollectionInstantiation;
-  }
-
   public object Apply(InstanceGenerator allGenerator, GenerationRequest generationRequest, Type type)
   {
-    return _emptyCollectionInstantiation.EmptyEnumerableOf(type.GetCollectionItemType());
+    return emptyCollectionInstantiation.EmptyEnumerableOf(type.GetCollectionItemType());
   }
 
   public bool AppliesTo(Type type)

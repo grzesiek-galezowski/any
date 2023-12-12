@@ -79,26 +79,19 @@ public class FakeDelegate : IResolution
   }
 }
 
-public class GenericDelegates<TReturn, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>
+public class GenericDelegates<TReturn, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(TReturn value)
 {
-  private readonly TReturn _value;
-
-  public GenericDelegates(TReturn value)
-  {
-    _value = value;
-  }
-
-  public TReturn Get0() => _value;
-  public TReturn Get1(T1 a) => _value;
-  public TReturn Get2(T1 a, T2 b) => _value;
-  public TReturn Get3(T1 a, T2 b, T3 c) => _value;
-  public TReturn Get4(T1 a, T2 b, T3 c, T4 d) => _value;
-  public TReturn Get5(T1 a, T2 b, T3 c, T4 d, T5 e) => _value;
-  public TReturn Get6(T1 a, T2 b, T3 c, T4 d, T5 e, T6 f) => _value;
-  public TReturn Get7(T1 a, T2 b, T3 c, T4 d, T5 e, T6 f, T7 g) => _value;
-  public TReturn Get8(T1 a, T2 b, T3 c, T4 d, T5 e, T6 f, T7 g, T8 h) => _value;
-  public TReturn Get9(T1 a, T2 b, T3 c, T4 d, T5 e, T6 f, T7 g, T8 h, T9 i) => _value;
-  public TReturn Get10(T1 a, T2 b, T3 c, T4 d, T5 e, T6 f, T7 g, T8 h, T9 i, T10 j) => _value;
+  public TReturn Get0() => value;
+  public TReturn Get1(T1 a) => value;
+  public TReturn Get2(T1 a, T2 b) => value;
+  public TReturn Get3(T1 a, T2 b, T3 c) => value;
+  public TReturn Get4(T1 a, T2 b, T3 c, T4 d) => value;
+  public TReturn Get5(T1 a, T2 b, T3 c, T4 d, T5 e) => value;
+  public TReturn Get6(T1 a, T2 b, T3 c, T4 d, T5 e, T6 f) => value;
+  public TReturn Get7(T1 a, T2 b, T3 c, T4 d, T5 e, T6 f, T7 g) => value;
+  public TReturn Get8(T1 a, T2 b, T3 c, T4 d, T5 e, T6 f, T7 g, T8 h) => value;
+  public TReturn Get9(T1 a, T2 b, T3 c, T4 d, T5 e, T6 f, T7 g, T8 h, T9 i) => value;
+  public TReturn Get10(T1 a, T2 b, T3 c, T4 d, T5 e, T6 f, T7 g, T8 h, T9 i, T10 j) => value;
 
   public void Do0()
   {

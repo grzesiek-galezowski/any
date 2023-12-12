@@ -4,14 +4,8 @@ using KellermanSoftware.CompareNetObjects.TypeComparers;
 
 namespace AnySpecification.GraphComparison;
 
-public class ReflectionOrProxyComparer : BaseTypeComparer
+public class ReflectionOrProxyComparer() : BaseTypeComparer(null)
 {
-  public ReflectionOrProxyComparer()
-    : base(null)
-  {
-
-  }
-
   public override bool IsTypeMatch(Type type1, Type type2)
   {
     return ((IsPartOfReflectionApi(type1) && IsPartOfReflectionApi(type2))

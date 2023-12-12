@@ -3,15 +3,8 @@ using TddXt.TypeReflection.Interfaces;
 
 namespace TddXt.TypeReflection.ImplementationDetails.ConstructorRetrievals;
 
-public class PublicParameterlessConstructorRetrieval : ConstructorRetrieval
+public class PublicParameterlessConstructorRetrieval(ConstructorRetrieval next) : ConstructorRetrieval
 {
-  private readonly ConstructorRetrieval _next;
-
-  public PublicParameterlessConstructorRetrieval(ConstructorRetrieval next)
-  {
-    _next = next;
-  }
-
   public IEnumerable<IConstructorWrapper> RetrieveFrom(IConstructorQueries constructors)
   {
     var constructor = constructors.GetPublicParameterlessConstructor();
@@ -21,7 +14,7 @@ public class PublicParameterlessConstructorRetrieval : ConstructorRetrieval
     }
     else
     {
-      return _next.RetrieveFrom(constructors);
+      return next.RetrieveFrom(constructors);
     }
   }
 }

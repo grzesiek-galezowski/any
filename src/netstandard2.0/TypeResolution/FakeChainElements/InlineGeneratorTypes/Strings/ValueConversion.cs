@@ -3,21 +3,13 @@ using TddXt.AnyExtensibility;
 
 namespace TddXt.TypeResolution.FakeChainElements.InlineGeneratorTypes.Strings;
 
-public class ValueConversion<TInput, TResult> : InlineGenerator<TResult>
+public class ValueConversion<TInput, TResult>(
+  InlineGenerator<TInput> enumerableGenerator,
+  Func<TInput, TResult> conversion)
+  : InlineGenerator<TResult>
 {
-  private readonly Func<TInput, TResult> _conversion;
-  private readonly InlineGenerator<TInput> _enumerableGenerator;
-
-  public ValueConversion(
-    InlineGenerator<TInput> enumerableGenerator,
-    Func<TInput, TResult> conversion)
-  {
-    _enumerableGenerator = enumerableGenerator;
-    _conversion = conversion;
-  }
-
   public TResult GenerateInstance(InstanceGenerator instanceGenerator, GenerationRequest request)
   {
-    return _conversion(_enumerableGenerator.GenerateInstance(instanceGenerator, request));
+    return conversion(enumerableGenerator.GenerateInstance(instanceGenerator, request));
   }
 }

@@ -3,22 +3,15 @@ using TddXt.AnyExtensibility;
 
 namespace TddXt.TypeResolution.FakeChainElements;
 
-public class FakeConcreteClassWithNonConcreteConstructor : IResolution
+public class FakeConcreteClassWithNonConcreteConstructor(ObjectGenerator objectGenerator) : IResolution
 {
-  private readonly ObjectGenerator _objectGenerator;
-
-  public FakeConcreteClassWithNonConcreteConstructor(ObjectGenerator objectGenerator)
-  {
-    _objectGenerator = objectGenerator;
-  }
-
   public bool AppliesTo(Type type)
   {
-    return _objectGenerator.ConstructorIsInternalOrHasAtLeastOneNonConcreteArgumentType(type);
+    return objectGenerator.ConstructorIsInternalOrHasAtLeastOneNonConcreteArgumentType(type);
   }
 
   public object Apply(InstanceGenerator instanceGenerator, GenerationRequest request, Type type)
   {
-    return _objectGenerator.GenerateCustomizedInstance(instanceGenerator, request, type);
+    return objectGenerator.GenerateCustomizedInstance(instanceGenerator, request, type);
   }
 }

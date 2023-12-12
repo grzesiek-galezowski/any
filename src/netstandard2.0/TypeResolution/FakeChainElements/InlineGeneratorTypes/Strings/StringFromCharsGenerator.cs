@@ -2,23 +2,14 @@
 
 namespace TddXt.TypeResolution.FakeChainElements.InlineGeneratorTypes.Strings;
 
-public class StringFromCharsGenerator : InlineGenerator<string>
+public class StringFromCharsGenerator(int maxLength, InlineGenerator<char> charGenerator) : InlineGenerator<string>
 {
-  private readonly InlineGenerator<char> _charGenerator;
-  private readonly int _maxLength;
-
-  public StringFromCharsGenerator(int maxLength, InlineGenerator<char> charGenerator)
-  {
-    _maxLength = maxLength;
-    _charGenerator = charGenerator;
-  }
-
   public string GenerateInstance(InstanceGenerator instanceGenerator, GenerationRequest request)
   {
     var result = string.Empty;
-    for (var i = 0; i < _maxLength; ++i)
+    for (var i = 0; i < maxLength; ++i)
     {
-      result += _charGenerator.GenerateInstance(instanceGenerator, request);
+      result += charGenerator.GenerateInstance(instanceGenerator, request);
     }
 
     return result;

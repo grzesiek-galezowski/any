@@ -7,15 +7,8 @@ using TddXt.TypeReflection.Interfaces;
 
 namespace TddXt.TypeReflection.ImplementationDetails;
 
-public class DefaultParameterlessConstructor : IConstructorWrapper
+public class DefaultParameterlessConstructor(Func<object> creation) : IConstructorWrapper
 {
-  private readonly Func<object> _creation;
-
-  public DefaultParameterlessConstructor(Func<object> creation)
-  {
-    _creation = creation;
-  }
-
   public bool HasNonPointerArgumentsOnly()
   {
     return true;
@@ -50,7 +43,7 @@ public class DefaultParameterlessConstructor : IConstructorWrapper
   public object InvokeWithParametersCreatedBy(Func<Type, GenerationRequest, object> instanceGenerator,
     GenerationRequest request)
   {
-    return _creation.Invoke();
+    return creation.Invoke();
   }
 
   public bool IsInternal()
@@ -70,7 +63,7 @@ public class DefaultParameterlessConstructor : IConstructorWrapper
 
   public object Invoke(IEnumerable<object> parameters)
   {
-    return _creation.Invoke();
+    return creation.Invoke();
   }
 
   public IEnumerable<ParameterInfo> Parameters { get; } = new List<ParameterInfo>();

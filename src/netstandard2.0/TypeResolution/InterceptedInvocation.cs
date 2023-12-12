@@ -8,65 +8,57 @@ using TddXt.TypeResolution.CustomCollections;
 
 namespace TddXt.TypeResolution;
 
-public class InterceptedInvocation : IInterceptedInvocation
+public class InterceptedInvocation(
+  IInvocation invocation,
+  Func<Type, GenerationRequest, object> instanceSource)
+  : IInterceptedInvocation
 {
-  private readonly Func<Type, GenerationRequest, object> _instanceSource;
-  private readonly IInvocation _invocation;
-
-  public InterceptedInvocation(
-    IInvocation invocation,
-    Func<Type, GenerationRequest, object> instanceSource)
-  {
-    _invocation = invocation;
-    _instanceSource = instanceSource;
-  }
-
   public bool HasReturnValue()
   {
-    return _invocation.Method.ReturnType != typeof(void);
+    return invocation.Method.ReturnType != typeof(void);
   }
 
   public bool IsPropertySetter()
   {
-    var methodDeclaringType = _invocation.Method.DeclaringType;
+    var methodDeclaringType = invocation.Method.DeclaringType;
 
     return methodDeclaringType != null && 
            methodDeclaringType.GetProperties()
-             .Any(prop => prop.GetSetMethod() == _invocation.Method);
+             .Any(prop => prop.GetSetMethod() == invocation.Method);
   }
 
   public bool IsPropertyGetter()
   {
-    var methodDeclaringType = _invocation.Method.DeclaringType;
+    var methodDeclaringType = invocation.Method.DeclaringType;
     return methodDeclaringType != null && methodDeclaringType.GetProperties()
-      .Any(prop => prop.GetGetMethod() == _invocation.Method);
+      .Any(prop => prop.GetGetMethod() == invocation.Method);
   }
 
   private PerMethodCacheKey GetPropertyGetterCacheKey()
   {
     var propertyFromSetterCallOrNull =
-      _invocation.Method.GetPropertyFromSetterCall();
+      invocation.Method.GetPropertyFromSetterCall();
     var getter = propertyFromSetterCallOrNull.GetGetMethod(true);
-    var key = PerMethodCacheKey.For(getter, _invocation.Proxy);
+    var key = PerMethodCacheKey.For(getter, invocation.Proxy);
     return key;
   }
 
   public void GenerateAndAddPropertyGetterReturnValueTo(IPerMethodCache<object> perMethodCache)
   {
     var key = GetPropertyGetterCacheKey();
-    perMethodCache.Overwrite(key, _invocation.Arguments[0]);
+    perMethodCache.Overwrite(key, invocation.Arguments[0]);
   }
 
   public void GenerateAndAddMethodReturnValueTo(IPerMethodCache<object> perMethodCache, GenerationRequest request)
   {
-    var cacheKey = PerMethodCacheKey.For(_invocation);
-    perMethodCache.AddIfNoValueFor(cacheKey, () => AnyInstanceOfReturnTypeOf(_invocation, request));
-    _invocation.ReturnValue = perMethodCache.ValueFor(cacheKey);
+    var cacheKey = PerMethodCacheKey.For(invocation);
+    perMethodCache.AddIfNoValueFor(cacheKey, () => AnyInstanceOfReturnTypeOf(invocation, request));
+    invocation.ReturnValue = perMethodCache.ValueFor(cacheKey);
   }
 
   private object AnyInstanceOfReturnTypeOf(IInvocation invocation, GenerationRequest request)
   {
-    return _instanceSource(invocation.Method.ReturnType, request);
+    return instanceSource(invocation.Method.ReturnType, request);
   }
 
 }

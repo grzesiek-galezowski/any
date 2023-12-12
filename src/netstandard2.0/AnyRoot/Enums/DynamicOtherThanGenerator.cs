@@ -5,19 +5,10 @@ using TddXt.AnyExtensibility;
 
 namespace TddXt.AnyRoot.Enums;
 
-public class DynamicOtherThanGenerator : InlineGenerator<object>
+public class DynamicOtherThanGenerator(Type type, IEnumerable<object> excludedValues) : InlineGenerator<object>
 {
-  private readonly Type _type;
-  private readonly IEnumerable<object> _excludedValues;
-
-  public DynamicOtherThanGenerator(Type type, IEnumerable<object> excludedValues)
-  {
-    _type = type;
-    _excludedValues = excludedValues;
-  }
-
   public object GenerateInstance(InstanceGenerator instanceGenerator, GenerationRequest request)
   {
-    return instanceGenerator.OtherThan(_type, _excludedValues.ToArray(), request);
+    return instanceGenerator.OtherThan(type, excludedValues.ToArray(), request);
   }
 }

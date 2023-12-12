@@ -3,23 +3,16 @@ using TddXt.TypeResolution.FakeChainElements.InlineGeneratorTypes.Generic.Implem
 
 namespace TddXt.TypeResolution.FakeChainElements.InlineGeneratorTypes;
 
-public class DummyResolutionsFactory
+public class DummyResolutionsFactory(EmptyCollectionInstantiation emptyCollectionInstantiation)
 {
-  private readonly EmptyCollectionInstantiation _emptyCollectionInstantiation;
-
-  public DummyResolutionsFactory(EmptyCollectionInstantiation emptyCollectionInstantiation)
-  {
-    _emptyCollectionInstantiation = emptyCollectionInstantiation;
-  }
-
   public IResolution FallbackDummyObjectResolution() 
     => new FallbackDummyObjectResolution();
   public IResolution ResolveDummyAbstractType() 
     => new ResolveDummyAbstractType();
   public IResolution ResolveDummyOpenGenericIEnumerable() 
-    => new ResolveDummyOpenGenericIEnumerable(_emptyCollectionInstantiation);
+    => new ResolveDummyOpenGenericIEnumerable(emptyCollectionInstantiation);
   public IResolution ResolveDummyOpenGenericImplementationOfIEnumerable() 
-    => new ResolveDummyOpenGenericImplementationOfIEnumerable(_emptyCollectionInstantiation);
+    => new ResolveDummyOpenGenericImplementationOfIEnumerable(emptyCollectionInstantiation);
   public IResolution ResolveDummyString() 
     => new ResolveDummyString();
   public IResolution ResolveDummyPrimitiveTypeInstance() 

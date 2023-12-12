@@ -1,25 +1,19 @@
-using System;
+﻿using System;
 using Castle.DynamicProxy;
 using TddXt.AnyExtensibility;
 
 namespace TddXt.TypeResolution.FakeChainElements.Interceptors;
 
 [Serializable]
-internal class AbstractClassInterceptor : IInterceptor
+internal class AbstractClassInterceptor(
+  CachedReturnValueGeneration cachedGeneration,
+  Func<Type, GenerationRequest, object> instanceSource,
+  GenerationRequest request)
+  : IInterceptor
 {
-  private readonly CachedReturnValueGeneration _cachedGeneration;
-  private readonly Func<Type, GenerationRequest, object> _instanceSource;
-  private readonly GenerationRequest _request;
-
-  public AbstractClassInterceptor(
-    CachedReturnValueGeneration cachedGeneration,
-    Func<Type, GenerationRequest, object> instanceSource,
-    GenerationRequest request)
-  {
-    _cachedGeneration = cachedGeneration;
-    _instanceSource = instanceSource;
-    _request = request;
-  }
+  private readonly CachedReturnValueGeneration _cachedGeneration = cachedGeneration;
+  private readonly Func<Type, GenerationRequest, object> _instanceSource = instanceSource;
+  private readonly GenerationRequest _request = request;
 
   public void Intercept(IInvocation invocation)
   {
