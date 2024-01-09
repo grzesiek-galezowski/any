@@ -12,7 +12,7 @@
     <PackageVersion Include="AutoFixture.SeedExtensions" Version="4.18.1" />
   </ItemGroup>
   <ItemGroup>
-    <PackageVersion Include="CompareNETObjects" Version="4.82.0" />
+    <PackageVersion Include="CompareNETObjects" Version="4.83.0" />
     <PackageVersion Include="FluentAssertions" Version="6.12.0" />
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
     <PackageVersion Include="Newtonsoft.Json" Version="13.0.3" />
@@ -26,7 +26,7 @@
     <PackageVersion Include="AtmaFileSystem" Version="6.1.0" />
     <PackageVersion Include="Bullseye" Version="4.2.1" />
     <PackageVersion Include="DotnetExeCommandLineBuilder" Version="0.3.0" />
-    <PackageVersion Include="NScan" Version="0.122.0" />
+    <PackageVersion Include="NScan" Version="0.130.0" />
     <PackageVersion Include="SimpleExec" Version="11.0.0" />
   </ItemGroup>
 </Project>
