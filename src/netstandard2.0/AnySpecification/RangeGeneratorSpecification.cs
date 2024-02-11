@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using AutoFixture.Kernel;
 using FluentAssertions;
 using static TddXt.AnyGenerators.Root.InlineGenerators;
 using Enumerable = System.Linq.Enumerable;
@@ -176,4 +177,15 @@ public class RangeGeneratorSpecification
       .ToList()
       .Should().AllSatisfy(g => g.Should().HaveCount(2));
   }
+
+  [Test]
+  public void ShouldAllowGeneratingDynamicObjects()
+  {
+    var dynamicHolder = Any.Instance<DynamicHolder>();
+    dynamicHolder.Should().NotBeNull();
+    Assert.That(dynamicHolder.D, Is.Not.Null);
+    Assert.That(dynamicHolder.D, Is.InstanceOf<object>());
+  }
+
+  public record DynamicHolder(dynamic D);
 }
