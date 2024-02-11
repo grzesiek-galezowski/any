@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using AnySpecification.Fixtures;
 using AutoFixture.Kernel;
 using FluentAssertions;
 using static TddXt.AnyGenerators.Root.InlineGenerators;
@@ -186,6 +187,4 @@ public class RangeGeneratorSpecification
     Assert.That(dynamicHolder.D, Is.Not.Null);
     Assert.That(dynamicHolder.D, Is.InstanceOf<object>());
   }
-
-  public record DynamicHolder(dynamic D);
 }
