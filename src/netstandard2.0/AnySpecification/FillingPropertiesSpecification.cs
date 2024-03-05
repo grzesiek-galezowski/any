@@ -1,4 +1,5 @@
 ﻿using AnySpecification.Fixtures;
+using Core.NullableReferenceTypesExtensions;
 using FluentAssertions;
 using NUnit.Framework.Legacy;
 
@@ -14,8 +15,8 @@ public class FillingPropertiesSpecification
 
     //THEN
     ClassicAssert.NotNull(instance.Data);
-    ClassicAssert.NotNull(instance._field);
-    ClassicAssert.NotNull(instance.Data.Text);
+    ClassicAssert.NotNull(instance.Field);
+    ClassicAssert.NotNull(instance.Data.OrThrow().Text);
     ClassicAssert.IsNotEmpty(instance.AnImmutableList);
   }
 

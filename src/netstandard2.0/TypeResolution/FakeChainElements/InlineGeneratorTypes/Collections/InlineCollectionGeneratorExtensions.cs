@@ -58,7 +58,7 @@ public static class InlineCollectionGeneratorExtensions
   }
 
   public static EnumerableConversion<KeyValuePair<TKey, TValue>, Dictionary<TKey, TValue>>
-    AsDictionary<TKey, TValue>(this InlineGenerator<IEnumerable<KeyValuePair<TKey, TValue>>> enumerableGenerator)
+    AsDictionary<TKey, TValue>(this InlineGenerator<IEnumerable<KeyValuePair<TKey, TValue>>> enumerableGenerator) where TKey : notnull
   {
     return Conversion(enumerableGenerator,
       enumerable => enumerable.ToDictionary(x => x.Key, x => x.Value));
@@ -95,26 +95,26 @@ public static class InlineCollectionGeneratorExtensions
   }
 
   public static InlineGenerator<ImmutableDictionary<T1, T2>> AsImmutableDictionary<T1, T2>(
-    this InlineGenerator<IEnumerable<KeyValuePair<T1, T2>>> enumerableGenerator)
+    this InlineGenerator<IEnumerable<KeyValuePair<T1, T2>>> enumerableGenerator) where T1 : notnull
   {
     return Conversion(enumerableGenerator, ImmutableDictionary.ToImmutableDictionary);
   }
     
   public static InlineGenerator<ImmutableSortedDictionary<T1, T2>> AsImmutableSortedDictionary<T1, T2>(
-    this InlineGenerator<IEnumerable<KeyValuePair<T1, T2>>> enumerableGenerator)
+    this InlineGenerator<IEnumerable<KeyValuePair<T1, T2>>> enumerableGenerator) where T1 : notnull
   {
     return Conversion(enumerableGenerator, ImmutableSortedDictionary.ToImmutableSortedDictionary);
   }
 
   public static EnumerableConversion<KeyValuePair<TKey, TValue>, IReadOnlyDictionary<TKey, TValue>>
-    AsReadOnlyDictionary<TKey, TValue>(this InlineGenerator<IEnumerable<KeyValuePair<TKey, TValue>>> enumerableGenerator)
+    AsReadOnlyDictionary<TKey, TValue>(this InlineGenerator<IEnumerable<KeyValuePair<TKey, TValue>>> enumerableGenerator) where TKey : notnull
   {
     return Conversion(enumerableGenerator,
       enumerable => (IReadOnlyDictionary<TKey, TValue>)(enumerable.ToDictionary(x => x.Key, x => x.Value)));
   }
 
   public static EnumerableConversion<KeyValuePair<TKey, TValue>, SortedDictionary<TKey, TValue>>
-    AsSortedDictionary<TKey, TValue>(this InlineGenerator<IEnumerable<KeyValuePair<TKey, TValue>>> enumerableGenerator)
+    AsSortedDictionary<TKey, TValue>(this InlineGenerator<IEnumerable<KeyValuePair<TKey, TValue>>> enumerableGenerator) where TKey : notnull
   {
     return Conversion(enumerableGenerator,
       enumerable => new SortedDictionary<TKey, TValue>(
@@ -122,14 +122,14 @@ public static class InlineCollectionGeneratorExtensions
   }
 
   public static EnumerableConversion<KeyValuePair<TKey, TValue>, ConcurrentDictionary<TKey, TValue>>
-    AsConcurrentDictionary<TKey, TValue>(this InlineGenerator<IEnumerable<KeyValuePair<TKey, TValue>>> enumerableGenerator)
+    AsConcurrentDictionary<TKey, TValue>(this InlineGenerator<IEnumerable<KeyValuePair<TKey, TValue>>> enumerableGenerator) where TKey : notnull
   {
     return Conversion(enumerableGenerator,
       enumerable => new ConcurrentDictionary<TKey, TValue>(enumerable));
   }
 
   public static EnumerableConversion<KeyValuePair<TKey, TValue>, SortedList<TKey, TValue>>
-    AsSortedList<TKey, TValue>(this InlineGenerator<IEnumerable<KeyValuePair<TKey, TValue>>> enumerableGenerator)
+    AsSortedList<TKey, TValue>(this InlineGenerator<IEnumerable<KeyValuePair<TKey, TValue>>> enumerableGenerator) where TKey : notnull
   {
     return Conversion(enumerableGenerator,
       enumerable => new SortedList<TKey, TValue>(enumerable.ToDictionary(x => x.Key, x => x.Value)));
