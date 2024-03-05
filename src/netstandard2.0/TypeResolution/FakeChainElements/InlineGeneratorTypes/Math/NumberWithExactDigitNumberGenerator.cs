@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading;
+using Core.NullableReferenceTypesExtensions;
 using TddXt.AnyExtensibility;
 
 namespace TddXt.TypeResolution.FakeChainElements.InlineGeneratorTypes.Math;
@@ -10,6 +11,6 @@ public class NumberWithExactDigitNumberGenerator<T>(NumericTraits<T> intTraits, 
 
   public T GenerateInstance(InstanceGenerator instanceGenerator, GenerationRequest request)
   {
-    return intTraits.GenerateWithExactNumberOfDigits(digitsCount, RandomGenerator.Value);
+    return intTraits.GenerateWithExactNumberOfDigits(digitsCount, RandomGenerator.Value.OrThrow());
   }
 }

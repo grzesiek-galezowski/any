@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Diagnostics;
+using Core.NullableReferenceTypesExtensions;
 using TddXt.AnyExtensibility;
 using TddXt.AnyGenerators.Root;
 
@@ -62,9 +64,9 @@ public static class AnyStringExtensions
     return gen.InstanceOf(InlineGenerators.StringNotContaining(excludedSubstrings));
   }
 
-  public static string StringContaining<T>(this BasicGenerator gen, T obj)
+  public static string StringContaining<T>(this BasicGenerator gen, T obj) where T : notnull
   {
-    return gen.InstanceOf(InlineGenerators.StringContaining(obj!.ToString()));
+    return gen.InstanceOf(InlineGenerators.StringContaining(obj.ToString().OrThrow()));
   }
 
   public static string StringContaining(this BasicGenerator gen, string str)

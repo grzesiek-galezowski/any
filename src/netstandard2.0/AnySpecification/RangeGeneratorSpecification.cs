@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using AnySpecification.Fixtures;
-using AutoFixture.Kernel;
 using FluentAssertions;
 using static TddXt.AnyGenerators.Root.InlineGenerators;
 using Enumerable = System.Linq.Enumerable;

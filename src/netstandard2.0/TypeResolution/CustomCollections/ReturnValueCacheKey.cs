@@ -1,26 +1,21 @@
-using System;
+﻿using System;
 using System.Reflection;
 using Castle.DynamicProxy;
 
 namespace TddXt.TypeResolution.CustomCollections;
 
 [Serializable]
-public class PerMethodCacheKey : IEquatable<PerMethodCacheKey>
+public record PerMethodCacheKey
 {
+#pragma warning disable IDE0052 // Remove unread private members
   private readonly MethodInfo _method;
   private readonly object _proxy;
+#pragma warning restore IDE0052 // Remove unread private members
 
   private PerMethodCacheKey(MethodInfo method, object proxy)
   {
     _method = method;
     _proxy = proxy;
-  }
-
-  public bool Equals(PerMethodCacheKey other)
-  {
-    if (ReferenceEquals(null, other)) return false;
-    if (ReferenceEquals(this, other)) return true;
-    return Equals(_method, other._method) && Equals(_proxy, other._proxy);
   }
 
   public static PerMethodCacheKey For(IInvocation invocation)
@@ -31,31 +26,5 @@ public class PerMethodCacheKey : IEquatable<PerMethodCacheKey>
   public static PerMethodCacheKey For(MethodInfo method, object proxy)
   {
     return new PerMethodCacheKey(method, proxy);
-  }
-
-  public override bool Equals(object obj)
-  {
-    if (ReferenceEquals(null, obj)) return false;
-    if (ReferenceEquals(this, obj)) return true;
-    if (obj.GetType() != GetType()) return false;
-    return Equals((PerMethodCacheKey)obj);
-  }
-
-  public override int GetHashCode()
-  {
-    unchecked
-    {
-      return ((_method != null ? _method.GetHashCode() : 0) * 397) ^ (_proxy != null ? _proxy.GetHashCode() : 0);
-    }
-  }
-
-  public static bool operator ==(PerMethodCacheKey left, PerMethodCacheKey right)
-  {
-    return Equals(left, right);
-  }
-
-  public static bool operator !=(PerMethodCacheKey left, PerMethodCacheKey right)
-  {
-    return !Equals(left, right);
   }
 }

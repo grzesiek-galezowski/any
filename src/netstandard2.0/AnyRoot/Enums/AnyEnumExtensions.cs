@@ -14,10 +14,11 @@ public static class AnyEnumExtensions
     return (T)generatedValue;
   }
 
-  private static class DynamicGenHolder<T>
+  private static class DynamicGenHolder<T> where T : Enum
   {
     private static readonly Type EnumUnderlyingType = typeof(T).GetEnumUnderlyingType();
-    private static readonly IEnumerable<object> ValidEnumValues = ((IEnumerable<T>)Enum.GetValues(typeof(T)))
+
+    private static readonly IEnumerable<object> ValidEnumValues = Enum.GetValues(typeof(T)).Cast<T>()
       .Select(s => SmartType.Cast(EnumUnderlyingType, s));
     // ReSharper disable once StaticMemberInGenericType
     public static readonly DynamicOtherThanGenerator Instance = new(EnumUnderlyingType, ValidEnumValues);

@@ -19,6 +19,7 @@ public interface ISmartType : IType, IConstructorQueries
   bool IsFromNamespace(string @namespace);
   object CreateInstance(Type[] types, object[] arguments);
   object GenerateInstanceWith(InstanceGenerator gen, GenerationRequest request);
+  string ToString();
 }
 
 public class SmartType : ISmartType
@@ -55,7 +56,6 @@ public class SmartType : ISmartType
       .OrderBy(m => m.GetParametersCount());
     return factoryMethods;
   }
-
 
   public Maybe<IConstructorWrapper> GetNonPublicParameterlessConstructorInfo()
   {

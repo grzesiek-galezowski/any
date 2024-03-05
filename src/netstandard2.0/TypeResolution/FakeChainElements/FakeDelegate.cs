@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Core.NullableReferenceTypesExtensions;
 using TddXt.AnyExtensibility;
 
 namespace TddXt.TypeResolution.FakeChainElements;
@@ -21,12 +22,12 @@ public class FakeDelegate : IResolution
     if (methodInfo.ReturnType != typeof(void))
     {
       var instance = CreateGenericDelegatesForFunction(instanceGenerator, methodInfo, request);
-      result = Delegate.CreateDelegate(type, instance, instance.GetType().GetMethod("Get" + parameters.Length));
+      result = Delegate.CreateDelegate(type, instance, instance.GetType().GetMethod("Get" + parameters.Length).OrThrow());
     }
     else
     {
       var instance = CreateGenericDelegatesForAction(methodInfo);
-      result = Delegate.CreateDelegate(type, instance, instance.GetType().GetMethod("Do" + parameters.Length));
+      result = Delegate.CreateDelegate(type, instance, instance.GetType().GetMethod("Do" + parameters.Length).OrThrow());
     }
 
     return result;

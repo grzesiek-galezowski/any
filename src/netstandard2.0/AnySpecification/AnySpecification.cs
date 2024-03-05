@@ -8,7 +8,6 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Reflection;
-using System.Runtime.Serialization.Formatters.Binary;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
@@ -527,7 +526,7 @@ public class AnySpecification
     });
   }
 
-  [Test, Timeout(1000)]
+  [Test, CancelAfter(1000)]
   public void ShouldHandleEmptyExcludedStringsWhenGeneratingAnyStringNotContainingGiven()
   {
     Assert.DoesNotThrow(() => Any.StringNotContaining(string.Empty));
