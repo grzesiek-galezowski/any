@@ -138,7 +138,7 @@ public class ConstructorWrapper : IConstructorWrapper
 
   public static ConstructorWrapper FromConstructorInfo(ConstructorInfo constructor)
   {
-    return new ConstructorWrapper(constructor, constructor.Invoke, constructor.GetParameters(), constructor.DeclaringType);
+    return new ConstructorWrapper(constructor, constructor.Invoke, constructor.GetParameters(), constructor.DeclaringType.OrThrow());
   }
 
   public static ConstructorWrapper FromStaticMethodInfo(MethodInfo m)

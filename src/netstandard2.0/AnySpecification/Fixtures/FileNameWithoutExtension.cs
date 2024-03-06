@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 
 namespace AnySpecification.Fixtures;
 
@@ -11,7 +11,7 @@ public class FileNameWithoutExtension : IEquatable<FileNameWithoutExtension>
     _value = value;
   }
 
-  public bool Equals(FileNameWithoutExtension other)
+  public bool Equals(FileNameWithoutExtension? other)
   {
     if (ReferenceEquals(null, other)) return false;
     if (ReferenceEquals(this, other)) return true;
@@ -23,7 +23,7 @@ public class FileNameWithoutExtension : IEquatable<FileNameWithoutExtension>
     return new FileNameWithoutExtension(fileNameWithoutExtensionString);
   }
 
-  public override bool Equals(object obj)
+  public override bool Equals(object? obj)
   {
     if (ReferenceEquals(null, obj)) return false;
     if (ReferenceEquals(this, obj)) return true;

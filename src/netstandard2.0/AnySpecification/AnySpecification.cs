@@ -13,6 +13,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using AnySpecification.Fixtures;
 using AnySpecification.GraphComparison;
+using Core.NullableReferenceTypesExtensions;
 using FluentAssertions;
 using Functional.Maybe;
 using Newtonsoft.Json;
@@ -382,7 +383,7 @@ public class AnySpecification
   }
 
   [Test, CancelAfter(2000)]
-  public async Task ShouldDisallowSkippingAllEnumMembers(CancellationToken ct)
+  public void ShouldDisallowSkippingAllEnumMembers()
   {
     Any.Invoking(a => a.OtherThan(
         LolEnum.Value2,
@@ -992,8 +993,8 @@ public class AnySpecification
       }));
 
     anyConcrete.DummyString.Should().Be("CustomString");
-    anyConcrete.Inner.InnerDummyInt.Should().Be(123);
-    anyConcrete.Inner.InnerDummyString.Should().Be("InnerCustomString");
+    anyConcrete.Inner.OrThrow().InnerDummyInt.Should().Be(123);
+    anyConcrete.Inner.OrThrow().InnerDummyString.Should().Be("InnerCustomString");
   }
 
   [TestCase(LolEnum.Value1)]
@@ -1876,7 +1877,7 @@ public class AnySpecification
     RecursiveInterface x3)
   {
     // ReSharper disable once UnusedVariable
-    _ = new object[] {x1.AbstractInt, x2.GetSomething(), x3.NestedAsDictionary, x2.GetSomething2(), x3.Nested};
+    _ = new object[] {x1.AbstractInt, x2.GetSomething().OrThrow(), x3.NestedAsDictionary, x2.GetSomething2(), x3.Nested};
   }
 
   private static void SerializeAnyInstanceOf<T>()

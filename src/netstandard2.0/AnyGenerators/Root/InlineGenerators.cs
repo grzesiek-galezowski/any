@@ -79,12 +79,12 @@ public class InlineGenerators
     return InternalInlineGenerators.ListWith(included);
   }
 
-  public static InlineGenerator<SortedList<TKey, TValue>> SortedList<TKey, TValue>(int length)
+  public static InlineGenerator<SortedList<TKey, TValue>> SortedList<TKey, TValue>(int length) where TKey : notnull
   {
     return InternalInlineGenerators.SortedList<TKey, TValue>(length);
   }
 
-  public static InlineGenerator<SortedList<TKey, TValue>> SortedList<TKey, TValue>()
+  public static InlineGenerator<SortedList<TKey, TValue>> SortedList<TKey, TValue>() where TKey : notnull
   {
     return InternalInlineGenerators.SortedList<TKey, TValue>();
   }
@@ -115,7 +115,7 @@ public class InlineGenerators
     return InternalInlineGenerators.SortedSet<T>();
   }
 
-  public static InlineGenerator<Dictionary<TKey, TValue>> Dictionary<TKey, TValue>(int length)
+  public static InlineGenerator<Dictionary<TKey, TValue>> Dictionary<TKey, TValue>(int length) where TKey : notnull
   {
     return InternalInlineGenerators.Dictionary<TKey, TValue>(length);
   }
@@ -136,13 +136,12 @@ public class InlineGenerators
   // Used by reflection
   // public API
   // ReSharper disable once UnusedMember.Global
-  public static InlineGenerator<Dictionary<TKey, TValue>> Dictionary<TKey, TValue>()
+  public static InlineGenerator<Dictionary<TKey, TValue>> Dictionary<TKey, TValue>() where TKey : notnull
   {
     return InternalInlineGenerators.Dictionary<TKey, TValue>();
   }
 
-
-  public static InlineGenerator<ConcurrentDictionary<TKey, TValue>> ConcurrentDictionary<TKey, TValue>(int length)
+  public static InlineGenerator<ConcurrentDictionary<TKey, TValue>> ConcurrentDictionary<TKey, TValue>(int length) where TKey : notnull
   {
     return InternalInlineGenerators.ConcurrentDictionary<TKey, TValue>(length);
   }
@@ -150,7 +149,7 @@ public class InlineGenerators
   // Used by reflection
   // public API
   // ReSharper disable once UnusedMember.Global
-  public static InlineGenerator<ConcurrentDictionary<TKey, TValue>> ConcurrentDictionary<TKey, TValue>()
+  public static InlineGenerator<ConcurrentDictionary<TKey, TValue>> ConcurrentDictionary<TKey, TValue>() where TKey : notnull
   {
     return InternalInlineGenerators.ConcurrentDictionary<TKey, TValue>();
   }
@@ -181,7 +180,7 @@ public class InlineGenerators
     return InternalInlineGenerators.ConcurrentQueue<T>();
   }
 
-  public static InlineGenerator<SortedDictionary<TKey, TValue>> SortedDictionary<TKey,TValue>(int length)
+  public static InlineGenerator<SortedDictionary<TKey, TValue>> SortedDictionary<TKey,TValue>(int length) where TKey : notnull
   {
     return InternalInlineGenerators.SortedDictionary<TKey, TValue>(length);
   }
@@ -189,7 +188,7 @@ public class InlineGenerators
   // Used by reflection
   // public API
   // ReSharper disable once UnusedMember.Global
-  public static InlineGenerator<SortedDictionary<TKey, TValue>> SortedDictionary<TKey,TValue>()
+  public static InlineGenerator<SortedDictionary<TKey, TValue>> SortedDictionary<TKey,TValue>() where TKey : notnull
   {
     return InternalInlineGenerators.SortedDictionary<TKey, TValue>();
   }
@@ -224,7 +223,7 @@ public class InlineGenerators
     return InternalInlineGenerators.From(possibleValues);
   }
 
-  public static InlineGenerator<Dictionary<TKey, TValue>> DictionaryWithKeys<TKey, TValue>(IEnumerable<TKey> keys)
+  public static InlineGenerator<Dictionary<TKey, TValue>> DictionaryWithKeys<TKey, TValue>(IEnumerable<TKey> keys) where TKey : notnull
   {
     return InternalInlineGenerators.DictionaryWithKeys<TKey, TValue>(keys);
   }
@@ -564,7 +563,7 @@ public class InlineGenerators
   // Used by reflection
   // public API
   // ReSharper disable once UnusedMember.Global
-  public static InlineGenerator<ImmutableDictionary<T1, T2>> ImmutableDictionary<T1, T2>()
+  public static InlineGenerator<ImmutableDictionary<T1, T2>> ImmutableDictionary<T1, T2>() where T1 : notnull
   {
     return InternalInlineGenerators.ImmutableDictionary<T1, T2>();
   }
@@ -572,7 +571,7 @@ public class InlineGenerators
   // Used by reflection
   // public API
   // ReSharper disable once UnusedMember.Global
-  public static InlineGenerator<ImmutableSortedDictionary<T1, T2>> ImmutableSortedDictionary<T1, T2>()
+  public static InlineGenerator<ImmutableSortedDictionary<T1, T2>> ImmutableSortedDictionary<T1, T2>() where T1 : notnull
   {
     return InternalInlineGenerators.ImmutableSortedDictionary<T1, T2>();
   }

@@ -1,7 +1,8 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace AnySpecification.Fixtures;
 
@@ -44,7 +45,7 @@ public class MyOwnPcCollection<T> : IProducerConsumerCollection<T>
     return _inner.TryAdd(item);
   }
 
-  public bool TryTake(out T item)
+  public bool TryTake([MaybeNullWhen(false)] out T item)
   {
     return _inner.TryTake(out item);
   }

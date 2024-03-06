@@ -18,7 +18,7 @@ public class ReportedErrorsResolutionSpecification
 
   public class UploadPayloadDto
   {
-    public MigrationDataDto MigrationData { get; set; }
+    public MigrationDataDto? MigrationData { get; set; }
   }
   
   public record MigrationDataDto

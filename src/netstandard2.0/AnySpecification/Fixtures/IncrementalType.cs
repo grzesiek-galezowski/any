@@ -14,7 +14,7 @@ public class IncrementalType : IEquatable<IncrementalType>
 
   public int X { get; set; }
 
-  public bool Equals(IncrementalType other)
+  public bool Equals(IncrementalType? other)
   {
     throw new NotImplementedException();
   }
@@ -29,7 +29,7 @@ public class IncrementalType : IEquatable<IncrementalType>
     return true;
   }
 
-  public override bool Equals(object obj)
+  public override bool Equals(object? obj)
   {
     return false;
   }

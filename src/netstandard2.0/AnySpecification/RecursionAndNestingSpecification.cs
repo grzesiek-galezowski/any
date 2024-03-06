@@ -57,7 +57,8 @@ public class RecursionAndNestingSpecification
     var instance = Any.Instance<RecursiveClass>();
 
     //THEN
-    ClassicAssert.AreEqual(1, instance.Others.OrThrow()[0].Other.Others.OrThrow()[0].Other.Others.OrThrow().Length,
+    ClassicAssert.AreEqual(1,
+      instance.Others.OrThrow()[0].Other.OrThrow().Others.OrThrow()[0].Other.OrThrow().Others.OrThrow().Length,
       "Dummy algorithm generates an empty collection");
   }
 

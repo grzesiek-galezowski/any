@@ -1,6 +1,6 @@
-namespace AnySpecification.Fixtures;
+﻿namespace AnySpecification.Fixtures;
 
 public class ConcreteDataStructure2
 {
-  public string Text { get; set; }
+  public string? Text { get; set; }
 }

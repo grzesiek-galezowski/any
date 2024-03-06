@@ -120,12 +120,12 @@ public static class AnyCollectionExtensions
     return gen.InstanceOf(InlineGenerators.ListWithout(items));
   }
 
-  public static SortedList<TKey, TValue> SortedList<TKey, TValue>(this BasicGenerator gen)
+  public static SortedList<TKey, TValue> SortedList<TKey, TValue>(this BasicGenerator gen) where TKey : notnull
   {
     return gen.InstanceOf(InlineGenerators.SortedList<TKey, TValue>());
   }
 
-  public static SortedList<TKey, TValue> SortedList<TKey, TValue>(this BasicGenerator gen, int length)
+  public static SortedList<TKey, TValue> SortedList<TKey, TValue>(this BasicGenerator gen, int length) where TKey : notnull
   {
     return gen.InstanceOf(InlineGenerators.SortedList<TKey, TValue>(length));
   }
@@ -151,17 +151,17 @@ public static class AnyCollectionExtensions
     return gen.InstanceOf(InlineGenerators.SortedSet<T>());
   }
 
-  public static Dictionary<TKey, TValue> Dictionary<TKey, TValue>(this BasicGenerator gen, int length)
+  public static Dictionary<TKey, TValue> Dictionary<TKey, TValue>(this BasicGenerator gen, int length) where TKey : notnull
   {
     return gen.InstanceOf(InlineGenerators.Dictionary<TKey, TValue>(length));
   }
 
-  public static Dictionary<T, U> DictionaryWithKeys<T, U>(this BasicGenerator gen, IEnumerable<T> keys)
+  public static Dictionary<TKey, TValue> DictionaryWithKeys<TKey, TValue>(this BasicGenerator gen, IEnumerable<TKey> keys) where TKey : notnull
   {
-    return gen.InstanceOf(InlineGenerators.DictionaryWithKeys<T, U>(keys));
+    return gen.InstanceOf(InlineGenerators.DictionaryWithKeys<TKey, TValue>(keys));
   }
 
-  public static Dictionary<TKey, TValue> Dictionary<TKey, TValue>(this BasicGenerator gen)
+  public static Dictionary<TKey, TValue> Dictionary<TKey, TValue>(this BasicGenerator gen) where TKey : notnull
   {
     return gen.InstanceOf(InlineGenerators.Dictionary<TKey, TValue>());
   }
@@ -171,7 +171,7 @@ public static class AnyCollectionExtensions
     return gen.InstanceOf(InlineGenerators.ReadOnlyDictionary<TKey, TValue>(length));
   }
 
-  public static IReadOnlyDictionary<TKey, TValue> ReadOnlyDictionaryWithKeys<TKey, TValue>(this BasicGenerator gen, IEnumerable<TKey> keys)
+  public static IReadOnlyDictionary<TKey, TValue> ReadOnlyDictionaryWithKeys<TKey, TValue>(this BasicGenerator gen, IEnumerable<TKey> keys) where TKey : notnull
   {
     return gen.InstanceOf(InlineGenerators.DictionaryWithKeys<TKey, TValue>(keys));
   }
@@ -181,22 +181,22 @@ public static class AnyCollectionExtensions
     return gen.InstanceOf(InlineGenerators.ReadOnlyDictionary<TKey, TValue>());
   }
 
-  public static SortedDictionary<TKey, TValue> SortedDictionary<TKey, TValue>(this BasicGenerator gen, int length)
+  public static SortedDictionary<TKey, TValue> SortedDictionary<TKey, TValue>(this BasicGenerator gen, int length) where TKey : notnull
   {
     return gen.InstanceOf(InlineGenerators.SortedDictionary<TKey, TValue>(length));
   }
 
-  public static SortedDictionary<TKey, TValue> SortedDictionary<TKey, TValue>(this BasicGenerator gen)
+  public static SortedDictionary<TKey, TValue> SortedDictionary<TKey, TValue>(this BasicGenerator gen) where TKey : notnull
   {
     return gen.InstanceOf(InlineGenerators.SortedDictionary<TKey, TValue>());
   }
 
-  public static ConcurrentDictionary<TKey, TValue> ConcurrentDictionary<TKey, TValue>(this BasicGenerator gen, int length)
+  public static ConcurrentDictionary<TKey, TValue> ConcurrentDictionary<TKey, TValue>(this BasicGenerator gen, int length) where TKey : notnull
   {
     return gen.InstanceOf(InlineGenerators.ConcurrentDictionary<TKey, TValue>(length));
   }
 
-  public static ConcurrentDictionary<TKey, TValue> ConcurrentDictionary<TKey, TValue>(this BasicGenerator gen)
+  public static ConcurrentDictionary<TKey, TValue> ConcurrentDictionary<TKey, TValue>(this BasicGenerator gen) where TKey : notnull
   {
     return gen.InstanceOf(InlineGenerators.ConcurrentDictionary<TKey, TValue>());
   }
@@ -263,14 +263,14 @@ public static class AnyCollectionExtensions
     return gen.InstanceOf(InlineGenerators.ImmutableSortedSet<T>());
   }
 
-  public static ImmutableDictionary<T1, T2> ImmutableDictionary<T1, T2>(this BasicGenerator gen)
+  public static ImmutableDictionary<TKey, TValue> ImmutableDictionary<TKey, TValue>(this BasicGenerator gen) where TKey : notnull
   {
-    return gen.InstanceOf(InlineGenerators.ImmutableDictionary<T1, T2>());
+    return gen.InstanceOf(InlineGenerators.ImmutableDictionary<TKey, TValue>());
   }
 
-  public static ImmutableSortedDictionary<T1, T2> ImmutableSortedDictionary<T1, T2>(this BasicGenerator gen)
+  public static ImmutableSortedDictionary<TKey, TValue> ImmutableSortedDictionary<TKey, TValue>(this BasicGenerator gen) where TKey : notnull
   {
-    return gen.InstanceOf(InlineGenerators.ImmutableSortedDictionary<T1, T2>());
+    return gen.InstanceOf(InlineGenerators.ImmutableSortedDictionary<TKey, TValue>());
   }
 
   public static ImmutableQueue<T> ImmutableQueue<T>(this BasicGenerator gen)

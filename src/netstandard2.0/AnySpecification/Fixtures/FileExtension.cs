@@ -12,7 +12,7 @@ public class FileExtension
     _extension = extension;
   }
 
-  public bool Equals(FileExtension other)
+  public bool Equals(FileExtension? other)
   {
     if (ReferenceEquals(null, other)) return false;
     if (ReferenceEquals(this, other)) return true;
@@ -33,7 +33,7 @@ public class FileExtension
     return new FileExtension(extensionString);
   }
 
-  public override bool Equals(object obj)
+  public override bool Equals(object? obj)
   {
     if (ReferenceEquals(null, obj)) return false;
     if (ReferenceEquals(this, obj)) return true;
