@@ -6,7 +6,7 @@ namespace TddXt.TypeResolution.ResolutionChaining;
 
 public class GeneratorsBasedChain(IResolution[] resolutions) : IGenerationChain
 {
-  public object Resolve(InstanceGenerator instanceGenerator, GenerationRequest request, Type type)
+  public object? Resolve(InstanceGenerator instanceGenerator, GenerationRequest request, Type type)
   {
     foreach (var resolution in resolutions)
     {

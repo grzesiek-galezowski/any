@@ -32,7 +32,7 @@ public class AutoFixtureChain : IGenerationChain
       .ToList(); //ToList() is necessary to pin down the specific instances of objects
   }
 
-  public object Resolve(InstanceGenerator instanceGenerator, GenerationRequest request, Type type)
+  public object? Resolve(InstanceGenerator instanceGenerator, GenerationRequest request, Type type)
   {
     foreach (var builder in _defaultPrimitiveBuilders)
     {

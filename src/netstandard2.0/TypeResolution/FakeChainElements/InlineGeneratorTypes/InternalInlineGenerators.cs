@@ -688,17 +688,17 @@ public class InternalInlineGenerators
   // Used by reflection
   // public API
   // ReSharper disable once UnusedMember.Global
-  public static InlineGenerator<ImmutableDictionary<T1, T2>> ImmutableDictionary<T1, T2>()
+  public static InlineGenerator<ImmutableDictionary<TKey, TValue>> ImmutableDictionary<TKey, TValue>() where TKey : notnull
   {
-    return new EnumerableGenerator<KeyValuePair<T1, T2>>(ManyStrategies.FromRequest()).AsImmutableDictionary();
+    return new EnumerableGenerator<KeyValuePair<TKey, TValue>>(ManyStrategies.FromRequest()).AsImmutableDictionary();
   }
 
   // Used by reflection
   // public API
   // ReSharper disable once UnusedMember.Global
-  public static InlineGenerator<ImmutableSortedDictionary<T1, T2>> ImmutableSortedDictionary<T1, T2>()
+  public static InlineGenerator<ImmutableSortedDictionary<TKey, TValue>> ImmutableSortedDictionary<TKey, TValue>() where TKey : notnull
   {
-    return new EnumerableGenerator<KeyValuePair<T1, T2>>(ManyStrategies.FromRequest()).AsImmutableSortedDictionary();
+    return new EnumerableGenerator<KeyValuePair<TKey, TValue>>(ManyStrategies.FromRequest()).AsImmutableSortedDictionary();
   }
 
   // Used by reflection

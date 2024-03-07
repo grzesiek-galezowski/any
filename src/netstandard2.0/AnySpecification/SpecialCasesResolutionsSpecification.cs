@@ -19,6 +19,7 @@ public class SpecialCasesResolutionsSpecification
     //THEN
     ClassicAssert.True(resolution.AppliesTo(typeof(RecursiveInterface[])));
     ClassicAssert.NotNull(resolution.Apply(Any.Instance<InstanceGenerator>(), Any.Instance<GenerationRequest>(), typeof(RecursiveInterface[])));
-    ClassicAssert.AreEqual(generationRequest.Many, ((RecursiveInterface[])resolution.Apply(Any.Instance<InstanceGenerator>(), generationRequest, typeof(RecursiveInterface[]))).Length);
+    ClassicAssert.AreEqual(generationRequest.Many, 
+      ((RecursiveInterface[])resolution.Apply(Any.Instance<InstanceGenerator>(), generationRequest, typeof(RecursiveInterface[]))!).Length);
   }
 }

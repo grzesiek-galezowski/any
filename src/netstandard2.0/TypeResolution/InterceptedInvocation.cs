@@ -38,7 +38,7 @@ public class InterceptedInvocation(
   {
     var propertyFromSetterCallOrNull =
       invocation.Method.GetPropertyFromSetterCall();
-    var getter = propertyFromSetterCallOrNull.GetGetMethod(true); //bug this will return null sometimes
+    var getter = propertyFromSetterCallOrNull.GetGetMethod(true); //BUG: this will return null sometimes
     var key = PerMethodCacheKey.For(getter, invocation.Proxy);
     return key;
   }

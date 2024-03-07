@@ -118,7 +118,7 @@ public class DefaultGenerationRequest : GenerationRequest
         return generationChain.Resolve(
           instanceGenerator,
           nestedRequest,
-          type);
+          type)!;
       }
     }
     finally

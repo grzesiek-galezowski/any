@@ -5,7 +5,7 @@ namespace TddXt.TypeResolution.ResolutionChaining;
 
 public class CustomizationSupportingChain(IGenerationChain next) : IGenerationChain
 {
-  public object Resolve(InstanceGenerator instanceGenerator, GenerationRequest request, Type type)
+  public object? Resolve(InstanceGenerator instanceGenerator, GenerationRequest request, Type type)
   {
     foreach (var customization in request.GenerationCustomizations)
     {

@@ -35,7 +35,7 @@ public class AllGenerator(
     try
     {
       request.Trace.BeginCreatingInstanceGraphWith(typeof(T));
-      return (T)_generationChain.Resolve(this, request, typeof(T));
+      return (T)_generationChain.Resolve(this, request, typeof(T))!;
     }
     catch (Exception e)
     {
@@ -59,7 +59,7 @@ public class AllGenerator(
 
   public object Instance(Type type, GenerationRequest request)
   {
-    return _generationChain.Resolve(this, request, type);
+    return _generationChain.Resolve(this, request, type)!;
   }
 
   public T Instance<T>(GenerationRequest request)
@@ -109,7 +109,7 @@ public class AllGenerator(
 
   public object Instance(Type type, GenerationRequest request, params GenerationCustomization[] customizations)
   {
-    return _generationChain.Resolve(this, request, type);
+    return _generationChain.Resolve(this, request, type)!;
   }
 
   public T Instance<T>(GenerationRequest request, params GenerationCustomization[] customizations)
