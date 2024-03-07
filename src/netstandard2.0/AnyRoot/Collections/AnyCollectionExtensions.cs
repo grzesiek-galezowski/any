@@ -166,7 +166,7 @@ public static class AnyCollectionExtensions
     return gen.InstanceOf(InlineGenerators.Dictionary<TKey, TValue>());
   }
 
-  public static IReadOnlyDictionary<TKey, TValue> ReadOnlyDictionary<TKey, TValue>(this BasicGenerator gen, int length)
+  public static IReadOnlyDictionary<TKey, TValue> ReadOnlyDictionary<TKey, TValue>(this BasicGenerator gen, int length) where TKey : notnull
   {
     return gen.InstanceOf(InlineGenerators.ReadOnlyDictionary<TKey, TValue>(length));
   }
@@ -176,7 +176,7 @@ public static class AnyCollectionExtensions
     return gen.InstanceOf(InlineGenerators.DictionaryWithKeys<TKey, TValue>(keys));
   }
 
-  public static IReadOnlyDictionary<TKey, TValue> ReadOnlyDictionary<TKey, TValue>(this BasicGenerator gen)
+  public static IReadOnlyDictionary<TKey, TValue> ReadOnlyDictionary<TKey, TValue>(this BasicGenerator gen) where TKey : notnull
   {
     return gen.InstanceOf(InlineGenerators.ReadOnlyDictionary<TKey, TValue>());
   }

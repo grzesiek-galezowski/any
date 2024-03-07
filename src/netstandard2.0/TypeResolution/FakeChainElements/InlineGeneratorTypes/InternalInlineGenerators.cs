@@ -149,12 +149,12 @@ public class InternalInlineGenerators
     return new InclusiveEnumerableGenerator<T>(included).AsList();
   }
 
-  public static InlineGenerator<SortedList<TKey, TValue>> SortedList<TKey, TValue>(int length)
+  public static InlineGenerator<SortedList<TKey, TValue>> SortedList<TKey, TValue>(int length) where TKey : notnull
   {
     return new EnumerableGenerator<KeyValuePair<TKey, TValue>>(ManyStrategies.FromConstant(length)).AsSortedList();
   }
 
-  public static InlineGenerator<SortedList<TKey, TValue>> SortedList<TKey, TValue>()
+  public static InlineGenerator<SortedList<TKey, TValue>> SortedList<TKey, TValue>() where TKey : notnull
   {
     return new EnumerableGenerator<KeyValuePair<TKey, TValue>>(
       ManyStrategies.FromRequest()).AsSortedList();
@@ -186,7 +186,7 @@ public class InternalInlineGenerators
     return new EnumerableGenerator<T>(ManyStrategies.FromRequest()).AsSortedSet();
   }
 
-  public static InlineGenerator<Dictionary<TKey, TValue>> Dictionary<TKey, TValue>(int length)
+  public static InlineGenerator<Dictionary<TKey, TValue>> Dictionary<TKey, TValue>(int length) where TKey : notnull
   {
     return new EnumerableGenerator<KeyValuePair<TKey, TValue>>(ManyStrategies.FromConstant(length)).AsDictionary();
   }
@@ -194,12 +194,12 @@ public class InternalInlineGenerators
   // Used by reflection
   // public API
   // ReSharper disable once UnusedMember.Global
-  public static InlineGenerator<IReadOnlyDictionary<TKey, TValue>> ReadOnlyDictionary<TKey, TValue>()
+  public static InlineGenerator<IReadOnlyDictionary<TKey, TValue>> ReadOnlyDictionary<TKey, TValue>() where TKey : notnull
   {
     return new EnumerableGenerator<KeyValuePair<TKey, TValue>>(ManyStrategies.FromRequest()).AsReadOnlyDictionary();
   }
 
-  public static InlineGenerator<IReadOnlyDictionary<TKey, TValue>> ReadOnlyDictionary<TKey, TValue>(int length)
+  public static InlineGenerator<IReadOnlyDictionary<TKey, TValue>> ReadOnlyDictionary<TKey, TValue>(int length) where TKey : notnull
   {
     return new EnumerableGenerator<KeyValuePair<TKey, TValue>>(ManyStrategies.FromConstant(length)).AsReadOnlyDictionary();
   }
@@ -207,12 +207,12 @@ public class InternalInlineGenerators
   // Used by reflection
   // public API
   // ReSharper disable once UnusedMember.Global
-  public static InlineGenerator<Dictionary<TKey, TValue>> Dictionary<TKey, TValue>()
+  public static InlineGenerator<Dictionary<TKey, TValue>> Dictionary<TKey, TValue>() where TKey : notnull
   {
     return new EnumerableGenerator<KeyValuePair<TKey, TValue>>(ManyStrategies.FromRequest()).AsDictionary();
   }
 
-  public static InlineGenerator<ConcurrentDictionary<TKey, TValue>> ConcurrentDictionary<TKey, TValue>(int length)
+  public static InlineGenerator<ConcurrentDictionary<TKey, TValue>> ConcurrentDictionary<TKey, TValue>(int length) where TKey : notnull
   {
     return new EnumerableGenerator<KeyValuePair<TKey, TValue>>(ManyStrategies.FromConstant(length))
       .AsConcurrentDictionary();
@@ -221,7 +221,7 @@ public class InternalInlineGenerators
   // Used by reflection
   // public API
   // ReSharper disable once UnusedMember.Global
-  public static InlineGenerator<ConcurrentDictionary<TKey, TValue>> ConcurrentDictionary<TKey, TValue>()
+  public static InlineGenerator<ConcurrentDictionary<TKey, TValue>> ConcurrentDictionary<TKey, TValue>() where TKey : notnull
   {
     return new EnumerableGenerator<KeyValuePair<TKey, TValue>>(ManyStrategies.FromRequest())
       .AsConcurrentDictionary();
@@ -253,7 +253,7 @@ public class InternalInlineGenerators
     return new EnumerableGenerator<T>(ManyStrategies.FromRequest()).AsConcurrentQueue();
   }
 
-  public static InlineGenerator<SortedDictionary<TKey, TValue>> SortedDictionary<TKey, TValue>(int length)
+  public static InlineGenerator<SortedDictionary<TKey, TValue>> SortedDictionary<TKey, TValue>(int length) where TKey : notnull
   {
     return new EnumerableGenerator<KeyValuePair<TKey, TValue>>(ManyStrategies.FromConstant(length))
       .AsSortedDictionary();
@@ -262,7 +262,7 @@ public class InternalInlineGenerators
   // Used by reflection
   // public API
   // ReSharper disable once UnusedMember.Global
-  public static InlineGenerator<SortedDictionary<TKey, TValue>> SortedDictionary<TKey, TValue>()
+  public static InlineGenerator<SortedDictionary<TKey, TValue>> SortedDictionary<TKey, TValue>() where TKey : notnull
   {
     return new EnumerableGenerator<KeyValuePair<TKey, TValue>>(ManyStrategies.FromRequest())
       .AsSortedDictionary();
@@ -298,7 +298,7 @@ public class InternalInlineGenerators
     return new GeneratorByPickingFromSpecifiedSetOfValues<T>(possibleValues);
   }
 
-  public static InlineGenerator<Dictionary<TKey, TValue>> DictionaryWithKeys<TKey, TValue>(IEnumerable<TKey> keys)
+  public static InlineGenerator<Dictionary<TKey, TValue>> DictionaryWithKeys<TKey, TValue>(IEnumerable<TKey> keys) where TKey : notnull
   {
     return new DictionaryWithKeysGenerator<TKey, TValue>(keys);
   }

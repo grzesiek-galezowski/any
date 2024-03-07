@@ -85,7 +85,7 @@ public class AllGenerator(
 
   public T OtherThan<T>(params T[]? omittedValues)
   {
-    return (T)OtherThan(typeof(T), omittedValues?.Cast<object>()?.ToArray(), DefaultGenerationRequest.WithDefaultLimits());
+    return (T)OtherThan(typeof(T), omittedValues?.Cast<object>()?.ToArray() ?? [], DefaultGenerationRequest.WithDefaultLimits());
   }
 
   public object OtherThan(Type type, object[] skippedValues, GenerationRequest request)

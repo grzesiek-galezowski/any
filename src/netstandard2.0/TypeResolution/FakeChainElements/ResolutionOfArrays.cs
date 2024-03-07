@@ -1,4 +1,5 @@
 ﻿using System;
+using Core.NullableReferenceTypesExtensions;
 using TddXt.AnyExtensibility;
 using TddXt.TypeResolution.FakeChainElements.InlineGeneratorTypes;
 
@@ -13,7 +14,7 @@ public class ResolutionOfArrays : IResolution
 
   public object Apply(InstanceGenerator instanceGenerator, GenerationRequest request, Type type)
   {
-    var elementType = type.GetElementType();
+    var elementType = type.GetElementType().OrThrow();
     var array = InternalInlineGenerators.GetByNameAndType(nameof(InternalInlineGenerators.Array), elementType)
       .GenerateInstance(instanceGenerator, request);
     return array;

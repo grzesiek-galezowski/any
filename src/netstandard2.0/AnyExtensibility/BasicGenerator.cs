@@ -7,7 +7,7 @@ public interface BasicGenerator
 {
   [Obsolete("Do not use this method. It does not generate strings")]
   [EditorBrowsable(EditorBrowsableState.Never)]
-  string ToString();
+  string? ToString();
 
   T Instance<T>();
   T Instance<T>(params GenerationCustomization[] customizations);

@@ -100,15 +100,15 @@ public class DefaultGenerationRequest : GenerationRequest
           Trace.RecursionLimitReachedTryingDummy();
           return instanceGenerator.Dummy(nestedRequest, type)!;
         }
-        catch (TargetInvocationException e)
+        catch (TargetInvocationException)
         {
           return default!;
         }
-        catch (MemberAccessException e)
+        catch (MemberAccessException)
         {
           return default!;
         }
-        catch (ArgumentException e)
+        catch (ArgumentException)
         {
           return default!;
         }

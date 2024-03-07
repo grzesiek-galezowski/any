@@ -123,12 +123,12 @@ public class InlineGenerators
   // Used by reflection
   // public API
   // ReSharper disable once UnusedMember.Global
-  public static InlineGenerator<IReadOnlyDictionary<TKey, TValue>> ReadOnlyDictionary<TKey, TValue>()
+  public static InlineGenerator<IReadOnlyDictionary<TKey, TValue>> ReadOnlyDictionary<TKey, TValue>() where TKey : notnull
   {
     return InternalInlineGenerators.ReadOnlyDictionary<TKey, TValue>();
   }
 
-  public static InlineGenerator<IReadOnlyDictionary<TKey, TValue>> ReadOnlyDictionary<TKey, TValue>(int length)
+  public static InlineGenerator<IReadOnlyDictionary<TKey, TValue>> ReadOnlyDictionary<TKey, TValue>(int length) where TKey : notnull
   {
     return InternalInlineGenerators.ReadOnlyDictionary<TKey, TValue>(length);
   }
