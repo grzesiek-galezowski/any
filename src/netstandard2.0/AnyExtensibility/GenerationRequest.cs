@@ -14,7 +14,7 @@ public interface GenerationRequest
     object result, 
     InstanceGenerator instanceGenerator);
 
-  object ResolveNextNestingLevel(IGenerationChain generationChain, InstanceGenerator instanceGenerator, Type type);
+  object? ResolveNextNestingLevel(IGenerationChain generationChain, InstanceGenerator instanceGenerator, Type type);
   bool ReachedRecursionLimit(Type type);
 }
 

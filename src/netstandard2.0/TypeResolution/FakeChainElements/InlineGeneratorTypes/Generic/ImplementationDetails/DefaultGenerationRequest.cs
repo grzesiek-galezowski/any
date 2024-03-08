@@ -84,7 +84,7 @@ public class DefaultGenerationRequest : GenerationRequest
     }
   }
 
-  public object ResolveNextNestingLevel(
+  public object? ResolveNextNestingLevel(
     IGenerationChain generationChain,
     InstanceGenerator instanceGenerator,
     Type type)
@@ -102,15 +102,15 @@ public class DefaultGenerationRequest : GenerationRequest
         }
         catch (TargetInvocationException)
         {
-          return default!;
+          return default;
         }
         catch (MemberAccessException)
         {
-          return default!;
+          return default;
         }
         catch (ArgumentException)
         {
-          return default!;
+          return default;
         }
       }
       else
