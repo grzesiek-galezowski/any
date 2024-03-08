@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Reflection;
 using Castle.DynamicProxy;
+using Core.Maybe;
 using Core.NullableReferenceTypesExtensions;
 using TddXt.AnyExtensibility;
 using TddXt.TypeResolution.CustomCollections;
@@ -34,19 +35,22 @@ public class InterceptedInvocation(
       .Any(prop => prop.GetGetMethod() == invocation.Method);
   }
 
-  private PerMethodCacheKey GetPropertyGetterCacheKey()
+  private Maybe<PerMethodCacheKey> GetPropertyGetterCacheKey()
   {
     var propertyFromSetterCallOrNull =
       invocation.Method.GetPropertyFromSetterCall();
-    var getter = propertyFromSetterCallOrNull.GetGetMethod(true); //BUG: this will return null sometimes
-    var key = PerMethodCacheKey.For(getter, invocation.Proxy);
+    var key = propertyFromSetterCallOrNull.GetGetMethod(true)
+      .ToMaybe().Select(g => PerMethodCacheKey.For(g, invocation.Proxy)); //BUG: this will return null sometimes
     return key;
   }
 
   public void GenerateAndAddPropertyGetterReturnValueTo(IPerMethodCache<object> perMethodCache)
   {
     var key = GetPropertyGetterCacheKey();
-    perMethodCache.Overwrite(key, invocation.Arguments[0]);
+    if (key.HasValue)
+    {
+      perMethodCache.Overwrite(key.Value(), invocation.Arguments[0]);
+    }
   }
 
   public void GenerateAndAddMethodReturnValueTo(IPerMethodCache<object> perMethodCache, GenerationRequest request)
