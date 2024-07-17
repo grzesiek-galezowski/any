@@ -22,7 +22,6 @@ public static class AnyTimeExtensions
   }
 
 
-  #if NET6_0_OR_GREATER
   public static DateOnly DateOnly(this BasicGenerator gen)
   {
     return gen.Instance<DateOnly>();
@@ -32,6 +31,4 @@ public static class AnyTimeExtensions
   {
       return gen.Instance<TimeOnly>();
   }
-  #endif
-
 }

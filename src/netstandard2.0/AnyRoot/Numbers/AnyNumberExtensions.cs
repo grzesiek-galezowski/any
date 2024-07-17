@@ -71,7 +71,5 @@ public static class AnyNumberExtensions
     return gen.InstanceOf(InlineGenerators.PositiveDigit());
   }
 
-#if NET5_0_OR_GREATER
   public static Half Half(this BasicGenerator gen) => gen.Instance<Half>();
-#endif
 }

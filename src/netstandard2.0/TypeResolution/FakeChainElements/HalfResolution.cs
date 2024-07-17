@@ -2,7 +2,7 @@
 using TddXt.AnyExtensibility;
 
 namespace TddXt.TypeResolution.FakeChainElements;
-#if NET5_0_OR_GREATER
+
 public class HalfResolution : IResolution
 {
   private static readonly object SyncRoot = new();
@@ -21,18 +21,3 @@ public class HalfResolution : IResolution
     }
   }
 }
-#else
-public class HalfResolution : IResolution
-{
-  public bool AppliesTo(Type type)
-  {
-    return false;
-  }
-
-  public object Apply(InstanceGenerator instanceGenerator, GenerationRequest request, Type type)
-  {
-    throw new NotSupportedException("Supported in .NET 6 or higher");
-  }
-}
-#endif
-
