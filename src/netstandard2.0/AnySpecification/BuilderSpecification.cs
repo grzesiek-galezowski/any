@@ -82,14 +82,9 @@ class BuilderSpecification
   }
 }
 
-public class DataStructure
+public class DataStructure(NestedDataStructure nested)
 {
-  public DataStructure(NestedDataStructure nested)
-  {
-    Nested = nested;
-  }
-
-  public NestedDataStructure? Nested { get; }
+  public NestedDataStructure? Nested { get; } = nested;
   public NestedDataStructure? NestedField;
   public NestedDataStructure? NestedReadOnlyField;
   public NestedDataStructure? NestedNotInitializedFromConstructor { get; }

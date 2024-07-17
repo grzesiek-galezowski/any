@@ -10,7 +10,7 @@ public class PublicParameterlessConstructorRetrieval(ConstructorRetrieval next) 
     var constructor = constructors.GetPublicParameterlessConstructor();
     if (constructor.HasValue)
     {
-      return new List<IConstructorWrapper> { constructor.Value() };
+      return [constructor.Value()];
     }
     else
     {

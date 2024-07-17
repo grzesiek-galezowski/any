@@ -7,7 +7,7 @@ namespace TddXt.TypeResolution;
 
 public class ObjectGenerator
 {
-  private object GenerateInstance(InstanceGenerator instanceGenerator, GenerationRequest request, Type type)
+  private static object GenerateInstance(InstanceGenerator instanceGenerator, GenerationRequest request, Type type)
   {
     var smartType = SmartType.For(type);
     var maybeConstructor = smartType.PickConstructorWithLeastNonPointersParameters();

@@ -4,7 +4,7 @@ namespace TddXt.TypeResolution.CustomCollections;
 
 public class SynchronizedPerMethodCache<T>(IPerMethodCache<T> inner) : IPerMethodCache<T>
 {
-  private readonly object _syncRoot = new object();
+  private readonly object _syncRoot = new();
 
   public T ValueFor(PerMethodCacheKey cacheKey)
   {

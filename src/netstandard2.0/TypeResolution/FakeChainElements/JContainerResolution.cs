@@ -23,6 +23,6 @@ public class JContainerResolution : IResolution
       newtonsoftJsonAssembly, 
       NewtonsoftJsonTypePredicates.IsJProperty);
     var argument = jPropertyType.GenerateInstanceWith(gen, request);
-    return objectType.CreateInstance(new[] { typeof(object) }, new [] {argument});
+    return objectType.CreateInstance([typeof(object)], [argument]);
   }
 }

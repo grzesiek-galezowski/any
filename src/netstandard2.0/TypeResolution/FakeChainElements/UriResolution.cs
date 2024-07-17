@@ -19,5 +19,5 @@ public class UriResolution : IResolution
     return MakeUri(scheme, authority);
   }
 
-  private static Uri MakeUri(UriScheme scheme, string authority) => new Uri(scheme?.ToString() + "://" + authority);
+  private static Uri MakeUri(UriScheme scheme, string authority) => new(scheme + "://" + authority);
 }

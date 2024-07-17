@@ -8,7 +8,8 @@ namespace TddXt.AnyRoot;
 
 public static class AnyExtensions
 {
-  private static readonly Type[] ValueTypes = {
+  private static readonly Type[] ValueTypes =
+  [
     typeof(byte),
     typeof(short),
     typeof(ushort),
@@ -24,7 +25,7 @@ public static class AnyExtensions
     typeof(char),
     typeof(object),
     typeof(string)
-  };
+  ];
 
   public static T From<T>(this BasicGenerator gen, params T[] possibleValues)
   {

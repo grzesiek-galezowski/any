@@ -32,7 +32,7 @@ public class DefaultParameterlessConstructor(Func<object> creation) : IConstruct
   public List<object> GenerateAnyParameterValues(Func<Type, GenerationRequest, object> instanceGenerator,
     GenerationRequest request)
   {
-    return new List<object>();
+    return [];
   }
 
   public bool IsParameterless()
@@ -66,7 +66,7 @@ public class DefaultParameterlessConstructor(Func<object> creation) : IConstruct
     return creation.Invoke();
   }
 
-  public IEnumerable<ParameterInfo> Parameters { get; } = new List<ParameterInfo>();
+  public IEnumerable<ParameterInfo> Parameters { get; } = [];
 
   public void LogInScopeOf(GenerationRequest request)
   {
@@ -75,11 +75,11 @@ public class DefaultParameterlessConstructor(Func<object> creation) : IConstruct
 
   public static IConstructorWrapper ForOrdinaryType(ConstructorInfo constructorInfo)
   {
-    return new DefaultParameterlessConstructor(() => constructorInfo.Invoke(new object[]{}));
+    return new DefaultParameterlessConstructor(() => constructorInfo.Invoke([]));
   }
 
   public static IEnumerable<IConstructorWrapper> ForValue(Type type)
   {
-    return new [] { new DefaultParameterlessConstructor(() => Activator.CreateInstance(type).OrThrow())};
+    return [new DefaultParameterlessConstructor(() => Activator.CreateInstance(type).OrThrow())];
   }
 }

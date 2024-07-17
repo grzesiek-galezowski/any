@@ -6,7 +6,7 @@ namespace TddXt.TypeResolution.CustomCollections;
 [Serializable]
 public class PerMethodCache<T> : IPerMethodCache<T>
 {
-  private readonly Dictionary<PerMethodCacheKey, T> _cache = new();
+  private readonly Dictionary<PerMethodCacheKey, T> _cache = [];
 
   public T ValueFor(PerMethodCacheKey cacheKey)
   {

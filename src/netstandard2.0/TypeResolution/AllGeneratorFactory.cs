@@ -22,8 +22,7 @@ public static class AllGeneratorFactory
     var allGenerator = new AllGenerator(new LimitedGenerationChain(
         new CustomizationSupportingChain(
           new AutoFixtureChain(
-            new GeneratorsBasedChain(new[]
-            {
+            new GeneratorsBasedChain([
               resolutionsFactory.ResolveAsHalf(),
               resolutionsFactory.ResolveAsDateOnly(),
               resolutionsFactory.ResolveAsNullable(),
@@ -67,18 +66,17 @@ public static class AllGeneratorFactory
               ResolutionsFactory.ResolveAsVoidTask(),
               ResolutionsFactory.ResolveAsTypedTask(),
               resolutionsFactory.ResolveAsConcreteClass()
-            })))),
+            ])))),
       new GeneratorsBasedChain(
-        new[]
-        {
-          dummyResolutionsFactory.ResolveDummyPrimitiveTypeInstance(),
+      [
+        dummyResolutionsFactory.ResolveDummyPrimitiveTypeInstance(),
           dummyResolutionsFactory.ResolveDummyString(),
           dummyResolutionsFactory.ResolveDummyOpenGenericImplementationOfIEnumerable(),
           dummyResolutionsFactory.ResolveDummyOpenGenericIEnumerable(),
           dummyResolutionsFactory.ResolveDummyAbstractType(),
           resolutionsFactory.ResolveAsInterfaceImplementation(),
           dummyResolutionsFactory.FallbackDummyObjectResolution()
-        }));
+      ]));
     return allGenerator;
   }
 }

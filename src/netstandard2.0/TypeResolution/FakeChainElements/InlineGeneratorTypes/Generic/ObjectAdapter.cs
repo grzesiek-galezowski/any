@@ -14,7 +14,7 @@ public class ObjectAdapter(object inlineGenerator, MethodInfo methodInfo) : Inli
   {
     return methodInfo.Invoke(
         inlineGenerator,
-        new object[] { instanceGenerator, request })
+        [instanceGenerator, request])
       .OrThrow();
   }
 

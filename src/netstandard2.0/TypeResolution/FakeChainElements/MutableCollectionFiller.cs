@@ -14,10 +14,10 @@ namespace TddXt.TypeResolution.FakeChainElements;
 public static class MutableCollectionFiller
 {
   private static readonly (Type type, string addMethod)[] SupportedCollectionTypes =
-  {
+  [
     (typeof(IProducerConsumerCollection<>), nameof(IProducerConsumerCollection<object>.TryAdd)),
     (typeof(ICollection<>), nameof(ICollection<object>.Add))
-  };
+  ];
 
   public static void Fill(object collectionInstance, InstanceGenerator instanceGenerator,
     GenerationRequest request)

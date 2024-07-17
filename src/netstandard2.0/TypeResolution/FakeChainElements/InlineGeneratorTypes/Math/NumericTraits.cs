@@ -6,10 +6,10 @@ namespace TddXt.TypeResolution.FakeChainElements.InlineGeneratorTypes.Math;
 
 public static class NumericTraits
 {
-  private static readonly NumericTraits<int> IntTraits = new NumericTraits<int>(int.MaxValue, bi => (int)bi);
-  private static readonly NumericTraits<long> LongTraits = new NumericTraits<long>(long.MaxValue, bi => (long)bi);
-  private static readonly NumericTraits<uint> UintTraits = new NumericTraits<uint>(uint.MaxValue, bi => (uint)bi);
-  private static readonly NumericTraits<ulong> UlongTraits = new NumericTraits<ulong>(ulong.MaxValue, bi => (ulong)bi);
+  private static readonly NumericTraits<int> IntTraits = new(int.MaxValue, bi => (int)bi);
+  private static readonly NumericTraits<long> LongTraits = new(long.MaxValue, bi => (long)bi);
+  private static readonly NumericTraits<uint> UintTraits = new(uint.MaxValue, bi => (uint)bi);
+  private static readonly NumericTraits<ulong> UlongTraits = new(ulong.MaxValue, bi => (ulong)bi);
 
   public static NumericTraits<int> Integer()
   {
@@ -80,7 +80,7 @@ public class NumericTraits<T>
     builder.Append(result);
     for (int i = 1; i < length; ++i)
     {
-      builder.Append(@"0");
+      builder.Append('0');
     }
     result = builder.ToString();
     return BigInteger.Parse(result);

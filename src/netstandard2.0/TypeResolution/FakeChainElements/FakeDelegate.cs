@@ -46,7 +46,7 @@ public class FakeDelegate : IResolution
     var dummyReturnValueForConstructorArgument = new object();
 
     var fullSignatureTypes = new List<Type> { dummyReturnType }.Concat(ParameterTypes(methodInfo));
-    return CreateGenericDelegatesObjectForConcreteTypes(fullSignatureTypes, new[] { dummyReturnValueForConstructorArgument });
+    return CreateGenericDelegatesObjectForConcreteTypes(fullSignatureTypes, [dummyReturnValueForConstructorArgument]);
   }
 
   private static object CreateGenericDelegatesObjectForConcreteTypes(IEnumerable<Type> fullSignatureTypes, object[] withArgumentGeneratedBy)
@@ -61,7 +61,7 @@ public class FakeDelegate : IResolution
   private static object[] WithArgumentGeneratedBy(InstanceGenerator instanceGenerator, MethodInfo methodInfo,
     GenerationRequest request)
   {
-    return new[] { instanceGenerator.Instance(methodInfo.ReturnType, request) };
+    return [instanceGenerator.Instance(methodInfo.ReturnType, request)];
   }
 
   private static IEnumerable<Type> RepeatDummyTypeArgToFill(IEnumerable<Type> fullSignatureTypes, int length)
@@ -76,7 +76,7 @@ public class FakeDelegate : IResolution
 
   private static IEnumerable<Type> ReturnTypeOf(MethodInfo methodInfo)
   {
-    return new List<Type> { methodInfo.ReturnType };
+    return [methodInfo.ReturnType];
   }
 }
 

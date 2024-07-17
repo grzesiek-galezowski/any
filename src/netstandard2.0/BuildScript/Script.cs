@@ -1,9 +1,9 @@
 ﻿using System;
 using AtmaFileSystem;
 using AtmaFileSystem.IO;
+using BuildScript;
 using FluentAssertions;
 using NScan.Adapters.Secondary.NotifyingSupport;
-using NScan.SharedKernel.WritingProgramOutput.Ports;
 using TddXt.NScan;
 using static Bullseye.Targets;
 using static DotnetExeCommandLineBuilder.DotnetExeCommands;
@@ -73,17 +73,3 @@ Target("Push", DependsOn("Clean", "Test"), () =>
 Target("default", DependsOn("Test"));
 
 await RunTargetsAndExitAsync(args);
-
-public class ConsoleOutput : INScanOutput
-{
-  public void WriteAnalysisReport(string analysisReport)
-  {
-    Console.WriteLine(analysisReport);
-  }
-
-  public void WriteVersion(string coreVersion)
-  {
-    Console.WriteLine(coreVersion);
-  }
-}
-

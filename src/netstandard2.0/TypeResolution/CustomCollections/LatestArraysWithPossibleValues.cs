@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -7,8 +7,8 @@ namespace TddXt.TypeResolution.CustomCollections;
 public class LatestArraysWithPossibleValues<T>
 {
   private const int CacheSize = 20;
-  private readonly List<ArrayWithIndex<T>> _arrays = new List<ArrayWithIndex<T>>();
-  private readonly Random _random = new Random();
+  private readonly List<ArrayWithIndex<T>> _arrays = [];
+  private readonly Random _random = new();
 
   public bool Contain(IEnumerable<T> possibleValues)
   {

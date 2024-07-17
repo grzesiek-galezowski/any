@@ -13,7 +13,7 @@ public class FallbackDummyObjectResolution : IResolution
     object result;
     try
     {
-      result = SmartType.For(type).GetPublicParameterlessConstructor().Value().Invoke(Enumerable.Empty<object>());
+      result = SmartType.For(type).GetPublicParameterlessConstructor().Value().Invoke([]);
     }
     catch
     {

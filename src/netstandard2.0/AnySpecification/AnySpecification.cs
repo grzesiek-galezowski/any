@@ -38,7 +38,7 @@ using TddXt.TypeResolution.FakeChainElements.Interceptors;
 
 namespace AnySpecification;
 
-public class AnySpecification
+public partial class AnySpecification
 {
   [Test, Parallelizable]
   public void ShouldGenerateDifferentIntegerEachTime()
@@ -462,7 +462,7 @@ public class AnySpecification
     var result = Any.StringMatching(exampleRegex);
 
     //THEN
-    ClassicAssert.True(Regex.IsMatch(result, exampleRegex));
+    ClassicAssert.True(ExampleRegex().IsMatch(result));
   }
 
   [TestCase(2)]
@@ -1516,7 +1516,7 @@ public class AnySpecification
 
     //THEN
     ClassicAssert.NotNull(readOnlyList);
-    ClassicAssert.AreEqual(0, readOnlyList.Count());
+    ClassicAssert.AreEqual(0, readOnlyList.Length);
   }
 
   [Test, Parallelizable, Ignore("diminishing disabled for now for backwards compatibility reasons")]
@@ -1680,7 +1680,7 @@ public class AnySpecification
 
     //THEN
     ClassicAssert.NotNull(collection);
-    ClassicAssert.AreEqual(3, collection.Count());
+    ClassicAssert.AreEqual(3, collection.Count);
     CollectionAssert.AllItemsAreNotNull(collection);
     CollectionAssert.AllItemsAreUnique(collection);
   }
@@ -1694,7 +1694,7 @@ public class AnySpecification
 
     //THEN
     ClassicAssert.NotNull(collection);
-    ClassicAssert.AreEqual(0, collection.Count());
+    ClassicAssert.AreEqual(0, collection.Count);
   }
 
   [Test, Parallelizable]
@@ -1938,4 +1938,7 @@ public class AnySpecification
     var result = comparison.Compare(expected, actual);
     result.ExceededDifferences.Should().BeTrue(result.DifferencesString);
   }
+
+  [GeneratedRegex(@"content/([A-Za-z0-9\-]+)\.aspx$")]
+  private static partial Regex ExampleRegex();
 }

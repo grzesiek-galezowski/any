@@ -7,10 +7,10 @@ public class InclusiveEnumerableGenerator<T>(IEnumerable<T> included) : InlineGe
 {
   public IEnumerable<T> GenerateInstance(InstanceGenerator instanceGenerator, GenerationRequest request)
   {
-    var list = new List<T>();
-    list.Add(instanceGenerator.Instance<T>(request));
-    list.AddRange(included);
-    list.Add(instanceGenerator.Instance<T>(request));
+    List<T> list = [
+      instanceGenerator.Instance<T>(request), 
+      ..included, 
+      instanceGenerator.Instance<T>(request)];
 
     return list;
   }

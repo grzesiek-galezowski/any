@@ -46,7 +46,7 @@ public class ConstructorWrapper : IConstructorWrapper
 
   public bool HasLessParametersThan(int numberOfParams)
   {
-    if (_parameters.Count() < numberOfParams)
+    if (_parameters.Length < numberOfParams)
     {
       return true;
     }
@@ -58,7 +58,7 @@ public class ConstructorWrapper : IConstructorWrapper
 
   public int GetParametersCount()
   {
-    return _parameters.Count();
+    return _parameters.Length;
   }
 
   public bool HasAbstractOrInterfaceArguments()

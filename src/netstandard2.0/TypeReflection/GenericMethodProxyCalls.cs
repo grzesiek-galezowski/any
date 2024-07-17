@@ -17,7 +17,7 @@ public class GenericMethodProxyCalls
 
   public object ResultOfGenericVersionOfStaticMethod<T>(Type genericArgumentType, string name)
   {
-    return ResultOfGenericVersionOfStaticMethod<T>(genericArgumentType, name, new object[] { });
+    return ResultOfGenericVersionOfStaticMethod<T>(genericArgumentType, name, []);
   }
 
   public object ResultOfGenericVersionOfStaticMethod<T>(Type genericArgumentType, string name, params object[] parameters)
@@ -30,7 +30,7 @@ public class GenericMethodProxyCalls
   public object ResultOfGenericVersionOfStaticMethod<T>(
     Type type1, Type type2, string name)
   {
-    return ResultOfGenericVersionOfStaticMethod<T>(type1, type2, name, new object[] { });
+    return ResultOfGenericVersionOfStaticMethod<T>(type1, type2, name, []);
   }
 
   public object ResultOfGenericVersionOfStaticMethod<T>(
@@ -41,7 +41,7 @@ public class GenericMethodProxyCalls
     return genericMethod.Invoke(null, parameters).OrThrow();
   }
 
-  private MethodInfo FindEmptyGenericsInstanceMethod<T>(
+  private static MethodInfo FindEmptyGenericsInstanceMethod<T>(
     string name, object[] parameters)
   {
     return FindEmptyGenericsMethod<T>(name, parameters,
@@ -49,7 +49,7 @@ public class GenericMethodProxyCalls
   }
 
 
-  private MethodInfo FindEmptyGenericsStaticMethod<T>(
+  private static MethodInfo FindEmptyGenericsStaticMethod<T>(
     string name, object[] parameters)
   {
     return FindEmptyGenericsMethod<T>(name, parameters,

@@ -32,8 +32,7 @@ public static class BuilderExtensions
 
   private static object TargetParentObject(object target, MemberExpression memberSelectorExpression)
   {
-    var parentExpression = memberSelectorExpression.Expression as MemberExpression;
-    if (parentExpression == null)
+    if (memberSelectorExpression.Expression is not MemberExpression parentExpression)
     {
       return target;
     }

@@ -7,18 +7,11 @@ using TddXt.AnyExtensibility;
 namespace TddXt.TypeResolution.FakeChainElements.InlineGeneratorTypes.Generic.ImplementationDetails;
 
 [Serializable]
-public class ListBasedGeneratonTrace : GenerationTrace
+public class ListBasedGenerationTrace : GenerationTrace
 {
   [NonSerialized]
-  private readonly List<string> _messages;
-
-  private int _nesting;
-
-  public ListBasedGeneratonTrace()
-  {
-    _nesting = 0;
-    _messages = new List<string>();
-  }
+  private readonly List<string> _messages = [];
+  private int _nesting = 0;
 
   public GenerationTrace Trace => this;
 
@@ -72,15 +65,6 @@ public class ListBasedGeneratonTrace : GenerationTrace
   private string Spaces()
   {
     return new string(Enumerable.Repeat(' ', _nesting).ToArray());
-  }
-
-  private void AssertNestingCoherentWith(int nesting)
-  {
-    if (_nesting != nesting)
-    {
-      throw new DeveloperError($"Local and global nesting levels are incoherent, " +
-                               $"which means there's a threading issue. {_nesting} vs. {nesting}");
-    }
   }
 
   public void BeginCreatingInstanceGraphWith(Type type)

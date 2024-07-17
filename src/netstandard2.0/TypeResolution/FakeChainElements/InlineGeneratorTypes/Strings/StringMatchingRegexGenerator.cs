@@ -6,7 +6,7 @@ namespace TddXt.TypeResolution.FakeChainElements.InlineGeneratorTypes.Strings;
 
 public class StringMatchingRegexGenerator(string pattern) : InlineGenerator<string>
 {
-  private static readonly RegexGeneratorWrapper RegexGenerator = new RegexGeneratorWrapper();
+  private static readonly RegexGeneratorWrapper RegexGenerator = new();
 
   public string GenerateInstance(InstanceGenerator gen, GenerationRequest request)
   {

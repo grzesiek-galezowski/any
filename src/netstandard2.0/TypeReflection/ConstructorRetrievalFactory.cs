@@ -1,4 +1,4 @@
-using TddXt.TypeReflection.ImplementationDetails.ConstructorRetrievals;
+﻿using TddXt.TypeReflection.ImplementationDetails.ConstructorRetrievals;
 
 namespace TddXt.TypeReflection;
 
@@ -21,7 +21,7 @@ public class ConstructorRetrievalFactory
                     ))))))));
   }
 
-  private ConstructorRetrieval PrivateAndProtectedNonRecursiveConstructor(ConstructorRetrieval next)
+  private static ConstructorRetrieval PrivateAndProtectedNonRecursiveConstructor(ConstructorRetrieval next)
   {
     return new PrivateOrProtectedNonRecursiveConstructorRetrieval(next);
   }

@@ -9,10 +9,10 @@ namespace TddXt.TypeResolution.FakeChainElements.InlineGeneratorTypes.Generic.Im
 [Serializable]
 public class DefaultGenerationRequest : GenerationRequest
 {
-  private ImmutableList<Type> _resolutionPath;
-  private int _currentNesting;
-  private int _maxNesting;
-  private int _maxRecursion;
+  private readonly ImmutableList<Type> _resolutionPath;
+  private readonly int _currentNesting;
+  private readonly int _maxNesting;
+  private readonly int _maxRecursion;
   private readonly int _many;
   private GeneratedObjectCustomization[] GeneratedObjectCustomizations { get; }
 
@@ -47,18 +47,17 @@ public class DefaultGenerationRequest : GenerationRequest
   {
     return new DefaultGenerationRequest(
       //GlobalNestingLimit.Of(5), 
-      customizations, 
-      new GeneratedObjectCustomization[]
-      {
+      customizations,
+      [
         new FillFieldsCustomization(),
         new FillPropertiesCustomization()
-      },
-      new ListBasedGeneratonTrace(), 
+      ],
+      new ListBasedGenerationTrace(), 
       Configuration.Many, 
       0, 
       5, 
       3, 
-      ImmutableList<Type>.Empty);
+      []);
   }
 
   public GenerationRequest DisableLimits()
@@ -70,8 +69,8 @@ public class DefaultGenerationRequest : GenerationRequest
       Configuration.Many, 
       0, 
       int.MaxValue, 
-      int.MaxValue, 
-      ImmutableList<Type>.Empty);
+      int.MaxValue,
+      []);
   }
 
   public void CustomizeCreatedValue(

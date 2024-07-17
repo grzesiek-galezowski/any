@@ -7,7 +7,7 @@ namespace TddXt.TypeResolution.FakeChainElements.InlineGeneratorTypes.Generic;
 
 public class ExplodingInstanceGenerator<T> : InlineGenerator<T> where T : class
 {
-  private static readonly ProxyGenerator ProxyGenerator = new ProxyGenerator();
+  private static readonly ProxyGenerator ProxyGenerator = new();
 
   public T GenerateInstance(InstanceGenerator instanceGenerator, GenerationRequest request)
   {

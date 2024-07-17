@@ -8,7 +8,7 @@ namespace TddXt.TypeResolution.FakeChainElements.InlineGeneratorTypes.Numbers;
 public class IntegerFromSequenceGenerator(int startingValue, int step, InlineGenerator<int> intGenerator)
   : InlineGenerator<int>
 {
-  private static readonly HashSet<IntegerSequence> Sequences = new();
+  private static readonly HashSet<IntegerSequence> Sequences = [];
 
   public int GenerateInstance(InstanceGenerator instanceGenerator, GenerationRequest request)
   {

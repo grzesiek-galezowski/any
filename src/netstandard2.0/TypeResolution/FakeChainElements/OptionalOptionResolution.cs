@@ -25,7 +25,7 @@ public class OptionalOptionResolution : IResolution
       .Where(info => info.IsGenericMethod)
       .Single(info => info.GetGenericArguments().Length == 1);
     var someMethod = genericCreationMethod.MakeGenericMethod(genericArgument);
-    var result = someMethod.Invoke(null, new[] { elementInstance });
+    var result = someMethod.Invoke(null, [elementInstance]);
     return result.OrThrow();
 
   }

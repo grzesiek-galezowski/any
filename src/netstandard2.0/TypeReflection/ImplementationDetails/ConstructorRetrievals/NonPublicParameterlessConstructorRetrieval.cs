@@ -10,7 +10,7 @@ public class NonPublicParameterlessConstructorRetrieval(ConstructorRetrieval nex
     var constructor = constructors.GetNonPublicParameterlessConstructorInfo();
     if (constructor.HasValue)
     {
-      return new List<IConstructorWrapper> { constructor.Value() };
+      return [constructor.Value()];
     }
     else
     {

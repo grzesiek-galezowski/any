@@ -17,7 +17,7 @@ public class JPropertyResolution : IResolution
     var key = gen.Instance(typeof(string), request);
     var value = gen.Instance(typeof(string), request);
     return objectType.CreateInstance(
-      new[] { typeof(string), typeof(object) },
-      new[] { key, value });
+      [typeof(string), typeof(object)],
+      [key, value]);
   }
 }

@@ -17,6 +17,6 @@ public class JTokenResolution : IResolution
   {
     var constructorArg = gen.Instance(typeof(string), request);
     var factoryClass = SmartType.QueryExportedTypes(type.Assembly, NewtonsoftJsonTypePredicates.IsJValue);
-    return factoryClass.CreateInstance(new[] { typeof(object) }, new[] { constructorArg });
+    return factoryClass.CreateInstance([typeof(object)], [constructorArg]);
   }
 }
