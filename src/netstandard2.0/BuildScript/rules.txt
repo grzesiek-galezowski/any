@@ -1,6 +1,6 @@
 ﻿* hasNoCircularUsings
 *Specification hasAttributesOn *Specification:Should*
-AnyRoot hasProperty TargetFrameworks:net8.0;netstandard2.1
+AnyRoot hasProperty TargetFrameworks:net8.0
 *Specification hasProperty TargetFramework:net8.0
 * hasProperty Nullable:enable
 * hasProperty LangVersion:latest

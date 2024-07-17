@@ -5,7 +5,7 @@
     <WarningsAsErrors>nullable</WarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup>
-    <TargetFrameworks>net8.0;netstandard2.1</TargetFrameworks>
+    <TargetFrameworks>net8.0</TargetFrameworks>
     <AssemblyName>TddXt.Any.Generators</AssemblyName>
     <RootNamespace>TddXt.AnyGenerators</RootNamespace>
     <Authors>Grzegorz Gałęzowski</Authors>

@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <TargetFrameworks>net8.0;netstandard2.1</TargetFrameworks>
+    <TargetFrameworks>net8.0</TargetFrameworks>
     <AssemblyName>TddXt.Any.TypeResolution</AssemblyName>
     <RootNamespace>TddXt.TypeResolution</RootNamespace>
     <Authors>Grzegorz Gałęzowski</Authors>

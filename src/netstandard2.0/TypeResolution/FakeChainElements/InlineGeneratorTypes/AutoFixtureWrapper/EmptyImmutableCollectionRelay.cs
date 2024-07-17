@@ -11,7 +11,7 @@ public class EmptyImmutableCollectionRelay : ISpecimenBuilder
 {
   public object Create(object request, ISpecimenContext context)
   {
-    if (context == null) throw new ArgumentNullException(nameof(context));
+    ArgumentNullException.ThrowIfNull(context);
 
     if (request is Type { IsGenericType: true } t)
     {

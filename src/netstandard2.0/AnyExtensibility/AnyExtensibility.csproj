@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <TargetFrameworks>net8.0;netstandard2.1</TargetFrameworks>
+    <TargetFrameworks>net8.0</TargetFrameworks>
     <AssemblyName>TddXt.Any.Extensibility</AssemblyName>
     <RootNamespace>TddXt.AnyExtensibility</RootNamespace>
     <Authors>Grzegorz Gałęzowski</Authors>
