@@ -52,6 +52,8 @@ public static class AllGeneratorFactory
               resolutionsFactory.ResolveAsConcurrentBag(),
               resolutionsFactory.ResolveAsConcurrentQueue(),
               resolutionsFactory.ResolveAsConcurrentStack(),
+              resolutionsFactory.ResolveAsFrozenSet(),
+              resolutionsFactory.ResolveAsFrozenDictionary(),
               resolutionsFactory.ResolveAsKeyValuePair(),
               ResolutionsFactory.ResolveAsExternalOptionalOption(),
               ResolutionsFactory.ResolveAsExternalJToken(),

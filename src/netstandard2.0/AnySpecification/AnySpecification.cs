@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Concurrent;
+using System.Collections.Frozen;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Globalization;
@@ -643,6 +644,8 @@ public partial class AnySpecification
     var concurrentBag = Any.ConcurrentBag<string>();
     var concurrentQueue = Any.ConcurrentQueue<string>();
     var concurrentStack = Any.ConcurrentStack<string>();
+    var frozenSet = Any.FrozenSet<string>();
+    var frozenDictionary = Any.FrozenDictionary<string, ISimple>();
 
     Assert.Multiple(() =>
     {
@@ -658,6 +661,8 @@ public partial class AnySpecification
       ClassicAssert.AreEqual(anyCount, concurrentBag.Count);
       ClassicAssert.AreEqual(anyCount, concurrentStack.Count);
       ClassicAssert.AreEqual(anyCount, concurrentQueue.Count);
+      ClassicAssert.AreEqual(anyCount, frozenSet.Count);
+      ClassicAssert.AreEqual(anyCount, frozenDictionary.Count);
     });
   }
 
@@ -676,6 +681,8 @@ public partial class AnySpecification
     var concurrentStack = Any.Instance<ConcurrentStack<string>>();
     var concurrentBag = Any.Instance<ConcurrentBag<string>>();
     var concurrentQueue = Any.Instance<ConcurrentQueue<string>>();
+    var frozenSet = Any.Instance<FrozenSet<string>>();
+    var frozenDictionary = Any.Instance<FrozenDictionary<string, ISimple>>();
 
     Assert.Multiple(() =>
     {
@@ -690,6 +697,8 @@ public partial class AnySpecification
       ClassicAssert.AreEqual(anyCount, concurrentStack.Count);
       ClassicAssert.AreEqual(anyCount, concurrentBag.Count);
       ClassicAssert.AreEqual(anyCount, concurrentQueue.Count);
+      ClassicAssert.AreEqual(anyCount, frozenSet.Count);
+      ClassicAssert.AreEqual(anyCount, frozenDictionary.Count);
     });
   }
 

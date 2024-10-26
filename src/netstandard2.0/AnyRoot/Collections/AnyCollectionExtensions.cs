@@ -1,4 +1,5 @@
 ﻿using System.Collections.Concurrent;
+using System.Collections.Frozen;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
@@ -277,8 +278,19 @@ public static class AnyCollectionExtensions
   {
     return gen.InstanceOf(InlineGenerators.ImmutableQueue<T>());
   }
+
   public static ImmutableStack<T> ImmutableStack<T>(this BasicGenerator gen)
   {
     return gen.InstanceOf(InlineGenerators.ImmutableStack<T>());
+  }
+  
+  public static FrozenSet<T> FrozenSet<T>(this BasicGenerator gen)
+  {
+    return gen.InstanceOf(InlineGenerators.FrozenSet<T>());
+  }
+
+  public static FrozenDictionary<TKey, TValue> FrozenDictionary<TKey, TValue>(this BasicGenerator gen) where TKey : notnull
+  {
+    return gen.InstanceOf(InlineGenerators.FrozenDictionary<TKey, TValue>());
   }
 }

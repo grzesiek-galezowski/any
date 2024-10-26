@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Concurrent;
+using System.Collections.Frozen;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Net;
@@ -718,5 +719,15 @@ public class InlineGenerators
   public static InlineGenerator<sbyte> SignedByteInRange(sbyte min, sbyte max)
   {
     return InternalInlineGenerators.SignedByteInRange(min, max);
+  }
+
+  public static InlineGenerator<FrozenSet<T>> FrozenSet<T>()
+  {
+    return InternalInlineGenerators.FrozenSet<T>();
+  }
+
+  public static InlineGenerator<FrozenDictionary<TKey, TValue>> FrozenDictionary<TKey, TValue>() where TKey : notnull
+  {
+    return InternalInlineGenerators.FrozenDictionary<TKey, TValue>();
   }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Concurrent;
+using System.Collections.Frozen;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
@@ -64,6 +65,13 @@ public static class InlineCollectionGeneratorExtensions
       enumerable => enumerable.ToDictionary(x => x.Key, x => x.Value));
   }
 
+  public static EnumerableConversion<KeyValuePair<TKey, TValue>, FrozenDictionary<TKey, TValue>>
+    AsFrozenDictionary<TKey, TValue>(this InlineGenerator<IEnumerable<KeyValuePair<TKey, TValue>>> enumerableGenerator) where TKey : notnull
+  {
+    return Conversion(enumerableGenerator,
+      enumerable => enumerable.ToFrozenDictionary(x => x.Key, x => x.Value));
+  }
+
   public static EnumerableConversion<T, ImmutableArray<T>> AsImmutableArray<T>(this InlineGenerator<IEnumerable<T>> enumerableGenerator)
   {
     return Conversion(enumerableGenerator, ImmutableArray.ToImmutableArray);
@@ -82,6 +90,11 @@ public static class InlineCollectionGeneratorExtensions
   public static InlineGenerator<ImmutableSortedSet<T>> AsImmutableSortedSet<T>(this InlineGenerator<IEnumerable<T>> enumerableGenerator)
   {
     return Conversion(enumerableGenerator, ImmutableSortedSet.ToImmutableSortedSet);
+  }
+
+  public static InlineGenerator<FrozenSet<T>> AsFrozenSet<T>(this InlineGenerator<IEnumerable<T>> enumerableGenerator)
+  {
+    return Conversion(enumerableGenerator, enumerable => enumerable.ToFrozenSet());
   }
 
   public static InlineGenerator<ImmutableQueue<T>> AsImmutableQueue<T>(this InlineGenerator<IEnumerable<T>> enumerableGenerator)

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Concurrent;
+using System.Collections.Frozen;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using Castle.DynamicProxy;
@@ -120,6 +121,13 @@ public class ResolutionsFactory(
       typeof(SortedSet<>));
   }
 
+  public IResolution ResolveAsFrozenSet()
+  {
+    return specialCasesOfResolutions.CreateResolutionOf1GenericType(
+      nameof(InternalInlineGenerators.FrozenSet),
+      typeof(FrozenSet<>));
+  }
+
   public IResolution ResolveAsSortedList()
   {
     return specialCasesOfResolutions.CreateResolutionOf2GenericType(
@@ -134,6 +142,13 @@ public class ResolutionsFactory(
       typeof(IDictionary<,>),
       typeof(IReadOnlyDictionary<,>),
       typeof(Dictionary<,>));
+  }
+
+  public IResolution ResolveAsFrozenDictionary()
+  {
+    return specialCasesOfResolutions.CreateResolutionOf2GenericType(
+      nameof(InternalInlineGenerators.FrozenDictionary),
+      typeof(FrozenDictionary<,>));
   }
 
   public IResolution ResolveAsSimpleSet()

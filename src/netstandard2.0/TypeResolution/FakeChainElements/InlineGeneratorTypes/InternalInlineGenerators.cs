@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Concurrent;
+using System.Collections.Frozen;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
@@ -7,6 +8,7 @@ using System.Net;
 using System.Numerics;
 using System.Reflection;
 using System.Threading.Tasks;
+using Castle.Components.DictionaryAdapter;
 using TddXt.AnyExtensibility;
 using TddXt.TypeResolution.FakeChainElements.InlineGeneratorTypes.Collections;
 using TddXt.TypeResolution.FakeChainElements.InlineGeneratorTypes.Generic;
@@ -725,5 +727,15 @@ public class InternalInlineGenerators
   public static InlineGenerator<T?> Nullable<T>() where T : struct
   {
     return new NullableGenerator<T>();
+  }
+
+  public static InlineGenerator<FrozenSet<T>> FrozenSet<T>()
+  {
+    return new EnumerableGenerator<T>(ManyStrategies.FromRequest()).AsFrozenSet<T>();
+  }
+
+  public static InlineGenerator<FrozenDictionary<TKey, TValue>> FrozenDictionary<TKey, TValue>() where TKey : notnull
+  {
+    return new EnumerableGenerator<KeyValuePair<TKey, TValue>>(ManyStrategies.FromRequest()).AsFrozenDictionary();
   }
 }
