@@ -49,7 +49,9 @@ public class InterceptedInvocation(
     var key = GetPropertyGetterCacheKey();
     if (key.HasValue)
     {
-      perMethodCache.Overwrite(key.Value(), invocation.Arguments[0]);
+      perMethodCache.Overwrite(key.Value(),
+        invocation.Arguments[0] ?? throw new InvalidOperationException(
+          nameof(GenerateAndAddPropertyGetterReturnValueTo) + " failed because invocation has 0 arguments"));
     }
   }
 
