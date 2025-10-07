@@ -1,4 +1,4 @@
-﻿using FluentAssertions;
+﻿using AwesomeAssertions;
 using Google.Protobuf.Collections;
 
 namespace AnySpecification;

@@ -3,8 +3,8 @@
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
   </PropertyGroup>
   <ItemGroup>
-    <PackageVersion Include="Google.Protobuf" Version="3.30.1" />
-    <PackageVersion Include="NuGetizer" Version="1.2.3" />
+    <PackageVersion Include="Google.Protobuf" Version="3.32.1" />
+    <PackageVersion Include="NuGetizer" Version="1.3.1" />
     <PackageVersion Include="Core.Maybe" Version="7.0.0" />
     <PackageVersion Include="Castle.Core" Version="5.2.1" />
     <PackageVersion Include="AutoFixture" Version="4.18.1" />
@@ -12,19 +12,19 @@
     <PackageVersion Include="System.Net.Http" Version="4.3.4" />
   </ItemGroup>
   <ItemGroup>
-    <PackageVersion Include="CompareNETObjects" Version="4.83.0" />
-    <PackageVersion Include="FluentAssertions" Version="7.2.0" />
-    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.13.0" />
-    <PackageVersion Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageVersion Include="CompareNETObjects" Version="4.84.0" />
+    <PackageVersion Include="AwesomeAssertions" Version="9.2.0" />
+    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="18.0.0" />
+    <PackageVersion Include="Newtonsoft.Json" Version="13.0.4" />
     <PackageVersion Include="NSubstitute" Version="5.3.0" />
-    <PackageVersion Include="NUnit" Version="4.3.2" />
-    <PackageVersion Include="NUnit3TestAdapter" Version="5.0.0" />
+    <PackageVersion Include="NUnit" Version="4.4.0" />
+    <PackageVersion Include="NUnit3TestAdapter" Version="5.2.0" />
     <PackageVersion Include="Optional" Version="4.0.0" />
     <PackageVersion Include="Functional.Maybe" Version="2.0.20" />
   </ItemGroup>
   <ItemGroup>
-    <PackageVersion Include="AtmaFileSystem" Version="7.3.0" />
-    <PackageVersion Include="Bullseye" Version="5.0.0" />
+    <PackageVersion Include="AtmaFileSystem" Version="8.0.0" />
+    <PackageVersion Include="Bullseye" Version="6.0.0" />
     <PackageVersion Include="DotnetExeCommandLineBuilder" Version="0.3.0" />
     <PackageVersion Include="NScan" Version="0.201.0" />
     <PackageVersion Include="SimpleExec" Version="12.0.0" />

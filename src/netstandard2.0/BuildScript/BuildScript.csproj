@@ -12,7 +12,7 @@
     <PackageReference Include="AtmaFileSystem" />
     <PackageReference Include="Bullseye" />
     <PackageReference Include="DotnetExeCommandLineBuilder" />
-    <PackageReference Include="FluentAssertions" />
+    <PackageReference Include="AwesomeAssertions" />
     <PackageReference Include="NScan" />
     <PackageReference Include="SimpleExec" />
   </ItemGroup>

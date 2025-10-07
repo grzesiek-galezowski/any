@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using FluentAssertions;
+using AwesomeAssertions;
 using TddXt.AnyRoot.Time;
 
 namespace AnySpecification;

@@ -2,7 +2,7 @@
 using AtmaFileSystem;
 using AtmaFileSystem.IO;
 using BuildScript;
-using FluentAssertions;
+using AwesomeAssertions;
 using NScan.Adapters.Secondary.NotifyingSupport;
 using TddXt.NScan;
 using static Bullseye.Targets;

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using AnySpecification.Fixtures;
-using FluentAssertions;
+using AwesomeAssertions;
 using static TddXt.AnyGenerators.Root.InlineGenerators;
 using Enumerable = System.Linq.Enumerable;
 #pragma warning disable CS0612

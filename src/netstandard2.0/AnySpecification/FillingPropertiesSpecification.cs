@@ -1,6 +1,6 @@
 ﻿using AnySpecification.Fixtures;
 using Core.NullableReferenceTypesExtensions;
-using FluentAssertions;
+using AwesomeAssertions;
 using NUnit.Framework.Legacy;
 
 namespace AnySpecification;

@@ -15,7 +15,7 @@
 
   <ItemGroup>
     <PackageReference Include="CompareNETObjects" />
-    <PackageReference Include="FluentAssertions" />
+    <PackageReference Include="AwesomeAssertions" />
     <PackageReference Include="Functional.Maybe" />
     <PackageReference Include="Google.Protobuf" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" />

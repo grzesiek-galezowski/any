@@ -1,6 +1,6 @@
 ﻿using System;
 using Core.NullableReferenceTypesExtensions;
-using FluentAssertions;
+using AwesomeAssertions;
 using TddXt.AnyRoot.Builder;
 
 namespace AnySpecification;

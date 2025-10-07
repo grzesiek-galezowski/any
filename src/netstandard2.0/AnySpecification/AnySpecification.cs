@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 using AnySpecification.Fixtures;
 using AnySpecification.GraphComparison;
 using Core.NullableReferenceTypesExtensions;
-using FluentAssertions;
+using AwesomeAssertions;
 using Functional.Maybe;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
