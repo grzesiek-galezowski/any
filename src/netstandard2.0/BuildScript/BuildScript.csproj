@@ -15,6 +15,7 @@
     <PackageReference Include="AwesomeAssertions" />
     <PackageReference Include="NScan" />
     <PackageReference Include="SimpleExec" />
+    <PackageReference Include="System.Text.RegularExpressions" />
   </ItemGroup>
 
 </Project>

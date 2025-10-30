@@ -1,16 +1,11 @@
-﻿using System;
-using AtmaFileSystem;
+﻿using AtmaFileSystem;
 using AtmaFileSystem.IO;
-using BuildScript;
-using AwesomeAssertions;
-using NScan.Adapters.Secondary.NotifyingSupport;
-using TddXt.NScan;
 using static Bullseye.Targets;
 using static DotnetExeCommandLineBuilder.DotnetExeCommands;
 using static SimpleExec.Command;
 
 const string configuration = "Release";
-const string version = "10.2.0";
+const string version = "10.2.1";
 
 // Define directories.
 var root = AbsoluteFilePath.OfThisFile().ParentDirectory(3).Value();
@@ -39,7 +34,7 @@ Target("Build", () =>
 
 });
 
-Target("NScan", DependsOn("Build"), () =>
+Target("NScan", ["Build"], () =>
 {
   //NScanMain.Run(
   //  new InputArgumentsDto
@@ -52,7 +47,7 @@ Target("NScan", DependsOn("Build"), () =>
   //).Should().Be(0);
 });
 
-Target("Test", DependsOn("NScan"), () =>
+Target("Test", ["NScan"], () =>
 {
   Run("dotnet",
     Test()
@@ -62,7 +57,7 @@ Target("Test", DependsOn("NScan"), () =>
     workingDirectory: srcNetStandardDir.ToString());
 });
 
-Target("Push", DependsOn("Clean", "Test"), () =>
+Target("Push", ["Clean", "Test"], () =>
 {
   foreach (var nupkgPath in nugetPath.GetFiles("*.nupkg"))
   {
@@ -70,6 +65,6 @@ Target("Push", DependsOn("Clean", "Test"), () =>
   }
 });
 
-Target("default", DependsOn("Test"));
+Target("default", ["Test"]);
 
 await RunTargetsAndExitAsync(args);

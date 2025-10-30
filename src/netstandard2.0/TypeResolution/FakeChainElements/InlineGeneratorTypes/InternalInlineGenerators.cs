@@ -8,7 +8,6 @@ using System.Net;
 using System.Numerics;
 using System.Reflection;
 using System.Threading.Tasks;
-using Castle.Components.DictionaryAdapter;
 using TddXt.AnyExtensibility;
 using TddXt.TypeResolution.FakeChainElements.InlineGeneratorTypes.Collections;
 using TddXt.TypeResolution.FakeChainElements.InlineGeneratorTypes.Generic;
