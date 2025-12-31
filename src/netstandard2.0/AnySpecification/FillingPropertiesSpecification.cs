@@ -1,7 +1,6 @@
 ﻿using AnySpecification.Fixtures;
 using Core.NullableReferenceTypesExtensions;
 using AwesomeAssertions;
-using NUnit.Framework.Legacy;
 
 namespace AnySpecification;
 
@@ -14,10 +13,10 @@ public class FillingPropertiesSpecification
     var instance = Any.Instance<ConcreteDataStructure>();
 
     //THEN
-    ClassicAssert.NotNull(instance.Data);
-    ClassicAssert.NotNull(instance.Field);
-    ClassicAssert.NotNull(instance.Data.OrThrow().Text);
-    ClassicAssert.IsNotEmpty(instance.AnImmutableList);
+    Assert.That(instance.Data, Is.Not.Null);
+    Assert.That(instance.Field, Is.Not.Null);
+    Assert.That(instance.Data.OrThrow().Text, Is.Not.Null);
+    Assert.That(instance.AnImmutableList, Is.Not.Empty);
   }
 
   [Test, Parallelizable]

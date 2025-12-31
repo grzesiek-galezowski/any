@@ -20,7 +20,6 @@ using Functional.Maybe;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using NSubstitute;
-using NUnit.Framework.Legacy;
 using Optional;
 using Optional.Unsafe;
 using TddXt.AnyExtensibility;
@@ -109,7 +108,7 @@ public partial class AnySpecification
     Assert.That(digit1, Is.LessThanOrEqualTo(9));
     Assert.That(digit2, Is.GreaterThanOrEqualTo(0));
     Assert.That(digit2, Is.LessThanOrEqualTo(9));
-    ClassicAssert.AreNotEqual(digit1, digit2);
+    Assert.That(digit2, Is.Not.EqualTo(digit1));
   }
 
   [Test, Repeat(10)]
@@ -124,7 +123,7 @@ public partial class AnySpecification
     Assert.That(digit1, Is.LessThanOrEqualTo(9));
     Assert.That(digit2, Is.GreaterThanOrEqualTo(1));
     Assert.That(digit2, Is.LessThanOrEqualTo(9));
-    ClassicAssert.AreNotEqual(digit1, digit2);
+    Assert.That(digit2, Is.Not.EqualTo(digit1));
   }
 
   [Test, Parallelizable]
@@ -135,8 +134,8 @@ public partial class AnySpecification
     var address2 = Any.Instance<IPAddress>();
 
     //THEN
-    ClassicAssert.AreNotEqual(address1, address2);
-    ClassicAssert.AreNotEqual(address1.ToString(), address2.ToString());
+    Assert.That(address2, Is.Not.EqualTo(address1));
+    Assert.That(address2.ToString(), Is.Not.EqualTo(address1.ToString()));
   }
 
   [Test] 
@@ -154,11 +153,11 @@ public partial class AnySpecification
   {
     var obj = Any.Instance<ISimple>();
 
-    ClassicAssert.AreNotEqual(default(int), obj.GetInt());
-    ClassicAssert.AreNotEqual(string.Empty, obj.GetString());
-    ClassicAssert.AreNotEqual(string.Empty, obj.GetStringProperty);
-    ClassicAssert.NotNull(obj.GetString());
-    ClassicAssert.NotNull(obj.GetStringProperty);
+    Assert.That(obj.GetInt(), Is.Not.Default);
+    Assert.That(obj.GetString(), Is.Not.Empty);
+    Assert.That(obj.GetStringProperty, Is.Not.Empty);
+    Assert.That(obj.GetString(), Is.Not.Null);
+    Assert.That(obj.GetStringProperty, Is.Not.Null);
   }
 
   [Test, Parallelizable]
@@ -171,12 +170,12 @@ public partial class AnySpecification
     obj = obj.GetInterface();
 
     //THEN
-    ClassicAssert.NotNull(obj);
-    ClassicAssert.AreNotEqual(default(int), obj.GetInt());
-    ClassicAssert.AreNotEqual(string.Empty, obj.GetString());
-    ClassicAssert.AreNotEqual(string.Empty, obj.GetStringProperty);
-    ClassicAssert.NotNull(obj.GetString());
-    ClassicAssert.NotNull(obj.GetStringProperty);
+    Assert.That(obj, Is.Not.Null);
+    Assert.That(obj.GetInt(), Is.Not.Default);
+    Assert.That(obj.GetString(), Is.Not.Empty);
+    Assert.That(obj.GetStringProperty, Is.Not.Empty);
+    Assert.That(obj.GetString(), Is.Not.Null);
+    Assert.That(obj.GetStringProperty, Is.Not.Null);
   }
 
   [Test, Parallelizable]
@@ -190,7 +189,7 @@ public partial class AnySpecification
     var valueSecondTime = obj.GetString();
 
     //THEN
-    ClassicAssert.AreEqual(valueFirstTime, valueSecondTime);
+    Assert.That(valueSecondTime, Is.EqualTo(valueFirstTime));
   }
 
   [Test, Parallelizable]
@@ -204,7 +203,7 @@ public partial class AnySpecification
     var valueFromSecondInstance = obj2.GetString();
 
     //THEN
-    ClassicAssert.AreNotEqual(valueFromFirstInstance, valueFromSecondInstance);
+    Assert.That(valueFromSecondInstance, Is.Not.EqualTo(valueFromFirstInstance));
   }
 
   [Test, Parallelizable]
@@ -237,7 +236,7 @@ public partial class AnySpecification
   [Test, Parallelizable]
   public void ShouldCreateNonNullUri()
   {
-    ClassicAssert.NotNull(Any.Uri());
+    Assert.That(Any.Uri(), Is.Not.Null);
   }
 
   [Test, Parallelizable]
@@ -253,7 +252,7 @@ public partial class AnySpecification
 
     foreach (var simple in enumerable)
     {
-      ClassicAssert.NotNull(simple);
+      Assert.That(simple, Is.Not.Null);
     }
   }
 
@@ -265,14 +264,14 @@ public partial class AnySpecification
     var obj2 = Any.Instance<ISimple>();
 
     //THEN
-    Assert.Multiple(() =>
+    using (Assert.EnterMultipleScope())
     {
-      ClassicAssert.NotNull(obj1.GetTypeProperty);
-      ClassicAssert.NotNull(obj2.GetTypeProperty);
-      ClassicAssert.AreNotEqual(obj1.GetTypeProperty, obj2.GetTypeProperty);
-      ClassicAssert.AreEqual(obj1.GetTypeProperty, obj1.GetTypeProperty);
-      ClassicAssert.AreEqual(obj2.GetTypeProperty, obj2.GetTypeProperty);
-    });
+      Assert.That(obj1.GetTypeProperty, Is.Not.Null);
+      Assert.That(obj2.GetTypeProperty, Is.Not.Null);
+      Assert.That(obj2.GetTypeProperty, Is.Not.EqualTo(obj1.GetTypeProperty));
+      Assert.That(obj1.GetTypeProperty, Is.EqualTo(obj1.GetTypeProperty));
+      Assert.That(obj2.GetTypeProperty, Is.EqualTo(obj2.GetTypeProperty));
+    }
   }
 
   [Test, Parallelizable]
@@ -282,8 +281,8 @@ public partial class AnySpecification
     var createdProxy = Any.Instance<ObjectWithInterfaceInConstructor>();
 
     //THEN
-    ClassicAssert.NotNull(createdProxy._constructorArgument);
-    ClassicAssert.NotNull(createdProxy._constructorNestedArgument);
+    Assert.That(createdProxy._constructorArgument, Is.Not.Null);
+    Assert.That(createdProxy._constructorNestedArgument, Is.Not.Null);
   }
 
   [Test, Parallelizable]
@@ -293,13 +292,13 @@ public partial class AnySpecification
     var createdProxy = Any.Instance<AbstractObjectWithInterfaceInConstructor>();
 
     //THEN
-    Assert.Multiple(() =>
+    using (Assert.EnterMultipleScope())
     {
-      ClassicAssert.NotNull(createdProxy._constructorArgument);
-      ClassicAssert.NotNull(createdProxy._constructorNestedArgument);
-      ClassicAssert.AreNotEqual(default(int), createdProxy.AbstractInt);
-      ClassicAssert.AreNotEqual(default(int), createdProxy.SettableInt);
-    });
+      Assert.That(createdProxy._constructorArgument, Is.Not.Null);
+      Assert.That(createdProxy._constructorNestedArgument, Is.Not.Null);
+      Assert.That(createdProxy.AbstractInt, Is.Not.Default);
+      Assert.That(createdProxy.SettableInt, Is.Not.Default);
+    }
   }
 
   [Test, Parallelizable]
@@ -309,8 +308,8 @@ public partial class AnySpecification
     var obj = Any.Instance<AbstractObjectWithVirtualMethods>();
 
     //THEN
-    ClassicAssert.AreNotEqual(default(string), obj.GetSomething());
-    ClassicAssert.AreNotEqual("Something", obj.GetSomething2());
+    Assert.That(obj.GetSomething(), Is.Not.Null);
+    Assert.That(obj.GetSomething2(), Is.Not.EqualTo("Something"));
   }
 
   [Test, Parallelizable]
@@ -331,7 +330,7 @@ public partial class AnySpecification
     var obj = Any.Instance<AbstractObjectWithVirtualMethods>();
 
     //THEN
-    ClassicAssert.AreNotEqual(default(string), obj.GetSomethingButThrowExceptionWhileGettingIt());
+    Assert.That(obj.GetSomethingButThrowExceptionWhileGettingIt(), Is.Not.Null);
   }
 
   [Test, Parallelizable]
@@ -343,9 +342,9 @@ public partial class AnySpecification
     var z = Any.Instance<ObjectWithMethodInfo>();
 
     //THEN
-    ClassicAssert.AreNotEqual(x, y);
-    ClassicAssert.NotNull(z.Method);
-    ClassicAssert.AreNotEqual(y, z.Method);
+    Assert.That(y, Is.Not.EqualTo(x));
+    Assert.That(z.Method, Is.Not.Null);
+    Assert.That(z.Method, Is.Not.EqualTo(y));
   }
 
   [Test, Parallelizable]
@@ -372,8 +371,8 @@ public partial class AnySpecification
     var dof7 = Any.OtherThan(DayOfWeek.Sunday);
 
     //THEN
-    CollectionAssert.AllItemsAreUnique(new[] {dof1, dof2, dof3, dof4, dof5, dof6});
-    CollectionAssert.DoesNotContain(new[] {dof1, dof2, dof3, dof4, dof5, dof6, dof7}, DayOfWeek.Sunday);
+    Assert.That(new[] { dof1, dof2, dof3, dof4, dof5, dof6 }, Is.Unique);
+    Assert.That(new[] { dof1, dof2, dof3, dof4, dof5, dof6, dof7 }, Has.No.Member(DayOfWeek.Sunday));
   }
 
   [Test, Parallelizable]
@@ -409,7 +408,7 @@ public partial class AnySpecification
     var dof7 = Any.Instance<DayOfWeek>();
 
     //THEN
-    CollectionAssert.AllItemsAreUnique(new[] {dof1, dof2, dof3, dof4, dof5, dof6, dof7});
+    Assert.That(new[] { dof1, dof2, dof3, dof4, dof5, dof6, dof7 }, Is.Unique);
   }
 
   [Test, Parallelizable]
@@ -420,7 +419,7 @@ public partial class AnySpecification
     var int2 = Any.OtherThan(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
 
     //THEN
-    ClassicAssert.AreNotEqual(int1, int2);
+    Assert.That(int2, Is.Not.EqualTo(int1));
     Assert.That(int1, Is.Not.InRange(1, 10));
     Assert.That(int2, Is.Not.InRange(1, 10));
   }
@@ -438,19 +437,19 @@ public partial class AnySpecification
     var int6 = Any.From(Enumerable.Range(10, 4).ToArray());
 
     //THEN
-    Assert.Multiple(() =>
+    using (Assert.EnterMultipleScope())
     {
-      ClassicAssert.True(Enumerable.Range(1, 3).Contains(int1));
-      ClassicAssert.True(Enumerable.Range(1, 3).Contains(int2));
-      ClassicAssert.True(Enumerable.Range(1, 3).Contains(int3));
-      ClassicAssert.True(Enumerable.Range(1, 3).Contains(int4));
-      ClassicAssert.AreNotEqual(int1, int2);
-      ClassicAssert.AreNotEqual(int2, int3);
-      ClassicAssert.AreNotEqual(int3, int4);
+      Assert.That(Enumerable.Range(1, 3).Contains(int1), Is.True);
+      Assert.That(Enumerable.Range(1, 3).Contains(int2), Is.True);
+      Assert.That(Enumerable.Range(1, 3).Contains(int3), Is.True);
+      Assert.That(Enumerable.Range(1, 3).Contains(int4), Is.True);
+      Assert.That(int2, Is.Not.EqualTo(int1));
+      Assert.That(int3, Is.Not.EqualTo(int2));
+      Assert.That(int4, Is.Not.EqualTo(int3));
 
-      ClassicAssert.True(Enumerable.Range(5, 2).Contains(int5));
-      ClassicAssert.True(Enumerable.Range(10, 4).Contains(int6));
-    });
+      Assert.That(Enumerable.Range(5, 2).Contains(int5), Is.True);
+      Assert.That(Enumerable.Range(10, 4).Contains(int6), Is.True);
+    }
   }
 
   [Test, Parallelizable]
@@ -463,7 +462,7 @@ public partial class AnySpecification
     var result = Any.StringMatching(exampleRegex);
 
     //THEN
-    ClassicAssert.True(ExampleRegex().IsMatch(result));
+    Assert.That(ExampleRegex().IsMatch(result), Is.True);
   }
 
   [TestCase(2)]
@@ -475,7 +474,7 @@ public partial class AnySpecification
     var str = Any.String(stringLength);
 
     //THEN
-    ClassicAssert.AreEqual(stringLength, str.Length);
+    Assert.That(str.Length, Is.EqualTo(stringLength));
   }
 
   [Test, Parallelizable]
@@ -485,9 +484,9 @@ public partial class AnySpecification
     var set = Any.SortedSet<int>();
 
     //THEN
-    CollectionAssert.IsOrdered(set);
-    CollectionAssert.AllItemsAreUnique(set);
-    ClassicAssert.AreEqual(3, set.Count);
+    Assert.That(set, Is.Ordered);
+    Assert.That(set, Is.Unique);
+    Assert.That(set.Count, Is.EqualTo(3));
   }
 
   [Test, Parallelizable]
@@ -499,14 +498,14 @@ public partial class AnySpecification
     var char3 = Any.AlphaChar();
 
     //THEN
-    Assert.Multiple(() =>
+    using (Assert.EnterMultipleScope())
     {
-      ClassicAssert.AreNotEqual(char1, char2);
-      ClassicAssert.AreNotEqual(char2, char3);
-      ClassicAssert.True(char.IsLetter(char1));
-      ClassicAssert.True(char.IsLetter(char2));
-      ClassicAssert.True(char.IsLetter(char3));
-    });
+      Assert.That(char2, Is.Not.EqualTo(char1));
+      Assert.That(char3, Is.Not.EqualTo(char2));
+      Assert.That(char.IsLetter(char1), Is.True);
+      Assert.That(char.IsLetter(char2), Is.True);
+      Assert.That(char.IsLetter(char3), Is.True);
+    }
   }
 
   [Test, Parallelizable]
@@ -518,14 +517,14 @@ public partial class AnySpecification
     var char3 = Any.DigitChar();
 
     //THEN
-    Assert.Multiple(() =>
+    using (Assert.EnterMultipleScope())
     {
-      ClassicAssert.AreNotEqual(char1, char2);
-      ClassicAssert.AreNotEqual(char2, char3);
-      ClassicAssert.True(char.IsDigit(char1));
-      ClassicAssert.True(char.IsDigit(char2));
-      ClassicAssert.True(char.IsDigit(char3));
-    });
+      Assert.That(char2, Is.Not.EqualTo(char1));
+      Assert.That(char3, Is.Not.EqualTo(char2));
+      Assert.That(char.IsDigit(char1), Is.True);
+      Assert.That(char.IsDigit(char2), Is.True);
+      Assert.That(char.IsDigit(char3), Is.True);
+    }
   }
 
   [Test, CancelAfter(1000)]
@@ -553,11 +552,11 @@ public partial class AnySpecification
     var primitive = Any.Instance<int>();
     var interfaceImplementation = Any.Instance<ISimple>();
 
-    Assert.Multiple(() =>
+    using (Assert.EnterMultipleScope())
     {
-      ClassicAssert.NotNull(interfaceImplementation);
-      ClassicAssert.AreNotEqual(default(int), primitive);
-    });
+      Assert.That(interfaceImplementation, Is.Not.Null);
+      Assert.That(primitive, Is.Not.Default);
+    }
   }
 
   [Test, Parallelizable]
@@ -567,7 +566,7 @@ public partial class AnySpecification
 
     var x2 = recursiveObjects[0].GetNested()[0].Nested.Number;
 
-    ClassicAssert.AreNotEqual(default(int), x2);
+    Assert.That(x2, Is.Not.Default);
   }
 
   [Test, Parallelizable]
@@ -586,12 +585,12 @@ public partial class AnySpecification
     var y1 = y.Keys.First();
     var y2 = y.Values.First();
 
-    Assert.Multiple(() =>
+    using (Assert.EnterMultipleScope())
     {
-      ClassicAssert.AreEqual(3, y.Count);
-      ClassicAssert.NotNull(y1);
-      ClassicAssert.NotNull(y2);
-    });
+      Assert.That(y.Count, Is.EqualTo(3));
+      Assert.That(y1, Is.Not.Null);
+      Assert.That(y2, Is.Not.Null);
+    }
   }
 
   [Test, Parallelizable]
@@ -611,21 +610,21 @@ public partial class AnySpecification
     var concurrentQueue = Any.ConcurrentQueue<string>(anyCount);
     var concurrentStack = Any.ConcurrentStack<string>(anyCount);
 
-    Assert.Multiple(() =>
+    using (Assert.EnterMultipleScope())
     {
-      ClassicAssert.AreEqual(anyCount, list.Count);
-      ClassicAssert.AreEqual(anyCount, enumerable.Count());
-      ClassicAssert.AreEqual(anyCount, array.Length);
-      ClassicAssert.AreEqual(anyCount, set.Count);
-      ClassicAssert.AreEqual(anyCount, dictionary.Count);
-      ClassicAssert.AreEqual(anyCount, sortedList.Count);
-      ClassicAssert.AreEqual(anyCount, sortedDictionary.Count);
-      ClassicAssert.AreEqual(anyCount, concurrentDictionary.Count);
-      ClassicAssert.AreEqual(anyCount, sortedEnumerable.Count());
-      ClassicAssert.AreEqual(anyCount, concurrentBag.Count);
-      ClassicAssert.AreEqual(anyCount, concurrentStack.Count);
-      ClassicAssert.AreEqual(anyCount, concurrentQueue.Count);
-    });
+      Assert.That(list.Count, Is.EqualTo(anyCount));
+      Assert.That(enumerable.Count(), Is.EqualTo(anyCount));
+      Assert.That(array.Length, Is.EqualTo(anyCount));
+      Assert.That(set.Count, Is.EqualTo(anyCount));
+      Assert.That(dictionary.Count, Is.EqualTo(anyCount));
+      Assert.That(sortedList.Count, Is.EqualTo(anyCount));
+      Assert.That(sortedDictionary.Count, Is.EqualTo(anyCount));
+      Assert.That(concurrentDictionary.Count, Is.EqualTo(anyCount));
+      Assert.That(sortedEnumerable.Count(), Is.EqualTo(anyCount));
+      Assert.That(concurrentBag.Count, Is.EqualTo(anyCount));
+      Assert.That(concurrentStack.Count, Is.EqualTo(anyCount));
+      Assert.That(concurrentQueue.Count, Is.EqualTo(anyCount));
+    }
   }
 
   [Test, Parallelizable]
@@ -647,23 +646,23 @@ public partial class AnySpecification
     var frozenSet = Any.FrozenSet<string>();
     var frozenDictionary = Any.FrozenDictionary<string, ISimple>();
 
-    Assert.Multiple(() =>
+    using (Assert.EnterMultipleScope())
     {
-      ClassicAssert.AreEqual(anyCount, list.Count);
-      ClassicAssert.AreEqual(anyCount, enumerable.Count());
-      ClassicAssert.AreEqual(anyCount, array.Length);
-      ClassicAssert.AreEqual(anyCount, set.Count);
-      ClassicAssert.AreEqual(anyCount, dictionary.Count);
-      ClassicAssert.AreEqual(anyCount, sortedList.Count);
-      ClassicAssert.AreEqual(anyCount, sortedDictionary.Count);
-      ClassicAssert.AreEqual(anyCount, sortedEnumerable.Count());
-      ClassicAssert.AreEqual(anyCount, concurrentDictionary.Count);
-      ClassicAssert.AreEqual(anyCount, concurrentBag.Count);
-      ClassicAssert.AreEqual(anyCount, concurrentStack.Count);
-      ClassicAssert.AreEqual(anyCount, concurrentQueue.Count);
-      ClassicAssert.AreEqual(anyCount, frozenSet.Count);
-      ClassicAssert.AreEqual(anyCount, frozenDictionary.Count);
-    });
+      Assert.That(list.Count, Is.EqualTo(anyCount));
+      Assert.That(enumerable.Count(), Is.EqualTo(anyCount));
+      Assert.That(array.Length, Is.EqualTo(anyCount));
+      Assert.That(set.Count, Is.EqualTo(anyCount));
+      Assert.That(dictionary.Count, Is.EqualTo(anyCount));
+      Assert.That(sortedList.Count, Is.EqualTo(anyCount));
+      Assert.That(sortedDictionary.Count, Is.EqualTo(anyCount));
+      Assert.That(sortedEnumerable.Count(), Is.EqualTo(anyCount));
+      Assert.That(concurrentDictionary.Count, Is.EqualTo(anyCount));
+      Assert.That(concurrentBag.Count, Is.EqualTo(anyCount));
+      Assert.That(concurrentStack.Count, Is.EqualTo(anyCount));
+      Assert.That(concurrentQueue.Count, Is.EqualTo(anyCount));
+      Assert.That(frozenSet.Count, Is.EqualTo(anyCount));
+      Assert.That(frozenDictionary.Count, Is.EqualTo(anyCount));
+    }
   }
 
   [Test, Parallelizable]
@@ -684,22 +683,22 @@ public partial class AnySpecification
     var frozenSet = Any.Instance<FrozenSet<string>>();
     var frozenDictionary = Any.Instance<FrozenDictionary<string, ISimple>>();
 
-    Assert.Multiple(() =>
+    using (Assert.EnterMultipleScope())
     {
-      ClassicAssert.AreEqual(anyCount, list.Count);
-      ClassicAssert.AreEqual(anyCount, enumerable.Count());
-      ClassicAssert.AreEqual(anyCount, array.Length);
-      ClassicAssert.AreEqual(anyCount, set.Count);
-      ClassicAssert.AreEqual(anyCount, dictionary.Count);
-      ClassicAssert.AreEqual(anyCount, sortedList.Count);
-      ClassicAssert.AreEqual(anyCount, sortedDictionary.Count);
-      ClassicAssert.AreEqual(anyCount, concurrentDictionary.Count);
-      ClassicAssert.AreEqual(anyCount, concurrentStack.Count);
-      ClassicAssert.AreEqual(anyCount, concurrentBag.Count);
-      ClassicAssert.AreEqual(anyCount, concurrentQueue.Count);
-      ClassicAssert.AreEqual(anyCount, frozenSet.Count);
-      ClassicAssert.AreEqual(anyCount, frozenDictionary.Count);
-    });
+      Assert.That(list.Count, Is.EqualTo(anyCount));
+      Assert.That(enumerable.Count(), Is.EqualTo(anyCount));
+      Assert.That(array.Length, Is.EqualTo(anyCount));
+      Assert.That(set.Count, Is.EqualTo(anyCount));
+      Assert.That(dictionary.Count, Is.EqualTo(anyCount));
+      Assert.That(sortedList.Count, Is.EqualTo(anyCount));
+      Assert.That(sortedDictionary.Count, Is.EqualTo(anyCount));
+      Assert.That(concurrentDictionary.Count, Is.EqualTo(anyCount));
+      Assert.That(concurrentStack.Count, Is.EqualTo(anyCount));
+      Assert.That(concurrentBag.Count, Is.EqualTo(anyCount));
+      Assert.That(concurrentQueue.Count, Is.EqualTo(anyCount));
+      Assert.That(frozenSet.Count, Is.EqualTo(anyCount));
+      Assert.That(frozenDictionary.Count, Is.EqualTo(anyCount));
+    }
   }
 
   [Test, Parallelizable]
@@ -707,10 +706,10 @@ public partial class AnySpecification
   {
     var customCollection = Any.Instance<MyOwnCollection<RecursiveInterface>>();
 
-    ClassicAssert.AreEqual(3, customCollection.Count);
+    Assert.That(customCollection.Count, Is.EqualTo(3));
     foreach (var recursiveInterface in customCollection)
     {
-      ClassicAssert.NotNull(recursiveInterface);
+      Assert.That(recursiveInterface, Is.Not.Null);
     }
   }
 
@@ -719,10 +718,10 @@ public partial class AnySpecification
   {
     var customCollection = Any.Instance<MyOwnPcCollection<RecursiveInterface>>();
 
-    ClassicAssert.AreEqual(3, customCollection.Count);
+    Assert.That(customCollection.Count, Is.EqualTo(3));
     foreach (var recursiveInterface in customCollection)
     {
-      ClassicAssert.NotNull(recursiveInterface);
+      Assert.That(recursiveInterface, Is.Not.Null);
     }
   }
 
@@ -731,10 +730,10 @@ public partial class AnySpecification
   {
     var array = Any.ArrayWith(1, 2, 3);
 
-    CollectionAssert.Contains(array, 1);
-    CollectionAssert.Contains(array, 2);
-    CollectionAssert.Contains(array, 3);
-    ClassicAssert.GreaterOrEqual(array.Length, 3);
+    Assert.That(array, Has.Member(1));
+    Assert.That(array, Has.Member(2));
+    Assert.That(array, Has.Member(3));
+    Assert.That(array.Length, Is.GreaterThanOrEqualTo(3));
   }
 
   [Test, Parallelizable]
@@ -742,10 +741,10 @@ public partial class AnySpecification
   {
     var list = Any.ListWith(1, 2, 3);
 
-    CollectionAssert.Contains(list, 1);
-    CollectionAssert.Contains(list, 2);
-    CollectionAssert.Contains(list, 3);
-    ClassicAssert.GreaterOrEqual(list.Count, 3);
+    Assert.That(list, Has.Member(1));
+    Assert.That(list, Has.Member(2));
+    Assert.That(list, Has.Member(3));
+    Assert.That(list.Count, Is.GreaterThanOrEqualTo(3));
   }
 
   [Test, Parallelizable]
@@ -753,10 +752,10 @@ public partial class AnySpecification
   {
     var array = Any.ListWith<int>(new List<int> {1, 2, 3});
 
-    CollectionAssert.Contains(array, 1);
-    CollectionAssert.Contains(array, 2);
-    CollectionAssert.Contains(array, 3);
-    ClassicAssert.GreaterOrEqual(array.Count, 3);
+    Assert.That(array, Has.Member(1));
+    Assert.That(array, Has.Member(2));
+    Assert.That(array, Has.Member(3));
+    Assert.That(array.Count, Is.GreaterThanOrEqualTo(3));
   }
 
   [Test, Parallelizable]
@@ -764,10 +763,10 @@ public partial class AnySpecification
   {
     var array = Any.ArrayWith<int>(new List<int> {1, 2, 3});
 
-    CollectionAssert.Contains(array, 1);
-    CollectionAssert.Contains(array, 2);
-    CollectionAssert.Contains(array, 3);
-    ClassicAssert.GreaterOrEqual(array.Length, 3);
+    Assert.That(array, Has.Member(1));
+    Assert.That(array, Has.Member(2));
+    Assert.That(array, Has.Member(3));
+    Assert.That(array.Length, Is.GreaterThanOrEqualTo(3));
   }
 
   [Test, Parallelizable]
@@ -805,11 +804,11 @@ public partial class AnySpecification
   public void ShouldSupportCreationOfKeyValuePairs()
   {
     var kvp = Any.Instance<KeyValuePair<string, RecursiveInterface>>();
-    Assert.Multiple(() =>
+    using (Assert.EnterMultipleScope())
     {
-      ClassicAssert.NotNull(kvp.Key);
-      ClassicAssert.NotNull(kvp.Value);
-    });
+      Assert.That(kvp.Key, Is.Not.Null);
+      Assert.That(kvp.Value, Is.Not.Null);
+    }
   }
 
   [Test, Parallelizable]
@@ -819,7 +818,7 @@ public partial class AnySpecification
     var action = Any.Instance<Action<ISimple, string>>();
 
     //THEN
-    ClassicAssert.NotNull(action);
+    Assert.That(action, Is.Not.Null);
   }
 
   [Test, Parallelizable]
@@ -828,7 +827,7 @@ public partial class AnySpecification
     var maybeString1 = Any.Instance<Maybe<string>>();
     var maybeString2 = Any.Instance<Maybe<string>>();
 
-    ClassicAssert.AreNotEqual(maybeString1, maybeString2);
+    Assert.That(maybeString2, Is.Not.EqualTo(maybeString1));
     maybeString1.Should().NotBe(Maybe<string>.Nothing);
     maybeString2.Should().NotBe(Maybe<string>.Nothing);
   }
@@ -839,8 +838,8 @@ public partial class AnySpecification
     var maybeObject1 = Any.Instance<ObjectWithMaybe>();
     var maybeObject2 = Any.Instance<ObjectWithMaybe>();
 
-    ClassicAssert.AreNotEqual(maybeObject1.Property, maybeObject2.Property);
-    ClassicAssert.AreNotEqual(maybeObject1._field, maybeObject2._field);
+    Assert.That(maybeObject2.Property, Is.Not.EqualTo(maybeObject1.Property));
+    Assert.That(maybeObject2._field, Is.Not.EqualTo(maybeObject1._field));
     maybeObject1.Property.Should().NotBe(Maybe<ObjectWithMaybe>.Nothing);
     maybeObject1._field.Should().NotBe(Maybe<ObjectWithMaybe>.Nothing);
     maybeObject2.Property.Should().NotBe(Maybe<ObjectWithMaybe>.Nothing);
@@ -853,7 +852,7 @@ public partial class AnySpecification
     var maybeImplementation1 = Any.Instance<Maybe<RecursiveInterface>>();
     var maybeImplementation2 = Any.Instance<Maybe<RecursiveInterface>>();
 
-    ClassicAssert.AreNotEqual(maybeImplementation1, maybeImplementation2);
+    Assert.That(maybeImplementation2, Is.Not.EqualTo(maybeImplementation1));
     maybeImplementation1.Should().NotBe(Maybe<string>.Nothing);
     maybeImplementation2.Should().NotBe(Maybe<string>.Nothing);
   }
@@ -894,7 +893,7 @@ public partial class AnySpecification
     var element2 = enumerator.Current;
 
     //THEN
-    ClassicAssert.AreNotEqual(element2, element1);
+    Assert.That(element1, Is.Not.EqualTo(element2));
   }
 
   [Test, Parallelizable]
@@ -910,7 +909,7 @@ public partial class AnySpecification
     var element2 = enumerator.Current;
 
     //THEN
-    ClassicAssert.AreNotEqual(element2, element1);
+    Assert.That(element1, Is.Not.EqualTo(element2));
   }
 
   [Test, Parallelizable]
@@ -925,7 +924,7 @@ public partial class AnySpecification
     var element2 = instance.GetEnumerator().Current;
 
     //THEN
-    ClassicAssert.AreNotEqual(element2, element1);
+    Assert.That(element1, Is.Not.EqualTo(element2));
   }
 
   [Test, Parallelizable]
@@ -934,8 +933,8 @@ public partial class AnySpecification
     var value1 = Any.IntegerFromSequence(startingValue: 12, step: 112);
     var value2 = Any.IntegerFromSequence(startingValue: 12, step: 112);
 
-    ClassicAssert.AreEqual(value1, value2 - 112);
-    ClassicAssert.Greater(value1, 12);
+    Assert.That(value2 - 112, Is.EqualTo(value1));
+    Assert.That(value1, Is.GreaterThan(12));
   }
 
   [Test, Parallelizable]
@@ -944,9 +943,9 @@ public partial class AnySpecification
     var value1 = Any.IntegerDivisibleBy(5);
     var value2 = Any.IntegerDivisibleBy(5);
 
-    ClassicAssert.AreNotEqual(value1, value2);
-    ClassicAssert.AreEqual(0, value1 % 5);
-    ClassicAssert.AreEqual(0, value2 % 5);
+    Assert.That(value2, Is.Not.EqualTo(value1));
+    Assert.That(value1 % 5, Is.Zero);
+    Assert.That(value2 % 5, Is.Zero);
   }
 
   [Test, Parallelizable]
@@ -955,9 +954,9 @@ public partial class AnySpecification
     var value1 = Any.IntegerNotDivisibleBy(5);
     var value2 = Any.IntegerNotDivisibleBy(5);
 
-    ClassicAssert.AreNotEqual(value1, value2);
-    ClassicAssert.AreNotEqual(0, value1 % 5);
-    ClassicAssert.AreNotEqual(0, value2 % 5);
+    Assert.That(value2, Is.Not.EqualTo(value1));
+    Assert.That(value1 % 5, Is.Not.Zero);
+    Assert.That(value2 % 5, Is.Not.Zero);
   }
 
   [Test, Parallelizable]
@@ -971,13 +970,13 @@ public partial class AnySpecification
     Alike(Array.Empty<RecursiveClass>(), Any.Dummy<RecursiveClass[]>());
     Alike(new Dictionary<int, int>(), Any.Dummy<IDictionary<int, int>>());
     Alike(new Dictionary<int, int>(), Any.Dummy<IDictionary<int, int>>());
-    Assert.Multiple(() =>
+    using (Assert.EnterMultipleScope())
     {
       Assert.Throws<GenerationFailedException>(() => Any.Instance<ThrowingInConstructor>());
-      ClassicAssert.NotNull(Any.Dummy<ThrowingInConstructor>());
-      ClassicAssert.NotNull(Any.Dummy<string>());
-      ClassicAssert.NotNull(Any.Dummy<int>());
-    });
+      Assert.That(Any.Dummy<ThrowingInConstructor>(), Is.Not.Null);
+      Assert.That(Any.Dummy<string>(), Is.Not.Null);
+      Assert.That(Any.Dummy<int>(), Is.Not.Default);
+    }
   }
 
   [Test, Parallelizable]
@@ -1063,7 +1062,7 @@ public partial class AnySpecification
   public void ShouldGenerateComplexGraphsWithNonNullPublicProperties()
   {
     var entity = Any.Instance<AreaEntity>();
-    ClassicAssert.NotNull(entity.Feature);
+    Assert.That(entity.Feature, Is.Not.Null);
   }
 
   [Test, Parallelizable]
@@ -1078,7 +1077,7 @@ public partial class AnySpecification
     obj.Value = someValue;
 
     //THEN
-    ClassicAssert.AreEqual(someValue, obj.Value);
+    Assert.That(obj.Value, Is.EqualTo(someValue));
   }
 
   [Test, Parallelizable]
@@ -1104,8 +1103,8 @@ public partial class AnySpecification
     obj.Value = someValue;
 
     //THEN
-    ClassicAssert.AreEqual(someValue, obj.Value);
-    ClassicAssert.AreEqual(someValue, obj.Value);
+    Assert.That(obj.Value, Is.EqualTo(someValue));
+    Assert.That(obj.Value, Is.EqualTo(someValue));
   }
 
   [Test, Parallelizable]
@@ -1126,12 +1125,12 @@ public partial class AnySpecification
     var value1 = Any.IntegerWithExactDigitsCount(maxLength);
     var value2 = Any.IntegerWithExactDigitsCount(maxLength);
 
-    ClassicAssert.AreEqual(maxLength,
-      value1.ToString().Length,
+    Assert.That(value1.ToString().Length,
+      Is.EqualTo(maxLength),
       value1.ToString());
-    ClassicAssert.AreEqual(maxLength,
-      value2.ToString().Length, value2.ToString());
-    ClassicAssert.AreNotEqual(value1, value2);
+    Assert.That(value2.ToString().Length,
+      Is.EqualTo(maxLength), value2.ToString());
+    Assert.That(value2, Is.Not.EqualTo(value1));
   }
 
   [Test, Repeat(100)]
@@ -1141,12 +1140,12 @@ public partial class AnySpecification
     var value1 = Any.UnsignedIntegerWithExactDigitsCount(maxLength);
     var value2 = Any.UnsignedIntegerWithExactDigitsCount(maxLength);
 
-    ClassicAssert.AreEqual(maxLength,
-      value1.ToString().Length,
+    Assert.That(value1.ToString().Length,
+      Is.EqualTo(maxLength),
       value1.ToString());
-    ClassicAssert.AreEqual(maxLength,
-      value2.ToString().Length, value2.ToString());
-    ClassicAssert.AreNotEqual(value1, value2);
+    Assert.That(value2.ToString().Length,
+      Is.EqualTo(maxLength), value2.ToString());
+    Assert.That(value2, Is.Not.EqualTo(value1));
   }
 
   [Test, Repeat(100)]
@@ -1156,12 +1155,12 @@ public partial class AnySpecification
     var value1 = Any.LongIntegerWithExactDigitsCount(maxLength);
     var value2 = Any.LongIntegerWithExactDigitsCount(maxLength);
 
-    ClassicAssert.AreEqual(maxLength,
-      value1.ToString().Length,
+    Assert.That(value1.ToString().Length,
+      Is.EqualTo(maxLength),
       value1.ToString());
-    ClassicAssert.AreEqual(maxLength,
-      value2.ToString().Length, value2.ToString());
-    ClassicAssert.AreNotEqual(value1, value2);
+    Assert.That(value2.ToString().Length,
+      Is.EqualTo(maxLength), value2.ToString());
+    Assert.That(value2, Is.Not.EqualTo(value1));
   }
 
   [Test, Repeat(100)]
@@ -1171,12 +1170,12 @@ public partial class AnySpecification
     var value1 = Any.UnsignedLongIntegerWithExactDigitsCount(maxLength);
     var value2 = Any.UnsignedLongIntegerWithExactDigitsCount(maxLength);
 
-    ClassicAssert.AreEqual(maxLength,
-      value1.ToString().Length,
+    Assert.That(value1.ToString().Length,
+      Is.EqualTo(maxLength),
       value1.ToString());
-    ClassicAssert.AreEqual(maxLength,
-      value2.ToString().Length, value2.ToString());
-    ClassicAssert.AreNotEqual(value1, value2);
+    Assert.That(value2.ToString().Length,
+      Is.EqualTo(maxLength), value2.ToString());
+    Assert.That(value2, Is.Not.EqualTo(value1));
   }
 
   [Test, Repeat(100)]
@@ -1186,9 +1185,9 @@ public partial class AnySpecification
     var value1 = Any.IntegerWithExactDigitsCount(length);
     var value2 = Any.IntegerWithExactDigitsCount(length);
 
-    ClassicAssert.AreEqual(length, value1.ToString().Length, value1.ToString());
-    ClassicAssert.AreEqual(length, value2.ToString().Length, value2.ToString());
-    ClassicAssert.AreNotEqual(value1, value2);
+    Assert.That(value1.ToString().Length, Is.EqualTo(length), value1.ToString());
+    Assert.That(value2.ToString().Length, Is.EqualTo(length), value2.ToString());
+    Assert.That(value2, Is.Not.EqualTo(value1));
   }
 
   [Test, Repeat(100)]
@@ -1198,12 +1197,12 @@ public partial class AnySpecification
     var value1 = Any.UnsignedIntegerWithExactDigitsCount(length);
     var value2 = Any.UnsignedIntegerWithExactDigitsCount(length);
 
-    ClassicAssert.AreEqual(length,
-      value1.ToString().Length,
+    Assert.That(value1.ToString().Length,
+      Is.EqualTo(length),
       value1.ToString());
-    ClassicAssert.AreEqual(length,
-      value2.ToString().Length, value2.ToString());
-    ClassicAssert.AreNotEqual(value1, value2);
+    Assert.That(value2.ToString().Length,
+      Is.EqualTo(length), value2.ToString());
+    Assert.That(value2, Is.Not.EqualTo(value1));
   }
 
   [Test, Repeat(100)]
@@ -1213,12 +1212,12 @@ public partial class AnySpecification
     var value1 = Any.LongIntegerWithExactDigitsCount(length);
     var value2 = Any.LongIntegerWithExactDigitsCount(length);
 
-    ClassicAssert.AreEqual(length,
-      value1.ToString().Length,
+    Assert.That(value1.ToString().Length,
+      Is.EqualTo(length),
       value1.ToString());
-    ClassicAssert.AreEqual(length,
-      value2.ToString().Length, value2.ToString());
-    ClassicAssert.AreNotEqual(value1, value2);
+    Assert.That(value2.ToString().Length,
+      Is.EqualTo(length), value2.ToString());
+    Assert.That(value2, Is.Not.EqualTo(value1));
   }
 
   [Test, Repeat(100)]
@@ -1228,12 +1227,12 @@ public partial class AnySpecification
     var value1 = Any.UnsignedLongIntegerWithExactDigitsCount(length);
     var value2 = Any.UnsignedLongIntegerWithExactDigitsCount(length);
 
-    ClassicAssert.AreEqual(length,
-      value1.ToString().Length,
+    Assert.That(value1.ToString().Length,
+      Is.EqualTo(length),
       value1.ToString());
-    ClassicAssert.AreEqual(length,
-      value2.ToString().Length, value2.ToString());
-    ClassicAssert.AreNotEqual(value1, value2);
+    Assert.That(value2.ToString().Length,
+      Is.EqualTo(length), value2.ToString());
+    Assert.That(value2, Is.Not.EqualTo(value1));
   }
 
   [Test, Parallelizable]
@@ -1268,7 +1267,7 @@ public partial class AnySpecification
   public void ShouldHandleCopyConstructorsSomehow()
   {
     var o = Any.Instance<ObjectWithCopyConstructor>();
-    ClassicAssert.Null(o._field);
+    Assert.That(o._field, Is.Null);
   }
 
   [Test, Parallelizable]
@@ -1276,8 +1275,8 @@ public partial class AnySpecification
   {
     var o2 = Any.Instance<ComplexObjectWithFactoryMethodAndRecursiveConstructor>();
 
-    ClassicAssert.NotNull(o2.ToString());
-    ClassicAssert.IsNotEmpty(o2.ToString());
+    Assert.That(o2.ToString(), Is.Not.Null);
+    Assert.That(o2.ToString(), Is.Not.Empty);
   }
 
   [Test, Parallelizable]
@@ -1285,8 +1284,8 @@ public partial class AnySpecification
   {
     var o2 = Any.Instance<ObjectWithStaticParseMethod>();
 
-    ClassicAssert.NotNull(o2);
-    ClassicAssert.AreNotEqual(0, o2.X);
+    Assert.That(o2, Is.Not.Null);
+    Assert.That(o2.X, Is.Not.Zero);
   }
 
   [Test, Parallelizable]
@@ -1295,9 +1294,9 @@ public partial class AnySpecification
     var c1 = Any.Instance<CultureInfo>();
     var c2 = Any.Instance<CultureInfo>();
 
-    ClassicAssert.NotNull(c1);
-    ClassicAssert.NotNull(c2);
-    ClassicAssert.AreNotEqual(c1, c2);
+    Assert.That(c1, Is.Not.Null);
+    Assert.That(c2, Is.Not.Null);
+    Assert.That(c2, Is.Not.EqualTo(c1));
   }
 
   [Test, Repeat(10)]
@@ -1329,9 +1328,9 @@ public partial class AnySpecification
     var voidTask1 = Any.StartedTask();
     var voidTask2 = Any.StartedTask();
     //THEN
-    ClassicAssert.NotNull(voidTask1);
-    ClassicAssert.NotNull(voidTask2);
-    ClassicAssert.AreNotEqual(voidTask1, voidTask2);
+    Assert.That(voidTask1, Is.Not.Null);
+    Assert.That(voidTask2, Is.Not.Null);
+    Assert.That(voidTask2, Is.Not.EqualTo(voidTask1));
     Assert.Throws<InvalidOperationException>(voidTask1.Start);
     Assert.Throws<InvalidOperationException>(voidTask2.Start);
   }
@@ -1382,13 +1381,13 @@ public partial class AnySpecification
     var task1 = Any.StartedTask<string>();
     var task2 = Any.StartedTask<string>();
     //THEN
-    ClassicAssert.NotNull(task1);
-    ClassicAssert.NotNull(task2);
-    ClassicAssert.AreNotEqual(task1, task2);
+    Assert.That(task1, Is.Not.Null);
+    Assert.That(task2, Is.Not.Null);
+    Assert.That(task2, Is.Not.EqualTo(task1));
     Assert.Throws<InvalidOperationException>(() => task1.Start());
     Assert.Throws<InvalidOperationException>(() => task2.Start());
-    ClassicAssert.NotNull(task1.Result);
-    ClassicAssert.NotNull(task2.Result);
+    Assert.That(task1.Result, Is.Not.Null);
+    Assert.That(task2.Result, Is.Not.Null);
   }
 
   [Test, Parallelizable]
@@ -1399,10 +1398,10 @@ public partial class AnySpecification
     //WHEN
 
     //THEN
-    ClassicAssert.NotNull(readOnlyList);
-    ClassicAssert.AreEqual(3, readOnlyList.Count);
-    CollectionAssert.AllItemsAreNotNull(readOnlyList);
-    CollectionAssert.AllItemsAreUnique(readOnlyList);
+    Assert.That(readOnlyList, Is.Not.Null);
+    Assert.That(readOnlyList.Count, Is.EqualTo(3));
+    Assert.That(readOnlyList, Is.All.Not.Null);
+    Assert.That(readOnlyList, Is.Unique);
   }
 
   [Test, Parallelizable]
@@ -1413,10 +1412,10 @@ public partial class AnySpecification
     //WHEN
 
     //THEN
-    ClassicAssert.NotNull(readOnlyList);
-    ClassicAssert.AreEqual(3, readOnlyList.Count);
-    CollectionAssert.AllItemsAreNotNull(readOnlyList);
-    CollectionAssert.AllItemsAreUnique(readOnlyList);
+    Assert.That(readOnlyList, Is.Not.Null);
+    Assert.That(readOnlyList.Count, Is.EqualTo(3));
+    Assert.That(readOnlyList, Is.All.Not.Null);
+    Assert.That(readOnlyList, Is.Unique);
   }
 
   [Test, Parallelizable]
@@ -1427,10 +1426,10 @@ public partial class AnySpecification
     //WHEN
 
     //THEN
-    ClassicAssert.NotNull(readonlyDictionary);
-    ClassicAssert.AreEqual(3, readonlyDictionary.Count);
-    CollectionAssert.AllItemsAreNotNull(readonlyDictionary);
-    CollectionAssert.AllItemsAreUnique(readonlyDictionary);
+    Assert.That(readonlyDictionary, Is.Not.Null);
+    Assert.That(readonlyDictionary.Count, Is.EqualTo(3));
+    Assert.That(readonlyDictionary, Is.All.Not.Null);
+    Assert.That(readonlyDictionary, Is.Unique);
   }
 
   [Test, Parallelizable]
@@ -1442,10 +1441,10 @@ public partial class AnySpecification
     //WHEN
 
     //THEN
-    ClassicAssert.NotNull(readOnlyList);
-    ClassicAssert.AreEqual(length, readOnlyList.Count);
-    CollectionAssert.AllItemsAreNotNull(readOnlyList);
-    CollectionAssert.AllItemsAreUnique(readOnlyList);
+    Assert.That(readOnlyList, Is.Not.Null);
+    Assert.That(readOnlyList.Count, Is.EqualTo(length));
+    Assert.That(readOnlyList, Is.All.Not.Null);
+    Assert.That(readOnlyList, Is.Unique);
   }
 
   [Test, Parallelizable]
@@ -1456,10 +1455,10 @@ public partial class AnySpecification
     //WHEN
 
     //THEN
-    ClassicAssert.NotNull(readOnlyList);
-    ClassicAssert.AreEqual(3, readOnlyList.Count);
-    CollectionAssert.AllItemsAreNotNull(readOnlyList);
-    CollectionAssert.AllItemsAreUnique(readOnlyList);
+    Assert.That(readOnlyList, Is.Not.Null);
+    Assert.That(readOnlyList.Count, Is.EqualTo(3));
+    Assert.That(readOnlyList, Is.All.Not.Null);
+    Assert.That(readOnlyList, Is.Unique);
   }
 
   [Test, Parallelizable]
@@ -1470,8 +1469,8 @@ public partial class AnySpecification
     //WHEN
 
     //THEN
-    ClassicAssert.NotNull(readOnlyList);
-    ClassicAssert.AreEqual(0, readOnlyList.Count);
+    Assert.That(readOnlyList, Is.Not.Null);
+    Assert.That(readOnlyList.Count, Is.Zero);
   }
 
   [Test, Parallelizable]
@@ -1482,10 +1481,10 @@ public partial class AnySpecification
     //WHEN
 
     //THEN
-    ClassicAssert.NotNull(obj);
-    ClassicAssert.AreEqual(3, obj.Elements.Count);
-    CollectionAssert.AllItemsAreNotNull(obj.Elements);
-    CollectionAssert.AllItemsAreUnique(obj.Elements);
+    Assert.That(obj, Is.Not.Null);
+    Assert.That(obj.Elements.Count, Is.EqualTo(3));
+    Assert.That(obj.Elements, Is.All.Not.Null);
+    Assert.That(obj.Elements, Is.Unique);
   }
 
   [Test, Parallelizable]
@@ -1496,10 +1495,10 @@ public partial class AnySpecification
     //WHEN
 
     //THEN
-    ClassicAssert.NotNull(readOnlyList);
-    ClassicAssert.AreEqual(3, readOnlyList.Count);
-    CollectionAssert.AllItemsAreNotNull(readOnlyList);
-    CollectionAssert.AllItemsAreUnique(readOnlyList);
+    Assert.That(readOnlyList, Is.Not.Null);
+    Assert.That(readOnlyList.Count, Is.EqualTo(3));
+    Assert.That(readOnlyList, Is.All.Not.Null);
+    Assert.That(readOnlyList, Is.Unique);
   }
 
   [Test, Parallelizable]
@@ -1510,22 +1509,22 @@ public partial class AnySpecification
     //WHEN
 
     //THEN
-    ClassicAssert.NotNull(collection);
-    ClassicAssert.AreEqual(3, collection.Length);
-    CollectionAssert.AllItemsAreNotNull(collection);
-    CollectionAssert.AllItemsAreUnique(collection);
+    Assert.That(collection, Is.Not.Default);
+    Assert.That(collection.Length, Is.EqualTo(3));
+    Assert.That(collection, Is.All.Not.Null);
+    Assert.That(collection, Is.Unique);
   }
 
   [Test, Parallelizable]
   public void ShouldAllowGeneratingDummyImmutableArrays()
   {
     //GIVEN
-    var readOnlyList = Any.Dummy<ImmutableArray<int>>();
+    var immutableArray = Any.Dummy<ImmutableArray<int>>();
     //WHEN
 
     //THEN
-    ClassicAssert.NotNull(readOnlyList);
-    ClassicAssert.AreEqual(0, readOnlyList.Length);
+    Assert.That(immutableArray, Is.Not.Default);
+    Assert.That(immutableArray.Length, Is.Zero);
   }
 
   [Test, Parallelizable, Ignore("diminishing disabled for now for backwards compatibility reasons")]
@@ -1542,7 +1541,7 @@ public partial class AnySpecification
     //WHEN
 
     //THEN
-    ClassicAssert.NotNull(collection);
+    Assert.That(collection, Is.Not.Default);
     collection.First().First().First().First().First().Length.Should().Be(1);
   }
 
@@ -1554,10 +1553,10 @@ public partial class AnySpecification
     //WHEN
 
     //THEN
-    ClassicAssert.NotNull(readOnlyList);
-    ClassicAssert.AreEqual(3, readOnlyList.Count);
-    CollectionAssert.AllItemsAreNotNull(readOnlyList);
-    CollectionAssert.AllItemsAreUnique(readOnlyList);
+    Assert.That(readOnlyList, Is.Not.Null);
+    Assert.That(readOnlyList.Count, Is.EqualTo(3));
+    Assert.That(readOnlyList, Is.All.Not.Null);
+    Assert.That(readOnlyList, Is.Unique);
   }
 
   [Test, Parallelizable]
@@ -1568,10 +1567,10 @@ public partial class AnySpecification
     //WHEN
 
     //THEN
-    ClassicAssert.NotNull(readOnlyList);
-    ClassicAssert.AreEqual(3, readOnlyList.Count);
-    CollectionAssert.AllItemsAreNotNull(readOnlyList);
-    CollectionAssert.AllItemsAreUnique(readOnlyList);
+    Assert.That(readOnlyList, Is.Not.Null);
+    Assert.That(readOnlyList.Count, Is.EqualTo(3));
+    Assert.That(readOnlyList, Is.All.Not.Null);
+    Assert.That(readOnlyList, Is.Unique);
   }
 
   [Test, Parallelizable]
@@ -1582,8 +1581,8 @@ public partial class AnySpecification
     //WHEN
 
     //THEN
-    ClassicAssert.NotNull(readOnlyList);
-    ClassicAssert.AreEqual(0, readOnlyList.Count);
+    Assert.That(readOnlyList, Is.Not.Null);
+    Assert.That(readOnlyList.Count, Is.Zero);
   }
 
   [Test, Parallelizable]
@@ -1594,10 +1593,10 @@ public partial class AnySpecification
     //WHEN
 
     //THEN
-    ClassicAssert.NotNull(collection);
-    ClassicAssert.AreEqual(3, collection.Count);
-    CollectionAssert.AllItemsAreNotNull(collection);
-    CollectionAssert.AllItemsAreUnique(collection);
+    Assert.That(collection, Is.Not.Null);
+    Assert.That(collection.Count, Is.EqualTo(3));
+    Assert.That(collection, Is.All.Not.Null);
+    Assert.That(collection, Is.Unique);
   }
     
   [Test, Parallelizable]
@@ -1608,10 +1607,10 @@ public partial class AnySpecification
     //WHEN
 
     //THEN
-    ClassicAssert.NotNull(collection);
-    ClassicAssert.AreEqual(3, collection.Count);
-    CollectionAssert.AllItemsAreNotNull(collection);
-    CollectionAssert.AllItemsAreUnique(collection);
+    Assert.That(collection, Is.Not.Null);
+    Assert.That(collection.Count, Is.EqualTo(3));
+    Assert.That(collection, Is.All.Not.Null);
+    Assert.That(collection, Is.Unique);
   }
 
   [Test, Parallelizable]
@@ -1622,8 +1621,8 @@ public partial class AnySpecification
     //WHEN
 
     //THEN
-    ClassicAssert.NotNull(collection);
-    ClassicAssert.AreEqual(0, collection.Count);
+    Assert.That(collection, Is.Not.Null);
+    Assert.That(collection.Count, Is.Zero);
   }
 
   [Test, Parallelizable]
@@ -1634,10 +1633,10 @@ public partial class AnySpecification
     //WHEN
 
     //THEN
-    ClassicAssert.NotNull(collection);
-    ClassicAssert.AreEqual(3, collection.Count);
-    CollectionAssert.AllItemsAreNotNull(collection);
-    CollectionAssert.AllItemsAreUnique(collection);
+    Assert.That(collection, Is.Not.Null);
+    Assert.That(collection.Count, Is.EqualTo(3));
+    Assert.That(collection, Is.All.Not.Null);
+    Assert.That(collection, Is.Unique);
   }
     
   [Test, Parallelizable]
@@ -1648,10 +1647,10 @@ public partial class AnySpecification
     //WHEN
 
     //THEN
-    ClassicAssert.NotNull(collection);
-    ClassicAssert.AreEqual(3, collection.Count());
-    CollectionAssert.AllItemsAreNotNull(collection);
-    CollectionAssert.AllItemsAreUnique(collection);
+    Assert.That(collection, Is.Not.Null);
+    Assert.That(collection.Count(), Is.EqualTo(3));
+    Assert.That(collection, Is.All.Not.Null);
+    Assert.That(collection, Is.Unique);
   }
 
   [Test, Parallelizable]
@@ -1662,8 +1661,8 @@ public partial class AnySpecification
     //WHEN
 
     //THEN
-    ClassicAssert.NotNull(collection);
-    ClassicAssert.AreEqual(0, collection.Count());
+    Assert.That(collection, Is.Not.Null);
+    Assert.That(collection.Count(), Is.Zero);
   }
 
   [Test, Parallelizable]
@@ -1674,10 +1673,10 @@ public partial class AnySpecification
     //WHEN
 
     //THEN
-    ClassicAssert.NotNull(collection);
-    ClassicAssert.AreEqual(3, collection.Count);
-    CollectionAssert.AllItemsAreNotNull(collection);
-    CollectionAssert.AllItemsAreUnique(collection);
+    Assert.That(collection, Is.Not.Null);
+    Assert.That(collection.Count, Is.EqualTo(3));
+    Assert.That(collection, Is.All.Not.Null);
+    Assert.That(collection, Is.Unique);
   }
 
   [Test, Parallelizable]
@@ -1688,10 +1687,10 @@ public partial class AnySpecification
     //WHEN
 
     //THEN
-    ClassicAssert.NotNull(collection);
-    ClassicAssert.AreEqual(3, collection.Count);
-    CollectionAssert.AllItemsAreNotNull(collection);
-    CollectionAssert.AllItemsAreUnique(collection);
+    Assert.That(collection, Is.Not.Null);
+    Assert.That(collection.Count, Is.EqualTo(3));
+    Assert.That(collection, Is.All.Not.Null);
+    Assert.That(collection, Is.Unique);
   }
 
   [Test, Parallelizable]
@@ -1702,8 +1701,8 @@ public partial class AnySpecification
     //WHEN
 
     //THEN
-    ClassicAssert.NotNull(collection);
-    ClassicAssert.AreEqual(0, collection.Count);
+    Assert.That(collection, Is.Not.Null);
+    Assert.That(collection.Count, Is.Zero);
   }
 
   [Test, Parallelizable]
@@ -1714,10 +1713,10 @@ public partial class AnySpecification
     //WHEN
 
     //THEN
-    ClassicAssert.NotNull(collection);
-    ClassicAssert.AreEqual(3, collection.Count);
-    CollectionAssert.AllItemsAreNotNull(collection);
-    CollectionAssert.AllItemsAreUnique(collection);
+    Assert.That(collection, Is.Not.Null);
+    Assert.That(collection.Count, Is.EqualTo(3));
+    Assert.That(collection, Is.All.Not.Null);
+    Assert.That(collection, Is.Unique);
   }
 
   [Test, Parallelizable]
@@ -1728,10 +1727,10 @@ public partial class AnySpecification
     //WHEN
 
     //THEN
-    ClassicAssert.NotNull(collection);
-    ClassicAssert.AreEqual(3, collection.Count);
-    CollectionAssert.AllItemsAreNotNull(collection);
-    CollectionAssert.AllItemsAreUnique(collection);
+    Assert.That(collection, Is.Not.Null);
+    Assert.That(collection.Count, Is.EqualTo(3));
+    Assert.That(collection, Is.All.Not.Null);
+    Assert.That(collection, Is.Unique);
   }
 
   [Test, Parallelizable]
@@ -1742,8 +1741,8 @@ public partial class AnySpecification
     //WHEN
 
     //THEN
-    ClassicAssert.NotNull(collection);
-    ClassicAssert.AreEqual(0, collection.Count);
+    Assert.That(collection, Is.Not.Null);
+    Assert.That(collection.Count, Is.Zero);
   }
 
   [Test, Parallelizable]
@@ -1754,10 +1753,10 @@ public partial class AnySpecification
     //WHEN
 
     //THEN
-    ClassicAssert.NotNull(collection);
-    ClassicAssert.AreEqual(3, collection.Count);
-    CollectionAssert.AllItemsAreNotNull(collection);
-    CollectionAssert.AllItemsAreUnique(collection);
+    Assert.That(collection, Is.Not.Null);
+    Assert.That(collection.Count, Is.EqualTo(3));
+    Assert.That(collection, Is.All.Not.Null);
+    Assert.That(collection, Is.Unique);
   }
 
   [Test, Parallelizable]
@@ -1768,10 +1767,10 @@ public partial class AnySpecification
     //WHEN
 
     //THEN
-    ClassicAssert.NotNull(collection);
-    ClassicAssert.AreEqual(3, collection.Count());
-    CollectionAssert.AllItemsAreNotNull(collection);
-    CollectionAssert.AllItemsAreUnique(collection);
+    Assert.That(collection, Is.Not.Null);
+    Assert.That(collection.Count(), Is.EqualTo(3));
+    Assert.That(collection, Is.All.Not.Null);
+    Assert.That(collection, Is.Unique);
   }
 
   [Test, Parallelizable]
@@ -1782,8 +1781,8 @@ public partial class AnySpecification
     //WHEN
 
     //THEN
-    ClassicAssert.NotNull(collection);
-    ClassicAssert.AreEqual(0, collection.Count());
+    Assert.That(collection, Is.Not.Null);
+    Assert.That(collection.Count(), Is.Zero);
   }
 
   [Test, Parallelizable]
@@ -1794,10 +1793,10 @@ public partial class AnySpecification
     //WHEN
 
     //THEN
-    ClassicAssert.NotNull(collection);
-    ClassicAssert.AreEqual(3, collection.Count());
-    CollectionAssert.AllItemsAreNotNull(collection);
-    CollectionAssert.AllItemsAreUnique(collection);
+    Assert.That(collection, Is.Not.Null);
+    Assert.That(collection.Count(), Is.EqualTo(3));
+    Assert.That(collection, Is.All.Not.Null);
+    Assert.That(collection, Is.Unique);
   }
 
 
@@ -1838,7 +1837,7 @@ public partial class AnySpecification
     var serializerSettings = Any.Instance<JsonSerializerSettings>();
 
     //THEN
-    ClassicAssert.NotNull(serializerSettings);
+    Assert.That(serializerSettings, Is.Not.Null);
   }
 
   [Test, Parallelizable]
@@ -1905,13 +1904,13 @@ public partial class AnySpecification
 
   private static void AssertStringIsNumeric(string theString, int expectedLength)
   {
-    ClassicAssert.AreEqual(expectedLength, theString.Length);
+    Assert.That(theString.Length, Is.EqualTo(expectedLength));
     foreach (var character in theString)
     {
-      ClassicAssert.True(char.IsDigit(character), $"Expected digit, got {character}");
+      Assert.That(char.IsDigit(character), Is.True, $"Expected digit, got {character}");
     }
 
-    ClassicAssert.AreNotEqual('0', theString[0]);
+    Assert.That(theString[0], Is.Not.EqualTo('0'));
   }
 
   private static int MaxLengthOfInt()

@@ -1,5 +1,4 @@
 ﻿using System;
-using NUnit.Framework.Legacy;
 using TddXt.TypeReflection;
 
 namespace AnySpecification;
@@ -9,11 +8,11 @@ public class TypeOfTypeSpecification
   [Test, Parallelizable]
   public void ShouldCorrectlyDetermineIfObjectIsOfTypeType() //this is not a typo!
   {
-    Assert.Multiple(() =>
+    using (Assert.EnterMultipleScope())
     {
-      ClassicAssert.False(TypeOfType.Is<object>());
-      ClassicAssert.False(TypeOfType.Is<int>());
-      ClassicAssert.True(TypeOfType.Is<Type>());
-    });
+      Assert.That(TypeOfType.Is<object>(), Is.False);
+      Assert.That(TypeOfType.Is<int>(), Is.False);
+      Assert.That(TypeOfType.Is<Type>(), Is.True);
+    }
   }
 }

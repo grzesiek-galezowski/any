@@ -1,6 +1,5 @@
 ﻿using AnySpecification.Fixtures;
 using Core.NullableReferenceTypesExtensions;
-using NUnit.Framework.Legacy;
 
 namespace AnySpecification;
 
@@ -12,9 +11,9 @@ public class RecursionAndNestingSpecification
     //GIVEN
     var instance = Any.Instance<RecursiveClass>();
 
-    ClassicAssert.NotNull(instance.Same.OrThrow().Same.OrThrow().Same, "Last recursive element should be generated as uninitialized dummy");
-    ClassicAssert.Null(instance.Same.OrThrow().Same.OrThrow().Same.OrThrow().Same, "Semi-last is dummy");
-    ClassicAssert.NotNull(instance.Same.OrThrow().Same.OrThrow().Same.OrThrow().Whatever, "Whatever doesn't increase recursion count");
+    Assert.That(instance.Same.OrThrow().Same.OrThrow().Same, Is.Not.Null, "Last recursive element should be generated as uninitialized dummy");
+    Assert.That(instance.Same.OrThrow().Same.OrThrow().Same.OrThrow().Same, Is.Null, "Semi-last is dummy");
+    Assert.That(instance.Same.OrThrow().Same.OrThrow().Same.OrThrow().Whatever, Is.Not.Null, "Whatever doesn't increase recursion count");
   }
   
   [Test, Parallelizable]
@@ -23,8 +22,8 @@ public class RecursionAndNestingSpecification
     //GIVEN
     var instance = Any.Instance<RecursiveClassWithOnlyReferenceToItself>();
 
-    ClassicAssert.NotNull(instance.Same.OrThrow().Same.OrThrow().Same, "Fourth recursive element should be generated as uninitialized dummy");
-    ClassicAssert.Null(instance.Same.OrThrow().Same.OrThrow().Same.OrThrow().Same, "Semi-last is dummy");
+    Assert.That(instance.Same.OrThrow().Same.OrThrow().Same, Is.Not.Null, "Fourth recursive element should be generated as uninitialized dummy");
+    Assert.That(instance.Same.OrThrow().Same.OrThrow().Same.OrThrow().Same, Is.Null, "Semi-last is dummy");
   }
   
   [Test, Parallelizable]
@@ -33,8 +32,8 @@ public class RecursionAndNestingSpecification
     //GIVEN
     var instance = Any.Instance<RecursiveClassWithOnlyReferenceToItselfInConstructor>();
 
-    ClassicAssert.NotNull(instance.Same.Same.Same, "Fourth recursive element should be generated as uninitialized dummy");
-    ClassicAssert.Null(instance.Same.Same.Same.Same, "Semi-last is dummy");
+    Assert.That(instance.Same.Same.Same, Is.Not.Null, "Fourth recursive element should be generated as uninitialized dummy");
+    Assert.That(instance.Same.Same.Same.Same, Is.Null, "Semi-last is dummy");
   }
 
   [Test, Parallelizable]
@@ -43,11 +42,11 @@ public class RecursionAndNestingSpecification
     //GIVEN
     var instance = Any.Instance<ObjectWithIndirectRecursion>();
 
-    ClassicAssert.NotNull(
+    Assert.That(
       instance.Other2.OrThrow().Other.OrThrow().Other2.OrThrow().Other.OrThrow().Other2.OrThrow().Other.OrThrow()
-        .Other2, "Dummy algorithm generates one last dummy");
-    ClassicAssert.Null(instance.Other2.OrThrow().Other.OrThrow().Other2.OrThrow().Other.OrThrow().Other2.OrThrow().Other
-      .OrThrow().Other2.OrThrow().Other);
+        .Other2, Is.Not.Null, "Dummy algorithm generates one last dummy");
+    Assert.That(instance.Other2.OrThrow().Other.OrThrow().Other2.OrThrow().Other.OrThrow().Other2.OrThrow().Other
+      .OrThrow().Other2.OrThrow().Other, Is.Null);
   }
 
   [Test, Parallelizable, Ignore("diminishing disabled for now for backwards compatibility reasons")]
@@ -57,8 +56,8 @@ public class RecursionAndNestingSpecification
     var instance = Any.Instance<RecursiveClass>();
 
     //THEN
-    ClassicAssert.AreEqual(1,
-      instance.Others.OrThrow()[0].Other.OrThrow().Others.OrThrow()[0].Other.OrThrow().Others.OrThrow().Length,
+    Assert.That(instance.Others.OrThrow()[0].Other.OrThrow().Others.OrThrow()[0].Other.OrThrow().Others.OrThrow().Length,
+      Is.EqualTo(1),
       "Dummy algorithm generates an empty collection");
   }
 
