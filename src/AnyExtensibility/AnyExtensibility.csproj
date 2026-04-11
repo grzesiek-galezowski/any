@@ -1,5 +1,9 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
+    <TargetFrameworks>net10.0</TargetFrameworks>
+  </PropertyGroup>
+
+  <PropertyGroup>
     <AssemblyName>TddXt.Any.Extensibility</AssemblyName>
     <RootNamespace>TddXt.AnyExtensibility</RootNamespace>
     <Authors>Grzegorz Gałęzowski</Authors>

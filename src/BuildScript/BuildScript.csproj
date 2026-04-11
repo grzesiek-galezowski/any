@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
+    <TargetFrameworks>net10.0</TargetFrameworks>
   </PropertyGroup>
 
   <ItemGroup>
@@ -11,7 +12,6 @@
     <PackageReference Include="AwesomeAssertions" />
     <PackageReference Include="NScan" />
     <PackageReference Include="SimpleExec" />
-    <PackageReference Include="System.Text.RegularExpressions" />
   </ItemGroup>
 
 </Project>
