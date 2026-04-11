@@ -5,14 +5,17 @@ namespace TddXt.TypeResolution.FakeChainElements.InlineGeneratorTypes.Strings;
 
 public static class InlineCharGeneratorExtensions
 {
-  public static ValueConversion<char, char> AsUpperCase(this InlineGenerator<char> gen)
+  extension(InlineGenerator<char> gen)
   {
-    return Conversion(gen, char.ToUpperInvariant);
-  }
+    public ValueConversion<char, char> AsUpperCase()
+    {
+      return Conversion(gen, char.ToUpperInvariant);
+    }
 
-  public static ValueConversion<char, char> AsLowerCase(this InlineGenerator<char> gen)
-  {
-    return Conversion(gen, char.ToLowerInvariant);
+    public ValueConversion<char, char> AsLowerCase()
+    {
+      return Conversion(gen, char.ToLowerInvariant);
+    }
   }
 
   private static ValueConversion<T, U> Conversion<T, U>(

@@ -8,26 +8,28 @@ namespace TddXt.AnyRoot.Builder;
 
 public static class BuilderExtensions
 {
-  public static T WithProperty<T, TValue>(this T target, Expression<Func<T, TValue>> memberLambda, TValue value)
-    where T : notnull
+  extension<T>(T target) where T : notnull
   {
-    if (target == null)
+    public T WithProperty<TValue>(Expression<Func<T, TValue>> memberLambda, TValue value)
     {
-      throw new Exception("Cannot set a property on null");
-    }
-    if (memberLambda.Body is MemberExpression memberSelectorExpression)
-    {
-      if (memberSelectorExpression.Member is PropertyInfo propertyInfo)
+      if (target == null)
       {
-        SetValue(TargetParentObject(target, memberSelectorExpression), value, propertyInfo);
+        throw new Exception("Cannot set a property on null");
       }
-      else if (memberSelectorExpression.Member is FieldInfo fieldInfo)
+      if (memberLambda.Body is MemberExpression memberSelectorExpression)
       {
-        SetValue(TargetParentObject(target, memberSelectorExpression), value, fieldInfo);
+        if (memberSelectorExpression.Member is PropertyInfo propertyInfo)
+        {
+          SetValue(TargetParentObject(target, memberSelectorExpression), value, propertyInfo);
+        }
+        else if (memberSelectorExpression.Member is FieldInfo fieldInfo)
+        {
+          SetValue(TargetParentObject(target, memberSelectorExpression), value, fieldInfo);
+        }
       }
-    }
 
-    return target;
+      return target;
+    }
   }
 
   private static object TargetParentObject(object target, MemberExpression memberSelectorExpression)
@@ -90,12 +92,15 @@ public static class BuilderExtensions
     }
   }
 
-  private static bool IsAutoProperty(this PropertyInfo prop)
+  extension(PropertyInfo prop)
   {
-    return prop.DeclaringType
-      .OrThrow()
-      .GetFields(BindingFlags.NonPublic | BindingFlags.Instance)
-      .OrThrow()
-      .Any(f => f.Name.Contains("<" + prop.Name + ">"));
+    private bool IsAutoProperty()
+    {
+      return prop.DeclaringType
+        .OrThrow()
+        .GetFields(BindingFlags.NonPublic | BindingFlags.Instance)
+        .OrThrow()
+        .Any(f => f.Name.Contains("<" + prop.Name + ">"));
+    }
   }
 }

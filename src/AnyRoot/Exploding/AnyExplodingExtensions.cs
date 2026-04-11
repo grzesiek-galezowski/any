@@ -5,8 +5,11 @@ namespace TddXt.AnyRoot.Exploding;
 
 public static class AnyExplodingExtensions
 {
-  public static T Exploding<T>(this BasicGenerator gen) where T : class
+  extension(BasicGenerator gen)
   {
-    return gen.InstanceOf(InlineGenerators.Exploding<T>());
+    public T Exploding<T>() where T : class
+    {
+      return gen.InstanceOf(InlineGenerators.Exploding<T>());
+    }
   }
 }

@@ -27,62 +27,65 @@ public static class AnyExtensions
     typeof(string)
   ];
 
-  public static T From<T>(this BasicGenerator gen, params T[] possibleValues)
+  extension(BasicGenerator gen)
   {
-    return gen.InstanceOf(InlineGenerators.From(possibleValues));
-  }
-
-  public static bool Boolean(this BasicGenerator gen)
-  {
-    return gen.InstanceOf(InlineGenerators.Boolean());
-  }
-
-  public static object Object(this BasicGenerator gen)
-  {
-    return gen.InstanceOf(InlineGenerators.Object());
-  }
-
-  public static T OtherThan<T>(this BasicGenerator gen, params T[]? skippedValues)
-  {
-    if (skippedValues == null)
+    public T From<T>(params T[] possibleValues)
     {
-      return gen.Instance<T>();
+      return gen.InstanceOf(InlineGenerators.From(possibleValues));
     }
 
-    if (ThereAreRepeatedItemsIn(skippedValues))
+    public bool Boolean()
     {
-      throw new ArgumentException(
-        "there is no point in passing a single value twice for skip", 
-        nameof(skippedValues));
+      return gen.InstanceOf(InlineGenerators.Boolean());
     }
 
-    if (ValueTypes.Contains(typeof(T)))
+    public object Object()
     {
-      return gen.InstanceOf(InlineGenerators.ValueOtherThan(skippedValues));
+      return gen.InstanceOf(InlineGenerators.Object());
     }
-    else
+
+    public T OtherThan<T>(params T[]? skippedValues)
     {
-      return gen.InstanceOf(InlineGenerators.OtherThan(skippedValues));
+      if (skippedValues == null)
+      {
+        return gen.Instance<T>();
+      }
+
+      if (ThereAreRepeatedItemsIn(skippedValues))
+      {
+        throw new ArgumentException(
+          "there is no point in passing a single value twice for skip",
+          nameof(skippedValues));
+      }
+
+      if (ValueTypes.Contains(typeof(T)))
+      {
+        return gen.InstanceOf(InlineGenerators.ValueOtherThan(skippedValues));
+      }
+      else
+      {
+        return gen.InstanceOf(InlineGenerators.OtherThan(skippedValues));
+      }
+    }
+
+    public T Dummy<T>()
+    {
+      return gen.InstanceOf(new DummyGenerator<T>());
+    }
+
+    public Guid Guid()
+    {
+      return gen.InstanceOf(InlineGenerators.Guid());
+    }
+
+    public Exception Exception()
+    {
+      return gen.InstanceOf(InlineGenerators.Exception());
     }
   }
 
   private static bool ThereAreRepeatedItemsIn<T>(T[] omittedValues)
   {
     return !omittedValues.SequenceEqual(omittedValues.Distinct());
-  }
-
-  public static T Dummy<T>(this BasicGenerator gen)
-  {
-    return gen.InstanceOf(new DummyGenerator<T>());
-  }
-
-  public static Guid Guid(this BasicGenerator gen)
-  {
-    return gen.InstanceOf(InlineGenerators.Guid());
-  }
-
-  public static Exception Exception(this BasicGenerator gen)
-  {
-    return gen.InstanceOf(InlineGenerators.Exception());
   }
 }

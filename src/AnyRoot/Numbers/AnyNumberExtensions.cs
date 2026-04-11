@@ -6,70 +6,73 @@ namespace TddXt.AnyRoot.Numbers;
 
 public static class AnyNumberExtensions
 {
-  public static int Integer(this BasicGenerator gen)
+  extension(BasicGenerator gen)
   {
-    return gen.Instance<int>();
-  }
+    public int Integer()
+    {
+      return gen.Instance<int>();
+    }
 
-  public static double Double(this BasicGenerator gen)
-  {
-    return gen.Instance<double>();
-  }
+    public double Double()
+    {
+      return gen.Instance<double>();
+    }
 
-  public static float Float(this BasicGenerator gen)
-  {
-    return gen.Instance<float>();
-  }
+    public float Float()
+    {
+      return gen.Instance<float>();
+    }
 
-  public static long Long(this BasicGenerator gen)
-  {
-    return gen.Instance<long>();
-  }
+    public long Long()
+    {
+      return gen.Instance<long>();
+    }
 
-  public static ulong UnsignedLong(this BasicGenerator gen)
-  {
-    return gen.Instance<ulong>();
-  }
+    public ulong UnsignedLong()
+    {
+      return gen.Instance<ulong>();
+    }
 
-  public static byte Byte(this BasicGenerator gen)
-  {
-    return gen.Instance<byte>();
-  }
+    public byte Byte()
+    {
+      return gen.Instance<byte>();
+    }
 
-  public static decimal Decimal(this BasicGenerator gen)
-  {
-    return gen.Instance<decimal>();
-  }
+    public decimal Decimal()
+    {
+      return gen.Instance<decimal>();
+    }
 
-  public static uint UnsignedInt(this BasicGenerator gen)
-  {
-    return gen.Instance<uint>();
-  }
+    public uint UnsignedInt()
+    {
+      return gen.Instance<uint>();
+    }
 
-  public static ushort UnsignedShort(this BasicGenerator gen)
-  {
-    return gen.Instance<ushort>();
-  }
+    public ushort UnsignedShort()
+    {
+      return gen.Instance<ushort>();
+    }
 
-  public static short Short(this BasicGenerator gen)
-  {
-    return gen.Instance<short>();
-  }
+    public short Short()
+    {
+      return gen.Instance<short>();
+    }
 
-  public static byte Digit(this BasicGenerator gen)
-  {
-    return gen.InstanceOf(InlineGenerators.Digit());
-  }
+    public byte Digit()
+    {
+      return gen.InstanceOf(InlineGenerators.Digit());
+    }
 
-  public static int IntegerFromSequence(this BasicGenerator gen, int startingValue = 0, int step = 1)
-  {
-    return gen.InstanceOf(InlineGenerators.IntegerFromSequence(startingValue, step));
-  }
+    public int IntegerFromSequence(int startingValue = 0, int step = 1)
+    {
+      return gen.InstanceOf(InlineGenerators.IntegerFromSequence(startingValue, step));
+    }
 
-  public static byte PositiveDigit(this BasicGenerator gen)
-  {
-    return gen.InstanceOf(InlineGenerators.PositiveDigit());
-  }
+    public byte PositiveDigit()
+    {
+      return gen.InstanceOf(InlineGenerators.PositiveDigit());
+    }
 
-  public static Half Half(this BasicGenerator gen) => gen.Instance<Half>();
+    public Half Half() => gen.Instance<Half>();
+  }
 }

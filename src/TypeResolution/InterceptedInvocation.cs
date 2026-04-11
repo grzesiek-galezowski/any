@@ -71,15 +71,18 @@ public class InterceptedInvocation(
 
 public static class ReflectionExtensions
 {
-  public static PropertyInfo GetPropertyFromSetterCall(this MethodInfo call)
+  extension(MethodInfo call)
   {
-    if (!CanBePropertySetterCall(call))
+    public PropertyInfo GetPropertyFromSetterCall()
     {
-      throw new Exception("property not settable");
-    }
+      if (!CanBePropertySetterCall(call))
+      {
+        throw new Exception("property not settable");
+      }
 
-    var properties = call.DeclaringType.OrThrow().GetProperties();
-    return properties.FirstOrDefault(x => x.GetSetMethod() == call).OrThrow();
+      var properties = call.DeclaringType.OrThrow().GetProperties();
+      return properties.FirstOrDefault(x => x.GetSetMethod() == call).OrThrow();
+    }
   }
 
   private static bool CanBePropertySetterCall(MethodInfo call)

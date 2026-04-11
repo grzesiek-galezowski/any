@@ -7,13 +7,16 @@ namespace TddXt.AnyRoot.Reflection;
 
 public static class AnyReflectionExtensions
 {
-  public static MethodInfo Method(this BasicGenerator gen)
+  extension(BasicGenerator gen)
   {
-    return gen.InstanceOf(InlineGenerators.MethodInfo());
-  }
+    public MethodInfo Method()
+    {
+      return gen.InstanceOf(InlineGenerators.MethodInfo());
+    }
 
-  public static Type Type(this BasicGenerator gen)
-  {
-    return gen.InstanceOf(InlineGenerators.Type());
+    public Type Type()
+    {
+      return gen.InstanceOf(InlineGenerators.Type());
+    }
   }
 }

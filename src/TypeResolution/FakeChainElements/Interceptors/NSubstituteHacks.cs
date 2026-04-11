@@ -51,32 +51,44 @@ internal static class NSubstituteHacks
     return a.FullName?.StartsWith("NSubstitute,") ?? false;
   }
 
-  private static bool IsQuerying(this object threadContext)
+  extension(object threadContext)
   {
-    var queryingProperty = threadContext.GetType().GetProperty("IsQuerying").OrThrow();
-    return (bool)(queryingProperty.GetValue(threadContext).OrThrow());
+    private bool IsQuerying()
+    {
+      var queryingProperty = threadContext.GetType().GetProperty("IsQuerying").OrThrow();
+      return (bool)(queryingProperty.GetValue(threadContext).OrThrow());
+    }
   }
 
-  private static object ThreadContext(this object currentSubstitutionContext)
+  extension(object currentSubstitutionContext)
   {
-    var ThreadContextProperty = currentSubstitutionContext
-      .GetType()
-      .GetProperty("ThreadContext")
-      .OrThrow();
-    return ThreadContextProperty
-      .GetValue(currentSubstitutionContext).OrThrow();
+    private object ThreadContext()
+    {
+      var ThreadContextProperty = currentSubstitutionContext
+        .GetType()
+        .GetProperty("ThreadContext")
+        .OrThrow();
+      return ThreadContextProperty
+        .GetValue(currentSubstitutionContext).OrThrow();
+    }
   }
 
-  private static object Current(this Type substitutionContextType)
+  extension(Type substitutionContextType)
   {
-    var currentProperty = substitutionContextType.GetProperty("Current").OrThrow();
-    return currentProperty.GetValue(null).OrThrow();
+    private object Current()
+    {
+      var currentProperty = substitutionContextType.GetProperty("Current").OrThrow();
+      return currentProperty.GetValue(null).OrThrow();
+    }
   }
 
-  private static Type SubstitutionContextClass(this Assembly assembly)
+  extension(Assembly assembly)
   {
-    return assembly
-      .GetType("NSubstitute.Core.SubstitutionContext", true)
-      .OrThrow();
+    private Type SubstitutionContextClass()
+    {
+      return assembly
+        .GetType("NSubstitute.Core.SubstitutionContext", true)
+        .OrThrow();
+    }
   }
 }

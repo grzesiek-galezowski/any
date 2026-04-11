@@ -7,115 +7,118 @@ namespace TddXt.AnyRoot.Strings;
 
 public static class AnyStringExtensions
 {
-  public static string String(this BasicGenerator gen)
+  extension(BasicGenerator gen)
   {
-    return gen.InstanceOf(InlineGenerators.String());
-  }
+    public string String()
+    {
+      return gen.InstanceOf(InlineGenerators.String());
+    }
 
-  public static string String(this BasicGenerator gen, string seed)
-  {
-    return gen.InstanceOf(InlineGenerators.SeededString(seed));
-  }
+    public string String(string seed)
+    {
+      return gen.InstanceOf(InlineGenerators.SeededString(seed));
+    }
 
-  public static string LowerCaseString(this BasicGenerator gen)
-  {
-    return gen.InstanceOf(InlineGenerators.LowercaseString());
-  }
+    public string LowerCaseString()
+    {
+      return gen.InstanceOf(InlineGenerators.LowercaseString());
+    }
 
-  public static string UpperCaseString(this BasicGenerator gen)
-  {
-    return gen.InstanceOf(InlineGenerators.UppercaseString());
-  }
+    public string UpperCaseString()
+    {
+      return gen.InstanceOf(InlineGenerators.UppercaseString());
+    }
 
-  public static string LowerCaseAlphaString(this BasicGenerator gen)
-  {
-    return gen.InstanceOf(InlineGenerators.LowercaseAlphaString());
-  }
+    public string LowerCaseAlphaString()
+    {
+      return gen.InstanceOf(InlineGenerators.LowercaseAlphaString());
+    }
 
-  public static string UpperCaseAlphaString(this BasicGenerator gen)
-  {
-    return gen.InstanceOf(InlineGenerators.UppercaseAlphaString());
-  }
+    public string UpperCaseAlphaString()
+    {
+      return gen.InstanceOf(InlineGenerators.UppercaseAlphaString());
+    }
 
-  public static string StringMatching(this BasicGenerator gen, string pattern)
-  {
-    return gen.InstanceOf(InlineGenerators.StringMatching(pattern));
-  }
+    public string StringMatching(string pattern)
+    {
+      return gen.InstanceOf(InlineGenerators.StringMatching(pattern));
+    }
 
-  public static string String(this BasicGenerator gen, int length)
-  {
-    return gen.InstanceOf(InlineGenerators.String(length));
-  }
+    public string String(int length)
+    {
+      return gen.InstanceOf(InlineGenerators.String(length));
+    }
 
-  [Obsolete("Use OtherThan() extension method instead")]
-  public static string StringOtherThan(this BasicGenerator gen, params string[] alreadyUsedStrings)
-  {
-    return gen.InstanceOf(InlineGenerators.ValueOtherThan(alreadyUsedStrings));
-  }
+    [Obsolete("Use OtherThan() extension method instead")]
+    public string StringOtherThan(params string[] alreadyUsedStrings)
+    {
+      return gen.InstanceOf(InlineGenerators.ValueOtherThan(alreadyUsedStrings));
+    }
 
-  public static string StringNotContaining<T>(this BasicGenerator gen, params T[] excludedObjects)
-  {
-    return gen.InstanceOf(InlineGenerators.StringNotContaining(excludedObjects));
-  }
+    public string StringNotContaining<T>(params T[] excludedObjects)
+    {
+      return gen.InstanceOf(InlineGenerators.StringNotContaining(excludedObjects));
+    }
 
-  public static string StringNotContaining(this BasicGenerator gen, params string[] excludedSubstrings)
-  {
-    return gen.InstanceOf(InlineGenerators.StringNotContaining(excludedSubstrings));
-  }
+    public string StringNotContaining(params string[] excludedSubstrings)
+    {
+      return gen.InstanceOf(InlineGenerators.StringNotContaining(excludedSubstrings));
+    }
 
-  public static string StringContaining<T>(this BasicGenerator gen, T obj) where T : notnull
-  {
-    return gen.InstanceOf(InlineGenerators.StringContaining(obj.ToString().OrThrow()));
-  }
+    public string StringContaining<T>(T obj) where T : notnull
+    {
+      return gen.InstanceOf(InlineGenerators.StringContaining(obj.ToString().OrThrow()));
+    }
 
-  public static string StringContaining(this BasicGenerator gen, string str)
-  {
-    return gen.InstanceOf(InlineGenerators.StringContaining(str));
-  }
+    public string StringContaining(string str)
+    {
+      return gen.InstanceOf(InlineGenerators.StringContaining(str));
+    }
 
-  public static string AlphaString(this BasicGenerator gen)
-  {
-    return gen.InstanceOf(InlineGenerators.AlphaString(
-      gen.InstanceOf(InlineGenerators.String()).Length));
-  }
+    public string AlphaString()
+    {
+      return gen.InstanceOf(InlineGenerators.AlphaString(
+        gen.InstanceOf(InlineGenerators.String()).Length));
+    }
 
-  public static string AlphaString(this BasicGenerator gen, int maxLength)
-  {
-    return gen.InstanceOf(InlineGenerators.AlphaString(maxLength));
-  }
+    public string AlphaString(int maxLength)
+    {
+      return gen.InstanceOf(InlineGenerators.AlphaString(maxLength));
+    }
 
-  public static string Identifier(this BasicGenerator gen)
-  {
-    return gen.InstanceOf(InlineGenerators.Identifier());
-  }
+    public string Identifier()
+    {
+      return gen.InstanceOf(InlineGenerators.Identifier());
+    }
 
-  public static char AlphaChar(this BasicGenerator gen)
-  {
-    return gen.InstanceOf(InlineGenerators.AlphaChar());
-  }
+    public char AlphaChar()
+    {
+      return gen.InstanceOf(InlineGenerators.AlphaChar());
+    }
 
-  public static char DigitChar(this BasicGenerator gen)
-  {
-    return gen.InstanceOf(InlineGenerators.DigitChar());
-  }
+    public char DigitChar()
+    {
+      return gen.InstanceOf(InlineGenerators.DigitChar());
+    }
 
-  public static char Char(this BasicGenerator gen)
-  {
-    return gen.InstanceOf(InlineGenerators.Char());
-  }
+    public char Char()
+    {
+      return gen.InstanceOf(InlineGenerators.Char());
+    }
 
-  public static string NumericString(this BasicGenerator gen, int digitsCount = Configuration.Many)
-  {
-    return gen.InstanceOf(InlineGenerators.NumericString(digitsCount));
-  }
+    public string NumericString(int digitsCount = Configuration.Many)
+    {
+      return gen.InstanceOf(InlineGenerators.NumericString(digitsCount));
+    }
 
-  public static char LowerCaseAlphaChar(this BasicGenerator gen)
-  {
-    return gen.InstanceOf(InlineGenerators.LowerCaseAlphaChar());
-  }
+    public char LowerCaseAlphaChar()
+    {
+      return gen.InstanceOf(InlineGenerators.LowerCaseAlphaChar());
+    }
 
-  public static char UpperCaseAlphaChar(this BasicGenerator gen)
-  {
-    return gen.InstanceOf(InlineGenerators.UpperCaseAlphaChar());
+    public char UpperCaseAlphaChar()
+    {
+      return gen.InstanceOf(InlineGenerators.UpperCaseAlphaChar());
+    }
   }
 }

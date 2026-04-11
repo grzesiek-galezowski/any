@@ -7,33 +7,36 @@ namespace TddXt.AnyRoot.Network;
 
 public static class AnyNetworkExtensions
 {
-  public static IPAddress IpAddress(this BasicGenerator gen)
+  extension(BasicGenerator gen)
   {
-    return gen.InstanceOf(InlineGenerators.IpAddress());
-  }
+    public IPAddress IpAddress()
+    {
+      return gen.InstanceOf(InlineGenerators.IpAddress());
+    }
 
-  public static Uri Uri(this BasicGenerator gen)
-  {
-    return gen.InstanceOf(InlineGenerators.Uri());
-  }
+    public Uri Uri()
+    {
+      return gen.InstanceOf(InlineGenerators.Uri());
+    }
 
-  public static int Port(this BasicGenerator gen)
-  {
-    return gen.InstanceOf(InlineGenerators.Port());
-  }
+    public int Port()
+    {
+      return gen.InstanceOf(InlineGenerators.Port());
+    }
 
-  public static string IpString(this BasicGenerator gen)
-  {
-    return gen.InstanceOf(InlineGenerators.IpString());
-  }
+    public string IpString()
+    {
+      return gen.InstanceOf(InlineGenerators.IpString());
+    }
 
-  public static string UrlString(this BasicGenerator gen)
-  {
-    return gen.InstanceOf(InlineGenerators.UrlString());
-  }
+    public string UrlString()
+    {
+      return gen.InstanceOf(InlineGenerators.UrlString());
+    }
 
-  public static byte Octet(this BasicGenerator gen)
-  {
-    return gen.Instance<byte>();
+    public byte Octet()
+    {
+      return gen.Instance<byte>();
+    }
   }
 }

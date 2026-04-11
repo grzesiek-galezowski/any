@@ -6,29 +6,32 @@ namespace TddXt.AnyRoot.Time;
 
 public static class AnyTimeExtensions
 {
-  public static DateTime DateTime(this BasicGenerator gen)
+  extension(BasicGenerator gen)
   {
-    return gen.InstanceOf(InlineGenerators.DateTime());
-  }
-  
-  public static DateTimeOffset DateTimeOffset(this BasicGenerator gen)
-  {
-    return gen.Instance<DateTimeOffset>();
-  }
+    public DateTime DateTime()
+    {
+      return gen.InstanceOf(InlineGenerators.DateTime());
+    }
 
-  public static TimeSpan TimeSpan(this BasicGenerator gen)
-  {
-    return gen.InstanceOf(InlineGenerators.TimeSpan());
-  }
+    public DateTimeOffset DateTimeOffset()
+    {
+      return gen.Instance<DateTimeOffset>();
+    }
+
+    public TimeSpan TimeSpan()
+    {
+      return gen.InstanceOf(InlineGenerators.TimeSpan());
+    }
 
 
-  public static DateOnly DateOnly(this BasicGenerator gen)
-  {
-    return gen.Instance<DateOnly>();
-  }
+    public DateOnly DateOnly()
+    {
+      return gen.Instance<DateOnly>();
+    }
 
-  public static TimeOnly TimeOnly(this BasicGenerator gen)
-  {
+    public TimeOnly TimeOnly()
+    {
       return gen.Instance<TimeOnly>();
+    }
   }
 }

@@ -8,10 +8,13 @@ namespace TddXt.AnyRoot.Enums;
 
 public static class AnyEnumExtensions
 {
-  public static T Invalid<T>(this BasicGenerator gen) where T : Enum
+  extension(BasicGenerator gen)
   {
-    var generatedValue = gen.InstanceOf(DynamicGenHolder<T>.Instance);
-    return (T)generatedValue;
+    public T Invalid<T>() where T : Enum
+    {
+      var generatedValue = gen.InstanceOf(DynamicGenHolder<T>.Instance);
+      return (T)generatedValue;
+    }
   }
 
   private static class DynamicGenHolder<T> where T : Enum
