@@ -1,11 +1,5 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <LangVersion>latest</LangVersion>
-    <Nullable>enable</Nullable>
-    <WarningsAsErrors>nullable</WarningsAsErrors>
-  </PropertyGroup>
-  <PropertyGroup>
-    <TargetFrameworks>net8.0</TargetFrameworks>
     <AssemblyName>TddXt.Any.Generators</AssemblyName>
     <RootNamespace>TddXt.AnyGenerators</RootNamespace>
     <Authors>Grzegorz Gałęzowski</Authors>
@@ -24,7 +18,7 @@
     <ProjectReference Include="..\TypeResolution\TypeResolution.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\..\LICENSE">
+    <None Include="..\..\LICENSE">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>

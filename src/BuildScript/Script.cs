@@ -8,9 +8,8 @@ const string configuration = "Release";
 const string version = "10.2.1";
 
 // Define directories.
-var root = AbsoluteFilePath.OfThisFile().ParentDirectory(3).Value();
+var root = AbsoluteFilePath.OfThisFile().ParentDirectory(2).Value();
 var srcDir = root.AddDirectoryName("src");
-var srcNetStandardDir = srcDir.AddDirectoryName("netstandard2.0");
 var nugetPath = root.AddDirectoryName("build").AddDirectoryName(configuration);
 
 //////////////////////////////////////////////////////////////////////
@@ -20,7 +19,7 @@ var nugetPath = root.AddDirectoryName("build").AddDirectoryName(configuration);
 Target("Clean", () =>
 {
   Run("dotnet", Clean().Configuration(configuration),
-    workingDirectory: srcNetStandardDir.ToString());
+    workingDirectory: srcDir.ToString());
 });
 
 Target("Build", () =>
@@ -30,7 +29,7 @@ Target("Build", () =>
       .Configuration(configuration)
       .WithArg($"-p:VersionPrefix={version}")
       .WithArg($"-p:SymbolPackageFormat=snupkg"),
-    workingDirectory: srcNetStandardDir.ToString());
+    workingDirectory: srcDir.ToString());
 
 });
 
@@ -40,7 +39,7 @@ Target("NScan", ["Build"], () =>
   //  new InputArgumentsDto
   //  {
   //    RulesFilePath = AbsoluteDirectoryPath.OfThisFile().AddFileName("rules.txt").AsAnyFilePath(),
-  //    SolutionPath = srcNetStandardDir.AddFileName("Any.sln").AsAnyFilePath()
+  //    SolutionPath = srcDir.AddFileName("Any.sln").AsAnyFilePath()
   //  },
   //  new ConsoleOutput(),
   //  new ConsoleSupport(Console.WriteLine)
@@ -54,7 +53,7 @@ Target("Test", ["NScan"], () =>
       .NoBuild()
       .Configuration(configuration)
       .WithArg($"-p:VersionPrefix={version}"),
-    workingDirectory: srcNetStandardDir.ToString());
+    workingDirectory: srcDir.ToString());
 });
 
 Target("Push", ["Clean", "Test"], () =>

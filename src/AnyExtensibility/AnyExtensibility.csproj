@@ -1,32 +1,23 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <LangVersion>latest</LangVersion>
-    <Nullable>enable</Nullable>
-    <WarningsAsErrors>nullable</WarningsAsErrors>
-  </PropertyGroup>
-
-  <PropertyGroup>
-    <TargetFrameworks>net8.0</TargetFrameworks>
-    <AssemblyName>TddXt.Any.TypeReflection</AssemblyName>
-    <RootNamespace>TddXt.TypeReflection</RootNamespace>
+    <AssemblyName>TddXt.Any.Extensibility</AssemblyName>
+    <RootNamespace>TddXt.AnyExtensibility</RootNamespace>
     <Authors>Grzegorz Gałęzowski</Authors>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <RepositoryUrl>https://github.com/grzesiek-galezowski/any</RepositoryUrl>
   </PropertyGroup>
+
   <ItemGroup>
-    <None Include="..\..\..\LICENSE">
+    <None Include="..\..\LICENSE">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
   </ItemGroup>
+
   <ItemGroup>
-    <PackageReference Include="Core.Maybe" />
     <PackageReference Include="NuGetizer">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\AnyExtensibility\AnyExtensibility.csproj" />
   </ItemGroup>
 </Project>
