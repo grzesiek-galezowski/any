@@ -1,0 +1,21 @@
+<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path="../../appveyor.yml" />
+    <File Path="../../LICENSE" />
+    <File Path="../../README.md" />
+    <File Path="../.github/workflows/dotnet.yml" />
+    <File Path=".editorconfig" />
+    <File Path="Directory.Build.props" />
+    <File Path="Directory.Packages.props" />
+  </Folder>
+  <Project Path="AnyExtensibility/AnyExtensibility.csproj" />
+  <Project Path="AnyGenerators/AnyGenerators.csproj" />
+  <Project Path="AnyRoot/AnyRoot.csproj" />
+  <Project Path="AnySpecification/AnySpecification.csproj" />
+  <Project Path="BuildScript/BuildScript.csproj">
+    <Build Project="false" />
+  </Project>
+  <Project Path="TypeReflection/TypeReflection.csproj" />
+  <Project Path="TypeReflectionSpecification/TypeReflectionSpecification.csproj" />
+  <Project Path="TypeResolution/TypeResolution.csproj" />
+</Solution>

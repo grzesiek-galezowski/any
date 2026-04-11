@@ -39,7 +39,7 @@ Target("NScan", ["Build"], () =>
   //  new InputArgumentsDto
   //  {
   //    RulesFilePath = AbsoluteDirectoryPath.OfThisFile().AddFileName("rules.txt").AsAnyFilePath(),
-  //    SolutionPath = srcDir.AddFileName("Any.sln").AsAnyFilePath()
+  //    SolutionPath = srcDir.AddFileName("Any.slnx").AsAnyFilePath()
   //  },
   //  new ConsoleOutput(),
   //  new ConsoleSupport(Console.WriteLine)
