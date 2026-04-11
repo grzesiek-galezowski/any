@@ -57,6 +57,70 @@ public partial class AnySpecification
   }
 
   [Test, Parallelizable]
+  public void ShouldGenerateDifferentDoubleEachTime()
+  {
+    Enumerable.Range(1, 1000)
+      .Select(n => Any.Double())
+      .Should().OnlyHaveUniqueItems();
+  }
+
+  [Test, Parallelizable]
+  public void ShouldGenerateDifferentFloatEachTime()
+  {
+    Enumerable.Range(1, 1000)
+      .Select(n => Any.Float())
+      .Should().OnlyHaveUniqueItems();
+  }
+
+  [Test, Parallelizable]
+  public void ShouldGenerateDifferentLongEachTime()
+  {
+    Enumerable.Range(1, 1000)
+      .Select(n => Any.Long())
+      .Should().OnlyHaveUniqueItems();
+  }
+
+  [Test, Parallelizable]
+  public void ShouldGenerateDifferentUnsignedLongEachTime()
+  {
+    Enumerable.Range(1, 1000)
+      .Select(n => Any.UnsignedLong())
+      .Should().OnlyHaveUniqueItems();
+  }
+
+  [Test, Parallelizable]
+  public void ShouldGenerateDifferentDecimalEachTime()
+  {
+    Enumerable.Range(1, 1000)
+      .Select(n => Any.Decimal())
+      .Should().OnlyHaveUniqueItems();
+  }
+
+  [Test, Parallelizable]
+  public void ShouldGenerateDifferentUnsignedIntEachTime()
+  {
+    Enumerable.Range(1, 1000)
+      .Select(n => Any.UnsignedInt())
+      .Should().OnlyHaveUniqueItems();
+  }
+
+  [Test, Parallelizable]
+  public void ShouldGenerateDifferentUnsignedShortEachTime()
+  {
+    Enumerable.Range(1, 1000)
+      .Select(n => Any.UnsignedShort())
+      .Should().OnlyHaveUniqueItems();
+  }
+
+  [Test, Parallelizable]
+  public void ShouldGenerateDifferentShortEachTime()
+  {
+    Enumerable.Range(1, 1000)
+      .Select(n => Any.Short())
+      .Should().OnlyHaveUniqueItems();
+  }
+
+  [Test, Parallelizable]
   public void ShouldGenerateDifferentInt64EachTime()
   {
     Enumerable.Range(1, 1000)
@@ -136,6 +200,61 @@ public partial class AnySpecification
     //THEN
     Assert.That(address2, Is.Not.EqualTo(address1));
     Assert.That(address2.ToString(), Is.Not.EqualTo(address1.ToString()));
+  }
+
+  [Test, Parallelizable]
+  public void ShouldGenerateIpAddressThroughExtension()
+  {
+    //GIVEN
+    var address = Any.IpAddress();
+
+    //THEN
+    Assert.That(address, Is.Not.Null);
+    Assert.That(IPAddress.TryParse(address.ToString(), out _), Is.True);
+  }
+
+  [Test, Parallelizable]
+  public void ShouldGeneratePortThroughExtension()
+  {
+    //WHEN
+    var port = Any.Port();
+
+    //THEN
+    Assert.That(port, Is.GreaterThanOrEqualTo(0));
+    Assert.That(port, Is.LessThan(65535));
+  }
+
+  [Test, Parallelizable]
+  public void ShouldGenerateIpStringThroughExtension()
+  {
+    //WHEN
+    var ipString = Any.IpString();
+
+    //THEN
+    Assert.That(IPAddress.TryParse(ipString, out var parsedIpAddress), Is.True);
+    Assert.That(parsedIpAddress, Is.Not.Null);
+  }
+
+  [Test, Parallelizable]
+  public void ShouldGenerateUrlStringThroughExtension()
+  {
+    //WHEN
+    var urlString = Any.UrlString();
+
+    //THEN
+    Assert.That(Uri.TryCreate(urlString, UriKind.Absolute, out var parsedUrl), Is.True);
+    Assert.That(parsedUrl, Is.Not.Null);
+  }
+
+  [Test, Parallelizable]
+  public void ShouldGenerateOctetThroughExtension()
+  {
+    //WHEN
+    var octet = Any.Octet();
+
+    //THEN
+    Assert.That(octet, Is.GreaterThanOrEqualTo(byte.MinValue));
+    Assert.That(octet, Is.LessThanOrEqualTo(byte.MaxValue));
   }
 
   [Test] 
@@ -237,6 +356,19 @@ public partial class AnySpecification
   public void ShouldCreateNonNullUri()
   {
     Assert.That(Any.Uri(), Is.Not.Null);
+  }
+
+  [Test, Parallelizable]
+  public void ShouldGenerateDifferentMethodInfoEachTime()
+  {
+    //GIVEN
+    var method1 = Any.Method();
+    var method2 = Any.Method();
+
+    //THEN
+    Assert.That(method1, Is.Not.Null);
+    Assert.That(method2, Is.Not.Null);
+    Assert.That(method2, Is.Not.EqualTo(method1));
   }
 
   [Test, Parallelizable]
@@ -538,11 +670,175 @@ public partial class AnySpecification
     Any.StringNotContaining("0").Should().NotContain("0");
 
   [Test, Repeat(100)]
+  public void ShouldGenerateStringsWithoutGenericExcludedObject()
+  {
+    //WHEN
+    var excludedObject = Guid.Parse("12345678-1234-1234-1234-123456789abc");
+
+    //THEN
+    Any.StringNotContaining(excludedObject).Should().NotContain(excludedObject.ToString());
+  }
+
+  [Test, Repeat(100)]
   public void ShouldGenerateSeededString()
   {
     Any.String("0").Should().StartWith("0");
     Any.String("0").Length.Should().BeGreaterThan(1);
     Any.String("0").Should().NotBe(Any.String("0"));
+  }
+
+  [Test, Parallelizable]
+  public void ShouldGenerateStringThroughExtension()
+  {
+    //WHEN
+    var value1 = Any.String();
+    var value2 = Any.String();
+
+    //THEN
+    Assert.That(value1, Is.Not.Null.And.Not.Empty);
+    Assert.That(value2, Is.Not.Null.And.Not.Empty);
+    Assert.That(value2, Is.Not.EqualTo(value1));
+  }
+
+  [Test, Parallelizable]
+  public void ShouldGenerateLowerCaseStringThroughExtension()
+  {
+    //WHEN
+    var value = Any.LowerCaseString();
+
+    //THEN
+    Assert.That(value, Is.Not.Null.And.Not.Empty);
+    Assert.That(value, Is.EqualTo(value.ToLowerInvariant()));
+  }
+
+  [Test, Parallelizable]
+  public void ShouldGenerateUpperCaseStringThroughExtension()
+  {
+    //WHEN
+    var value = Any.UpperCaseString();
+
+    //THEN
+    Assert.That(value, Is.Not.Null.And.Not.Empty);
+    Assert.That(value, Is.EqualTo(value.ToUpperInvariant()));
+  }
+
+  [Test, Parallelizable]
+  public void ShouldGenerateLowerCaseAlphaStringThroughExtension()
+  {
+    //WHEN
+    var value = Any.LowerCaseAlphaString();
+
+    //THEN
+    Assert.That(value, Is.Not.Null.And.Not.Empty);
+    Assert.That(value.All(c => char.IsLower(c) && char.IsLetter(c)), Is.True);
+  }
+
+  [Test, Parallelizable]
+  public void ShouldGenerateUpperCaseAlphaStringThroughExtension()
+  {
+    //WHEN
+    var value = Any.UpperCaseAlphaString();
+
+    //THEN
+    Assert.That(value, Is.Not.Null.And.Not.Empty);
+    Assert.That(value.All(c => char.IsUpper(c) && char.IsLetter(c)), Is.True);
+  }
+
+  [Test, Parallelizable]
+  public void ShouldGenerateStringContainingStringThroughExtension()
+  {
+    //WHEN
+    var value = Any.StringContaining("copilot");
+
+    //THEN
+    Assert.That(value, Is.Not.Null.And.Not.Empty);
+    Assert.That(value, Does.Contain("copilot"));
+  }
+
+  [Test, Parallelizable]
+  public void ShouldGenerateStringContainingObjectThroughExtension()
+  {
+    //WHEN
+    var value = Any.StringContaining(12345);
+
+    //THEN
+    Assert.That(value, Is.Not.Null.And.Not.Empty);
+    Assert.That(value, Does.Contain("12345"));
+  }
+
+  [Test, Parallelizable]
+  public void ShouldGenerateStringOtherThanThroughExtension()
+  {
+    //WHEN
+    var value = Any.StringOtherThan("alpha", "beta");
+
+    //THEN
+    Assert.That(value, Is.Not.Null.And.Not.Empty);
+    Assert.That(value, Is.Not.AnyOf("alpha", "beta"));
+  }
+
+  [Test, Parallelizable]
+  public void ShouldGenerateAlphaStringThroughExtension()
+  {
+    //WHEN
+    var value = Any.AlphaString();
+
+    //THEN
+    Assert.That(value, Is.Not.Null.And.Not.Empty);
+    Assert.That(value.All(char.IsLetter), Is.True);
+  }
+
+  [Test, Parallelizable]
+  public void ShouldGenerateAlphaStringOfSpecifiedLengthThroughExtension()
+  {
+    //WHEN
+    var value = Any.AlphaString(5);
+
+    //THEN
+    Assert.That(value, Has.Length.EqualTo(5));
+    Assert.That(value.All(char.IsLetter), Is.True);
+  }
+
+  [Test, Parallelizable]
+  public void ShouldGenerateIdentifierThroughExtension()
+  {
+    //WHEN
+    var value = Any.Identifier();
+
+    //THEN
+    Assert.That(value, Does.Match("^[A-Za-z](?:[0-9][A-Za-z]){5}$"));
+  }
+
+  [Test, Parallelizable]
+  public void ShouldGenerateCharThroughExtension()
+  {
+    //WHEN
+    var value = Any.Char();
+
+    //THEN
+    Assert.That(value, Is.Not.EqualTo(default(char)));
+  }
+
+  [Test, Parallelizable]
+  public void ShouldGenerateLowerCaseAlphaCharThroughExtension()
+  {
+    //WHEN
+    var value = Any.LowerCaseAlphaChar();
+
+    //THEN
+    Assert.That(char.IsLower(value), Is.True);
+    Assert.That(char.IsLetter(value), Is.True);
+  }
+
+  [Test, Parallelizable]
+  public void ShouldGenerateUpperCaseAlphaCharThroughExtension()
+  {
+    //WHEN
+    var value = Any.UpperCaseAlphaChar();
+
+    //THEN
+    Assert.That(char.IsUpper(value), Is.True);
+    Assert.That(char.IsLetter(value), Is.True);
   }
 
 
@@ -1391,6 +1687,16 @@ public partial class AnySpecification
   }
 
   [Test, Parallelizable]
+  public void ShouldGenerateCanceledCancellationTokens()
+  {
+    //WHEN
+    var token = Any.CancellationToken();
+
+    //THEN
+    Assert.That(token.IsCancellationRequested, Is.True);
+  }
+
+  [Test, Parallelizable]
   public void ShouldAllowGeneratingReadOnlyLists()
   {
     //GIVEN
@@ -1831,6 +2137,34 @@ public partial class AnySpecification
   }
 
   [Test, Parallelizable]
+  public void ShouldAllowGeneratingLongerFuncs()
+  {
+    //GIVEN
+    var func4 = Any.Func<int, int, int, string>();
+    var func5 = Any.Func<int, int, int, int, string>();
+    var func6 = Any.Func<int, int, int, int, int, string>();
+
+    //WHEN
+    var result41 = func4(1, 2, 3);
+    var result42 = func4(1, 2, 3);
+    var result51 = func5(1, 2, 3, 4);
+    var result52 = func5(1, 2, 3, 4);
+    var result61 = func6(1, 2, 3, 4, 5);
+    var result62 = func6(1, 2, 3, 4, 5);
+
+    //THEN
+    result41.Should().NotBeNullOrEmpty();
+    result42.Should().NotBeNullOrEmpty();
+    result51.Should().NotBeNullOrEmpty();
+    result52.Should().NotBeNullOrEmpty();
+    result61.Should().NotBeNullOrEmpty();
+    result62.Should().NotBeNullOrEmpty();
+    result41.Should().Be(result42);
+    result51.Should().Be(result52);
+    result61.Should().Be(result62);
+  }
+
+  [Test, Parallelizable]
   public void ShouldBeAbleToCreateJsonSerializerSettingsFromNewtonsoftJson()
   {
     //WHEN
@@ -1848,6 +2182,26 @@ public partial class AnySpecification
 
     //WHEN-THEN
     Assert.DoesNotThrow(() => func(1, 2, "2"));
+  }
+
+  [Test, Parallelizable]
+  public void ShouldAllowGeneratingLongerActions()
+  {
+    //GIVEN
+    var action0 = Any.Action();
+    var action1 = Any.Action<int>();
+    var action2 = Any.Action<int, int>();
+    var action4 = Any.Action<int, int, int, int>();
+    var action5 = Any.Action<int, int, int, int, int>();
+    var action6 = Any.Action<int, int, int, int, int, int>();
+
+    //WHEN-THEN
+    Assert.DoesNotThrow(() => action0());
+    Assert.DoesNotThrow(() => action1(1));
+    Assert.DoesNotThrow(() => action2(1, 2));
+    Assert.DoesNotThrow(() => action4(1, 2, 3, 4));
+    Assert.DoesNotThrow(() => action5(1, 2, 3, 4, 5));
+    Assert.DoesNotThrow(() => action6(1, 2, 3, 4, 5, 6));
   }
 
   [Test, Parallelizable]

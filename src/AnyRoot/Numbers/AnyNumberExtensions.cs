@@ -8,70 +8,31 @@ public static class AnyNumberExtensions
 {
   extension(BasicGenerator gen)
   {
-    public int Integer()
-    {
-      return gen.Instance<int>();
-    }
+    public int Integer() => gen.Instance<int>();
 
-    public double Double()
-    {
-      return gen.Instance<double>();
-    }
+    public double Double() => gen.Instance<double>();
 
-    public float Float()
-    {
-      return gen.Instance<float>();
-    }
+    public float Float() => gen.Instance<float>();
 
-    public long Long()
-    {
-      return gen.Instance<long>();
-    }
+    public long Long() => gen.Instance<long>();
 
-    public ulong UnsignedLong()
-    {
-      return gen.Instance<ulong>();
-    }
+    public ulong UnsignedLong() => gen.Instance<ulong>();
 
-    public byte Byte()
-    {
-      return gen.Instance<byte>();
-    }
+    public byte Byte() => gen.Instance<byte>();
 
-    public decimal Decimal()
-    {
-      return gen.Instance<decimal>();
-    }
+    public decimal Decimal() => gen.Instance<decimal>();
 
-    public uint UnsignedInt()
-    {
-      return gen.Instance<uint>();
-    }
+    public uint UnsignedInt() => gen.Instance<uint>();
 
-    public ushort UnsignedShort()
-    {
-      return gen.Instance<ushort>();
-    }
+    public ushort UnsignedShort() => gen.Instance<ushort>();
 
-    public short Short()
-    {
-      return gen.Instance<short>();
-    }
+    public short Short() => gen.Instance<short>();
 
-    public byte Digit()
-    {
-      return gen.InstanceOf(InlineGenerators.Digit());
-    }
+    public byte Digit() => gen.InstanceOf(InlineGenerators.Digit());
 
-    public int IntegerFromSequence(int startingValue = 0, int step = 1)
-    {
-      return gen.InstanceOf(InlineGenerators.IntegerFromSequence(startingValue, step));
-    }
+    public int IntegerFromSequence(int startingValue = 0, int step = 1) => gen.InstanceOf(InlineGenerators.IntegerFromSequence(startingValue, step));
 
-    public byte PositiveDigit()
-    {
-      return gen.InstanceOf(InlineGenerators.PositiveDigit());
-    }
+    public byte PositiveDigit() => gen.InstanceOf(InlineGenerators.PositiveDigit());
 
     public Half Half() => gen.Instance<Half>();
   }

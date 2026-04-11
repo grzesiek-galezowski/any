@@ -9,14 +9,8 @@ public static class AnyReflectionExtensions
 {
   extension(BasicGenerator gen)
   {
-    public MethodInfo Method()
-    {
-      return gen.InstanceOf(InlineGenerators.MethodInfo());
-    }
+    public MethodInfo Method() => gen.InstanceOf(InlineGenerators.MethodInfo());
 
-    public Type Type()
-    {
-      return gen.InstanceOf(InlineGenerators.Type());
-    }
+    public Type Type() => gen.InstanceOf(InlineGenerators.Type());
   }
 }
