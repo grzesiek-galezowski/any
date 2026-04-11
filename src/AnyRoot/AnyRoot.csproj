@@ -1,18 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
-  <PropertyGroup>
-    <TargetFrameworks>net10.0</TargetFrameworks>
-  </PropertyGroup>
-
   <PropertyGroup>
     <AssemblyName>TddXt.Any.Root</AssemblyName>
     <RootNamespace>TddXt.AnyRoot</RootNamespace>
     <PackageId>Any</PackageId>
-    <Product>Any</Product>
     <Description>Anonymous value generator, supporting the 'Any.Whatever()' syntax proposed on the www.sustainabletdd.com blog. It makes use of the static usings and extension methods to achieve flexibility and extensibility.</Description>
-    <Authors>Grzegorz Gałęzowski</Authors>
-    <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <RepositoryUrl>https://github.com/grzesiek-galezowski/any</RepositoryUrl>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
   </PropertyGroup>
 

@@ -1,7 +1,12 @@
 <Project>
   <PropertyGroup>
+    <TargetFrameworks>net10.0</TargetFrameworks>
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
     <WarningsAsErrors>nullable</WarningsAsErrors>
+    <Product>Any</Product>
+    <Authors>Grzegorz Gałęzowski</Authors>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <RepositoryUrl>https://github.com/grzesiek-galezowski/any</RepositoryUrl>
   </PropertyGroup>
 </Project>
