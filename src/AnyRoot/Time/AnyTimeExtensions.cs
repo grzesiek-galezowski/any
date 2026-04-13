@@ -1,6 +1,5 @@
 ﻿using System;
 using TddXt.AnyExtensibility;
-using TddXt.AnyGenerators.Root;
 
 namespace TddXt.AnyRoot.Time;
 
@@ -10,7 +9,7 @@ public static class AnyTimeExtensions
   {
     public DateTime DateTime()
     {
-      return gen.InstanceOf(InlineGenerators.DateTime());
+      return gen.InstanceOf(InlineGenerators.InlineGenerators.DateTime());
     }
 
     public DateTimeOffset DateTimeOffset()
@@ -20,7 +19,7 @@ public static class AnyTimeExtensions
 
     public TimeSpan TimeSpan()
     {
-      return gen.InstanceOf(InlineGenerators.TimeSpan());
+      return gen.InstanceOf(InlineGenerators.InlineGenerators.TimeSpan());
     }
 
 

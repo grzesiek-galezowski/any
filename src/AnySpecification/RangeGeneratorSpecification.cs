@@ -2,7 +2,7 @@
 using System.Linq;
 using AnySpecification.Fixtures;
 using AwesomeAssertions;
-using static TddXt.AnyGenerators.Root.InlineGenerators;
+using static TddXt.AnyRoot.InlineGenerators.InlineGenerators;
 using Enumerable = System.Linq.Enumerable;
 #pragma warning disable CS0612
 

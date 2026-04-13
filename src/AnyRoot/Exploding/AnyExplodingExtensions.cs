@@ -1,5 +1,4 @@
 ﻿using TddXt.AnyExtensibility;
-using TddXt.AnyGenerators.Root;
 
 namespace TddXt.AnyRoot.Exploding;
 
@@ -9,7 +8,7 @@ public static class AnyExplodingExtensions
   {
     public T Exploding<T>() where T : class
     {
-      return gen.InstanceOf(InlineGenerators.Exploding<T>());
+      return gen.InstanceOf(InlineGenerators.InlineGenerators.Exploding<T>());
     }
   }
 }

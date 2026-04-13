@@ -13,7 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AnyExtensibility\AnyExtensibility.csproj" />
-    <ProjectReference Include="..\AnyGenerators\AnyGenerators.csproj" />
+    <ProjectReference Include="..\TypeResolution\TypeResolution.csproj" />
   </ItemGroup>
 
   <ItemGroup>

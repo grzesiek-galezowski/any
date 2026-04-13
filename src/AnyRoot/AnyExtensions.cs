@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using TddXt.AnyExtensibility;
-using TddXt.AnyGenerators.Root;
 using TddXt.TypeResolution.FakeChainElements.InlineGeneratorTypes.Generic;
 
 namespace TddXt.AnyRoot;
@@ -31,17 +30,17 @@ public static class AnyExtensions
   {
     public T From<T>(params T[] possibleValues)
     {
-      return gen.InstanceOf(InlineGenerators.From(possibleValues));
+      return gen.InstanceOf(InlineGenerators.InlineGenerators.From(possibleValues));
     }
 
     public bool Boolean()
     {
-      return gen.InstanceOf(InlineGenerators.Boolean());
+      return gen.InstanceOf(InlineGenerators.InlineGenerators.Boolean());
     }
 
     public object Object()
     {
-      return gen.InstanceOf(InlineGenerators.Object());
+      return gen.InstanceOf(InlineGenerators.InlineGenerators.Object());
     }
 
     public T OtherThan<T>(params T[]? skippedValues)
@@ -60,11 +59,11 @@ public static class AnyExtensions
 
       if (ValueTypes.Contains(typeof(T)))
       {
-        return gen.InstanceOf(InlineGenerators.ValueOtherThan(skippedValues));
+        return gen.InstanceOf(InlineGenerators.InlineGenerators.ValueOtherThan(skippedValues));
       }
       else
       {
-        return gen.InstanceOf(InlineGenerators.OtherThan(skippedValues));
+        return gen.InstanceOf(InlineGenerators.InlineGenerators.OtherThan(skippedValues));
       }
     }
 
@@ -75,12 +74,12 @@ public static class AnyExtensions
 
     public Guid Guid()
     {
-      return gen.InstanceOf(InlineGenerators.Guid());
+      return gen.InstanceOf(InlineGenerators.InlineGenerators.Guid());
     }
 
     public Exception Exception()
     {
-      return gen.InstanceOf(InlineGenerators.Exception());
+      return gen.InstanceOf(InlineGenerators.InlineGenerators.Exception());
     }
   }
 

@@ -1,6 +1,5 @@
 ﻿using System;
 using TddXt.AnyExtensibility;
-using TddXt.AnyGenerators.Root;
 
 namespace TddXt.AnyRoot.Numbers;
 
@@ -28,11 +27,11 @@ public static class AnyNumberExtensions
 
     public short Short() => gen.Instance<short>();
 
-    public byte Digit() => gen.InstanceOf(InlineGenerators.Digit());
+    public byte Digit() => gen.InstanceOf(InlineGenerators.InlineGenerators.Digit());
 
-    public int IntegerFromSequence(int startingValue = 0, int step = 1) => gen.InstanceOf(InlineGenerators.IntegerFromSequence(startingValue, step));
+    public int IntegerFromSequence(int startingValue = 0, int step = 1) => gen.InstanceOf(InlineGenerators.InlineGenerators.IntegerFromSequence(startingValue, step));
 
-    public byte PositiveDigit() => gen.InstanceOf(InlineGenerators.PositiveDigit());
+    public byte PositiveDigit() => gen.InstanceOf(InlineGenerators.InlineGenerators.PositiveDigit());
 
     public Half Half() => gen.Instance<Half>();
   }
