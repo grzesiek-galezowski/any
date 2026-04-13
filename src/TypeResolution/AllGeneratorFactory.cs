@@ -32,6 +32,7 @@ public static class AllGeneratorFactory
               ResolutionsFactory.ResolveAsMethodInfo(),
               ResolutionsFactory.ResolveAsType(),
               resolutionsFactory.ResolveAsUri(),
+              resolutionsFactory.ResolveAsCancellationToken(),
               resolutionsFactory.ResolveAsArray(),
               resolutionsFactory.ResolveAsImmutableArray(),
               resolutionsFactory.ResolveAsSimpleEnumerableAndList(),

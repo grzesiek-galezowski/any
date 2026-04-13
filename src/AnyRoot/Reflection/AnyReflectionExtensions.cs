@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Reflection;
-using TddXt.AnyExtensibility;
 
 namespace TddXt.AnyRoot.Reflection;
 
 public static class AnyReflectionExtensions
 {
-  extension(BasicGenerator gen)
+  extension(Any)
   {
-    public MethodInfo Method() => gen.InstanceOf(InlineGenerators.InlineGenerators.MethodInfo());
+    public static MethodInfo Method() => Any.InstanceOf(InlineGenerators.InlineGenerators.MethodInfo());
 
-    public Type Type() => gen.InstanceOf(InlineGenerators.InlineGenerators.Type());
+    public static Type Type() => Any.InstanceOf(InlineGenerators.InlineGenerators.Type());
   }
 }

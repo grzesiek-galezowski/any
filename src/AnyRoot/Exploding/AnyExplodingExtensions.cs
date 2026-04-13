@@ -1,14 +1,12 @@
-﻿using TddXt.AnyExtensibility;
-
-namespace TddXt.AnyRoot.Exploding;
+﻿namespace TddXt.AnyRoot.Exploding;
 
 public static class AnyExplodingExtensions
 {
-  extension(BasicGenerator gen)
+  extension(Any)
   {
-    public T Exploding<T>() where T : class
+    public static T Exploding<T>() where T : class
     {
-      return gen.InstanceOf(InlineGenerators.InlineGenerators.Exploding<T>());
+      return Any.InstanceOf(InlineGenerators.InlineGenerators.Exploding<T>());
     }
   }
 }

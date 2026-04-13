@@ -1,39 +1,37 @@
-﻿using TddXt.AnyExtensibility;
-
-namespace TddXt.AnyRoot.Math;
+﻿namespace TddXt.AnyRoot.Math;
 
 public static class AnyMathExtensions
 {
-  extension(BasicGenerator gen)
+  extension(Any)
   {
-    public int IntegerDivisibleBy(int quotient)
+    public static int IntegerDivisibleBy(int quotient)
     {
-      return gen.InstanceOf(InlineGenerators.InlineGenerators.IntegerDivisibleBy(quotient));
+      return Any.InstanceOf(InlineGenerators.InlineGenerators.IntegerDivisibleBy(quotient));
     }
 
-    public int IntegerNotDivisibleBy(int quotient)
+    public static int IntegerNotDivisibleBy(int quotient)
     {
-      return gen.InstanceOf(InlineGenerators.InlineGenerators.IntegerNotDivisibleBy(quotient));
+      return Any.InstanceOf(InlineGenerators.InlineGenerators.IntegerNotDivisibleBy(quotient));
     }
 
-    public int IntegerWithExactDigitsCount(int digitsCount)
+    public static int IntegerWithExactDigitsCount(int digitsCount)
     {
-      return gen.InstanceOf(InlineGenerators.InlineGenerators.IntegerWithExactDigitCount(digitsCount));
+      return Any.InstanceOf(InlineGenerators.InlineGenerators.IntegerWithExactDigitCount(digitsCount));
     }
 
-    public long LongIntegerWithExactDigitsCount(int digitsCount)
+    public static long LongIntegerWithExactDigitsCount(int digitsCount)
     {
-      return gen.InstanceOf(InlineGenerators.InlineGenerators.LongWithExactDigitCount(digitsCount));
+      return Any.InstanceOf(InlineGenerators.InlineGenerators.LongWithExactDigitCount(digitsCount));
     }
 
-    public uint UnsignedIntegerWithExactDigitsCount(int digitsCount)
+    public static uint UnsignedIntegerWithExactDigitsCount(int digitsCount)
     {
-      return gen.InstanceOf(InlineGenerators.InlineGenerators.UnsignedIntWithExactDigitCount(digitsCount));
+      return Any.InstanceOf(InlineGenerators.InlineGenerators.UnsignedIntWithExactDigitCount(digitsCount));
     }
 
-    public ulong UnsignedLongIntegerWithExactDigitsCount(int digitsCount)
+    public static ulong UnsignedLongIntegerWithExactDigitsCount(int digitsCount)
     {
-      return gen.InstanceOf(InlineGenerators.InlineGenerators.UnsignedLongWithExactDigitCount(digitsCount));
+      return Any.InstanceOf(InlineGenerators.InlineGenerators.UnsignedLongWithExactDigitCount(digitsCount));
     }
   }
 }

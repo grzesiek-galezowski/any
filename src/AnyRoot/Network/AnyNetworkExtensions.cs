@@ -1,41 +1,40 @@
 ﻿using System;
 using System.Net;
-using TddXt.AnyExtensibility;
 
 namespace TddXt.AnyRoot.Network;
 
 public static class AnyNetworkExtensions
 {
-  extension(BasicGenerator gen)
+  extension(Any)
   {
-    public IPAddress IpAddress()
+    public static IPAddress IpAddress()
     {
-      return gen.InstanceOf(InlineGenerators.InlineGenerators.IpAddress());
+      return Any.InstanceOf(InlineGenerators.InlineGenerators.IpAddress());
     }
 
-    public Uri Uri()
+    public static Uri Uri()
     {
-      return gen.InstanceOf(InlineGenerators.InlineGenerators.Uri());
+      return Any.InstanceOf(InlineGenerators.InlineGenerators.Uri());
     }
 
-    public int Port()
+    public static int Port()
     {
-      return gen.InstanceOf(InlineGenerators.InlineGenerators.Port());
+      return Any.InstanceOf(InlineGenerators.InlineGenerators.Port());
     }
 
-    public string IpString()
+    public static string IpString()
     {
-      return gen.InstanceOf(InlineGenerators.InlineGenerators.IpString());
+      return Any.InstanceOf(InlineGenerators.InlineGenerators.IpString());
     }
 
-    public string UrlString()
+    public static string UrlString()
     {
-      return gen.InstanceOf(InlineGenerators.InlineGenerators.UrlString());
+      return Any.InstanceOf(InlineGenerators.InlineGenerators.UrlString());
     }
 
-    public byte Octet()
+    public static byte Octet()
     {
-      return gen.Instance<byte>();
+      return Any.Instance<byte>();
     }
   }
 }

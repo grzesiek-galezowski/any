@@ -2,8 +2,8 @@
   <Folder Name="/Solution Items/">
     <File Path="../../appveyor.yml" />
     <File Path="../../LICENSE" />
-    <File Path="../../README.md" />
     <File Path="../.github/workflows/dotnet.yml" />
+    <File Path="../README.md" />
     <File Path=".editorconfig" />
     <File Path="Directory.Build.props" />
     <File Path="Directory.Packages.props" />

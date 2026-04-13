@@ -1,96 +1,95 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using TddXt.AnyExtensibility;
 
 namespace TddXt.AnyRoot.Invokable;
 
 public static class AnyInvokableExtensions
 {
-  extension(BasicGenerator gen)
+  extension(Any)
   {
     /// <summary>
     /// Produces always canceled token. If you need a non-canceled token,
     /// better create one with `new CancellationToken()` and use it.
     /// </summary>
-    public CancellationToken CancellationToken()
+    public static CancellationToken CancellationToken()
     {
-      return gen.Instance<CancellationToken>();
+      return Any.Instance<CancellationToken>();
     }
 
-    public Task<T> StartedTask<T>()
+    public static Task<T> StartedTask<T>()
     {
-      return gen.InstanceOf(InlineGenerators.InlineGenerators.StartedTask<T>());
+      return Any.InstanceOf(InlineGenerators.InlineGenerators.StartedTask<T>());
     }
 
-    public Task StartedTask()
+    public static Task StartedTask()
     {
-      return gen.InstanceOf(InlineGenerators.InlineGenerators.StartedTask());
+      return Any.InstanceOf(InlineGenerators.InlineGenerators.StartedTask());
     }
 
-    public Func<T> Func<T>()
+    public static Func<T> Func<T>()
     {
-      return gen.InstanceOf(InlineGenerators.InlineGenerators.Func<T>());
+      return Any.InstanceOf(InlineGenerators.InlineGenerators.Func<T>());
     }
 
-    public Func<T1, T2> Func<T1, T2>()
+    public static Func<T1, T2> Func<T1, T2>()
     {
-      return gen.InstanceOf(InlineGenerators.InlineGenerators.Func<T1, T2>());
+      return Any.InstanceOf(InlineGenerators.InlineGenerators.Func<T1, T2>());
     }
 
-    public Func<T1, T2, T3> Func<T1, T2, T3>()
+    public static Func<T1, T2, T3> Func<T1, T2, T3>()
     {
-      return gen.InstanceOf(InlineGenerators.InlineGenerators.Func<T1, T2, T3>());
+      return Any.InstanceOf(InlineGenerators.InlineGenerators.Func<T1, T2, T3>());
     }
 
-    public Func<T1, T2, T3, T4> Func<T1, T2, T3, T4>()
+    public static Func<T1, T2, T3, T4> Func<T1, T2, T3, T4>()
     {
-      return gen.InstanceOf(InlineGenerators.InlineGenerators.Func<T1, T2, T3, T4>());
+      return Any.InstanceOf(InlineGenerators.InlineGenerators.Func<T1, T2, T3, T4>());
     }
 
-    public Func<T1, T2, T3, T4, T5> Func<T1, T2, T3, T4, T5>()
+    public static Func<T1, T2, T3, T4, T5> Func<T1, T2, T3, T4, T5>()
     {
-      return gen.InstanceOf(InlineGenerators.InlineGenerators.Func<T1, T2, T3, T4, T5>());
+      return Any.InstanceOf(InlineGenerators.InlineGenerators.Func<T1, T2, T3, T4, T5>());
     }
 
-    public Func<T1, T2, T3, T4, T5, T6> Func<T1, T2, T3, T4, T5, T6>()
+    public static Func<T1, T2, T3, T4, T5, T6> Func<T1, T2, T3, T4, T5, T6>()
     {
-      return gen.InstanceOf(InlineGenerators.InlineGenerators.Func<T1, T2, T3, T4, T5, T6>());
+      return Any.InstanceOf(InlineGenerators.InlineGenerators.Func<T1, T2, T3, T4, T5, T6>());
     }
 
-    public Action Action()
+    public static Action Action()
     {
-      return gen.InstanceOf(InlineGenerators.InlineGenerators.Action());
+      return Any.InstanceOf(InlineGenerators.InlineGenerators.Action());
     }
 
-    public Action<T> Action<T>()
+    public static Action<T> Action<T>()
     {
-      return gen.InstanceOf(InlineGenerators.InlineGenerators.Action<T>());
+      return Any.InstanceOf(InlineGenerators.InlineGenerators.Action<T>());
     }
 
-    public Action<T1, T2> Action<T1, T2>()
+    public static Action<T1, T2> Action<T1, T2>()
     {
-      return gen.InstanceOf(InlineGenerators.InlineGenerators.Action<T1, T2>());
+      return Any.InstanceOf(InlineGenerators.InlineGenerators.Action<T1, T2>());
     }
 
-    public Action<T1, T2, T3> Action<T1, T2, T3>()
+    public static Action<T1, T2, T3> Action<T1, T2, T3>()
     {
-      return gen.InstanceOf(InlineGenerators.InlineGenerators.Action<T1, T2, T3>());
+      return Any.InstanceOf(InlineGenerators.InlineGenerators.Action<T1, T2, T3>());
     }
 
-    public Action<T1, T2, T3, T4> Action<T1, T2, T3, T4>()
+    public static Action<T1, T2, T3, T4> Action<T1, T2, T3, T4>()
     {
-      return gen.InstanceOf(InlineGenerators.InlineGenerators.Action<T1, T2, T3, T4>());
+      return Any.InstanceOf(InlineGenerators.InlineGenerators.Action<T1, T2, T3, T4>());
     }
 
-    public Action<T1, T2, T3, T4, T5> Action<T1, T2, T3, T4, T5>()
+    public static Action<T1, T2, T3, T4, T5> Action<T1, T2, T3, T4, T5>()
     {
-      return gen.InstanceOf(InlineGenerators.InlineGenerators.Action<T1, T2, T3, T4, T5>());
+      return Any.InstanceOf(InlineGenerators.InlineGenerators.Action<T1, T2, T3, T4, T5>());
     }
 
-    public Action<T1, T2, T3, T4, T5, T6> Action<T1, T2, T3, T4, T5, T6>()
+    public static Action<T1, T2, T3, T4, T5, T6> Action<T1, T2, T3, T4, T5, T6>()
     {
-      return gen.InstanceOf(InlineGenerators.InlineGenerators.Action<T1, T2, T3, T4, T5, T6>());
+      return Any.InstanceOf(InlineGenerators.InlineGenerators.Action<T1, T2, T3, T4, T5, T6>());
     }
   }
 }

@@ -1,36 +1,35 @@
 ﻿using System;
-using TddXt.AnyExtensibility;
 
 namespace TddXt.AnyRoot.Time;
 
 public static class AnyTimeExtensions
 {
-  extension(BasicGenerator gen)
+  extension(Any)
   {
-    public DateTime DateTime()
+    public static DateTime DateTime()
     {
-      return gen.InstanceOf(InlineGenerators.InlineGenerators.DateTime());
+      return Any.InstanceOf(InlineGenerators.InlineGenerators.DateTime());
     }
 
-    public DateTimeOffset DateTimeOffset()
+    public static DateTimeOffset DateTimeOffset()
     {
-      return gen.Instance<DateTimeOffset>();
+      return Any.Instance<DateTimeOffset>();
     }
 
-    public TimeSpan TimeSpan()
+    public static TimeSpan TimeSpan()
     {
-      return gen.InstanceOf(InlineGenerators.InlineGenerators.TimeSpan());
+      return Any.InstanceOf(InlineGenerators.InlineGenerators.TimeSpan());
     }
 
 
-    public DateOnly DateOnly()
+    public static DateOnly DateOnly()
     {
-      return gen.Instance<DateOnly>();
+      return Any.Instance<DateOnly>();
     }
 
-    public TimeOnly TimeOnly()
+    public static TimeOnly TimeOnly()
     {
-      return gen.Instance<TimeOnly>();
+      return Any.Instance<TimeOnly>();
     }
   }
 }

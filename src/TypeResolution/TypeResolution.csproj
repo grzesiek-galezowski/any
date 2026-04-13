@@ -24,7 +24,4 @@
       <PackagePath></PackagePath>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="HackedSpecialTypes\" />
-  </ItemGroup>
 </Project>

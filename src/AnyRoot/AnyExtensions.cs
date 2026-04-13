@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using TddXt.AnyExtensibility;
 using TddXt.TypeResolution.FakeChainElements.InlineGeneratorTypes.Generic;
 
 namespace TddXt.AnyRoot;
@@ -26,28 +25,28 @@ public static class AnyExtensions
     typeof(string)
   ];
 
-  extension(BasicGenerator gen)
+  extension(Any)
   {
-    public T From<T>(params T[] possibleValues)
+    public static T From<T>(params T[] possibleValues)
     {
-      return gen.InstanceOf(InlineGenerators.InlineGenerators.From(possibleValues));
+      return Any.InstanceOf(InlineGenerators.InlineGenerators.From(possibleValues));
     }
 
-    public bool Boolean()
+    public static bool Boolean()
     {
-      return gen.InstanceOf(InlineGenerators.InlineGenerators.Boolean());
+      return Any.InstanceOf(InlineGenerators.InlineGenerators.Boolean());
     }
 
-    public object Object()
+    public static object Object()
     {
-      return gen.InstanceOf(InlineGenerators.InlineGenerators.Object());
+      return Any.InstanceOf(InlineGenerators.InlineGenerators.Object());
     }
 
-    public T OtherThan<T>(params T[]? skippedValues)
+    public static T OtherThan<T>(params T[]? skippedValues)
     {
       if (skippedValues == null)
       {
-        return gen.Instance<T>();
+        return Any.Instance<T>();
       }
 
       if (ThereAreRepeatedItemsIn(skippedValues))
@@ -59,27 +58,27 @@ public static class AnyExtensions
 
       if (ValueTypes.Contains(typeof(T)))
       {
-        return gen.InstanceOf(InlineGenerators.InlineGenerators.ValueOtherThan(skippedValues));
+        return Any.InstanceOf(InlineGenerators.InlineGenerators.ValueOtherThan(skippedValues));
       }
       else
       {
-        return gen.InstanceOf(InlineGenerators.InlineGenerators.OtherThan(skippedValues));
+        return Any.InstanceOf(InlineGenerators.InlineGenerators.OtherThan(skippedValues));
       }
     }
 
-    public T Dummy<T>()
+    public static T Dummy<T>()
     {
-      return gen.InstanceOf(new DummyGenerator<T>());
+      return Any.InstanceOf(new DummyGenerator<T>());
     }
 
-    public Guid Guid()
+    public static Guid Guid()
     {
-      return gen.InstanceOf(InlineGenerators.InlineGenerators.Guid());
+      return Any.InstanceOf(InlineGenerators.InlineGenerators.Guid());
     }
 
-    public Exception Exception()
+    public static Exception Exception()
     {
-      return gen.InstanceOf(InlineGenerators.InlineGenerators.Exception());
+      return Any.InstanceOf(InlineGenerators.InlineGenerators.Exception());
     }
   }
 

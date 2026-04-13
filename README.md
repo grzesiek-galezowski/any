@@ -1,23 +1,22 @@
 # Any
 
-An anonymous object generator. Successor of Tdd Toolkit's Any class. 
+> **⚠️ v11.0.0 contains breaking API changes.** The import changed from `using static TddXt.AnyRoot.Root` to `using TddXt.AnyRoot`. Call-site syntax is unchanged. See the [Changelog](src/CHANGELOG.md) and the [Migration Guide](src/MIGRATION_GUIDE.md).
 
-This version is built on .NET Standard 2.0, so it requires at least .NET Core 2.0 or .NET Framework 4.6.2.
+An anonymous object generator for .NET tests. Successor of Tdd Toolkit's Any class.
 
-# How to use?
+[![NuGet](https://img.shields.io/nuget/v/Any.svg?style=flat-square)](https://www.nuget.org/packages/Any/)
 
-Use the package [![NuGet](https://img.shields.io/nuget/v/Any.svg?style=flat-square)](https://www.nuget.org/packages/Any/)
+## Requirements
 
-In the code, static use the `TddXt.AnyRoot.Root` property like this:
+- .NET 10
+- C# 14
+
+## How to use?
+
+Install the [Any NuGet package](https://www.nuget.org/packages/Any/), then add a global using to your test project:
 
 ```csharp
-using static TddXt.AnyRoot.Root;
-```
-
-or preferably, if your C# version allows it, add a global using in your test project:
-
-```csharp
-global using static TddXt.AnyRoot.Root;
+global using TddXt.AnyRoot;
 ```
 
 This will allow you to use several core methods like `Any.Instance<T>()`:
@@ -26,39 +25,60 @@ This will allow you to use several core methods like `Any.Instance<T>()`:
 var anInt = Any.Instance<int>();
 ```
 
-Most of the features of Any are achieved through extension methods on the `Any` object. 
-You can add the `using`s for the extension methods yourself or let your IDE do it for you (e.g. Resharper has this ability).
+Most features are provided through extension methods on the `Any` class, which live in separate namespaces.
 
-In case you wonder, the complete list of usings to include all extension methods is:
+## Extension method namespaces
+
+Most features are provided through extension methods on the `Any` class. Your IDE can add the imports for you, but the full list is:
 
 ```csharp
 using TddXt.AnyRoot.Collections;
+using TddXt.AnyRoot.Enums;
 using TddXt.AnyRoot.Exploding;
 using TddXt.AnyRoot.Invokable;
 using TddXt.AnyRoot.Math;
 using TddXt.AnyRoot.Network;
-using TddXt.AnyRoot.NSubstitute;
 using TddXt.AnyRoot.Numbers;
 using TddXt.AnyRoot.Reflection;
 using TddXt.AnyRoot.Strings;
 using TddXt.AnyRoot.Time;
 ```
 
-(you can add these as global usings if that's more convenient to you)
+You can add these as global usings if that is more convenient.
 
-This will allow you to use methods such as:
+## Extending the library
+
+You can write your own extension methods on the `Any` class to add domain-specific generators:
 
 ```csharp
-var anIntList = Any.List<int>();
-var aString = Any.String();
-var shortInt = Any.Short();
+using TddXt.AnyRoot;
+
+namespace MyProject.TestHelpers;
+
+public static class MyDomainExtensions
+{
+    extension(Any)
+    {
+        public static Money Money()
+        {
+            return new Money(Any.Instance<decimal>(), Any.Instance<Currency>());
+        }
+    }
+}
 ```
 
-etc.
+Then use it like any built-in method:
 
-# Extending the library
+```csharp
+var money = Any.Money();
+```
 
-As `Any` is in fact an object, you can write your own extension methods. 
-Take a look at the source code of the bundled ones to see how this can be achieved.
+See the [Migration Guide](src/MIGRATION_GUIDE.md) if you are upgrading existing custom extensions from a previous version.
 
-[![](https://codescene.io/projects/2875/status.svg) Get more details at **codescene.io**.](https://codescene.io/projects/2875/jobs/latest-successful/results)
+---
+
+[![CodeScene general](https://codescene.io/images/analyzed-by-codescene-badge.svg)](https://codescene.io/projects/79076)
+[![CodeScene Average Code Health](https://codescene.io/projects/79076/status-badges/average-code-health)](https://codescene.io/projects/79076)
+[![CodeScene Hotspot Code Health](https://codescene.io/projects/79076/status-badges/hotspot-code-health)](https://codescene.io/projects/79076)
+[![CodeScene Missed Goals](https://codescene.io/projects/79076/status-badges/missed-goals)](https://codescene.io/projects/79076)
+[![CodeScene System Mastery](https://codescene.io/projects/79076/status-badges/system-mastery)](https://codescene.io/projects/79076)

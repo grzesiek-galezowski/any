@@ -1,38 +1,37 @@
 ﻿using System;
-using TddXt.AnyExtensibility;
 
 namespace TddXt.AnyRoot.Numbers;
 
 public static class AnyNumberExtensions
 {
-  extension(BasicGenerator gen)
+  extension(Any)
   {
-    public int Integer() => gen.Instance<int>();
+    public static int Integer() => Any.Instance<int>();
 
-    public double Double() => gen.Instance<double>();
+    public static double Double() => Any.Instance<double>();
 
-    public float Float() => gen.Instance<float>();
+    public static float Float() => Any.Instance<float>();
 
-    public long Long() => gen.Instance<long>();
+    public static long Long() => Any.Instance<long>();
 
-    public ulong UnsignedLong() => gen.Instance<ulong>();
+    public static ulong UnsignedLong() => Any.Instance<ulong>();
 
-    public byte Byte() => gen.Instance<byte>();
+    public static byte Byte() => Any.Instance<byte>();
 
-    public decimal Decimal() => gen.Instance<decimal>();
+    public static decimal Decimal() => Any.Instance<decimal>();
 
-    public uint UnsignedInt() => gen.Instance<uint>();
+    public static uint UnsignedInt() => Any.Instance<uint>();
 
-    public ushort UnsignedShort() => gen.Instance<ushort>();
+    public static ushort UnsignedShort() => Any.Instance<ushort>();
 
-    public short Short() => gen.Instance<short>();
+    public static short Short() => Any.Instance<short>();
 
-    public byte Digit() => gen.InstanceOf(InlineGenerators.InlineGenerators.Digit());
+    public static byte Digit() => Any.InstanceOf(InlineGenerators.InlineGenerators.Digit());
 
-    public int IntegerFromSequence(int startingValue = 0, int step = 1) => gen.InstanceOf(InlineGenerators.InlineGenerators.IntegerFromSequence(startingValue, step));
+    public static int IntegerFromSequence(int startingValue = 0, int step = 1) => Any.InstanceOf(InlineGenerators.InlineGenerators.IntegerFromSequence(startingValue, step));
 
-    public byte PositiveDigit() => gen.InstanceOf(InlineGenerators.InlineGenerators.PositiveDigit());
+    public static byte PositiveDigit() => Any.InstanceOf(InlineGenerators.InlineGenerators.PositiveDigit());
 
-    public Half Half() => gen.Instance<Half>();
+    public static Half Half() => Any.Instance<Half>();
   }
 }

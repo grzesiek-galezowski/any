@@ -1,18 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using TddXt.AnyExtensibility;
 using TddXt.TypeReflection;
 
 namespace TddXt.AnyRoot.Enums;
 
 public static class AnyEnumExtensions
 {
-  extension(BasicGenerator gen)
+  extension(Any)
   {
-    public T Invalid<T>() where T : Enum
+    public static T Invalid<T>() where T : Enum
     {
-      var generatedValue = gen.InstanceOf(DynamicGenHolder<T>.Instance);
+      var generatedValue = Any.InstanceOf(DynamicGenHolder<T>.Instance);
       return (T)generatedValue;
     }
   }

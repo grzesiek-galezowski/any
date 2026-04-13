@@ -1,5 +1,4 @@
-﻿using System;
-using AnySpecification.Fixtures;
+﻿using AnySpecification.Fixtures;
 using TddXt.AnyExtensibility;
 using TddXt.AnyRoot.Exploding;
 using TddXt.TypeResolution.FakeChainElements.Interceptors;

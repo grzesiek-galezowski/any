@@ -306,4 +306,9 @@ public class ResolutionsFactory(
   {
     return new JPropertyResolution();
   }
+
+  public IResolution ResolveAsCancellationToken()
+  {
+    return new CancellationTokenResolution();
+  }
 }

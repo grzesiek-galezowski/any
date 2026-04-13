@@ -8,7 +8,7 @@ public class ErrorsSpecification
   [Test]
   public void ShouldIncludeGenerationLogInExceptionWhenItCannotGenerateAnObject()
   {
-    Any.Invoking(any => any.Instance<CannotGenerateThis>())
+    this.Invoking(_ => Any.Instance<CannotGenerateThis>())
       .Should().Throw<Exception>().Which.ToString().Should().Contain(
         @"BUILT-IN ROOT: AnySpecification.CannotGenerateThis
  START: AnySpecification.CannotGenerateThis
