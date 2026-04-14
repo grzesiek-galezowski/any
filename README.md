@@ -58,9 +58,7 @@ namespace MyProject.TestHelpers;
 public static class MyDomainExtensions
 {
     extension(Any)
-    { 1`2
-
-
+    {
         public static Money Money()
         {
             return new Money(Any.Instance<decimal>(), Any.Instance<Currency>());
