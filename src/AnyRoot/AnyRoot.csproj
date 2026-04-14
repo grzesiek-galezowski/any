@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <OutputPath>..\..\..\build\Release\</OutputPath>
+    <OutputPath>..\..\build\Release\</OutputPath>
   </PropertyGroup>
 
   <ItemGroup>

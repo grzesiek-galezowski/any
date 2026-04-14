@@ -5,7 +5,7 @@ using static DotnetExeCommandLineBuilder.DotnetExeCommands;
 using static SimpleExec.Command;
 
 const string configuration = "Release";
-const string version = "10.2.1";
+const string version = "11.0.0";
 
 // Define directories.
 var root = AbsoluteFilePath.OfThisFile().ParentDirectory(2).Value();
